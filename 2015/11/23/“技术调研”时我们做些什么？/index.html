@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme 
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.5
+    -->
+    
+    <!-- Title -->
+    
+    <title>
+        “技术调研”时我们做些什么？ | Calios&#39; Eden
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Calios">
+    <meta name="description" content="Stedfast as thou art.">
+    <meta name="keywords" content="null">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Calios&#39; Eden">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.calios.gq">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="“技术调研”时我们做些什么？ | Calios&#39; Eden">
+    <meta property="og:description" content="Stedfast as thou art.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+		/* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                <!-- Post TOC -->
+
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#脑洞开一下"><span class="post-toc-number">1.</span> <span class="post-toc-text">脑洞开一下</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#As-A-…"><span class="post-toc-number">2.</span> <span class="post-toc-text">As A …</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#如何实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">如何实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Trick-or-treat"><span class="post-toc-number">4.</span> <span class="post-toc-text">Trick or treat?</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他相关"><span class="post-toc-number">5.</span> <span class="post-toc-text">其他相关</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#总结"><span class="post-toc-number">6.</span> <span class="post-toc-text">总结</span></a></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 19 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            “技术调研”时我们做些什么？
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Calios</strong>
+        <span>11月 23, 2015</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/PragmaticProgrammer/">PragmaticProgrammer</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/iOS/">iOS</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/脑洞开一开/">脑洞开一开</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=“技术调研”时我们做些什么？&url=http://www.calios.gq//2015/11/23/“技术调研”时我们做些什么？/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+    
+
+    <!-- Share Twitter -->
+    
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=“技术调研”时我们做些什么？&url=http://www.calios.gq//2015/11/23/“技术调研”时我们做些什么？/index.html&via=Calios" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+    
+
+    <!-- Share Facebook -->
+    
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2015/11/23/“技术调研”时我们做些什么？/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Facebook
+        </li>
+    </a>
+    
+
+    <!-- Share Google+ -->
+    
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2015/11/23/“技术调研”时我们做些什么？/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<p>最近的一个项目涉及到视频播放，在一段时间的“技术调研”之后完成的项目的完整编码和测试。回过头看时，发现自己在所谓的“技术调研”阶段简直是在乱撞，毫无章法。因此总结一文于此。以备后查。</p>
+<h4 id="脑洞开一下"><a href="#脑洞开一下" class="headerlink" title="脑洞开一下"></a>脑洞开一下</h4><p>和拍照相仿，都是需要一个主题，也就是要表现什么。同样，调研的主体要明确。比如说，要研究视频播放。那么，思维发散开来，视频播放涉及到哪些东西？（参考但并不仅限于下图）</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/What%27re%20we%20talking%20about%20with%20TR%20%3F.png" alt=""></p>
+<p>终于，开始进入正题。</p>
+<h4 id="As-A-…"><a href="#As-A-…" class="headerlink" title="As A …"></a>As A …</h4><p>作为一个视频播放的工具，要能播放视频（能够同时支持音频更好）。那么：</p>
+<ul>
+<li>视频来自哪里呢：要么是本地资源，要么是网络资源、流媒体一类。</li>
+<li>能支持什么格式：mp4？m3u8？wav？mp3？</li>
+</ul>
+<blockquote>
+<p>(PS: 打印audiovisualMIMETypes属性查看AVPlayer支持哪些格式：</p>
+<p>“audio/aacp”,<br>“audio/mpeg3”,<br>“audio/mp3”,<br>“audio/x-caf”,<br>“audio/mpeg”,<br>“audio/x-mpeg3”,<br>“audio/wav”,<br>“audio/scpls”,<br>“audio/mp4”,<br>“audio/x-mpg”,<br>“audio/x-wav”,<br>“audio/x-aiff”,<br>“audio/x-m4p”,<br>“audio/x-scpls”,<br>“audio/x-mpegurl”,<br>“audio/x-aac”,<br>“audio/3gpp”,<br>“audio/basic”,<br>“audio/x-m4a”,<br>“audio/x-mpeg”,<br>“audio/wave”,<br>“audio/x-m4r”,<br>“audio/x-mp3”,<br>“audio/AMR”,<br>“audio/aiff”,<br>“audio/3gpp2”,<br>“audio/aac”,<br>“audio/mpg”,<br>“audio/mpegurl”,<br>“audio/x-m4b”,</p>
+<p>“video/3gpp2”,<br>“video/quicktime”,<br>“video/mp4”,<br>“video/avi”,<br>“video/x-m4v”,<br>“video/3gpp”,</p>
+<p>“text/vtt”,</p>
+<p>“application/mp4”,<br>“application/x-mpegurl”<br>“application/vnd.apple.mpegurl”)</p>
+</blockquote>
+<ul>
+<li>播放的场景：在应用中前台播放？扔到后台去了是自动暂停还是继续播放？</li>
+<li>对于单一资源而言，要能够：<ul>
+<li>播放／暂停；</li>
+<li>改变播放进度；</li>
+<li>音量控制；</li>
+<li>全屏显示；</li>
+<li>……</li>
+</ul>
+</li>
+<li>对于多个资源而言，可能需要：<ul>
+<li>视频队列的播放；</li>
+<li>视频间的切换；</li>
+<li>视频浏览；</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h4><p>在iOS中，怎么实现这个播放视频的功能？</p>
+<p><strong>1.需要系统的什么类库：</strong></p>
+<ul>
+<li>MediaPlayer.framework中的MPMoviePlayerController来实现的确简单，几句代码就够了，而且支持本地视频和网络视频，但是对于界面的自定义不强。pass掉。（<em>在iOS9开始被标记为了弃用，改用AVPlayerViewController了。</em>）</li>
+<li>AVFoundation。AVPlayer存在于其中。它更接近底层，所以灵活性也更强。<em>但是，</em>AVPlayer本身并没有view属性，如果要显示必须创建一个播放器层AVPlayerLayer用于展示。</li>
+</ul>
+<pre><code>// DPlayerLayerView.h
+#import &lt;UIKit/UIKit.h&gt;
+#import &lt;AVFoundation/AVFoundation.h&gt;
+@interface DPlayerLayerView : UIView
+
+@property (nonatomic, strong) AVPlayer *player;
+-(void)setVideoFillMode:(NSString *)fillMode;
+
+@end
+
+
+
+// DPlayerLayerView.m
+#import &quot;DPlayerLayerView.h&quot;
+
+@implementation DPlayerLayerView
+
++(Class)layerClass
+{
+    return [AVPlayerLayer class];
+}
+
+// 单纯使用AVPlayer类是无法显示视频的，要将视频层添加至AVPlayerLayer中，这样才能将视频显示出来。
+-(AVPlayer *)player
+{
+    return [(AVPlayerLayer *)[self layer] player];
+}
+
+-(void)setPlayer:(AVPlayer *)player
+{
+    [(AVPlayerLayer *)[self layer] setPlayer:player];
+}
+
+// 指定video在player layer的bounds内如何显示。（默认是AVLayerVideoGravityResizeAspect）
+/* 可选项：
+ * AVLayerVideoGravityResizeAspect，保证宽高比，在layer的bounds内正常显示；
+ * AVLayerVideoGravityResizeAspectFill，保证宽高比，填充满layer的bounds；
+ * AVLayerVideoGravityResize，拉伸来填满layer的bounds。
+ */
+-(void)setVideoFillMode:(NSString *)fillMode
+{
+    AVPlayerLayer *playerLayer = (AVPlayerLayer *)[self layer];
+    playerLayer.videoGravity = fillMode;
+}
+
+@end
+</code></pre><ul>
+<li>AVKit。iOS8以来的新秀。用来代替MPMoviePlayerViewController。基于AVFoundation。它提供了视频播放的UI，又可以播放任何来自AVFoundation的<code>AVPlayer</code>对象。（由于项目需要支持iOS7，所以，只能忍痛割爱T_T）</li>
+</ul>
+<p><strong>2.API</strong></p>
+<p>之前把AVPlayer类中的方法梳理了一遍，<a href="http://www.calios.gq/2015/09/24/AVPlayer-Class-Reference/" title="http://www.calios.gq/2015/09/24/AVPlayer-Class-Reference/">在这里</a>，AVPlayerItem和AVURLAsset时间允许的话也应该整理一下。比如AVPlayerItem中的<code>cancelPendingSeeks</code>和AVAsset中的<code>cancelLoading</code>，就帮我解决了一个困扰很久的问题。API就在那儿，不近不远。你看到了，就找到了光明；看不到，就继续在黑暗中摸索。</p>
+<p><strong>3.来自苹果的demo</strong></p>
+<p>这就是苹果赠予开发者的彩蛋啊。在网络上茫茫如海的资料中，官网demo永远是那个指引的灯塔，是经常让你感慨“原来可以这么写这么简单”的存在。</p>
+<p>视频播放相关的demo有：</p>
+<ul>
+<li>MoviePlayer；</li>
+<li>AVPlayerDemo；</li>
+<li>AVLoupe。</li>
+</ul>
+<p>（PS：Xcode自带的Document其实很好用，Command ＋ Shift ＋ 数字0，调出来就可以直接搜索，可加标签，可看demo，和Dash的差别就是不能在这里看收藏的代码段，但是可以在Utility View中看啊～）</p>
+<p><strong>4.其他教程</strong></p>
+<p>能够在接触一个事物／模块的初期看到一篇通俗易懂、条理清晰的教程也是个幸运的事。以下列出几篇从中受益匪浅的，以此感谢各位作者。</p>
+<p><a href="http://www.cnblogs.com/kenshincui/p/4186022.html" target="_blank" rel="external">http://www.cnblogs.com/kenshincui/p/4186022.html</a></p>
+<p><a href="https://www.shinobicontrols.com/blog/ios8-day-by-day-day-26-avkit" target="_blank" rel="external">https://www.shinobicontrols.com/blog/ios8-day-by-day-day-26-avkit</a></p>
+<h4 id="Trick-or-treat"><a href="#Trick-or-treat" class="headerlink" title="Trick or treat?"></a>Trick or treat?</h4><p>除了上面列出的基本功能外，还有一些可能现在不是必须、但很常见的功能点。比如：</p>
+<ul>
+<li>获取视频的缩略图；</li>
+<li>清理缩略图的缓存；</li>
+<li>资源的缓存；</li>
+<li>本地视频资源的播放；</li>
+<li>清理已下载资源的缓存；</li>
+<li>资源队列；</li>
+<li>跳到指定位置开始播放；</li>
+<li>网络状况切换时的处理；</li>
+<li>限制带宽的情况下，对于码流和清晰度的支持(一般来说，如果是IM的宽带，在网上只能看不超过128kbps的视频，超过128kbps的视频只能等视频缓冲才能顺利观看。)；</li>
+<li>……</li>
+</ul>
+<h4 id="其他相关"><a href="#其他相关" class="headerlink" title="其他相关"></a>其他相关</h4><p>对于视频有以上的问题需要考虑，那么其他相关的呢？比如：</p>
+<ul>
+<li>音频的播放？AVPlayer本身可以播放mp3等格式的音频；同属AVFoundation中的<code>AVAudioPlayer</code>也可以播放音频，但仅限于本地文件。</li>
+<li>在音频/视频播放时，对于耳机的支持？</li>
+<li>尤其是视频的播放时，对于AirPlay的支持？</li>
+<li>……</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>本文并没有很详细的列出在处理视频播放时具体的API，更多的是想给之后类似的“技术调研”提供一种思考的模式，不至于上来就一头乱撞。实现一个功能不难，通过实现功能来训练自己的思维能力，才能让自己更有效率的提升吧。</p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2015/11/25/通过代码加载storyboard中的class/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/11/19/【Bash】grep常用命令及举例/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Calios's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             文章总数
+             <span class="sidebar-badge">77</span>
+        </a>
+    </li>
+</ul>
+
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		主题 - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    <a href="https://twitter.com/twitter" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-twitter.png);">
+        <span class="visuallyhidden">Twitter</span>
+    </button></a>
+    
+
+    <!-- Facebook -->
+    
+    <a href="https://www.facebook.com/facebook" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-facebook.png);">
+        <span class="visuallyhidden">Facebook</span>
+    </button></a>
+    
+
+    <!-- Google + -->
+    
+    <a href="https://www.google.com/" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-gplus.png);">
+        <span class="visuallyhidden">Google Plus</span>
+    </button></a>
+    
+
+    <!-- Weibo -->
+    
+    
+
+    <!-- Instagram -->
+    
+    
+
+    <!-- Tumblr -->
+    
+    
+
+    <!-- Github -->
+    
+    
+
+    <!-- LinkedIn -->
+    
+    
+
+    <!-- Zhihu -->
+    
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Calios' Eden</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+
+<!-- MathJax Load-->
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>

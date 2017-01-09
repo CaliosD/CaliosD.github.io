@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme 
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.5
+    -->
+    
+    <!-- Title -->
+    
+    <title>
+        [SourceRead]-SDWebImage-3 | Calios&#39; Eden
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Calios">
+    <meta name="description" content="Stedfast as thou art.">
+    <meta name="keywords" content="null">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Calios&#39; Eden">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.calios.gq">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[SourceRead]-SDWebImage-3 | Calios&#39; Eden">
+    <meta property="og:description" content="Stedfast as thou art.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+		/* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                <!-- Post TOC -->
+
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#［1］Cache-Control"><span class="post-toc-number">1.</span> <span class="post-toc-text">［1］Cache-Control</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#［2］NSMutableURLRequest的几个属性"><span class="post-toc-number">2.</span> <span class="post-toc-text">［2］NSMutableURLRequest的几个属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#［3］将Class作为属性值存储"><span class="post-toc-number">3.</span> <span class="post-toc-text">［3］将Class作为属性值存储</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#［4］NSURLCredential"><span class="post-toc-number">4.</span> <span class="post-toc-text">［4］NSURLCredential</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#［4］operation的LIFO执行顺序"><span class="post-toc-number">5.</span> <span class="post-toc-text">［4］operation的LIFO执行顺序</span></a></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 19 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            [SourceRead]-SDWebImage-3
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Calios</strong>
+        <span>2月 15, 2016</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/SourceRead/">SourceRead</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/iOS/">iOS</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=[SourceRead]-SDWebImage-3&url=http://www.calios.gq//2016/02/15/[SourceRead]-SDWebImage-3/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+    
+
+    <!-- Share Twitter -->
+    
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=[SourceRead]-SDWebImage-3&url=http://www.calios.gq//2016/02/15/[SourceRead]-SDWebImage-3/index.html&via=Calios" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+    
+
+    <!-- Share Facebook -->
+    
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2016/02/15/[SourceRead]-SDWebImage-3/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Facebook
+        </li>
+    </a>
+    
+
+    <!-- Share Google+ -->
+    
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2016/02/15/[SourceRead]-SDWebImage-3/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160216-0@2x.png" alt="" title="SDWebImage系列"></p>
+<p>沿着上面这个图，一层一层剥到了<code>SDWebImageDownloader</code>的<code>- downloadImageWithURL:options:progress:completed:</code>方法，终于看到了大片的原生代码在向我们招手。。。</p>
+<p>纵观这个方法，就调用了一下<code>-addProgressCallback:completedBlock:forURL:createCallback:</code>，而这个方法并不复杂，主要展示了一下<code>self.URLCallbacks</code>这个字典的内部组成，在此略去不提。</p>
+<p>还是回来看<code>- downloadImageWithURL:options:progress:completed:</code>。</p>
+<h3 id="［1］Cache-Control"><a href="#［1］Cache-Control" class="headerlink" title="［1］Cache-Control"></a>［1］Cache-Control</h3><pre><code>NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:(options &amp; SDWebImageDownloaderUseNSURLCache ? NSURLRequestUseProtocolCachePolicy : NSURLRequestReloadIgnoringLocalCacheData) timeoutInterval:timeoutInterval];
+</code></pre><p>基本的<code>NSMutableURLRequest</code>初始化，没什么问题，主要看缓存策略：</p>
+<pre><code>(options &amp; SDWebImageDownloaderUseNSURLCache ? NSURLRequestUseProtocolCachePolicy : NSURLRequestReloadIgnoringLocalCacheData)
+</code></pre><p>先来简单了解一下Cache-Control：</p>
+<blockquote>
+<p>每个资源都可以通过 Cache-Control HTTP 头来定义自己的缓存策略<br>Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久</p>
+</blockquote>
+<p>更多深入内容可以看<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" title="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="external">这里</a>。</p>
+<ul>
+<li><code>SDWebImageDownloaderUseNSURLCache</code>: 默认情况下，<code>SDWebImage</code>是不使用<code>NSURLCache</code>的，如果使用这个选项，那么就将<code>NSURLCache</code>的默认的缓存策略作为缓存策略，即<code>NSURLRequestUseProtocolCachePolicy</code>。</li>
+<li><code>NSURLRequestUseProtocolCachePolicy</code>: 这个缓存策略是URL请求的默认策略，即在指定的URL请求中使用协议中实现了的缓存逻辑。</li>
+<li><code>NSURLRequestReloadIgnoringLocalCacheData</code>: 指定了某个URL的数据要从原始地址获取，无视已有缓存。</li>
+</ul>
+<p>所以，这里的缓存策略是：如果传入的<code>option</code>是<code>SDWebImageDownloaderUseNSURLCache</code>，就用NRURLCache的默认缓存策略，否则就无视本地缓存，重新获取。</p>
+<h3 id="［2］NSMutableURLRequest的几个属性"><a href="#［2］NSMutableURLRequest的几个属性" class="headerlink" title="［2］NSMutableURLRequest的几个属性"></a>［2］<code>NSMutableURLRequest</code>的几个属性</h3><pre><code>request.HTTPShouldHandleCookies = (options &amp; SDWebImageDownloaderHandleCookies);
+request.HTTPShouldUsePipelining = YES;
+request.allHTTPHeaderFields = wself.HTTPHeaders; // 这里略去了原代码中的if判断
+</code></pre><ul>
+<li><code>HTTPShouldHandleCookies</code>: 是否对当前请求使用默认cookie。默认为YES。也就是说，默认情况下cookie是由cookie manager存储和发送的。</li>
+<li><code>HTTPShouldUsePipelining</code>: 是否等待前一个请求响应后再发送当前请求。YES是不等，NO是等。（第三个选项是爱等不等。。。XD）</li>
+<li><code>allHTTPHeaderFields</code>: 用设置的NSDictionary（key和value都需为NSString）来替代之前可能存在的所有header字段。</li>
+</ul>
+<p>比如初始化时的<code>HTTPHeaders</code>长这样：</p>
+<pre><code>#ifdef SD_WEBP
+    _HTTPHeaders = [@{@&quot;Accept&quot;: @&quot;image/webp,image/*;q=0.8&quot;} mutableCopy];
+#else
+    _HTTPHeaders = [@{@&quot;Accept&quot;: @&quot;image/*;q=0.8&quot;} mutableCopy];
+#endif
+</code></pre><h3 id="［3］将Class作为属性值存储"><a href="#［3］将Class作为属性值存储" class="headerlink" title="［3］将Class作为属性值存储"></a>［3］将Class作为属性值存储</h3><p>一个开发的小技巧：</p>
+<pre><code>// 头文件中的声明
+@property (assign, nonatomic) Class operationClass;
+// 初始化指定具体class
+    _operationClass = [SDWebImageDownloaderOperation class];
+// 使用时调用具体class的方法
+operation = [[wself.operationClass alloc] initWithRequest:request
+options:options progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    ...
+}];
+</code></pre><h3 id="［4］NSURLCredential"><a href="#［4］NSURLCredential" class="headerlink" title="［4］NSURLCredential"></a>［4］<code>NSURLCredential</code></h3><pre><code>if (wself.urlCredential) {
+      operation.credential = wself.urlCredential;
+ }
+else if (wself.username &amp;&amp; wself.password) {
+      operation.credential = [NSURLCredential credentialWithUser:wself.username password:wself.password persistence:NSURLCredentialPersistenceForSession];
+}
+</code></pre><p>这里的<code>urlCredential</code>是一个<code>NSURLCredential</code>类的属性。如果这个属性存在就用这个属性，没有的话，就用用户名和密码创建一个仅存储于当前session中的<code>NSURLCredential</code>。</p>
+<p>那么，<code>NSURLCredential</code>是个神马呢？先引用一段MK的讲解来了解下HTTP认证的机理：</p>
+<blockquote>
+<p>当客户端向服务器发起资源请求时，它会发起一个以文件名结尾的GET请求。如果服务器检查到资源是被保护的，就会返回一个header中有WWW-Authenticate的401消息，告知客户端“未被授权”。WWW-Authenticate这个header字段可能有值，由相应机制来决定这个值是“Basic”还是“Digest”。<br>当客户端接收到这个授权挑战（challenge）时，它就要以指定格式将用户授权信息发过去。对于基本的认证，通常是在header的认证字段中放上base64加密过的用户名和密码。对于摘要式认证，就要略复杂一点。客户端在header的认证字段中要放的值也更加高精尖一些。幸运的是，作为Objective-C的开发者们，CoreFoundation类已经把这些都封装好了。</p>
+</blockquote>
+<p>一旦请求的URL需要授权，即服务器返回了含有WWW-Authenticate的header，<code>NSURLConnection</code>的<code>NSURLCredential</code>相关的代理方法<code>-connection:willSendRequestForAuthenticationChallenge:</code>就会被调用。</p>
+<p>全局搜<code>willSendRequestForAuthenticationChallenge</code>，果然在<code>SDWebImageDownloaderOperation.m</code>的末尾找到了一段。</p>
+<pre><code>- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        // `SDWebImageDownloaderAllowInvalidSSLCertificates`:Enable to allow untrusted SSL certificates.
+        // 不允许使用不可信的SSL证书 －》 只允许使用可信证书 
+        if (!(self.options &amp; SDWebImageDownloaderAllowInvalidSSLCertificates) &amp;&amp;
+            [challenge.sender respondsToSelector:@selector(performDefaultHandlingForAuthenticationChallenge:)]) {
+            // 让认证挑战的发送者按照系统指定的进行默认操作。
+            [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+        } else {
+            // 新建一个已经有一次可信任握手的`NSURLCredential`。
+            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            // 让认证挑战的发送者使用新建的这个credential来应答认证挑战。
+            [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+        }
+    } else {
+        if ([challenge previousFailureCount] == 0) {
+            if (self.credential) {
+                [[challenge sender] useCredential:self.credential forAuthenticationChallenge:challenge];
+            } else {
+                [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+            }
+        } else {
+            [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+        }
+    }
+}
+</code></pre><p>在细看代理方法实现前先来了解一下这几个陌生的类：</p>
+<ul>
+<li><code>NSURLAuthenticationChallenge</code>: 这个类是认证挑战类，客户端接受挑战就意味着要提供挑战的凭证（比如用户名、密码等等）。</li>
+<li><code>NSURLCredential</code>: 这个类是代表着认证凭证的一个不可变的对象，它由指定类型的认证信息和可用的存储时间组成。</li>
+</ul>
+<p>是不是有种每个字都认识连起来就晕了的感觉？打个比方理解下～</p>
+<p>当～～～～ 夕阳余晖已散，一个笑面书生要从东城门口入城，守城士兵一枪拦住：“呔！何方人氏，敢夜闯我四方城？有通关文书否？”（401，未被授权，遭到授权挑战，<code>-connection:willSendRequestForAuthenticationChallenge:</code>被调用）书生上前一步，拱手朗声道：“在下皇甫仁和，应城主邀请入城一叙。有城主亲笔书函在此。”说着，从袖中抽出一封信（即认证的凭证<code>NSURLCredential</code>），递了过去（向<code>NSURLAuthenticationChallenge</code>挑战的发送者提供<code>NSURLCredential</code>凭证）。士兵接过信，见确为城主字迹，信中的邀请日期正是当日（该凭证的有效期），且有四方城印一枚附在信尾（认证需要的详细信息），方信了。随机撤了长枪，甩手道：“请！”（认证通过了，可以获取资源了）</p>
+<h3 id="［4］operation的LIFO执行顺序"><a href="#［4］operation的LIFO执行顺序" class="headerlink" title="［4］operation的LIFO执行顺序"></a>［4］operation的LIFO执行顺序</h3><pre><code>if (wself.executionOrder == SDWebImageDownloaderLIFOExecutionOrder) {
+     // 将最新添加的operation作为最后一个的operation的依赖，也就是说，要先执行最新添加的operation，再往前依次执行，即实现了“后进先出LIFO”。
+     [wself.lastAddedOperation addDependency:operation];
+     wself.lastAddedOperation = operation;
+}
+</code></pre><hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>HTTP缓存：<br>  <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="external">https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching</a></li>
+<li>Authenticating with a RESTful service using NSURLCredential：<br>  <a href="http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/" target="_blank" rel="external">http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/</a></li>
+</ul>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/02/15/[SourceRead]-PureLayout/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/01/31/[SourceRead]-SDWebImage-2/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Calios's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             文章总数
+             <span class="sidebar-badge">77</span>
+        </a>
+    </li>
+</ul>
+
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		主题 - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    <a href="https://twitter.com/twitter" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-twitter.png);">
+        <span class="visuallyhidden">Twitter</span>
+    </button></a>
+    
+
+    <!-- Facebook -->
+    
+    <a href="https://www.facebook.com/facebook" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-facebook.png);">
+        <span class="visuallyhidden">Facebook</span>
+    </button></a>
+    
+
+    <!-- Google + -->
+    
+    <a href="https://www.google.com/" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-gplus.png);">
+        <span class="visuallyhidden">Google Plus</span>
+    </button></a>
+    
+
+    <!-- Weibo -->
+    
+    
+
+    <!-- Instagram -->
+    
+    
+
+    <!-- Tumblr -->
+    
+    
+
+    <!-- Github -->
+    
+    
+
+    <!-- LinkedIn -->
+    
+    
+
+    <!-- Zhihu -->
+    
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Calios' Eden</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+
+<!-- MathJax Load-->
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>

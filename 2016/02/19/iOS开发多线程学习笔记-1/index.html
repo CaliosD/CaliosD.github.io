@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme 
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.5
+    -->
+    
+    <!-- Title -->
+    
+    <title>
+        iOS开发多线程学习笔记-1 | Calios&#39; Eden
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Calios">
+    <meta name="description" content="Stedfast as thou art.">
+    <meta name="keywords" content="null">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Calios&#39; Eden">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.calios.gq">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="iOS开发多线程学习笔记-1 | Calios&#39; Eden">
+    <meta property="og:description" content="Stedfast as thou art.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+		/* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                <!-- Post TOC -->
+
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程基础"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-主线程"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">1.主线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-创建线程"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">2.创建线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-开启线程"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">3.开启线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-线程的死亡"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">4.线程的死亡</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-解决多线程访问同一资源的问题：互斥锁"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">5.解决多线程访问同一资源的问题：互斥锁</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#6-原子和非原子属性"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">6.原子和非原子属性</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#7-线程间通信常用方法"><span class="post-toc-number">1.0.7.</span> <span class="post-toc-text">7.线程间通信常用方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#8-关于iOS开发的建议："><span class="post-toc-number">1.0.8.</span> <span class="post-toc-text">8.关于iOS开发的建议：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GCD"><span class="post-toc-number">2.</span> <span class="post-toc-text">GCD</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-GCD简介："><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">1.GCD简介：</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-GCD的优势："><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">2.GCD的优势：</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-提示："><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">3.提示：</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-任务和队列"><span class="post-toc-number">2.0.4.</span> <span class="post-toc-text">4.任务和队列</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-执行任务"><span class="post-toc-number">2.0.5.</span> <span class="post-toc-text">5.执行任务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#6-队列"><span class="post-toc-number">2.0.6.</span> <span class="post-toc-text">6.队列</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#7-串行队列："><span class="post-toc-number">2.0.7.</span> <span class="post-toc-text">7.串行队列：</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#8-并行队列"><span class="post-toc-number">2.0.8.</span> <span class="post-toc-text">8.并行队列</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#9-线程间通信"><span class="post-toc-number">2.0.9.</span> <span class="post-toc-text">9.线程间通信</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#10-常见用法"><span class="post-toc-number">2.0.10.</span> <span class="post-toc-text">10.常见用法</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NSOperation"><span class="post-toc-number">3.</span> <span class="post-toc-text">NSOperation</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-简单说明"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">1.简单说明</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-NSOperation的子类"><span class="post-toc-number">3.0.2.</span> <span class="post-toc-text">2.NSOperation的子类</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-NSOperationQueue"><span class="post-toc-number">3.0.3.</span> <span class="post-toc-text">3.NSOperationQueue</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-NSOperation基本操作"><span class="post-toc-number">3.0.4.</span> <span class="post-toc-text">4.NSOperation基本操作</span></a></li></ol></li></ol></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 19 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            iOS开发多线程学习笔记-1
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Calios</strong>
+        <span>2月 19, 2016</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/iOS/">iOS</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/多线程/">多线程</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=iOS开发多线程学习笔记-1&url=http://www.calios.gq//2016/02/19/iOS开发多线程学习笔记-1/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+    
+
+    <!-- Share Twitter -->
+    
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=iOS开发多线程学习笔记-1&url=http://www.calios.gq//2016/02/19/iOS开发多线程学习笔记-1/index.html&via=Calios" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+    
+
+    <!-- Share Facebook -->
+    
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2016/02/19/iOS开发多线程学习笔记-1/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Facebook
+        </li>
+    </a>
+    
+
+    <!-- Share Google+ -->
+    
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2016/02/19/iOS开发多线程学习笔记-1/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h3 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h3><h5 id="1-主线程"><a href="#1-主线程" class="headerlink" title="1.主线程"></a>1.主线程</h5><p>一个iOS程序运行后，默认会开启1条线程，称为“主线程”或“UI线程”<br>主线程的主要作用：</p>
+<ul>
+<li>显示/刷新UI界面</li>
+<li>处理UI事件（比如点击事件、滚动事件、拖拽事件等）</li>
+</ul>
+<h5 id="2-创建线程"><a href="#2-创建线程" class="headerlink" title="2.创建线程"></a>2.创建线程</h5><pre><code>// 1.Create a thread.
+// 1-1. Normal initialize.
+    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run:) object:@&quot;1-1. Normal initialize.&quot;];
+    thread.name = @&quot;Thread A&quot;;
+// 1-2. Auto-start after created.
+    [NSThread detachNewThreadSelector:@selector(run:) toTarget:self withObject:@&quot;1-2. Auto-start after created.&quot;];
+// 1-3. Invisibly create and start thread.
+    [self performSelectorInBackground:@selector(run:) withObject:@&quot;1-3. Invisibly create and start thread.&quot;];
+// 1-2 &amp; 1-3: easy and handy, but cannot add more detail configuration.
+</code></pre><h5 id="3-开启线程"><a href="#3-开启线程" class="headerlink" title="3.开启线程"></a>3.开启线程</h5><pre><code>// Once started, method `run` will be executed in thread above.
+  [thread start];
+</code></pre><h5 id="4-线程的死亡"><a href="#4-线程的死亡" class="headerlink" title="4.线程的死亡"></a>4.线程的死亡</h5><p>当线程的任务结束，发生异常，或者是强制退出这三种情况会导致线程的死亡。<br>线程死亡后，线程对象从内存中移除。</p>
+<h5 id="5-解决多线程访问同一资源的问题：互斥锁"><a href="#5-解决多线程访问同一资源的问题：互斥锁" class="headerlink" title="5.解决多线程访问同一资源的问题：互斥锁"></a>5.解决多线程访问同一资源的问题：互斥锁</h5><pre><code>@synchronized(锁对象) { // 需要锁定的代码  }
+</code></pre><p><strong> 注意：</strong></p>
+<ul>
+<li>锁定1份代码只用1把锁，用多把锁是无效的。</li>
+<li>互斥锁，就是使用了线程同步技术。</li>
+<li>互斥锁的缺点是需要消耗大量CPU资源。</li>
+</ul>
+<h5 id="6-原子和非原子属性"><a href="#6-原子和非原子属性" class="headerlink" title="6.原子和非原子属性"></a>6.原子和非原子属性</h5><p>OC在定义属性时有nonatomic和atomic两种选择：</p>
+<ul>
+<li>atomic：原子属性，为setter方法加锁（默认就是atomic），线程安全，需要消耗大量的资源；</li>
+<li>nonatomic：非原子属性，不会为setter方法加锁，非线程安全，适合内存小的移动设备。</li>
+</ul>
+<h5 id="7-线程间通信常用方法"><a href="#7-线程间通信常用方法" class="headerlink" title="7.线程间通信常用方法"></a>7.线程间通信常用方法</h5><pre><code>- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
+</code></pre><h5 id="8-关于iOS开发的建议："><a href="#8-关于iOS开发的建议：" class="headerlink" title="8.关于iOS开发的建议："></a>8.关于iOS开发的建议：</h5><ul>
+<li>所有属性都声明为nonatomic；</li>
+<li>尽量避免多线程抢夺同一块资源；</li>
+<li>尽量将加锁、资源抢夺的业务逻辑交给服务器端处理，减小移动客户端的压力。</li>
+</ul>
+<h3 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h3><h5 id="1-GCD简介："><a href="#1-GCD简介：" class="headerlink" title="1.GCD简介："></a>1.GCD简介：</h5><p>即Grand Central Dispatch，纯C语言，提供了非常多强大的函数。</p>
+<h5 id="2-GCD的优势："><a href="#2-GCD的优势：" class="headerlink" title="2.GCD的优势："></a>2.GCD的优势：</h5><ul>
+<li>GCD是苹果公司为多核的并行运算提出的解决方案；</li>
+<li>GCD会自动利用更多的CPU内核（比如双核、四核）；</li>
+<li>GCD会自动管理线程的生命周期（创建线程、调度任务、销毁线程）；</li>
+<li>程序员只需要告诉GCD想要执行什么任务，不需要编写任何线程管理代码。</li>
+</ul>
+<h5 id="3-提示："><a href="#3-提示：" class="headerlink" title="3.提示："></a>3.提示：</h5><ul>
+<li>GCD存在于libdispatch.dylib这个库中，这个调度库包含了GCD的所有的东西，但任何IOS程序，默认就加载了这个库，在程序运行的过程中会动态的加载这个库，不需要我们手动导入。</li>
+<li>GCD是纯C语言的，所以相关的代码是函数，而不是方法。方法是基于对象的，而函数则独立于对象（更多函数 vs 方法的讨论见<a href="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" title="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" target="_blank" rel="external">这里</a>）。</li>
+<li>GCD中的函数大多数都以dispatch开头。</li>
+<li>GCD的数据类型在ARC的环境下不需要再做release。</li>
+<li>CF（Core Foundation）的数据类型在ARC环境下还是需要做release。</li>
+</ul>
+<h5 id="4-任务和队列"><a href="#4-任务和队列" class="headerlink" title="4.任务和队列"></a>4.任务和队列</h5><ul>
+<li><p>GCD中有2个核心概念<br>  （1）任务：执行什么操作<br>  （2）队列：用来存放任务</p>
+</li>
+<li><p>GCD的使用就2个步骤<br>  （1）定制任务<br>  （2）确定想做的事情</p>
+</li>
+</ul>
+<p>将任务添加到队列中，GCD会自动将队列中的任务取出，放到对应的线程中执行。<br>提示：任务的取出遵循队列的FIFO原则：先进先出，后进后出。</p>
+<h5 id="5-执行任务"><a href="#5-执行任务" class="headerlink" title="5.执行任务"></a>5.执行任务</h5><p>将<code>block</code>（任务）交给<code>queue</code>（队列）执行。</p>
+<p>同步：<code>dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code><br>异步：<code>dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></p>
+<h5 id="6-队列"><a href="#6-队列" class="headerlink" title="6.队列"></a>6.队列</h5><p>GCD的队列分两类：</p>
+<ul>
+<li>并发队列（Concurrent Dispatch Queue）：仅在异步函数下有效；</li>
+<li>串行队列（Serial Dispatch Queue）。</li>
+</ul>
+<p>区分<strong>同步、异步、并发、串行</strong>：</p>
+<ul>
+<li><p>同步和异步决定了要不要开启新的线程：</p>
+<ul>
+<li>同步：在当前线程中执行任务，不具备开启新线程的能力</li>
+<li>异步：在新的线程中执行任务，具备开启新线程的能力</li>
+</ul>
+</li>
+<li><p>并发和串行决定了任务的执行方式：</p>
+<ul>
+<li>并发：多个任务并发（同时）执行</li>
+<li>串行：一个任务执行完毕后，再执行下一个任务</li>
+</ul>
+</li>
+</ul>
+<h5 id="7-串行队列："><a href="#7-串行队列：" class="headerlink" title="7.串行队列："></a>7.串行队列：</h5><p>GCD中获得串行有2种途径：<br>（1）使用<code>dispatch_queue_create</code>函数创建串行队列</p>
+<pre><code>dispatch_queue_t  dispatch_queue_create(const char *label,  dispatch_queue_attr_t attr); // 队列名称， 队列属性，一般用NULL即可
+</code></pre><p>示例：</p>
+<pre><code>dispatch_queue_t queue = dispatch_queue_create(&quot;myTestQueue&quot;, NULL); // 创建
+dispatch_release(queue); // 非ARC需要释放手动创建的队列
+</code></pre><p>（2）使用主队列（跟主线程相关联的队列）</p>
+<p>主队列是GCD自带的一种特殊的串行队列,放在主队列中的任务，都会放到主线程中执行。使用<code>dispatch_get_main_queue()</code>获得主队列。</p>
+<p>示例：</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_main_queue();
+</code></pre><p><strong> 注：</strong></p>
+<ul>
+<li>如果把任务放到主队列中进行处理，那么不论处理函数是异步的还是同步的都不会开启新的线程。</li>
+<li>要使用异步函数！如果使用同步函数，在主线程中执行主队列中得任务，会发生死循环，任务无法往下执行。</li>
+</ul>
+<h5 id="8-并行队列"><a href="#8-并行队列" class="headerlink" title="8.并行队列"></a>8.并行队列</h5><p>GCD默认已经提供了全局的并发队列，供整个应用使用，不需要手动创建。<br>使用<code>dispatch_get_global_queue</code>函数获得全局的并发队列。</p>
+<pre><code>dispatch_queue_t dispatch_get_global_queue(dispatch_queue_priority_t priority,unsigned long flags); 
+</code></pre><p>示例：<br>第一个参数为优先级，这里选择默认的。第二个flags参数暂时无用，用0即可。获取一个全局的默认优先级的并发队列。</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0); // 获得全局并发队列
+</code></pre><h5 id="9-线程间通信"><a href="#9-线程间通信" class="headerlink" title="9.线程间通信"></a>9.线程间通信</h5><p>从子线程回到主线程：</p>
+<pre><code>dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    // 执⾏耗时的异步操作...
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 回到主线程,执⾏UI刷新操作
+    });
+});
+</code></pre><h5 id="10-常见用法"><a href="#10-常见用法" class="headerlink" title="10.常见用法"></a>10.常见用法</h5><ul>
+<li><strong>延迟执行</strong></li>
+</ul>
+<p>iOS常见的延时执行有2种方式<br>（1）调用NSObject的方法<code>[self performSelector:@selector(run) withObject:nil afterDelay:2.0];</code>。该方法在那个线程调用，那么run就在哪个线程执行（当前线程），通常是主线程。</p>
+<p>（2）使用GCD函数</p>
+<pre><code>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // 2秒后异步执行这里的代码...
+});
+</code></pre><ul>
+<li><strong>一次性代码</strong></li>
+</ul>
+<p>使用<code>dispatch_once</code>函数能保证某段代码在程序运行过程中只被执行1次。</p>
+<pre><code>static dispatch_once_t onceToken;
+dispatch_once(&amp;onceToken, ^{
+    // 只执行1次的代码(这里面默认是线程安全的)
+});
+</code></pre><p>整个程序运行过程中，只会执行一次。</p>
+<ul>
+<li><strong>队列组</strong></li>
+</ul>
+<p>有这么1种需求：NSOperationQueue</p>
+<p>首先：分别异步执行2个耗时的操作<br>其次：等2个异步操作都执行完毕后，再回到主线程执行操作</p>
+<p>如果想要快速高效地实现上述需求，可以考虑用队列组：</p>
+<pre><code>dispatch_group_t group =  dispatch_group_create();
+dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    // 执行1个耗时的异步操作
+});
+dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    // 执行1个耗时的异步操作
+});
+dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    // 等前面的异步操作都执行完毕后，回到主线程...
+});
+</code></pre><h3 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h3><h5 id="1-简单说明"><a href="#1-简单说明" class="headerlink" title="1.简单说明"></a>1.简单说明</h5><p>NSOperation的作⽤：配合使用NSOperation和NSOperationQueue也能实现多线程编程。<br>NSOperation和NSOperationQueue实现多线程的具体步骤：<br>（1）先将需要执行的操作封装到一个NSOperation对象中<br>（2）然后将NSOperation对象添加到NSOperationQueue中<br>（3）系统会⾃动将NSOperationQueue中的NSOperation取出来<br>（4）将取出的NSOperation封装的操作放到⼀条新线程中执⾏</p>
+<h5 id="2-NSOperation的子类"><a href="#2-NSOperation的子类" class="headerlink" title="2.NSOperation的子类"></a>2.NSOperation的子类</h5><p>NSOperation是个抽象类,并不具备封装操作的能力,必须使⽤它的子类。<br>使用NSOperation⼦类的方式有3种：<br>（1）NSInvocationOperation<br>（2）NSBlockOperation<br>（3）自定义子类继承NSOperation,实现内部相应的⽅法</p>
+<p><strong> 注：</strong></p>
+<ul>
+<li>默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作。</li>
+<li>只要NSBlockOperation封装的操作数大于1,就会异步执行操作。</li>
+</ul>
+<h5 id="3-NSOperationQueue"><a href="#3-NSOperationQueue" class="headerlink" title="3.NSOperationQueue"></a>3.NSOperationQueue</h5><p>NSOperationQueue的作⽤：NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的。如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动异步执行NSOperation中的操作。<br><strong>添加操作到NSOperationQueue中，自动执行操作，自动开启线程。</strong></p>
+<p>NSOperationQueue 有两种不同类型的队列：主队列和自定义队列。主队列运行在主线程之上，而自定义队列在后台执行。在两种类型中，这些队列所处理的任务都使用 NSOperation 的子类来表述。</p>
+<h5 id="4-NSOperation基本操作"><a href="#4-NSOperation基本操作" class="headerlink" title="4.NSOperation基本操作"></a>4.NSOperation基本操作</h5><ul>
+<li>并发数：<code>-maxConcurrentOperationCount</code>；</li>
+<li>队列的取消、暂停和恢复：<code>-cancelAllOperations</code>，<code>-setSuspended:</code>；</li>
+<li>操作优先级：<code>-setQueuePriority:</code>；</li>
+<li>操作依赖：<ul>
+<li><code>-addDependency:</code></li>
+<li>可以在不同queue的NSOperation之间创建依赖关系</li>
+<li>避免循环依赖</li>
+</ul>
+</li>
+<li>监听操作的执行完毕：<br>  <code>- (void)setCompletionBlock:(void (^)(void))block;</code></li>
+</ul>
+<pre><code>//监听操作的执行完毕
+    operation.completionBlock=^{
+//.....操作完成后继续进行的操作
+    };
+</code></pre><hr>
+<p><strong> Ref:</strong></p>
+<ul>
+<li>Difference between a method and a function:<br>  <a href="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" target="_blank" rel="external">http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function</a></li>
+<li>文顶顶的多线程系列：<br>  <a href="http://www.cnblogs.com/wendingding/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AF%87/" target="_blank" rel="external">http://www.cnblogs.com/wendingding/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AF%87/</a></li>
+<li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
+</ul>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/02/22/如何翻转NSArray/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/02/17/如何查看和修改Mac中的环境变量/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Calios's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        youremail@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             文章总数
+             <span class="sidebar-badge">77</span>
+        </a>
+    </li>
+</ul>
+
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		主题 - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    <a href="https://twitter.com/twitter" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-twitter.png);">
+        <span class="visuallyhidden">Twitter</span>
+    </button></a>
+    
+
+    <!-- Facebook -->
+    
+    <a href="https://www.facebook.com/facebook" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-facebook.png);">
+        <span class="visuallyhidden">Facebook</span>
+    </button></a>
+    
+
+    <!-- Google + -->
+    
+    <a href="https://www.google.com/" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-gplus.png);">
+        <span class="visuallyhidden">Google Plus</span>
+    </button></a>
+    
+
+    <!-- Weibo -->
+    
+    
+
+    <!-- Instagram -->
+    
+    
+
+    <!-- Tumblr -->
+    
+    
+
+    <!-- Github -->
+    
+    
+
+    <!-- LinkedIn -->
+    
+    
+
+    <!-- Zhihu -->
+    
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Calios' Eden</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+
+<!-- MathJax Load-->
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
