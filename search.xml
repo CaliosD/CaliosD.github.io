@@ -102,11 +102,7 @@
     <entry>
       <title><![CDATA[Block学习笔记]]></title>
       <url>http://www.calios.gq/2017/01/10/Block%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-      <content type="html"><![CDATA[<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
-<p>终于在2017年的第十天被我修理好了。继续第三年的blog之旅。</p>
-<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
-<hr>
-<h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。</p>
+      <content type="html"><![CDATA[<h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。</p>
 <pre><code>- (void)block1
 {
     int (^myTest)(int) = ^(int num){
@@ -232,6 +228,16 @@ void dontDoThisEither() {
 <ul>
 <li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html</a></li>
 </ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[写在2017年初]]></title>
+      <url>http://www.calios.gq/2017/01/10/%E5%86%99%E5%9C%A82017%E5%B9%B4%E5%88%9D/</url>
+      <content type="html"><![CDATA[<p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
+<p>终于在2017年的第十天被我修理好了。继续第三年的blog之旅。</p>
+<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
+<p>—— Calios<br>2017.01.10</p>
 ]]></content>
     </entry>
     

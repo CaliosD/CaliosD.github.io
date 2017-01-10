@@ -223,7 +223,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#题外话"><span class="post-toc-number">1.</span> <span class="post-toc-text">题外话</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Block声明"><span class="post-toc-number">2.</span> <span class="post-toc-text">1.Block声明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-在block中改变的外部变量，需要用-block声明"><span class="post-toc-number">3.</span> <span class="post-toc-text">2.在block中改变的外部变量，需要用__block声明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-block支持不定个数的参数（variadic-arguments）"><span class="post-toc-number">4.</span> <span class="post-toc-text">3.block支持不定个数的参数（variadic arguments）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-几种类型的变量与block的交互"><span class="post-toc-number">5.</span> <span class="post-toc-text">4.几种类型的变量与block的交互</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-当block被复制的时候，它会对block中使用的对象变量产生强引用。"><span class="post-toc-number">6.</span> <span class="post-toc-text">5.当block被复制的时候，它会对block中使用的对象变量产生强引用。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-应该避免的做法"><span class="post-toc-number">7.</span> <span class="post-toc-text">6.应该避免的做法</span></a></li></ol>
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Block声明"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.Block声明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-在block中改变的外部变量，需要用-block声明"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.在block中改变的外部变量，需要用__block声明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-block支持不定个数的参数（variadic-arguments）"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.block支持不定个数的参数（variadic arguments）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-几种类型的变量与block的交互"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.几种类型的变量与block的交互</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-当block被复制的时候，它会对block中使用的对象变量产生强引用。"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.当block被复制的时候，它会对block中使用的对象变量产生强引用。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-应该避免的做法"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.应该避免的做法</span></a></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -380,11 +380,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
-<p>终于在2017年的第十天被我修理好了。继续第三年的blog之旅。</p>
-<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
-<hr>
-<h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。</p>
+		<h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。</p>
 <pre><code>- (void)block1
 {
     int (^myTest)(int) = ^(int num){
@@ -546,7 +542,7 @@ void dontDoThisEither() {
 
     <!-- Next Nav -->
     
-        <a href="/2016/10/28/浅析自定义UINavigationBar返回按钮（一）/" id="post_nav-older" class="next-content">
+        <a href="/2017/01/10/写在2017年初/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -632,7 +628,7 @@ void dontDoThisEither() {
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -656,7 +652,7 @@ void dontDoThisEither() {
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">80</span>
+             <span class="sidebar-badge">81</span>
         </a>
     </li>
 </ul>
