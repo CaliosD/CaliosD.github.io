@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title><![CDATA[Some barriers when using TesseractOCR]]></title>
+      <url>http://www.calios.gq/2017/01/11/Some-barriers-when-using-TesseractOCR/</url>
+      <content type="html"><![CDATA[<p>1.Install TesseractOCR with CocoaPods.</p>
+<pre><code>pod &apos;TesseractOCRiOS&apos;, &apos;4.0.0&apos;
+</code></pre><p>2.Download tessdata, generally from Github:</p>
+<pre><code>$ wget https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata
+</code></pre><p>Then move them to the <code>/usr/local/share/tessdata</code> folder.</p>
+<pre><code>$ sudo mv -v eng.traineddata /usr/local/share/tessdata/
+</code></pre><p>However, it crashed saying:</p>
+<blockquote>
+<p>actual_tessdata_num_entries \&lt;= TESSDATA_NUM_ENTRIES:Error:Assert failed:in file ..\ccutil\tessdatamanager.cpp, line 55</p>
+</blockquote>
+<p>and would never work with the FAQ <a href="https://github.com/tesseract-ocr/tesseract/wiki/FAQ#actual_tessdata_num_entries_-tessdata_num_entrieserrorassert-failedin-file-ccutiltessdatamanagercpp-line-55_" target="_blank" rel="external">here</a> by checking out the right version(for me, it’s 4.0.0) of trained data.</p>
+<p>Finally, the issue <a href="https://github.com/gali8/Tesseract-OCR-iOS/issues/299" target="_blank" rel="external">here</a> solved this creepy problem by checking out <a href="https://github.com/tesseract-ocr/tessdata/tree/bf82613055ebc6e63d9e3b438a5c234bfd638c93" target="_blank" rel="external">this version</a> of trained data. This is just such a… boring problem…</p>
+<p>Here’s a little sample for how to use it, and, enjoy yourself. :]</p>
+<pre><code>G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@&quot;eng&quot;];
+                                       tesseract.delegate = weakSelf;
+                                       tesseract.charWhitelist = @&quot;@.(){}/\\!*&amp;#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+                                       tesseract.engineMode = G8OCREngineModeTesseractOnly;
+                                       tesseract.pageSegmentationMode = G8PageSegmentationModeAuto;
+                                       tesseract.image = [image g8_blackAndWhite];
+                                       tesseract.maximumRecognitionTime = 2.0;
+                                       [tesseract recognize];
+
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           weakSelf.codeTextView.text = [[tesseract recognizedText] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                                           weakSelf.codeImageView.image = image;
+                                       });
+</code></pre><hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios" target="_blank" rel="external">https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Some methods for DownloadManager]]></title>
       <url>http://www.calios.gq/2017/01/10/%E4%B8%8B%E8%BD%BD%E7%AE%A1%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<p>随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。</p>
