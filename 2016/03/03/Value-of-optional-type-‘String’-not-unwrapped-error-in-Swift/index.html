@@ -385,15 +385,10 @@
 </code></pre><p>然后就报了一个error：<br><em>Value of optional type ‘String’ not unwrapped;did you mean to use ‘!’ or ‘?’?”</em></p>
 <p><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">这里</a>寻得一个不错的答案，翻译及理解如下：</p>
 <p>首先，这行代码使用到了<strong> 可选链式调用（Optional Chaining）</strong> 这个家伙。用人话说，就是<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code> 要么就是一个<code>String</code>，要么就是一个<code>nil</code>。</p>
-<p>但是，显然<code>NSURL</code>的<code>fileURLWithPath:</code>方法不会接受<code>nil</code>，只会接受<code>String</code>类型的参数，所以编译器就把这个error报出来了。（可以做一个实验，直接写<code>let bgMusic = NSURL(fileURLWithPath: nil)</code>，就会发现报<em>Nil is not compatible with expected argument type ‘String’</em>的error。）</p>
-<p>解决办法是强制展开<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code>，即添加一个<code>!</code>：</p>
-<pre><code>let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)!)
-</code></pre><p>但是，如果所需文件不存在就会导致一个运行时的error，直接挂掉。所以，通常来说最好是用一个可选绑定把它包起来：</p>
-<pre><code>if let file = NSBundle.mainBundle().pathForResource(&quot;aaa&quot;, ofType: &quot;mp3&quot;) {
-    let bgMusic = NSURL(fileURLWithPath: file)
-    NSLog(bgMusic.absoluteString)
-}
-</code></pre><p>这样就可以保证<code>fileURLWithPath:</code>只有在文件不为空时才被调用了。完美～</p>
+<p>但是，显然<code>NSURL</code>的<code>fileURLWithPath:</code>方法不会接受<code>nil</code>，只会接受<code>String</code>类型的参数，所以编译器就把这个error报出来了。（可以做一个实验，直接写<code>let bgMusic = NSURL(fileURLWithPath: nil)</code>，就会发现报<code>Nil is not compatible with expected argument type ‘String’</code>的error。）</p>
+<p>解决办法是强制展开<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code>，即添加一个<code>!</code>：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let bgMusic = NSURL(<span class="name">fileURLWithPath</span>: NSBundle.mainBundle().pathForResource(<span class="string">"Ecstasy"</span>, ofType: <span class="string">"mp3"</span>)!)</div></pre></td></tr></table></figure></p>
+<p>但是，如果所需文件不存在就会导致一个运行时的error，直接挂掉。所以，通常来说最好是用一个可选绑定把它包起来：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">let</span> file = NSBundle.mainBundle().pathForResource(<span class="string">"aaa"</span>, ofType: <span class="string">"mp3"</span>) &#123;</div><div class="line">    <span class="built_in">let</span> <span class="built_in">bg</span>Music = NSURL(fileURLWithPath: file)</div><div class="line">    NSLog(<span class="built_in">bg</span>Music.absoluteString)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就可以保证<code>fileURLWithPath:</code>只有在文件不为空时才被调用了。完美～</p>
 <hr>
 <p><strong> Ref: </strong></p>
 <ul>
@@ -521,7 +516,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -545,7 +540,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

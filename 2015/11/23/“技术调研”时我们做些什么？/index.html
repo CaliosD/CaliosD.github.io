@@ -418,55 +418,10 @@
 <p><strong>1.需要系统的什么类库：</strong></p>
 <ul>
 <li>MediaPlayer.framework中的MPMoviePlayerController来实现的确简单，几句代码就够了，而且支持本地视频和网络视频，但是对于界面的自定义不强。pass掉。（<em>在iOS9开始被标记为了弃用，改用AVPlayerViewController了。</em>）</li>
-<li>AVFoundation。AVPlayer存在于其中。它更接近底层，所以灵活性也更强。<em>但是，</em>AVPlayer本身并没有view属性，如果要显示必须创建一个播放器层AVPlayerLayer用于展示。</li>
+<li>AVFoundation。AVPlayer存在于其中。它更接近底层，所以灵活性也更强。<em>但是，</em>AVPlayer本身并没有view属性，如果要显示必须创建一个播放器层AVPlayerLayer用于展示。*</li>
 </ul>
-<pre><code>// DPlayerLayerView.h
-#import &lt;UIKit/UIKit.h&gt;
-#import &lt;AVFoundation/AVFoundation.h&gt;
-@interface DPlayerLayerView : UIView
-
-@property (nonatomic, strong) AVPlayer *player;
--(void)setVideoFillMode:(NSString *)fillMode;
-
-@end
-
-
-
-// DPlayerLayerView.m
-#import &quot;DPlayerLayerView.h&quot;
-
-@implementation DPlayerLayerView
-
-+(Class)layerClass
-{
-    return [AVPlayerLayer class];
-}
-
-// 单纯使用AVPlayer类是无法显示视频的，要将视频层添加至AVPlayerLayer中，这样才能将视频显示出来。
--(AVPlayer *)player
-{
-    return [(AVPlayerLayer *)[self layer] player];
-}
-
--(void)setPlayer:(AVPlayer *)player
-{
-    [(AVPlayerLayer *)[self layer] setPlayer:player];
-}
-
-// 指定video在player layer的bounds内如何显示。（默认是AVLayerVideoGravityResizeAspect）
-/* 可选项：
- * AVLayerVideoGravityResizeAspect，保证宽高比，在layer的bounds内正常显示；
- * AVLayerVideoGravityResizeAspectFill，保证宽高比，填充满layer的bounds；
- * AVLayerVideoGravityResize，拉伸来填满layer的bounds。
- */
--(void)setVideoFillMode:(NSString *)fillMode
-{
-    AVPlayerLayer *playerLayer = (AVPlayerLayer *)[self layer];
-    playerLayer.videoGravity = fillMode;
-}
-
-@end
-</code></pre><ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// DPlayerLayerView.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DPlayerLayerView</span> : <span class="title">UIView</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">AVPlayer</span> *player;</div><div class="line">-(<span class="keyword">void</span>)setVideoFillMode:(<span class="built_in">NSString</span> *)fillMode;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// DPlayerLayerView.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DPlayerLayerView.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DPlayerLayerView</span></span></div><div class="line"></div><div class="line">+(Class)layerClass</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">AVPlayerLayer</span> <span class="keyword">class</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 单纯使用AVPlayer类是无法显示视频的，要将视频层添加至AVPlayerLayer中，这样才能将视频显示出来。</span></div><div class="line">-(<span class="built_in">AVPlayer</span> *)player</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] player];</div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)setPlayer:(<span class="built_in">AVPlayer</span> *)player</div><div class="line">&#123;</div><div class="line">    [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] setPlayer:player];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 指定video在player layer的bounds内如何显示。（默认是AVLayerVideoGravityResizeAspect）</span></div><div class="line"><span class="comment">/* 可选项：</span></div><div class="line"> * AVLayerVideoGravityResizeAspect，保证宽高比，在layer的bounds内正常显示；</div><div class="line"> * AVLayerVideoGravityResizeAspectFill，保证宽高比，填充满layer的bounds；</div><div class="line"> * AVLayerVideoGravityResize，拉伸来填满layer的bounds。</div><div class="line"> */</div><div class="line">-(<span class="keyword">void</span>)setVideoFillMode:(<span class="built_in">NSString</span> *)fillMode</div><div class="line">&#123;</div><div class="line">    <span class="built_in">AVPlayerLayer</span> *playerLayer = (<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer];</div><div class="line">    playerLayer.videoGravity = fillMode;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<ul>
 <li>AVKit。iOS8以来的新秀。用来代替MPMoviePlayerViewController。基于AVFoundation。它提供了视频播放的UI，又可以播放任何来自AVFoundation的<code>AVPlayer</code>对象。（由于项目需要支持iOS7，所以，只能忍痛割爱T_T）</li>
 </ul>
 <p><strong>2.API</strong></p>
@@ -627,7 +582,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -651,7 +606,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

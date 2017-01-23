@@ -380,26 +380,21 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p><strong>First, create a post：</strong></p>
-<pre><code>WhereHexoInstalled calios$ hexo new ForgetIt
-[INFO] Created: ~/WhereHexoInstalled/source/_posts/forgetIt.md
-</code></pre><p><strong>Open it: </strong></p>
-<pre><code>WhereHexoInstalled calios$ open ~/WhereHexoInstalled/source/_posts/What-About-Now.md
-</code></pre><p><strong>Then, try block quote:</strong></p>
+		<p><strong>First, create a post：</strong><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">WhereHexoInstalled calios$ hexo <span class="keyword">new</span> ForgetIt</div><div class="line">[INFO] Created: ~<span class="regexp">/WhereHexoInstalled/</span><span class="keyword">source</span><span class="regexp">/_posts/</span>forgetIt.md</div></pre></td></tr></table></figure></p>
+<p><strong>Open it:</strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WhereHexoInstalled calios<span class="variable">$ </span>open ~<span class="regexp">/WhereHexoInstalled/source</span><span class="regexp">/_posts/</span>What-About-Now.md</div></pre></td></tr></table></figure>
+<p><strong>Then, try block quote:</strong></p>
 <pre><code>&gt; Every interaction is both precious and an opportunity to delight.
-&gt; 
+&gt;
 &gt; *Seth Godin ——*  [Welcome to Island Marketing]
 </code></pre><blockquote>
 <p>Every interaction is both precious and an opportunity to delight.</p>
 <p><em>Seth Godin ——</em>  <a href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html" target="_blank" rel="external">Welcome to Island Marketing</a></p>
 </blockquote>
 <p><strong>And then, try code block:</strong></p>
-<pre><code><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBarButtonItem</span> *search = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithBarButtonSystemItem:<span class="built_in">UIBarButtonSystemItemSearch</span> target:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(searchItemPressed)];</div><div class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = search;</div></pre></td></tr></table></figure>
-
-
-UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchItemPressed)];
-self.navigationItem.leftBarButtonItem = search;
-</code></pre><p><strong>Now, link:</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBarButtonItem</span> *search = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithBarButtonSystemItem:<span class="built_in">UIBarButtonSystemItemSearch</span> target:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(searchItemPressed)];</div><div class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = search;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBarButtonItem</span> *search = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithBarButtonSystemItem:<span class="built_in">UIBarButtonSystemItemSearch</span> target:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(searchItemPressed)];</div><div class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = search;</div></pre></td></tr></table></figure>
+<p><strong>Now, link:</strong></p>
 <pre><code>Here&apos;s [Github](http://github.com/).
 </code></pre><p>Here’s <a href="https://github.com/" target="_blank" rel="external">Github</a>.</p>
 <p><strong>Finally, image.</strong></p>
@@ -407,12 +402,12 @@ self.navigationItem.leftBarButtonItem = search;
 </code></pre><p><img src="http://img-storage.qiniudn.com/15-8-5/58389499.jpg" alt="Here&#39;s an image"></p>
 <hr>
 <p><strong> Here’s a temp end. And enjoy yourself. XD </strong></p>
-<p>Calios<br>5th, July </p>
+<p>Calios<br>5th, July</p>
 <hr>
 <p><strong>Update Nov 20th, 2015.</strong></p>
 <p>I’ll list part of other syntax here to save.</p>
 <p><strong>Table</strong></p>
-<pre><code>| Title1 | Title2 
+<pre><code>| Title1 | Title2
 | ---- | ----
 |   Column1       |   Row1
 |   Column2       |   Row2
@@ -451,14 +446,12 @@ self.navigationItem.leftBarButtonItem = search;
 </blockquote>
 <p>Like this.</p>
 <pre><code>- undo add a file before commit:
-
-&lt;!-- language: bash --&gt;
-    $ svn revert --recursive folder\_name
-</code></pre><hr>
+</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">    $ svn revert --recursive folder\_name</div></pre></td></tr></table></figure>
+<hr>
 <p><strong><em> Issues I occured in the blog and Refs:</em></strong></p>
 <ul>
 <li><a href="http://meta.stackexchange.com/questions/55437/how-can-the-backtick-character-be-included-in-code" target="_blank" rel="external">How can the backtick character ` be included in code?</a></li>
-<li>How to add image for online blog? <ul>
+<li>How to add image for online blog?<ul>
 <li>I tried to upload image <a href="http://yotuku.cn/" target="_blank" rel="external">here</a> and of course you can choose any “Cloud” you like. :P</li>
 </ul>
 </li>
@@ -582,7 +575,7 @@ self.navigationItem.leftBarButtonItem = search;
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -606,7 +599,7 @@ self.navigationItem.leftBarButtonItem = search;
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

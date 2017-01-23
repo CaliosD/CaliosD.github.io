@@ -385,33 +385,17 @@
 <p>简直是浪费时间。所以，为什么不写段代码替我做这些无聊的事呢？至少可以每天留出品尝一杯咖啡的时间。</p>
 <p>Let’s move.</p>
 <hr>
-<h4 id="编译Build"><a href="#编译Build" class="headerlink" title="编译Build"></a>编译Build</h4><p>Xcode提供了命令行build的命令，即xcodebuild。可以通过<code>man xcodebuild</code>查看该命令的所有详细说明，也可以用<code>xcodebuild -usage</code>查看所有的可用参数。</p>
-<pre><code>xcodebuild -workspace YourProject.xcworkspace -scheme YourProject -configuration &quot;Release&quot; -destination generic/platform=iOS #build BUILD_DIR=&quot;$BUILD_DIR&quot; BUILD_ROOT=&quot;$BUILD_ROOT&quot;
-</code></pre><p>这里特别说明下<code>-destination</code>这个参数。如果要指定运行在某一个已连接设备，需要使用<code>iOS</code>选项。它支持<code>id</code>和<code>name</code>两个key，二者任取其一。</p>
-<pre><code>xcodebuild \
-  -workspace YourProject.xcworkspace \
-  -scheme MyApp \
-  -destination &quot;platform=iOS,name=Gio&apos;s iPhone&quot; \
-  clean test
-
-xcodebuild \
-  -workspace YourProject.xcworkspace \
-  -scheme MyApp \
-  -destination &apos;platform=iOS,id=YOUR_PHONE_UUID&apos; \
-  clean test
-</code></pre><p>同理，运行在模拟器中也是类似。更多详情见<a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">这里</a>。由于我的使用场景通常是用企业账号来打包上传、供测试使用，所以这里使用的是<code>-destination generic/platform=iOS</code>，并不指定某一确切设备。</p>
-<h4 id="打包成ipa"><a href="#打包成ipa" class="headerlink" title="打包成ipa"></a>打包成ipa</h4><p>上一步build后生成了YourProject.app文件，可以用xcrun来将其打包成ipa。</p>
-<pre><code>xcrun -sdk iphoneos PackageApplication -v &quot;$APP_PATH&quot; -o &quot;$IPA_PATH&quot;
-</code></pre><blockquote>
-<p>这里补充一个小的知识点：.app和.ipa的差别：<br>.app是应用程序包。它包括可执行文件、Info.plist文件、图标、launch图片和一些其他应用程序资源。应用程序包是最终安装在设备上的部分。<br>.ipa是对.app应用程序包和一些只是为了供iTunes使用的文件（比如iTunesArtwork）的归档。 </p>
+<h4 id="编译Build"><a href="#编译Build" class="headerlink" title="编译Build"></a>编译Build</h4><p>Xcode提供了命令行build的命令，即xcodebuild。可以通过<code>man xcodebuild</code>查看该命令的所有详细说明，也可以用<code>xcodebuild -usage</code>查看所有的可用参数。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -workspace YourProject<span class="selector-class">.xcworkspace</span> -scheme YourProject -configuration <span class="string">"Release"</span> -destination generic/platform=iOS <span class="selector-id">#build</span> BUILD_DIR=<span class="string">"$BUILD_DIR"</span> BUILD_ROOT=<span class="string">"$BUILD_ROOT"</span></div></pre></td></tr></table></figure></p>
+<p>这里特别说明下<code>-destination</code>这个参数。如果要指定运行在某一个已连接设备，需要使用<code>iOS</code>选项。它支持<code>id</code>和<code>name</code>两个key，二者任取其一。<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">"platform=iOS,name=Gio's iPhone"</span> \</span></div><div class="line">  clean test</div><div class="line"></div><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">'platform=iOS,id=YOUR_PHONE_UUID'</span> \</span></div><div class="line">  clean test</div></pre></td></tr></table></figure></p>
+<p>同理，运行在模拟器中也是类似。更多详情见<a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">这里</a>。由于我的使用场景通常是用企业账号来打包上传、供测试使用，所以这里使用的是<code>-destination generic/platform=iOS</code>，并不指定某一确切设备。</p>
+<h4 id="打包成ipa"><a href="#打包成ipa" class="headerlink" title="打包成ipa"></a>打包成ipa</h4><p>上一步build后生成了YourProject.app文件，可以用xcrun来将其打包成ipa。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"<span class="variable">$APP_PATH</span>"</span> -o <span class="string">"<span class="variable">$IPA_PATH</span>"</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里补充一个小的知识点：.app和.ipa的差别：<br>.app是应用程序包。它包括可执行文件、Info.plist文件、图标、launch图片和一些其他应用程序资源。应用程序包是最终安装在设备上的部分。<br>.ipa是对.app应用程序包和一些只是为了供iTunes使用的文件（比如iTunesArtwork）的归档。</p>
 </blockquote>
-<p>另外，这里有一个需要注意的地方，xcrun需要<strong>绝对路径</strong>，相对路径是不管用的，会报类似这样的错：</p>
-<pre><code>xcrun fails with zip I/O error: No such file or directory zip error:…
-</code></pre><p>你可以用<code>$pwd/YourProject</code>来获取。</p>
-<h4 id="重命名ipa"><a href="#重命名ipa" class="headerlink" title="重命名ipa"></a>重命名ipa</h4><p>如果每次打包的ipa都是同样的名字，估计你很快就会分不清哪个版本是哪个版本，所以将ipa重命名添加上打包时间不失为一个不错的选择。</p>
-<pre><code>BUILD_DATETIME=&quot;$(date +%Y%m%d%H%M%S)&quot;
-mv $IPA_PATH &quot;$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIME.ipa&quot;
-</code></pre><p>到此为止，需要上传到ftp的ipa已经准备好了。详细代码在<a href="https://github.com/CaliosD/xcode_tool/blob/master/build_n_package.sh" target="_blank" rel="external">这里</a>：。接下来的一篇，就要开始上传啦～</p>
+<p>另外，这里有一个需要注意的地方，xcrun需要<strong>绝对路径</strong>，相对路径是不管用的，会报类似这样的错：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun fails with <span class="keyword">zip</span> I/O <span class="keyword">error</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory <span class="keyword">zip</span> <span class="keyword">error</span>:…</div></pre></td></tr></table></figure></p>
+<p>你可以用<code>$pwd/YourProject</code>来获取。</p>
+<h4 id="重命名ipa"><a href="#重命名ipa" class="headerlink" title="重命名ipa"></a>重命名ipa</h4><p>如果每次打包的ipa都是同样的名字，估计你很快就会分不清哪个版本是哪个版本，所以将ipa重命名添加上打包时间不失为一个不错的选择。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BUILD_DATETIME=<span class="string">"$(date +%Y%m%d%H%M%S)"</span></div><div class="line">mv $IPA_PATH <span class="string">"$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIME.ipa"</span></div></pre></td></tr></table></figure></p>
+<p>到此为止，需要上传到ftp的ipa已经准备好了。详细代码在<a href="https://github.com/CaliosD/xcode_tool/blob/master/build_n_package.sh" target="_blank" rel="external">这里</a>：。接下来的一篇，就要开始上传啦～</p>
 <hr>
 <p><strong>Ref:</strong></p>
 <ul>
@@ -544,7 +528,7 @@ mv $IPA_PATH &quot;$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIM
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -568,7 +552,7 @@ mv $IPA_PATH &quot;$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIM
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

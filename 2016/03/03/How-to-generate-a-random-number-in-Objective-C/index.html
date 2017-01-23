@@ -381,15 +381,11 @@
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
 		<p>Brief instruction from <a href="http://nshipster.com/random/" target="_blank" rel="external">Mattt in NSHipster</a> as below.</p>
-<h5 id="1-Random-int-between-0-and-N-1"><a href="#1-Random-int-between-0-and-N-1" class="headerlink" title="1.Random int between 0 and N-1"></a>1.Random int between 0 and N-1</h5><pre><code>NSUInteger r = arc4random_uniform(N);
-</code></pre><h5 id="2-Random-int-between-1-and-N"><a href="#2-Random-int-between-1-and-N" class="headerlink" title="2.Random int between 1 and N"></a>2.Random int between 1 and N</h5><pre><code>NSUInteger r = arc4random_uniform(N) + 1;
-</code></pre><h5 id="3-Random-double-between-0-and-1"><a href="#3-Random-double-between-0-and-1" class="headerlink" title="3.Random double between 0 and 1"></a>3.Random double between 0 and 1</h5><pre><code>srand48(time(0));
-double r = drand48();
-</code></pre><p>Accordingly, in Swift, it’s like this.</p>
-<pre><code>    let redValue = CGFloat(drand48())
-let blueValue = CGFloat(drand48())
-let greenValue = CGFloat(drand48())
-</code></pre><hr>
+<h5 id="1-Random-int-between-0-and-N-1"><a href="#1-Random-int-between-0-and-N-1" class="headerlink" title="1.Random int between 0 and N-1"></a>1.Random int between 0 and N-1</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N);</div></pre></td></tr></table></figure>
+<h5 id="2-Random-int-between-1-and-N"><a href="#2-Random-int-between-1-and-N" class="headerlink" title="2.Random int between 1 and N"></a>2.Random int between 1 and N</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N) + 1;</div></pre></td></tr></table></figure>
+<h5 id="3-Random-double-between-0-and-1"><a href="#3-Random-double-between-0-and-1" class="headerlink" title="3.Random double between 0 and 1"></a>3.Random double between 0 and 1</h5><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sra<span class="symbol">nd48</span><span class="comment">(time(0)</span>);</div><div class="line">double r = dra<span class="symbol">nd48</span><span class="comment">()</span>;</div></pre></td></tr></table></figure>
+<p>Accordingly, in Swift, it’s like this.<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let redValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let blueValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let greenValue = CGFloat(<span class="name">drand48</span>())</div></pre></td></tr></table></figure></p>
+<hr>
 <p><strong> Ref: </strong></p>
 <ul>
 <li><a href="http://nshipster.com/random/" target="_blank" rel="external">http://nshipster.com/random/</a></li>
@@ -516,7 +512,7 @@ let greenValue = CGFloat(drand48())
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -540,7 +536,7 @@ let greenValue = CGFloat(drand48())
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

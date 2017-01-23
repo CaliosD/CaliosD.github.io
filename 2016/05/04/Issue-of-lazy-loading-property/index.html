@@ -380,29 +380,8 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>I’ve got some <code>readonly</code> properties in my .h file. And when I tried to lazy loading them as usual like this. </p>
-<pre><code>// MyView.h
-@property (nonatomic, strong, readonly) UILabel *titleLabel;
-
-// MyView.m
-- (UIImageView *)imageView
-{
-    if (!_imageView)
-    {
-        _imageView = [UIImageView new];
-        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _imageView.backgroundColor = [UIColor clearColor];
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _imageView.userInteractionEnabled = NO;
-        _imageView.accessibilityIdentifier = @&quot;empty set image view&quot;;
-
-        _imageView.image = _defaultImage;
-
-        [_contentView addSubview:_imageView];
-    }
-    return _imageView;
-}
-</code></pre><p>Then…bang! It threw out errors in bulk, yelling “Use of undeclared identifier ‘_imageView’”. What the hell have I done!</p>
+		<p>I’ve got some <code>readonly</code> properties in my .h file. And when I tried to lazy loading them as usual like this.<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyView.h</span></div><div class="line">@property (nonatomic, strong, readonly) UILabel *titleLabel;</div><div class="line"></div><div class="line"><span class="comment">// MyView.m</span></div><div class="line">- (UIImageView *)imageView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="variable">_imageView</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">_imageView</span> = [UIImageView new];</div><div class="line">        <span class="variable">_imageView</span>.translatesAutoresizingMaskIntoConstraints = NO;</div><div class="line">        <span class="variable">_imageView</span>.backgroundColor = [UIColor clearColor];</div><div class="line">        <span class="variable">_imageView</span>.contentMode = UIViewContentModeScaleAspectFit;</div><div class="line">        <span class="variable">_imageView</span>.userInteractionEnabled = NO;</div><div class="line">        <span class="variable">_imageView</span>.accessibilityIdentifier = @<span class="string">"empty set image view"</span>;</div><div class="line"></div><div class="line">        <span class="variable">_imageView</span>.<span class="built_in">image</span> = <span class="variable">_defaultImage</span>;</div><div class="line"></div><div class="line">        [<span class="variable">_contentView</span> addSubview:<span class="variable">_imageView</span>];</div><div class="line">    &#125;</div><div class="line">    return <span class="variable">_imageView</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Then…bang! It threw out errors in bulk, yelling “Use of undeclared identifier ‘_imageView’”. What the hell have I done!</p>
 <p>Luckily, I found some explainations <a href="http://stackoverflow.com/a/13670924/1594792" target="_blank" rel="external">here</a>. It says:</p>
 <blockquote>
 <p>Newer Xcode versions can create a @synthesize statement automatically and use the underscore prefix for instance variables. In this case however, <strong>since the property is read-only and you provide a getter method, Xcode does not synthesize the property automatically.</strong></p>
@@ -530,7 +509,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -554,7 +533,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

@@ -381,34 +381,10 @@
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
 		<h3 id="［1］-所有配置选项均为extern-const-string"><a href="#［1］-所有配置选项均为extern-const-string" class="headerlink" title="［1］ 所有配置选项均为extern const string"></a>［1］ 所有配置选项均为extern const string</h3><p>具体来说，即：每个选项对应一个属性，在初始化方法中，通过获取到的选项字典依次给对象的各个属性赋值。</p>
-<p>如：</p>
-<pre><code>// CAPSPageMenu.h
-extern NSString * const CAPSPageMenuOptionSelectionIndicatorHeight;
-extern NSString * const CAPSPageMenuOptionMenuItemSeparatorWidth;
-
-// CAPSPageMenu.m
-NSString * const CAPSPageMenuOptionSelectionIndicatorHeight             = @&quot;selectionIndicatorHeight&quot;;
-NSString * const CAPSPageMenuOptionMenuItemSeparatorWidth               = @&quot;menuItemSeparatorWidth&quot;;
-</code></pre><p>在初始化方法中，根据遍历传入的options参数，依次给各个属性赋值。</p>
-<pre><code>- (instancetype)initWithViewControllers:(NSArray *)viewControllers frame:(CGRect)frame options:(NSDictionary *)options{
-        for (NSString *key in options) {
-            if ([key isEqualToString:CAPSPageMenuOptionSelectionIndicatorHeight]) {
-                _selectionIndicatorHeight = [options[key] floatValue];
-            } else if ([key isEqualToString: CAPSPageMenuOptionMenuItemSeparatorWidth]) {
-                _menuItemSeparatorWidth = [options[key] floatValue];
-            }
-    ...
-    }
-}
-</code></pre><p>在使用时，传入组装好的自定义option。</p>
-<pre><code>NSDictionary *parameters = @{
-    CAPSPageMenuOptionScrollMenuBackgroundColor: [UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0],
-    CAPSPageMenuOptionViewBackgroundColor: [UIColor colorWithRed:20.0/255.0 green:20.0/255.0 blue:20.0/255.0 alpha:1.0],
-    CAPSPageMenuOptionSelectionIndicatorColor: [UIColor orangeColor]};
-
-_pageMenu = [[CAPSPageMenu alloc] initWithViewControllers:controllerArray frame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height) options:parameters];
-[self.view addSubview:_pageMenu.view];
-</code></pre><p>在很多系统的类库中都使用这种方式来传递自定义的选项值。比如<code>NSAttributedString</code>的初始化方法<code>-initWithString:attributes:</code>中的<code>attributes</code>是自己组装的dictionary，而其中的key就是UIKit下<code>NSAttributedString.h</code>中的“Predefined character attributes for text.”</p>
+<p>如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// CAPSPageMenu.h</span></div><div class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionSelectionIndicatorHeight</span>;</div><div class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionMenuItemSeparatorWidth</span>;</div><div class="line"></div><div class="line"><span class="comment">// CAPSPageMenu.m</span></div><div class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionSelectionIndicatorHeight</span>             = <span class="string">@"selectionIndicatorHeight"</span>;</div><div class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionMenuItemSeparatorWidth</span>               = <span class="string">@"menuItemSeparatorWidth"</span>;</div></pre></td></tr></table></figure></p>
+<p>在初始化方法中，根据遍历传入的options参数，依次给各个属性赋值。<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (instance<span class="keyword">type</span>)initWithViewControllers:(<span class="type">NSArray</span> *)viewControllers frame:(<span class="type">CGRect</span>)frame options:(<span class="type">NSDictionary</span> *)options&#123;</div><div class="line">		for (<span class="type">NSString</span> *key in options) &#123;</div><div class="line">            if ([key isEqualToString:<span class="type">CAPSPageMenuOptionSelectionIndicatorHeight</span>]) &#123;</div><div class="line">                _selectionIndicatorHeight = [options[key] floatValue];</div><div class="line">            &#125; else if ([key isEqualToString: <span class="type">CAPSPageMenuOptionMenuItemSeparatorWidth</span>]) &#123;</div><div class="line">                _menuItemSeparatorWidth = [options[key] floatValue];</div><div class="line">            &#125;</div><div class="line">	...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在使用时，传入组装好的自定义option。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  NSDictionary *parameters = @&#123;</div><div class="line"><span class="string">CAPSPageMenuOptionScrollMenuBackgroundColor:</span> [UIColor <span class="string">colorWithRed:</span><span class="number">30.0</span><span class="regexp">/255.0 green:30.0/</span><span class="number">255.0</span> <span class="string">blue:</span><span class="number">30.0</span>/<span class="number">255.0</span> <span class="string">alpha:</span><span class="number">1.0</span>],</div><div class="line"><span class="string">CAPSPageMenuOptionViewBackgroundColor:</span> [UIColor <span class="string">colorWithRed:</span><span class="number">20.0</span><span class="regexp">/255.0 green:20.0/</span><span class="number">255.0</span> <span class="string">blue:</span><span class="number">20.0</span>/<span class="number">255.0</span> <span class="string">alpha:</span><span class="number">1.0</span>],</div><div class="line"><span class="string">CAPSPageMenuOptionSelectionIndicatorColor:</span> [UIColor orangeColor]&#125;;</div><div class="line"></div><div class="line">  _pageMenu = [[CAPSPageMenu alloc] <span class="string">initWithViewControllers:</span>controllerArray <span class="string">frame:</span>CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, self.view.frame.size.width, self.view.frame.size.height) <span class="string">options:</span>parameters];</div><div class="line">  [self.view <span class="string">addSubview:</span>_pageMenu.view];</div></pre></td></tr></table></figure></p>
+<p>在很多系统的类库中都使用这种方式来传递自定义的选项值。比如<code>NSAttributedString</code>的初始化方法<code>-initWithString:attributes:</code>中的<code>attributes</code>是自己组装的dictionary，而其中的key就是UIKit下<code>NSAttributedString.h</code>中的“Predefined character attributes for text.”</p>
 <p>以后在写自己的类库中可以参考这种方式。</p>
 <h3 id="［2］-关于UIScrollView的scrollsToTop属性"><a href="#［2］-关于UIScrollView的scrollsToTop属性" class="headerlink" title="［2］ 关于UIScrollView的scrollsToTop属性"></a>［2］ 关于<code>UIScrollView</code>的<code>scrollsToTop</code>属性</h3><p>当用户点击status bar时，点击位置下面最靠近status bar的scroll view会滚到顶部，但只有以下条件都满足时才会生效：</p>
 <ul>
@@ -417,22 +393,13 @@ _pageMenu = [[CAPSPageMenu alloc] initWithViewControllers:controllerArray frame:
 <li>没有已经处于顶部。</li>
 </ul>
 <p>这里需要注意的是，如果有<strong>不止一个</strong>scroll view的<code>scrollsToTop</code>被置为<code>YES</code>，那么<strong>所有</strong>scroll view的“点击滚动到顶部”<strong>都不会生效</strong>。</p>
-<p>然而，UIScrollView的<code>scrollsToTop</code>默认是<code>YES</code>…所以，对于<code>CAPSPageMenu</code>中的两个scroll view，作者都手动将它们的<code>scrollsToTop</code>置为了<code>NO</code>。</p>
-<pre><code>_menuScrollView.scrollsToTop       = NO;;
-_controllerScrollView.scrollsToTop = NO;;
-</code></pre><p>另外，对于<code>UIScrollView</code>的子类们，如<code>UITableView</code>、<code>UICollectionView</code>、<code>UITextView</code>、<code>UIContainerView</code>等，该规则同样适用。</p>
+<p>然而，UIScrollView的<code>scrollsToTop</code>默认是<code>YES</code>…所以，对于<code>CAPSPageMenu</code>中的两个scroll view，作者都手动将它们的<code>scrollsToTop</code>置为了<code>NO</code>。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">_menuScrollView.<span class="keyword">scrollsToTop </span>      = NO<span class="comment">;;</span></div><div class="line">_controllerScrollView.<span class="keyword">scrollsToTop </span>= NO<span class="comment">;;</span></div></pre></td></tr></table></figure></p>
+<p>另外，对于<code>UIScrollView</code>的子类们，如<code>UITableView</code>、<code>UICollectionView</code>、<code>UITextView</code>、<code>UIContainerView</code>等，该规则同样适用。</p>
 <h3 id="［3］-为什么在点击item时需要一个Timer？"><a href="#［3］-为什么在点击item时需要一个Timer？" class="headerlink" title="［3］ 为什么在点击item时需要一个Timer？"></a>［3］ 为什么在点击item时需要一个Timer？</h3><p>未知。。。</p>
 <h3 id="［4］-gestureRecognizer-shouldRecognizeSimultaneouslyWithGestureRecognizer"><a href="#［4］-gestureRecognizer-shouldRecognizeSimultaneouslyWithGestureRecognizer" class="headerlink" title="［4］-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:"></a>［4］<code>-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:</code></h3><p>虽然view和gesture recognizer可以是一对多的关系，但默认情况下，两个gesture recognizer是不能同时有效的。此时，若想两个gesture recognizer能同时处理它们各自的gesture，需要重写<code>UIScrollView</code>的protocol<code>-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:</code>，并在其中返回<code>YES</code>。</p>
 <p>在一个gesture recognizer对于gesture的识别会阻塞另一个gesture recognizer的gesture识别时，这个方法就会被调用了。</p>
-<p>当然，也可以根据需要在其中添加判断条件，使之返回不同的值。</p>
-<pre><code>- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]  &amp;&amp; [otherGestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) { 
-            return YES; 
-      }    
-    return NO;
-}
-</code></pre><hr>
+<p>当然，也可以根据需要在其中添加判断条件，使之返回不同的值。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)otherGestureRecognizer</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> ([gestureRecognizer isKindOfClass:[<span class="built_in">UIPanGestureRecognizer</span> <span class="keyword">class</span>]]  &amp;&amp; [otherGestureRecognizer isKindOfClass:[<span class="built_in">UIScreenEdgePanGestureRecognizer</span> <span class="keyword">class</span>]]) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">      &#125;    </div><div class="line">	<span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
 <p><strong>Ref:</strong></p>
 <ul>
 <li><a href="http://stackoverflow.com/a/8960080/1594792" target="_blank" rel="external">http://stackoverflow.com/a/8960080/1594792</a></li>
@@ -560,7 +527,7 @@ _controllerScrollView.scrollsToTop = NO;;
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -584,7 +551,7 @@ _controllerScrollView.scrollsToTop = NO;;
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

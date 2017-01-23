@@ -10,7 +10,7 @@
     <!-- Title -->
     
     <title>
-        归档: 2016/9 | Calios&#39; Eden
+        实用git命令 | Calios&#39; Eden
     </title>
     
     <!-- Favicons -->
@@ -46,7 +46,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://www.calios.gq">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2016/9 | Calios&#39; Eden">
+    <meta property="og:title" content="实用git命令 | Calios&#39; Eden">
     <meta property="og:description" content="Stedfast as thou art.">
     
      <!--[if lte IE 9]>
@@ -200,92 +200,258 @@
                 </button>
 				
 				
-                <!-- Index Module -->
-<div class="material-index mdl-grid">
-	
-    <div class="locate-thumbnail-symbol"></div>
+                <!-- Post TOC -->
+
     
-    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#状态相关"><span class="post-toc-number">1.</span> <span class="post-toc-text">状态相关</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分支相关"><span class="post-toc-number">2.</span> <span class="post-toc-text">分支相关</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Cheatsheet"><span class="post-toc-number">3.</span> <span class="post-toc-text">Cheatsheet</span></a></li></ol>
 		
-			<!-- Paradox Thumbnail -->
-        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-    
-    <!-- Post Thumbnail -->
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
 	
 		
 			<!-- Random Thumbnail -->
 			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-		
-	
-				
-		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/2016/09/03/【译】Workspace-Project-Target-Scheme-的区别/">【译】Workspace &amp; Project &amp; Target &amp; Scheme 的区别</a></p>
-	</div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            来自
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2016/09/03/【译】Workspace-Project-Target-Scheme-的区别/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Calios's avatar">
-            </div>
-            <div>
-                <strong>Calios</strong>
-                <span>9月 03, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-            
-            
-            
-            <!-- Post Views -->
-            <span class="post_entry-views">
-                
-            </span>
-        </div>
-    </div>
-            
-</div>
-
-		
-		
-    
-    
-	
-		<script>
+				<script>
     
     var randomNum;
+    randomNum = Math.floor(Math.random() * 19 + 1);
     
-    var locatePost = $(".locate-thumbnail-symbol").next();
-    for(var i=0; i < 5; i++){
-        
-        randomNum = Math.floor(Math.random() * 19 + 1);
-        
-        locatePost.children(".post_thumbnail-random").attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')')
-        
-        locatePost = locatePost.next();
-    }
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
     
 </script>
 
+		
+	
+        <p class="article-headline-p">
+            实用git命令
+        </p>
+    </div>
+
 	
 
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Calios</strong>
+        <span>1月 19, 2016</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Git/">Git</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Terminal/">Terminal</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=实用git命令&url=http://www.calios.gq//2016/01/19/实用git命令/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+    
+
+    <!-- Share Twitter -->
+    
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=实用git命令&url=http://www.calios.gq//2016/01/19/实用git命令/index.html&via=Calios" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+    
+
+    <!-- Share Facebook -->
+    
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2016/01/19/实用git命令/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Facebook
+        </li>
+    </a>
+    
+
+    <!-- Share Google+ -->
+    
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2016/01/19/实用git命令/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Calios&#39; Eden&title=实用git命令&summary=Stedfast as thou art.&pics=http://www.calios.gq/img/favicon.png&url=http://www.calios.gq/2016/01/19/实用git命令/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 QQ
+        </li>
+    </a>
+    
+
+    <!-- Share Telegram -->
+    
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://www.calios.gq/2016/01/19/实用git命令/index.html&text=实用git命令" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Telegram
+        </li>
+    </a>
+    
+</ul>
+
 </div>
+
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h4 id="状态相关"><a href="#状态相关" class="headerlink" title="状态相关"></a>状态相关</h4><ul>
+<li>撤销 <code>git commit</code> 之前的 <code>git add</code> ：<code>git reset &lt;file&gt;</code></li>
+<li>替换本地改动，会使用HEAD中的最新内容替换掉工作目录中的文件，已添加到暂存区及新文件都不会受到影响：<code>git checkout -- &lt;filename&gt;</code></li>
+<li>丢弃本地所有改动和提交，获取服务器最新版本历史，并将本地主分支指向它：<code>git fetch origin</code>, <code>git reset --hard origin/master</code></li>
+</ul>
+<h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><ul>
+<li>查看远程分支：<code>git branch -a</code></li>
+<li>查看本地分支：<code>git branch</code></li>
+<li>创建分支：<code>git branch newBranch</code></li>
+<li>把分支推到远程分支：<code>git push origin newBranch</code></li>
+<li>把远程分支pull下来：<code>git clone --branch develop --single-branch XXurl</code></li>
+<li>切换分支：<code>git checkout newBranch</code></li>
+<li>删除远程分支: <code>git push origin --delete &lt;branchName&gt;</code></li>
+<li>删除本地分支：<code>git branch -D fixVersion</code></li>
+<li>合并改动前，预览差异：<code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></li>
+<li>查看远程信息：<code>git remote show origin</code><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">remote origin</div><div class="line">  Fetch URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  Push  URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  HEAD branch: master</div><div class="line">  Remote branches:</div><div class="line">    lesson1          tracked</div><div class="line">    lesson2          tracked</div><div class="line">    lesson3          tracked</div><div class="line">    lesson4          tracked</div><div class="line">    lesson5          tracked</div><div class="line">    lesson6          tracked</div><div class="line">    master           tracked</div><div class="line">    practise2        tracked</div><div class="line">    practise2_answer tracked</div><div class="line">    practise3        tracked</div><div class="line">    practise3_answer tracked</div><div class="line">  <span class="keyword">Local</span> branches configured <span class="keyword">for</span> <span class="string">'git pull'</span>:</div><div class="line">    master           merges <span class="keyword">with</span> remote master</div><div class="line">    practise2        merges <span class="keyword">with</span> remote practise2</div><div class="line">    practise2_answer merges <span class="keyword">with</span> remote practise2_answer</div><div class="line">  <span class="keyword">Local</span> refs configured <span class="keyword">for</span> <span class="string">'git push'</span>:</div><div class="line">    lesson6          pushes <span class="keyword">to</span> lesson6          (<span class="keyword">local</span> <span class="keyword">out</span> <span class="keyword">of</span> date)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h4><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/git-cheat-sheet.png" alt="git cheat sheet"></p>
+<p>源文件在<a href="http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf" target="_blank" rel="external">这里</a>。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<p><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">http://rogerdudler.github.io/git-guide/index.zh.html</a></p>
+<p><a href="http://stackoverflow.com/questions/348170/undo-git-add-before-commit" target="_blank" rel="external">http://stackoverflow.com/questions/348170/undo-git-add-before-commit</a></p>
+<p><a href="http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit" target="_blank" rel="external">http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit</a></p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/01/21/【译】如何避免程序崩溃-8：基本架构/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/01/19/LLDB常用命令/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
 
 				
 				

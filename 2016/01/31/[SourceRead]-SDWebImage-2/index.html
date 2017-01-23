@@ -380,139 +380,25 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>在我们直接使用的核心函数<code>-sd_setImageWithURL:forState:placeholderImage:options:completed:</code>中，主要起下载作用的方法是位于<code>SDWebImageManager</code>类中 <code>- downloadImageWithURL: options:progress:completed:</code>函数，具体来说，若图片不在cache中，就根据给定的URL来下载图片，否则返回cache中的图片。</p>
-<pre><code>/**
- * Downloads the image at the given URL if not present in cache or return the cached version otherwise.
- *
- * @param url            The URL to the image
- * @param options        A mask to specify options to use for this request
- * @param progressBlock  A block called while image is downloading
- * @param completedBlock A block called when operation has been completed.
- *
- *   This parameter is required.
- * 
- *   This block has no return value and takes the requested UIImage as first parameter.
- *   In case of error the image parameter is nil and the second parameter may contain an NSError.
- *
- *   The third parameter is an `SDImageCacheType` enum indicating if the image was retrieved from the local cache
- *   or from the memory cache or from the network.
- *
- *   The last parameter is set to NO when the SDWebImageProgressiveDownload option is used and the image is 
- *   downloading. This block is thus called repeatedly with a partial image. When image is fully downloaded, the
- *   block is called a last time with the full image and the last parameter set to YES.
- *
- * @return Returns an NSObject conforming to SDWebImageOperation. Should be an instance of SDWebImageDownloaderOperation
- */
-- (id &lt;SDWebImageOperation&gt;)downloadImageWithURL:(NSURL *)url
-                                         options:(SDWebImageOptions)options
-                                        progress:(SDWebImageDownloaderProgressBlock)progressBlock
-                                       completed:(SDWebImageCompletionWithFinishedBlock)completedBlock;
-</code></pre><p>正文走起。</p>
-<h3 id="［1］代码的容错能力"><a href="#［1］代码的容错能力" class="headerlink" title="［1］代码的容错能力"></a>［1］代码的容错能力</h3><pre><code>// 常见的错误是把NSString对象代替NSURL传进来，作为URL。而奇怪的是，Xcode并不会因此给出警告，所以这里给出了容错机制，允许传入NSString。
-if ([url isKindOfClass:NSString.class]) {
-url = [NSURL URLWithString:(NSString *)url];
-}
-
-// 避免类似用NSNull来替代NSURL作为参数传入，导致程序崩溃的问题。
-if (![url isKindOfClass:NSURL.class]) {
-url = nil;
-}
-</code></pre><p>不记得哪个老师说过，说一个function能接受的参数尽可能的“宽”，返回的值要尽可能的“窄”。我理解的是，写对外的代码时，对接收的参数的容错能力（健壮性）要尽可能的强，不要稍有差错就崩溃罢工；而自己代码返回的值要尽可能的精确，如果能返回一个自定义的UITableView，就不要返回UITableView。</p>
-<h3 id="［2］-synchronized"><a href="#［2］-synchronized" class="headerlink" title="［2］@synchronized()"></a>［2］@synchronized()</h3><p>接下来的代码中，这样的小段出现了很多次：</p>
-<pre><code>    @synchronized (self.failedURLs) {
-    isFailedUrl = [self.failedURLs containsObject:url];
-}
-...
-@synchronized (self.runningOperations) {
-    [self.runningOperations removeObject:operation];
-}
-...
-@synchronized (self.failedURLs) {
-    [self.failedURLs addObject:url];
-}
-</code></pre><p>除了第一次是判断集合中是否包含某元素外，其余均是对于集合或数组进行元素添加或者元素删除。那么，<code>@synchronized()</code>这家伙是干嘛的呢？</p>
+		<p>在我们直接使用的核心函数<code>-sd_setImageWithURL:forState:placeholderImage:options:completed:</code>中，主要起下载作用的方法是位于<code>SDWebImageManager</code>类中 <code>- downloadImageWithURL: options:progress:completed:</code>函数，具体来说，若图片不在cache中，就根据给定的URL来下载图片，否则返回cache中的图片。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Downloads <span class="keyword">the</span> image <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">given</span> URL <span class="keyword">if</span> <span class="keyword">not</span> present <span class="keyword">in</span> cache <span class="keyword">or</span> <span class="literal">return</span> <span class="keyword">the</span> cached <span class="built_in">version</span> otherwise.</div><div class="line"> *</div><div class="line"> * @param url            The URL <span class="keyword">to</span> <span class="keyword">the</span> image</div><div class="line"> * @param options        A mask <span class="keyword">to</span> specify options <span class="keyword">to</span> use <span class="keyword">for</span> this request</div><div class="line"> * @param progressBlock  A block called <span class="keyword">while</span> image <span class="keyword">is</span> downloading</div><div class="line"> * @param completedBlock A block called when operation has been completed.</div><div class="line"> *</div><div class="line"> *   This parameter <span class="keyword">is</span> required.</div><div class="line"> *</div><div class="line"> *   This block has no <span class="literal">return</span> value <span class="keyword">and</span> takes <span class="keyword">the</span> requested UIImage <span class="keyword">as</span> <span class="keyword">first</span> parameter.</div><div class="line"> *   In case <span class="keyword">of</span> <span class="keyword">error</span> <span class="keyword">the</span> image parameter <span class="keyword">is</span> nil <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">second</span> parameter may <span class="keyword">contain</span> an NSError.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">third</span> parameter <span class="keyword">is</span> an `SDImageCacheType` enum indicating <span class="keyword">if</span> <span class="keyword">the</span> image was retrieved <span class="keyword">from</span> <span class="keyword">the</span> <span class="keyword">local</span> cache</div><div class="line"> *   <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> memory cache <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> network.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">last</span> parameter <span class="keyword">is</span> <span class="keyword">set</span> <span class="keyword">to</span> NO when <span class="keyword">the</span> SDWebImageProgressiveDownload option <span class="keyword">is</span> used <span class="keyword">and</span> <span class="keyword">the</span> image <span class="keyword">is</span></div><div class="line"> *   downloading. This block <span class="keyword">is</span> thus called repeatedly <span class="keyword">with</span> a partial image. When image <span class="keyword">is</span> fully downloaded, <span class="keyword">the</span></div><div class="line"> *   block <span class="keyword">is</span> called a <span class="keyword">last</span> <span class="built_in">time</span> <span class="keyword">with</span> <span class="keyword">the</span> full image <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">last</span> parameter <span class="keyword">set</span> <span class="keyword">to</span> YES.</div><div class="line"> *</div><div class="line"> * @<span class="literal">return</span> Returns an NSObject conforming <span class="keyword">to</span> SDWebImageOperation. Should be an instance <span class="keyword">of</span> SDWebImageDownloaderOperation</div><div class="line"> */</div><div class="line">- (<span class="built_in">id</span> &lt;SDWebImageOperation&gt;)downloadImageWithURL:(NSURL *)url</div><div class="line">                                         options:(SDWebImageOptions)options</div><div class="line">                                        progress:(SDWebImageDownloaderProgressBlock)progressBlock</div><div class="line">                                       completed:(SDWebImageCompletionWithFinishedBlock)completedBlock;</div></pre></td></tr></table></figure></p>
+<p>正文走起。</p>
+<h3 id="［1］代码的容错能力"><a href="#［1］代码的容错能力" class="headerlink" title="［1］代码的容错能力"></a>［1］代码的容错能力</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常见的错误是把NSString对象代替NSURL传进来，作为URL。而奇怪的是，Xcode并不会因此给出警告，所以这里给出了容错机制，允许传入NSString。</span></div><div class="line"><span class="keyword">if</span> ([url <span class="string">isKindOfClass:</span>NSString.<span class="keyword">class</span>]) &#123;</div><div class="line">url = [NSURL <span class="string">URLWithString:</span>(NSString *)url];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 避免类似用NSNull来替代NSURL作为参数传入，导致程序崩溃的问题。</span></div><div class="line"><span class="keyword">if</span> (![url <span class="string">isKindOfClass:</span>NSURL.<span class="keyword">class</span>]) &#123;</div><div class="line">url = nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不记得哪个老师说过，说一个function能接受的参数尽可能的“宽”，返回的值要尽可能的“窄”。我理解的是，写对外的代码时，对接收的参数的容错能力（健壮性）要尽可能的强，不要稍有差错就崩溃罢工；而自己代码返回的值要尽可能的精确，如果能返回一个自定义的UITableView，就不要返回UITableView。</p>
+<h3 id="［2］-synchronized"><a href="#［2］-synchronized" class="headerlink" title="［2］@synchronized()"></a>［2］@synchronized()</h3><p>接下来的代码中，这样的小段出现了很多次：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.failedURLs) &#123;</div><div class="line">    isFailedUrl = [<span class="keyword">self</span>.failedURLs <span class="symbol">containsObject:</span>url];</div><div class="line">&#125;</div><div class="line">...</div><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.runningOperations) &#123;</div><div class="line">    [<span class="keyword">self</span>.runningOperations <span class="symbol">removeObject:</span>operation];</div><div class="line">&#125;</div><div class="line">...</div><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.failedURLs) &#123;</div><div class="line">    [<span class="keyword">self</span>.failedURLs <span class="symbol">addObject:</span>url];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>除了第一次是判断集合中是否包含某元素外，其余均是对于集合或数组进行元素添加或者元素删除。那么，<code>@synchronized()</code>这家伙是干嘛的呢？</p>
 <p>根据苹果的官方文档：</p>
 <blockquote>
 <p><code>@synchronized()</code>是OC中一种方便地创建互斥锁的方式 —— 它可以防止不同线程在同一时间执行区块中的代码。</p>
 </blockquote>
 <p>也就是说，它主要用在多线程编程中，所以，我们遇到多线程编程时再来深究。这里简单了解即可。</p>
 <h3 id="［3］函数说明"><a href="#［3］函数说明" class="headerlink" title="［3］函数说明"></a>［3］函数说明</h3><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160215-0.png" alt="" title="函数说明"></p>
-<p>看这里的代码：</p>
-<pre><code>// 通过图片的url来获取cache中对应的key。
-NSString *key = [self cacheKeyForURL:url];
-
-// 如果key对应的图片存在于cache中，就通过这个key来获取图片。
-operation.cacheOperation = [self.imageCache queryDiskCacheForKey:key done:^(UIImage *image, SDImageCacheType cacheType){
-...
-}];
-</code></pre><h3 id="［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）"><a href="#［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）" class="headerlink" title="［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）"></a>［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）</h3><p><code>-queryDiskCacheForKey:done:</code>的第二个参数是<code>SDWebImageQueryCompletedBlock</code>，这个block中的第二个参数是<code>SDImageCacheType</code>，这个枚举用来标记图片缓存的类型，如磁盘缓存和内存缓存。</p>
-<pre><code>typedef NS_ENUM(NSInteger, SDImageCacheType) {
-    /**
-     * 图片已从网络下载，但缓存不可用。
-     */
-    SDImageCacheTypeNone,
-    /**
-     * 图片在磁盘缓存中。
-     */
-    SDImageCacheTypeDisk,
-    /**
-     * 图片在内存缓存中。
-     */
-    SDImageCacheTypeMemory
-};
-</code></pre><p>通常一个缓存是由内存缓存和磁盘缓存组成，内存缓存提供容量小但高速的存取功能，磁盘缓存提供大容量但低速的持久化存储。不同类别的缓存有不同的第三方类库支持，<a href="http://blog.ibireme.com/2015/10/26/yycache/" title="http://blog.ibireme.com/2015/10/26/yycache/" target="_blank" rel="external">这里</a>有一篇各种cache类库的性能对比，按需备查。</p>
-<p>我们接着点到<code>SDImageCache.m</code>中去看<code>-queryDiskCacheForKey:done:</code>的实现。</p>
-<pre><code>    - (NSOperation *)queryDiskCacheForKey:(NSString *)key done:(SDWebImageQueryCompletedBlock)doneBlock {
-    if (!doneBlock) {
-        return nil;
-    }
-
-    if (!key) {
-        doneBlock(nil, SDImageCacheTypeNone);
-        return nil;
-    }
-
-    // 基于上述两种缓存的特征，优先在内存缓存中查找图片。
-    UIImage *image = [self imageFromMemoryCacheForKey:key];
-    if (image) {
-        doneBlock(image, SDImageCacheTypeMemory);
-        return nil;
-    }
-
-    NSOperation *operation = [NSOperation new];
-    dispatch_async(self.ioQueue, ^{
-        if (operation.isCancelled) {
-            return;
-        }
-
-        @autoreleasepool {
-            // 在磁盘缓存中查找图片。
-            UIImage *diskImage = [self diskImageForKey:key];
-            if (diskImage &amp;&amp; self.shouldCacheImagesInMemory) {
-                NSUInteger cost = SDCacheCostForImage(diskImage);
-                [self.memCache setObject:diskImage forKey:key cost:cost];
-            }
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                doneBlock(diskImage, SDImageCacheTypeDisk);
-            });
-        }
-    });
-
-    return operation;
-}
-</code></pre><h3 id="［5］-makeObjectsPerformSelector"><a href="#［5］-makeObjectsPerformSelector" class="headerlink" title="［5］-makeObjectsPerformSelector:"></a>［5］<code>-makeObjectsPerformSelector:</code></h3><p>在全局搜索<code>self.runningOperations</code>时，发现了取消全部operation的方法<code>cancelAll</code>。其中的<code>-makeObjectsPerformSelector:</code>引起了我的注意 —— 看起来是个从没见过的高大上的方法诶～（星星眼✨）</p>
-<pre><code>- (void)cancelAll {
-    @synchronized (self.runningOperations) {
-        NSArray *copiedOperations = [self.runningOperations copy];
-        [copiedOperations makeObjectsPerformSelector:@selector(cancel)];
-        [self.runningOperations removeObjectsInArray:copiedOperations];
-    }
-}
-</code></pre><p>点进去一瞧，原来是个平时不太用到的<code>NSArray</code>方法：</p>
-<pre><code>- (void)makeObjectsPerformSelector:(SEL)aSelector NS_SWIFT_UNAVAILABLE(&quot;Use enumerateObjectsUsingBlock: or a for loop instead&quot;);
-- (void)makeObjectsPerformSelector:(SEL)aSelector withObject:(nullable id)argument NS_SWIFT_UNAVAILABLE(&quot;Use enumerateObjectsUsingBlock: or a for loop instead&quot;);
-</code></pre><p>作用是“<a href="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" title="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" target="_blank" rel="external">给array中的每个对象都发送一个给定的selector标识的消息</a>”，从第一个对象开始，一直到最后一个对象。</p>
+<p>看这里的代码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 通过图片的url来获取<span class="keyword">cache</span>中对应的<span class="keyword">key</span>。</div><div class="line">NSString *<span class="keyword">key</span> = [<span class="keyword">self</span> cacheKeyForURL:<span class="keyword">url</span>];</div><div class="line"></div><div class="line">// 如果key对应的图片存在于<span class="keyword">cache</span>中，就通过这个<span class="keyword">key</span>来获取图片。</div><div class="line">operation.cacheOperation = [self.imageCache queryDiskCacheForKey:<span class="keyword">key</span> done:^(UIImage *image, SDImageCacheType cacheType)&#123;</div><div class="line">...</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
+<h3 id="［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）"><a href="#［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）" class="headerlink" title="［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）"></a>［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）</h3><p><code>-queryDiskCacheForKey:done:</code>的第二个参数是<code>SDWebImageQueryCompletedBlock</code>，这个block中的第二个参数是<code>SDImageCacheType</code>，这个枚举用来标记图片缓存的类型，如磁盘缓存和内存缓存。<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">SDImageCacheType</span>) &#123;</div><div class="line">    /**</div><div class="line">     * 图片已从网络下载，但缓存不可用。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeNone</span>,</div><div class="line">    /**</div><div class="line">     * 图片在磁盘缓存中。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeDisk</span>,</div><div class="line">    /**</div><div class="line">     * 图片在内存缓存中。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeMemory</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>通常一个缓存是由内存缓存和磁盘缓存组成，内存缓存提供容量小但高速的存取功能，磁盘缓存提供大容量但低速的持久化存储。不同类别的缓存有不同的第三方类库支持，<a href="http://blog.ibireme.com/2015/10/26/yycache/" title="http://blog.ibireme.com/2015/10/26/yycache/" target="_blank" rel="external">这里</a>有一篇各种cache类库的性能对比，按需备查。</p>
+<p>我们接着点到<code>SDImageCache.m</code>中去看<code>-queryDiskCacheForKey:done:</code>的实现。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">    - (<span class="built_in">NSOperation</span> *)queryDiskCacheForKey:(<span class="built_in">NSString</span> *)key done:(SDWebImageQueryCompletedBlock)doneBlock &#123;</div><div class="line">    <span class="keyword">if</span> (!doneBlock) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!key) &#123;</div><div class="line">        doneBlock(<span class="literal">nil</span>, SDImageCacheTypeNone);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 基于上述两种缓存的特征，优先在内存缓存中查找图片。</span></div><div class="line">    <span class="built_in">UIImage</span> *image = [<span class="keyword">self</span> imageFromMemoryCacheForKey:key];</div><div class="line">    <span class="keyword">if</span> (image) &#123;</div><div class="line">        doneBlock(image, SDImageCacheTypeMemory);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">NSOperation</span> *operation = [<span class="built_in">NSOperation</span> new];</div><div class="line">    <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</div><div class="line">        <span class="keyword">if</span> (operation.isCancelled) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">            <span class="comment">// 在磁盘缓存中查找图片。</span></div><div class="line">            <span class="built_in">UIImage</span> *diskImage = [<span class="keyword">self</span> diskImageForKey:key];</div><div class="line">            <span class="keyword">if</span> (diskImage &amp;&amp; <span class="keyword">self</span>.shouldCacheImagesInMemory) &#123;</div><div class="line">                <span class="built_in">NSUInteger</span> cost = SDCacheCostForImage(diskImage);</div><div class="line">                [<span class="keyword">self</span>.memCache setObject:diskImage forKey:key cost:cost];</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">                doneBlock(diskImage, SDImageCacheTypeDisk);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> operation;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="［5］-makeObjectsPerformSelector"><a href="#［5］-makeObjectsPerformSelector" class="headerlink" title="［5］-makeObjectsPerformSelector:"></a>［5］<code>-makeObjectsPerformSelector:</code></h3><p>在全局搜索<code>self.runningOperations</code>时，发现了取消全部operation的方法<code>cancelAll</code>。其中的<code>-makeObjectsPerformSelector:</code>引起了我的注意 —— 看起来是个从没见过的高大上的方法诶～（星星眼✨）<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)cancelAll &#123;</div><div class="line">    <span class="keyword">@synchronized</span> (<span class="keyword">self</span>.runningOperations) &#123;</div><div class="line">        <span class="built_in">NSArray</span> *copiedOperations = [<span class="keyword">self</span>.runningOperations <span class="keyword">copy</span>];</div><div class="line">        [copiedOperations makeObjectsPerformSelector:<span class="keyword">@selector</span>(cancel)];</div><div class="line">        [<span class="keyword">self</span>.runningOperations removeObjectsInArray:copiedOperations];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>点进去一瞧，原来是个平时不太用到的<code>NSArray</code>方法：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>makeObjectsPerformSelector:<span class="params">(SEL)</span>aSelector NS_SWIFT_UNAVAILABLE<span class="params">(<span class="string">"Use enumerateObjectsUsingBlock: or a for loop instead"</span>)</span>;</div><div class="line">- <span class="params">(void)</span>makeObjectsPerformSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(nullable id)</span>argument NS_SWIFT_UNAVAILABLE<span class="params">(<span class="string">"Use enumerateObjectsUsingBlock: or a for loop instead"</span>)</span>;</div></pre></td></tr></table></figure></p>
+<p>作用是“<a href="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" title="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" target="_blank" rel="external">给array中的每个对象都发送一个给定的selector标识的消息</a>”，从第一个对象开始，一直到最后一个对象。</p>
 <p>在<code>－cancelAll</code>这个方法中，装着正在运行的operation的数组<code>copiedOperations</code>给每一个operation都发送了一个<code>cancel</code>的消息，并且将数组中的全部元素移除。结束战斗。</p>
 <p>再进一步想，<code>NSArray</code>中有这两个方法，<code>NSSet</code>中应该也有这两个方法。都是让子元素批量调用同一方法的作用，不像for循环那样可以区别对待不同元素，这一点需要注意。</p>
 
@@ -637,7 +523,7 @@ operation.cacheOperation = [self.imageCache queryDiskCacheForKey:key done:^(UIIm
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -661,7 +547,7 @@ operation.cacheOperation = [self.imageCache queryDiskCacheForKey:key done:^(UIIm
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

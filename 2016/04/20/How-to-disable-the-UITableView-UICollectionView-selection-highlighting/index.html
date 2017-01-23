@@ -383,28 +383,21 @@
 		<p>Here’s a summary for the UITableView issue <a href="http://stackoverflow.com/a/6305493/1594792" target="_blank" rel="external">here</a> and I added UICollectionView part below in union.</p>
 <hr>
 <p>Depending on your desired logic and/or result, you’ve got nearly 5 different ways to solve it:</p>
-<p>1.To disable the blue highlighting <strong>without changing any other interaction of the (UITableView) cell</strong>:</p>
-<pre><code>[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-</code></pre><p><strong>PS:</strong></p>
+<p>1.To disable the blue highlighting <strong>without changing any other interaction of the (UITableView) cell</strong>:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[cell setSelectionStyle:UITableViewCellSelectionStyleNone]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>PS:</strong></p>
 <p>There’re two points here to mention:</p>
 <ul>
 <li>The <code>tableView:didSelectRowAtIndexPath:</code> delegate is not prevented and you can workaround with “if” statements.</li>
 <li>Since UICollectionView has no <code>selectionStyle:</code> property, you have to handle it with the second way below.</li>
 </ul>
-<p>2.Disable highlighting of UITableView/UICollectionView <strong>without changing any other interaction of the (UITableView) cell</strong></p>
-<pre><code>[tableView setAllowsSelection:NO];
-</code></pre><p>or </p>
-<pre><code>[collectionView setAllowsSelection:NO];
-</code></pre><p>3.To make a cell “read-only”, you can simply do this:</p>
-<pre><code>[cell setUserInteractionEnabled:NO];
-</code></pre><p>4.To make an entire table “read-only”:</p>
-<pre><code>[tableView setUserInteractionEnabled:NO];
-</code></pre><p><strong>Attention:</strong></p>
+<p>2.Disable highlighting of UITableView/UICollectionView <strong>without changing any other interaction of the (UITableView) cell</strong><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[tableView setAllowsSelection:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[collectionView setAllowsSelection:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>3.To make a cell “read-only”, you can simply do this:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[cell setUserInteractionEnabled:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>4.To make an entire table “read-only”:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[tableView setUserInteractionEnabled:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>Attention:</strong></p>
 <p>This way will forbid UITableView scroll normally as a scrollview. So, be careful about it.</p>
-<p>5.To determine on-the-fly whether to highlight a cell (which according to this answer implicitly includes selection), you can implement the following <code>UITableViewDelegate</code> protocol method:</p>
-<pre><code>- (BOOL)tableView:(UITableView *)tableView 
-   shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-</code></pre><p>More info from <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol/index.html#//apple_ref/doc/uid/TP40006942-CH3-SW32" target="_blank" rel="external">iOS Developer Library</a>:</p>
+<p>5.To determine on-the-fly whether to highlight a cell (which according to this answer implicitly includes selection), you can implement the following <code>UITableViewDelegate</code> protocol method:<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>tableView:<span class="params">(UITableView *)</span>tableView</div><div class="line">   shouldHighlightRowAtIndexPath:<span class="params">(NSIndexPath *)</span>indexPath</div></pre></td></tr></table></figure></p>
+<p>More info from <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol/index.html#//apple_ref/doc/uid/TP40006942-CH3-SW32" target="_blank" rel="external">iOS Developer Library</a>:</p>
 <blockquote>
 <p>As touch events arrive, the table view highlights rows in anticipation of the user selecting them. As it processes those touch events, the table view calls this method to ask your delegate if a given cell should be highlighted. Your delegate can implement this method and use it to prevent the highlighting of a row when another row is already selected or when other relevant criteria occur.<br>If you do not implement this method, the default return value is YES.</p>
 </blockquote>
@@ -530,7 +523,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -554,7 +547,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

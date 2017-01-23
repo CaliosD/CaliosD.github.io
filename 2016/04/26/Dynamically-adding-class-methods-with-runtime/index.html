@@ -380,57 +380,17 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>Today I learned how to add dynamic instance methods in class like this.</p>
-<pre><code>+ (BOOL)resolveInstanceMethod:(SEL)sel
-{
-    if ([NSStringFromSelector(sel) isEqualToString:@&quot;sing&quot;]) {
-        class_addMethod(self, sel, (IMP)otherSing, &quot;v@:&quot;);
-        return YES;
-    }
-    return [super resolveInstanceMethod:sel];
-}
-
-void otherSing(id self, SEL cmd)
-{
-    NSLog(@&quot;%@ is singing.&quot;,((People *)self).name);
-}
-</code></pre><p>When I was typing the code myself, I found another similar method: <code>resolveClassMethod:</code>. Maybe I could use it the same way, I thought. So, here’s the first version.</p>
-<pre><code>+ (BOOL)resolveClassMethod:(SEL)sel
-{
-    if ([NSStringFromSelector(sel) isEqualToString:@&quot;dance&quot;]) {
-        class_addMethod(self, sel, (IMP)otherDance, &quot;v@:&quot;);
-        return YES;
-    }
-    return [super resolveClassMethod:sel];
-}
-
-void otherDance(id self, SEL cmd)
-{
-    NSLog(@&quot;Dancing! Let&apos;s rock!&quot;);
-}
-</code></pre><p>Build and run.</p>
+		<p>Today I learned how to add dynamic instance methods in class like this.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"sing"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherSing, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherSing(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is singing."</span>,((People *)<span class="keyword">self</span>).name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>When I was typing the code myself, I found another similar method: <code>resolveClassMethod:</code>. Maybe I could use it the same way, I thought. So, here’s the first version.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Build and run.</p>
 <p>Boom! It crashed sadly, and an unrecognized selector error at runtime was throwed out.</p>
-<p>Why? </p>
+<p>Why?</p>
 <p>Digging like a gopher in the Internet(:P), I found Jeff explained <a href="http://iphonedevelopment.blogspot.jp/2008/08/dynamically-adding-class-objects.html" target="_blank" rel="external">here</a> in detail:</p>
 <blockquote>
 <p>Because that code adds a method to the class object, which means you added an instance method to that class. That’s not what you want. What you want is to add a method to your class’ metaclass object instance, which means going to the runtime to get the Class object that represents the class’ metaclass object (say that five times fast!).</p>
 </blockquote>
-<p>So, replace the code above with below would work well.</p>
-<pre><code>+ (BOOL)resolveClassMethod:(SEL)sel
-{
-    if ([NSStringFromSelector(sel) isEqualToString:@&quot;dance&quot;]) {
-        Class selfMetaClass = objc_getMetaClass([[self className] UTF8String]);
-        class_addMethod(selfMetaClass, sel, (IMP)otherDance, &quot;v@:&quot;);
-        return YES;
-    }
-    return [super resolveClassMethod:sel];
-}
-
-void otherDance(id self, SEL cmd)
-{
-    NSLog(@&quot;Dancing! Let&apos;s rock!&quot;);
-}
-</code></pre><p>Now, people could rock as they wished. :P</p>
+<p>So, replace the code above with below would work well.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        Class selfMetaClass = objc_getMetaClass([[<span class="keyword">self</span> className] UTF8String]);</div><div class="line">        class_addMethod(selfMetaClass, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Now, people could rock as they wished. :P</p>
 <p>Wait, what hell was the …  “”v@:”” ?? Seemed odd.</p>
 <p>Well, let’s have another digging(:P).</p>
 <p>Here it is:</p>
@@ -584,7 +544,7 @@ void otherDance(id self, SEL cmd)
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -608,7 +568,7 @@ void otherDance(id self, SEL cmd)
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

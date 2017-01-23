@@ -382,32 +382,15 @@
 	
 		<p>原文链接：<a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/" title="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/" target="_blank" rel="external">http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/</a></p>
 <hr>
-<p>1.忽略大小写 -i</p>
-<pre><code>语法：grep -i “string” FILE
-</code></pre><p>2.查找完整的单词，而不是子字符串 -w<br>3.展示匹配后的N行</p>
-<pre><code>语法：grep -A &lt;N&gt; “string” FILE
+<p>1.忽略大小写 -i<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">语法：grep -i “<span class="keyword">string</span>” <span class="keyword">FILE</span></div></pre></td></tr></table></figure></p>
+<p>2.查找完整的单词，而不是子字符串 -w<br>3.展示匹配后的N行<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">语法：<span class="keyword">grep</span> -A <span class="symbol">&lt;N&gt;</span> “<span class="built_in">string</span>” FILE</div><div class="line"></div><div class="line">$ <span class="keyword">grep</span> -A <span class="number">3</span> -i “example” demo_text</div></pre></td></tr></table></figure></p>
+<p>4.展示匹配前的N行<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">语法：<span class="keyword">grep</span> -B <span class="symbol">&lt;N&gt;</span> “<span class="built_in">string</span>” FILENAME</div><div class="line"></div><div class="line">$ <span class="keyword">grep</span> -B <span class="number">2</span> “single” demo_text</div></pre></td></tr></table></figure></p>
+<p>5.展示匹配附近的N行<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ grep -C “<span class="keyword">Example</span>” demo_text</div></pre></td></tr></table></figure></p>
+<p>6.高亮显示搜索关键词 GREP_OPTIONS<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">export</span> GREP_OPTIONS=‘--color=<span class="keyword">auto</span>’ GREP_COLOR=‘<span class="number">100</span>;<span class="number">8</span>’</div></pre></td></tr></table></figure></p>
+<p>7.递归搜索所有文件 -r<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>grep -r “remiss” *</div></pre></td></tr></table></figure></p>
+<p>8.计算匹配的数量 -c<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">语法：<span class="keyword">grep</span> -<span class="keyword">c</span> “pattern” filename</div><div class="line"></div><div class="line">$ <span class="keyword">grep</span> -<span class="keyword">c</span> “<span class="keyword">go</span>” demo_text</div><div class="line"><span class="number">3</span></div></pre></td></tr></table></figure></p>
+<p>9.只显示匹配规则的文件名字 -l<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">grep</span> -l <span class="keyword">this</span> demo_*</div><div class="line">demo_file</div><div class="line">demo_file1</div></pre></td></tr></table></figure></p>
 
-$ grep -A 3 -i “example” demo_text
-</code></pre><p>4.展示匹配前的N行</p>
-<pre><code>语法：grep -B &lt;N&gt; “string” FILENAME
-
-$ grep -B 2 “single” demo_text
-</code></pre><p>5.展示匹配附近的N行</p>
-<pre><code>$ grep -C “Example” demo_text
-</code></pre><p>6.高亮显示搜索关键词 GREP_OPTIONS</p>
-<pre><code>$ export GREP_OPTIONS=‘--color=auto’ GREP_COLOR=‘100;8’
-</code></pre><p>7.递归搜索所有文件 -r</p>
-<pre><code>$ grep -r “remiss” *
-</code></pre><p>8.计算匹配的数量 -c</p>
-<pre><code>语法：grep -c “pattern” filename
-
-$ grep -c “go” demo_text
-3
-</code></pre><p>9.只显示匹配规则的文件名字 -l</p>
-<pre><code>$ grep -l this demo_*
-demo_file
-demo_file1
-</code></pre>
 	
 	
 	
@@ -529,7 +512,7 @@ demo_file1
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -553,7 +536,7 @@ demo_file1
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

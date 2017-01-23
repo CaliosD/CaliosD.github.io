@@ -380,59 +380,19 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>1.Check all the changed files: </p>
-<pre><code>$ svn st
-</code></pre><p>2.Check the differences between this version and the last version:</p>
-<pre><code>$ svn diff -r PREV filename
-</code></pre><p>3.Undo add a file before commit:</p>
-<!-- language: bash -->
-<pre><code>$ svn revert --recursive folder_name
-</code></pre><p>4.Undo delete a file before commit:</p>
-<!-- language: bash -->
-<pre><code>$ svn revert . --recursive
-</code></pre><p>5.Delete all locally missing files: <a href="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" title="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" target="_blank" rel="external">solutions</a></p>
-<p>6.Delete a folder from svn repository:</p>
-<!-- language: bash -->
-<pre><code>$ svn delete http://www.yourrepository.com/svn/folder --message &quot;Deleting&quot;
-</code></pre><p>7.Revert to a previous SVN revision of a file:</p>
-<pre><code>$ svn merge -c -854 l3toks.dtx
-</code></pre><p>8.Ignore Pods foler:</p>
-<pre><code>$ svn propset svn:ignore Pods . 
-</code></pre><p>9.SVN remains in conflict status:</p>
-<pre><code>$ svn resolved &lt;filename or directory that gives trouble&gt;
-</code></pre><p>10.View all historical changes to a file in SVN:</p>
-<pre><code>#!/bin/bash
+		<p>1.Check all the changed files:<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">st</span></div></pre></td></tr></table></figure></p>
+<p>2.Check the differences between this version and the last version:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn diff -r PREV filename</div></pre></td></tr></table></figure></p>
+<p>3.Undo add a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert --recursive folder_name</div></pre></td></tr></table></figure></p>
+<p>4.Undo delete a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert . --recursive</div></pre></td></tr></table></figure></p>
+<p>5.Delete all locally missing files: <a href="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" title="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" target="_blank" rel="external">solutions</a></p>
+<p>6.Delete a folder from svn repository:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn delete http://www.yourrepository.com/svn/folder --message "Deleting"</div></pre></td></tr></table></figure></p>
+<p>7.Revert to a previous SVN revision of a file:<br><figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">merge</span> -c -<span class="number">854</span> l3toks.dtx</div></pre></td></tr></table></figure></p>
+<p>8.Ignore Pods foler:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn propset <span class="symbol">svn:</span>ignore Pods .</div></pre></td></tr></table></figure></p>
+<p>9.SVN remains in conflict status:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn resolved &lt;filename <span class="keyword">or</span> directory <span class="keyword">that</span> gives trouble&gt;</div></pre></td></tr></table></figure></p>
+<p>10.View all historical changes to a file in SVN:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># history_of_file</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Outputs the full history of a given file as a sequence of</span></div><div class="line"><span class="comment"># logentry/diff pairs.  The first revision of the file is emitted as</span></div><div class="line"><span class="comment"># full text since there's not previous version to compare it to.</span></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">history_of_file</span></span>() &#123;</div><div class="line">    url=<span class="variable">$1</span> <span class="comment"># current url of file</span></div><div class="line">    svn <span class="built_in">log</span> -q <span class="variable">$url</span> | grep -E <span class="_">-e</span> <span class="string">"^r[[:digit:]]+"</span> -o | cut -c2- | sort -n | &#123;</div><div class="line"></div><div class="line"><span class="comment">#       first revision as full text</span></div><div class="line">        <span class="built_in">echo</span></div><div class="line">        <span class="built_in">read</span> r</div><div class="line">        svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        svn cat -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        <span class="built_in">echo</span></div><div class="line"></div><div class="line"><span class="comment">#       remaining revisions as differences to previous revision</span></div><div class="line">        <span class="keyword">while</span> <span class="built_in">read</span> r</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="built_in">echo</span></div><div class="line">            svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            svn diff -c<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            <span class="built_in">echo</span></div><div class="line">        <span class="keyword">done</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$ history_of_file <span class="variable">$1</span></div></pre></td></tr></table></figure></p>
+<p>11.Add tags for SVN:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># First of all, the `ios/1.0.39219` directory should already exists. If it doesn't, you can create it using `svn mkdir` like below.</span></div><div class="line"><span class="variable">$ </span>svn mkdir <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span> -m <span class="string">"create tag v1.0 for iOS."</span></div><div class="line"><span class="variable">$ </span>svn copy <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/trunk</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/project</span>A <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span>/projectA -m <span class="string">"create v1.0. Before updating all the base url and cas url."</span></div><div class="line"></div><div class="line">Committed revision <span class="number">41000</span>.</div></pre></td></tr></table></figure>
 
-# history_of_file
-#
-# Outputs the full history of a given file as a sequence of
-# logentry/diff pairs.  The first revision of the file is emitted as
-# full text since there&apos;s not previous version to compare it to.
-
-function history_of_file() {
-    url=$1 # current url of file
-    svn log -q $url | grep -E -e &quot;^r[[:digit:]]+&quot; -o | cut -c2- | sort -n | {
-
-#       first revision as full text
-        echo
-        read r
-        svn log -r$r $url@HEAD
-        svn cat -r$r $url@HEAD
-        echo
-
-#       remaining revisions as differences to previous revision
-        while read r
-        do
-            echo
-            svn log -r$r $url@HEAD
-            svn diff -c$r $url@HEAD
-            echo
-        done
-    }
-}
-
-history_of_file $1
-</code></pre>
 	
 	
 	
@@ -554,7 +514,7 @@ history_of_file $1
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -578,7 +538,7 @@ history_of_file $1
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

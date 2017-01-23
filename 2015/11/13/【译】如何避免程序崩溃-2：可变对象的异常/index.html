@@ -389,25 +389,16 @@
 <p>然而：编写远离崩溃的代码就是在于消除疑点。就在于能够将错误的几率最小化，将未来的（由你或其他人带来的）改变引入崩溃的可能性最小化。</p>
 <h4 id="可变集合不应该成为公有接口的一部分"><a href="#可变集合不应该成为公有接口的一部分" class="headerlink" title="可变集合不应该成为公有接口的一部分"></a>可变集合不应该成为公有接口的一部分</h4><p>一个对象拥有一个可变集合作为公有属性，这件事本来就应该尽量避免 —— 或者最好不要发生。可变集合应该被控制在对象内部。</p>
 <p>（更进一步地说，公有的集合应该为只读。当然事实也并非总是如此。）</p>
-<p>现在，它整体上可能是有一个公有集合，在内部又有一个可变的集合。想象一个跟踪operation的对象。它可能公有方法这么写：</p>
-<pre><code>@property (nonatomic, readonly) NSArray *operations;
-</code></pre><p>内部私有方法这么写：</p>
-<pre><code>@property (nonatomic) NSMutableArray *mutableOperations;
-- (NSArray *)operations {
-  return self.mutableOperations;
-}
-</code></pre><p>这是完全合情合理的代码：因为mutableOperations是一个NSMutableArray，它又同时是一个NSArray。（我多年来都这么写。我对自己说：”Hey，我是个过来人了。我能<em>应付的了</em>。“但是我没有意识到的是，成熟的开发者是为了减少出错的可能而写代码。）</p>
+<p>现在，它整体上可能是有一个公有集合，在内部又有一个可变的集合。想象一个跟踪operation的对象。它可能公有方法这么写：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>(nonatomic, readonly) NSArray *<span class="keyword">operations</span>;</div></pre></td></tr></table></figure></p>
+<p>内部私有方法这么写：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSMutableArray</span> *mutableOperations;</div><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>.mutableOperations;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是完全合情合理的代码：因为mutableOperations是一个NSMutableArray，它又同时是一个NSArray。（我多年来都这么写。我对自己说：”Hey，我是个过来人了。我能<em>应付的了</em>。“但是我没有意识到的是，成熟的开发者是为了减少出错的可能而写代码。）</p>
 <h4 id="被指定为不可变的属性应该名副其实"><a href="#被指定为不可变的属性应该名副其实" class="headerlink" title="被指定为不可变的属性应该名副其实"></a>被指定为不可变的属性应该名副其实</h4><p>在上面的例子中，你声明<code>operations</code>是一个在任何时候都可以安全枚举的数组。另一个人 —— 或者就是你自己 —— 在六个月之后看这段代码时，完全不会意识到你正在获取的可变数组，并<em>不能</em>足够安全地进行枚举。</p>
-<p>这就是实现名副其实的解决方案：</p>
-<pre><code>- (NSArray *)operations {
-  return [self.mutableOperations copy];
-}
-</code></pre><p>（如果为了表达得更清晰，把属性声明为copy也不会有影响，但是我承认我不经常这么做。让API的使用者完全清晰地知道正在发生什么应该是有好处的。）</p>
+<p>这就是实现名副其实的解决方案：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> [<span class="keyword">self</span>.mutableOperations <span class="keyword">copy</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>（如果为了表达得更清晰，把属性声明为copy也不会有影响，但是我承认我不经常这么做。让API的使用者完全清晰地知道正在发生什么应该是有好处的。）</p>
 <p>你可能会翻回去引用性能或者内存使用的问题或者二者皆有 —— 而我必须承认：我是一个性能的推崇者，我会在Instruments上花费超乎常理的时间，仅为了能够让代码快速运行、没有不合理的内存消耗。我从来没有发现这么做有任何问题。如果你的应用出现性能或者内存消耗的问题，可能是其他问题导致的，而不是这些copy。（尽管你可以考虑使用<code>@autoreleasepool</code>来让这些copy不留存那么长时间。）</p>
 <p>copy一下吧。</p>
-<h4 id="彩蛋：不要相信他们的谎言"><a href="#彩蛋：不要相信他们的谎言" class="headerlink" title="彩蛋：不要相信他们的谎言"></a>彩蛋：不要相信他们的谎言</h4><p>我最近解决了一个在枚举NSTextStorage layoutManager时可变量的问题：</p>
-<pre><code>@property (readonly, copy) NSArray *layoutManagers;
-</code></pre><p><em>显然</em>枚举是安全的。它是一个NSArray，它声明自己是个copy。漂亮。枚举走起。</p>
+<h4 id="彩蛋：不要相信他们的谎言"><a href="#彩蛋：不要相信他们的谎言" class="headerlink" title="彩蛋：不要相信他们的谎言"></a>彩蛋：不要相信他们的谎言</h4><p>我最近解决了一个在枚举NSTextStorage layoutManager时可变量的问题：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *layoutManagers;</div></pre></td></tr></table></figure></p>
+<p><em>显然</em> 枚举是安全的。它是一个NSArray，它声明自己是个copy。漂亮。枚举走起。</p>
 <p>但是，它骗我。在调试器里，我发现它是一个NSMutableArray（__NSArrayM）—— 而且它根本就不是一个copy。它是NSTextStorage的名为<code>_layoutManagers</code>的实例变量，这个变量被声明为一个NSMutableArray。</p>
 <p>而在我的枚举的block代码里面，触发了layoutManagers的改变，然后应用就崩溃了。</p>
 <p>答案是：对layoutManagers的副本进行枚举。问题就解决了。</p>
@@ -534,7 +525,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -558,7 +549,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

@@ -385,20 +385,16 @@
 <p>通常来说，和KVO与（特别是）绑定相比，我更喜欢NSNotification。我的确有时候用KVO —— 每当这时它都是那最敏感的部分。但是NSNotification像很多比较老的API一样，是很容易使用而不会导致崩溃的。</p>
 <p>但是你还是要小心。</p>
 <h4 id="一种导致崩溃的方式"><a href="#一种导致崩溃的方式" class="headerlink" title="一种导致崩溃的方式"></a>一种导致崩溃的方式</h4><p>当一个对象注册了一个通知，然后没有取消注册就被销毁了，然后应用就会在发送通知的时候崩溃掉。这是你需要避免的。文章余下的部分就来说说该怎么做。</p>
-<h4 id="一条重要规则"><a href="#一条重要规则" class="headerlink" title="一条重要规则"></a>一条重要规则</h4><p>我有一条简单而粗暴有效的规则：<em>只在主线程</em>发送NSNotification。无一例外。如果一些代码运行在另一个线程，而它需要发送一个通知，那它必须在主线程做这件事。</p>
+<h4 id="一条重要规则"><a href="#一条重要规则" class="headerlink" title="一条重要规则"></a>一条重要规则</h4><p>我有一条简单而粗暴有效的规则：<em>只在主线程</em> 发送NSNotification。无一例外。如果一些代码运行在另一个线程，而它需要发送一个通知，那它必须在主线程做这件事。</p>
 <p>这就避免了所有你不希望的线程发来的通知所导致的问题。这样也避免了因为没有取消通知注册而带来的一团乱麻的情形。</p>
 <p>一个应用基本上所有的代码都应在运行在主线程中。NSOperation或者GCD queue中运行的代码应该和其他所有代码分离开，当多个对象协同工作时应该用代理模式（用或者不用block）。</p>
-<p>保证通知总是在主线程被发送应该是<em>小菜一碟</em>。（我会在另一篇《如何避免程序崩溃》系列的文章中详细将线程和队列。）</p>
-<h4 id="批量取消注册"><a href="#批量取消注册" class="headerlink" title="批量取消注册"></a>批量取消注册</h4><p>有些人喜欢在<code>dealloc</code>中做些额外的维护工作，来精确地给每个NSNotification取消注册。你会看到这样的代码：</p>
-<pre><code>[[NSNotificationCenter defaultCenter] removeObserver:self name:kSomeNotificationName object:someObject];
-[[NSNotificationCenter defaultCenter] removeObserver:self name:kSomeOtherNotificationName object:someOtherObject];
-etc...
-</code></pre><p>你可以证明你写的是对的。但是简单扫一眼代码是不够的 —— 随着时间的增长，你不得不仔细思考自己的代码。</p>
+<p>保证通知总是在主线程被发送应该是 <em>小菜一碟</em>。（我会在另一篇《如何避免程序崩溃》系列的文章中详细将线程和队列。）</p>
+<h4 id="批量取消注册"><a href="#批量取消注册" class="headerlink" title="批量取消注册"></a>批量取消注册</h4><p>有些人喜欢在<code>dealloc</code>中做些额外的维护工作，来精确地给每个NSNotification取消注册。你会看到这样的代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[[NSNotificationCenter defaultCenter]</span> <span class="selector-tag">removeObserver</span><span class="selector-pseudo">:self</span> <span class="selector-tag">name</span><span class="selector-pseudo">:kSomeNotificationName</span> <span class="selector-tag">object</span><span class="selector-pseudo">:someObject</span>];</div><div class="line"><span class="selector-attr">[[NSNotificationCenter defaultCenter]</span> <span class="selector-tag">removeObserver</span><span class="selector-pseudo">:self</span> <span class="selector-tag">name</span><span class="selector-pseudo">:kSomeOtherNotificationName</span> <span class="selector-tag">object</span><span class="selector-pseudo">:someOtherObject</span>];</div><div class="line"><span class="selector-tag">etc</span>...</div></pre></td></tr></table></figure></p>
+<p>你可以证明你写的是对的。但是简单扫一眼代码是不够的 —— 随着时间的增长，你不得不仔细思考自己的代码。</p>
 <p>以后，你或者别人可能会添加另一个通知，然后忘了为那个通知调用<code>removeObserver</code>。然后，就崩溃了。</p>
 <p>另一个问题是，未来接手的人可能不得不通读你的代码，仔细核查来确保每个注册的通知都被移除了。这就是痛点：手动工作而又易出错。</p>
-<p>相反，经常这么写：</p>
-<pre><code>[NSNotificationCenter defaultCenter removeObserver:self];
-</code></pre><p>如果是印第安那·琼斯（《夺宝奇兵》的主角），他会这么做。</p>
+<p>相反，经常这么写：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[NSNotificationCenter defaultCenter removeObserver:self]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>如果是印第安那·琼斯（《夺宝奇兵》的主角），他会这么做。</p>
 <h4 id="当心多次注册"><a href="#当心多次注册" class="headerlink" title="当心多次注册"></a>当心多次注册</h4><p>如果一个对象注册了一个通知，然后又注册一遍，通知的处理函数会被调用两次。不会自动合并。</p>
 <p>（这在过去的日子里经常发生在iOS中的viewDidLoad。人们会把注册代码放在那里 —— 但是，别忘了视图可以被卸载和重新加载，这就意味着对于同一个通知的多次注册。）</p>
 <p>你的通知的处理函数应该对于被调用两次做相应处理。也不应该让给定对象注册两次相同的通知成为可能。二者都要注意。</p>
@@ -530,7 +526,7 @@ etc...
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -554,7 +550,7 @@ etc...
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

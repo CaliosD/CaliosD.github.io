@@ -380,32 +380,9 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>Swift version：Here’s the <a href="https://gist.github.com/genedelisa/ebcc33c38a521ff8a719#file-collectionviewscroll" target="_blank" rel="external">gist</a>.</p>
-<pre><code>/**
-    Scroll to make the the given section header visible.
-    The function scrollToItemAtIndexPath will scroll to the item and hide the section header.
-    */
-    func scrollToSection(section:Int)  {
-        if let cv = self.collectionView {
-            let indexPath = NSIndexPath(forItem: 1, inSection: section)
-            if let attributes =  cv.layoutAttributesForSupplementaryElementOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
-
-                let topOfHeader = CGPointMake(0, attributes.frame.origin.y - cv.contentInset.top)
-                cv.setContentOffset(topOfHeader, animated:true)
-            }
-        }
-    }
-</code></pre><p>Objective-C version: Here’s the <a href="https://gist.github.com/CaliosD/a85ce55e57fe939a9dd62f2c4eb675da" target="_blank" rel="external">gist</a>.</p>
-<pre><code>- (void)scrollToSection:(NSInteger)section
-{
-    NSIndexPath *indexpath = [NSIndexPath indexPathForItem:1 inSection:section];
-    if ([_questionCV layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:indexpath]) {
-        UICollectionViewLayoutAttributes *attributes = [_questionCV layoutAttributesForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndexPath:indexpath];
-        CGPoint topOfHeader = CGPointMake(0, attributes.frame.origin.y - _questionCV.contentInset.top);
-        [_questionCV setContentOffset:topOfHeader];
-    }
-}
-</code></pre><hr>
+		<p>Swift version：Here’s the <a href="https://gist.github.com/genedelisa/ebcc33c38a521ff8a719#file-collectionviewscroll" target="_blank" rel="external">gist</a>.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    Scroll to make the the given section header visible.</div><div class="line">    The function scrollToItemAtIndexPath will scroll to the item and hide the section header.</div><div class="line">    */</div><div class="line">    func scrollToSection(<span class="selector-tag">section</span>:Int)  &#123;</div><div class="line">        <span class="keyword">if</span> let cv = self<span class="selector-class">.collectionView</span> &#123;</div><div class="line">            let indexPath = NSIndexPath(forItem: <span class="number">1</span>, inSection: section)</div><div class="line">            <span class="keyword">if</span> let attributes =  cv.layoutAttributesForSupplementaryElementOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) &#123;</div><div class="line"></div><div class="line">                let topOfHeader = CGPointMake(<span class="number">0</span>, attributes<span class="selector-class">.frame</span><span class="selector-class">.origin</span><span class="selector-class">.y</span> - cv<span class="selector-class">.contentInset</span><span class="selector-class">.top</span>)</div><div class="line">                cv.setContentOffset(topOfHeader, animated:true)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Objective-C version: Here’s the <a href="https://gist.github.com/CaliosD/a85ce55e57fe939a9dd62f2c4eb675da" target="_blank" rel="external">gist</a>.<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">scrollToSection:</span>(NSInteger)section</div><div class="line">&#123;</div><div class="line">    NSIndexPath *indexpath = [NSIndexPath <span class="string">indexPathForItem:</span><span class="number">1</span> <span class="string">inSection:</span>section];</div><div class="line">    <span class="keyword">if</span> ([_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath]) &#123;</div><div class="line">        UICollectionViewLayoutAttributes *attributes = [_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath];</div><div class="line">        CGPoint topOfHeader = CGPointMake(<span class="number">0</span>, attributes.frame.origin.y - _questionCV.contentInset.top);</div><div class="line">        [_questionCV <span class="string">setContentOffset:</span>topOfHeader];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
 <p><strong> Ref: </strong></p>
 <ul>
 <li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
@@ -532,7 +509,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -556,7 +533,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

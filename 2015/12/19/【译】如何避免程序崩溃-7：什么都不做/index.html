@@ -397,15 +397,10 @@
 <p>不要相信任何人。</p>
 <h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><p>断言是一种证明假设和需求的不错的方式，也是确保假设为真的有效工具。断言不该在发布版本中运行（详见Xcode设置中的ENABLE_NS_ASSERTIONS）。</p>
 <p>我最喜欢的一个是NSParameterAssert，我几乎专门用它来做不能为空参数的为空检查。</p>
-<p>用起来超级简单：</p>
-<pre><code>- (void)someMethod:(id)someParameter {
-  NSParameterAssert(someParameter);
-  …do whatever…
-}
-</code></pre><p>以后我可能开始使用为空注释<em>和</em>NSParameterAssert。两个都用。（未来我可能会写些Swift的代码，那时候对于nil的处理就是另一回事了。但是那不是我今天谈论的内容，一部分的原因是，我对于Swift还不足以称为专家，不能给出好的建议。）</p>
-<p>我也经常使用NSAssert。NSAssert需要一个表达式和一个评论文字 —— 但我很懒，总把评论置为空。（这种情况下是没问题的。）</p>
-<pre><code>NSAssert(something == somethingElse, nil);
-</code></pre><p>（关于懒惰的一点建议：懒的程序员从不写崩溃的bug，因为他们不想之后再回来修复它们。）</p>
+<p>用起来超级简单：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)someMethod:(<span class="keyword">id</span>)someParameter &#123;</div><div class="line">  <span class="built_in">NSParameterAssert</span>(someParameter);</div><div class="line">  …<span class="keyword">do</span> whatever…</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以后我可能开始使用为空注释<em>和</em>NSParameterAssert。两个都用。（未来我可能会写些Swift的代码，那时候对于nil的处理就是另一回事了。但是那不是我今天谈论的内容，一部分的原因是，我对于Swift还不足以称为专家，不能给出好的建议。）</p>
+<p>我也经常使用NSAssert。NSAssert需要一个表达式和一个评论文字 —— 但我很懒，总把评论置为空。（这种情况下是没问题的。）<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSAssert(<span class="name">something</span> == somethingElse, <span class="literal">nil</span>)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>（关于懒惰的一点建议：懒的程序员从不写崩溃的bug，因为他们不想之后再回来修复它们。）</p>
 <h4 id="我喜欢的崩溃的bug"><a href="#我喜欢的崩溃的bug" class="headerlink" title="我喜欢的崩溃的bug"></a>我喜欢的崩溃的bug</h4><p>几年前，我的app NetNewsWire有一个崩溃日志捕捉者。在启动应用时，它会从磁盘中抓取最新的崩溃日志发送给我。</p>
 <p>随着一些OS X系统的发布（我想是10.5）苹果公司修改了磁盘中崩溃日志的形式。我想它们曾经是每个应用一个日志文件，然后苹果改成了每次崩溃一个日志文件。我不得不写些新的代码来处理新的形式。</p>
 <p>我做了修改。发给了beta版的测试者，他们专门用这个app。几周过去了。一切安好。</p>
@@ -547,7 +542,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -571,7 +566,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

@@ -381,22 +381,8 @@
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
 		<p>前几天翻卖桃君的公众号，温故了一下Vim 8.0的种种我目前也用不上的特性，竟是兴奋了一会儿，接着就开始考虑怎么把本机的Vim升级成8.0了。</p>
-<p>根据SOF上的一个回答，步骤如下：</p>
-<pre><code>$ # Create the directories you need
-$ sudo mkdir -p /opt/local/bin
-$ # Download, compile, and install the latest Vim
-$ cd ~
-$ hg clone https://bitbucket.org/vim-mirror/vim or git clone https://github.com/vim/vim.git
-$ 
-$ cd vim
-$ ./configure --prefix=/opt/local
-$ make
-$ sudo make install
-$ # Add the binary to your path, ahead of /usr/bin
-$ echo &apos;PATH=/opt/local/bin:$PATH&apos; &gt;&gt; ~/.bash_profile
-$ # Reload bash_profile so the changes take effect in this window
-$ source ~/.bash_profile
-</code></pre><p><strong>注意：</strong></p>
+<p>根据SOF上的一个回答，步骤如下：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ # Create the directories you need</div><div class="line">$ sudo <span class="built_in">mkdir</span> -<span class="keyword">p</span> /<span class="keyword">opt</span>/local/bin</div><div class="line">$ # Download, compile, <span class="built_in">and</span> install the latest Vim</div><div class="line">$ <span class="keyword">cd</span> ~</div><div class="line">$ hg clone http<span class="variable">s:</span>//bitbucket.org/<span class="keyword">vim</span>-mirror/<span class="keyword">vim</span> <span class="built_in">or</span> git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/<span class="keyword">vim</span>/<span class="keyword">vim</span>.git</div><div class="line">$</div><div class="line">$ <span class="keyword">cd</span> <span class="keyword">vim</span></div><div class="line">$ ./configure --prefix=/<span class="keyword">opt</span>/local</div><div class="line">$ <span class="keyword">make</span></div><div class="line">$ sudo <span class="keyword">make</span> install</div><div class="line">$ # Add the binary <span class="keyword">to</span> your path, ahead of /usr/bin</div><div class="line">$ <span class="keyword">echo</span> <span class="string">'PATH=/opt/local/bin:$PATH'</span> &gt;&gt; ~/.bash_profile</div><div class="line">$ # Reload bash_profile <span class="keyword">so</span> the <span class="keyword">changes</span> take effect in this window</div><div class="line">$ <span class="keyword">source</span> ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong></p>
 <p><code>/usr/bin</code>路径下的文件，除非有明确的理由，否则不要改动。一旦操作失误，无法回退。所以，谨慎为妙。</p>
 <hr>
 <p><strong>Ref:</strong></p>
@@ -525,7 +511,7 @@ $ source ~/.bash_profile
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -549,7 +535,7 @@ $ source ~/.bash_profile
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

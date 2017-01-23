@@ -387,111 +387,39 @@
 <p>在debug了无数个小时的auto layout的问题后，我发现每次造成问题的都是我自己（或者是你自己！），而问题的解决办法总是相同的：遵从auto layout的文档和规则！</p>
 <p>我会在这里把正确使用auto layout的最佳实践说给你听，这样你就可以免除一些痛苦了。</p>
 <h4 id="UIView的子类应该实现intrinsicContentSize方法"><a href="#UIView的子类应该实现intrinsicContentSize方法" class="headerlink" title="UIView的子类应该实现intrinsicContentSize方法"></a>UIView的子类应该实现intrinsicContentSize方法</h4><p>每个<em>UIView</em>的子类都应该实现<em>intrinsicContentSize</em>，并且返回它认为合适的大小。</p>
-<p>假设我们新建了一个<em>AwesomeView</em>，而且我们知道这个view的默认尺寸是300x20，我们会这么写：</p>
-<pre><code>-(CGSize)intrinsicContentSize {
- return CGSizeMake(300, 20);
-}
-</code></pre><p>如果我们不知道view的宽度，我们会用<em>UIViewNoIntrinsicMetric</em>来代替：</p>
-<pre><code>- (CGSize)intrinsicContentSize {
- return CGSizeMake(UIViewNoIntrinsicMetric, 20);
-}
-</code></pre><p>UIView基类的<em>updateConstraints</em>实现会调用<em>intrinsicContentSize</em>，它会使用返回的尺寸来给<em>AwesomeView</em>添加约束条件。</p>
-<p>根据上面例子中的(300,20)尺寸，会添加下面的约束条件：</p>
-<pre><code>&lt;NSContentSizeLayoutConstraint:0x7fef48d52580 H:[AwesomeView:0x7fef48ead7f0(300)] Hug:250 CompressionResistance:750&gt;,
-&lt;NSContentSizeLayoutConstraint:0x7fef48d4d110 V:[AwesomeView:0x7fef48ead7f0(20)] Hug:250 CompressionResistance:750&gt;
-</code></pre><p>添加的约束条件比较特殊，它们是<em>NSContentSizeLayoutConstraint</em>类型的，这个类是个私有类。这些约束条件的优先级范围是0-1000，“包住限制”（译者注：hug consistance，使其在“内容大小”的基础上不能继续变大）的优先级是250，“撑住限制”（compression resistance，撑住使其在在其“内容大小”的基础上不能继续变小）的优先级是750，使用的常量等于通过<em>intrinsicContentSize</em>返回的值。</p>
-<p>请注意，<em>UIView</em>基类实现<em>updateConstraints</em>只有在它第一次执行的时候才会添加<em>intrinsicContentSize</em>约束。</p>
+<p>假设我们新建了一个<em>AwesomeView</em>，而且我们知道这个view的默认尺寸是300x20，我们会这么写：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(<span class="built_in">CGSize</span>)intrinsicContentSize &#123;</div><div class="line"> <span class="keyword">return</span> <span class="built_in">CGSizeMake</span>(<span class="number">300</span>, <span class="number">20</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果我们不知道view的宽度，我们会用<em>UIViewNoIntrinsicMetric</em>来代替：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CGSize</span>)intrinsicContentSize &#123;</div><div class="line"> <span class="keyword">return</span> <span class="built_in">CGSizeMake</span>(<span class="built_in">UIViewNoIntrinsicMetric</span>, <span class="number">20</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>UIView基类的<em>updateConstraints</em>实现会调用<em>intrinsicContentSize</em>，它会使用返回的尺寸来给<em>AwesomeView</em>添加约束条件。</p>
+<p>根据上面例子中的(300,20)尺寸，会添加下面的约束条件：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="string">NSContentSizeLayoutConstraint:</span><span class="number">0x7fef48d52580</span> <span class="string">H:</span>[<span class="string">AwesomeView:</span><span class="number">0x7fef48ead7f0</span>(<span class="number">300</span>)] <span class="string">Hug:</span><span class="number">250</span> <span class="string">CompressionResistance:</span><span class="number">750</span>&gt;,</div><div class="line">&lt;<span class="string">NSContentSizeLayoutConstraint:</span><span class="number">0x7fef48d4d110</span> <span class="string">V:</span>[<span class="string">AwesomeView:</span><span class="number">0x7fef48ead7f0</span>(<span class="number">20</span>)] <span class="string">Hug:</span><span class="number">250</span> <span class="string">CompressionResistance:</span><span class="number">750</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>添加的约束条件比较特殊，它们是<em>NSContentSizeLayoutConstraint</em>类型的，这个类是个私有类。这些约束条件的优先级范围是0-1000，“包住限制”（译者注：hug consistance，使其在“内容大小”的基础上不能继续变大）的优先级是250，“撑住限制”（compression resistance，撑住使其在在其“内容大小”的基础上不能继续变小）的优先级是750，使用的常量等于通过<em>intrinsicContentSize</em>返回的值。</p>
+<p>请注意，UIView基类实现<strong>updateConstraints</strong>只有在它第一次执行的时候才会添加<em>intrinsicContentSize</em>约束。</p>
 <h4 id="UIView的子类绝不应该给自身的尺寸添加约束"><a href="#UIView的子类绝不应该给自身的尺寸添加约束" class="headerlink" title="UIView的子类绝不应该给自身的尺寸添加约束"></a>UIView的子类绝不应该给自身的尺寸添加约束</h4><p>每个view都会负责给它的superview设置约束，但是view<strong>绝不应该</strong>设置它自己的约束条件，不管是对于自身的约束（比如说<em> NSLayoutAttributeWidth</em>和<em> NSLayoutAttributeHeight</em>），还是相对于superview的约束。</p>
 <p>如果一个view想指定自己的高度或者宽度，它应该通过实现<em> intrinsicContentSize</em>来达到目的。</p>
-<p>这是个糟糕的例子：</p>
-<pre><code>- (instancetype)init
-{
-     self = [super init];
-     if (self) {
-         [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:100]];
-         [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:100]];
-     }
-         return self;
-} 
-</code></pre><p>这个view在通过给自身添加约束来设置自己的宽度和高度，那么如果现在它的superview也在试图指定这些数值会发生什么呢？</p>
-<pre><code>//Some place in the superview
-[awesome addConstraint:[NSLayoutConstraint constraintWithItem:awesome attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:200]];
-[awesome addConstraint:[NSLayoutConstraint constraintWithItem:awesome attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:200]];
-</code></pre><p>嘭！</p>
-<pre><code>Unable to simultaneously satisfy constraints.
-…
-property translatesAutoresizingMaskIntoConstraints) 
-(
- “&lt;NSLayoutConstraint:0x7ff3b16c2ae0 H:[AwesomeView:0x7ff3b16bfa00(100)]&gt;”,
- “&lt;NSLayoutConstraint:0x7ff3b16c2330 H:[AwesomeView:0x7ff3b16bfa00(200)]&gt;”
-)
-Will attempt to recover by breaking constraint 
-&lt;NSLayoutConstraint:0x7ff3b16c2330 H:[AwesomeView:0x7ff3b16bfa00(200)]&gt;
-…
-</code></pre><p><em>AwesomeView</em>添加的宽度/高度是100/100，而它的superview也添加了宽度/高度，但是是200/200，这样autoLayout就不知道该选择哪个约束条件了，因为它们的优先级都一样。</p>
-<p>一种解决办法是这样的，将<em>AwesomeView</em>自身的优先级降低一点。</p>
-<pre><code>[self addConstraint:({
- NSLayoutConstraint *constraint;
- constraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:100];
- constraint.priority = 800;
- constraint;
- })];
-</code></pre><p>这样autoLayout就可以做出选择了，因为它自身添加的优先级比较低，它就可以选择superview添加的约束了。</p>
+<p>这是个糟糕的例子：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">&#123;</div><div class="line">     self = [<span class="keyword">super</span> init];</div><div class="line">     <span class="keyword">if</span> (self) &#123;</div><div class="line">         [self <span class="string">addConstraint:</span>[NSLayoutConstraint <span class="string">constraintWithItem:</span>self <span class="string">attribute:</span>NSLayoutAttributeWidth <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>nil <span class="string">attribute:</span><span class="number">0</span> <span class="string">multiplier:</span><span class="number">0</span> <span class="string">constant:</span><span class="number">100</span>]];</div><div class="line">         [self <span class="string">addConstraint:</span>[NSLayoutConstraint <span class="string">constraintWithItem:</span>self <span class="string">attribute:</span>NSLayoutAttributeHeight <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>nil <span class="string">attribute:</span><span class="number">0</span> <span class="string">multiplier:</span><span class="number">0</span> <span class="string">constant:</span><span class="number">100</span>]];</div><div class="line">     &#125;</div><div class="line">         <span class="keyword">return</span> self;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个view在通过给自身添加约束来设置自己的宽度和高度，那么如果现在它的superview也在试图指定这些数值会发生什么呢？<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Some place in the superview</span></div><div class="line">[awesome <span class="string">addConstraint:</span>[NSLayoutConstraint <span class="string">constraintWithItem:</span>awesome <span class="string">attribute:</span>NSLayoutAttributeWidth <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>nil <span class="string">attribute:</span><span class="number">0</span> <span class="string">multiplier:</span><span class="number">0</span> <span class="string">constant:</span><span class="number">200</span>]];</div><div class="line">[awesome <span class="string">addConstraint:</span>[NSLayoutConstraint <span class="string">constraintWithItem:</span>awesome <span class="string">attribute:</span>NSLayoutAttributeHeight <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>nil <span class="string">attribute:</span><span class="number">0</span> <span class="string">multiplier:</span><span class="number">0</span> <span class="string">constant:</span><span class="number">200</span>]];</div></pre></td></tr></table></figure></p>
+<p>嘭！<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Unable to simultaneously satisfy constraints.</div><div class="line">…</div><div class="line">property translatesAutoresizingMaskIntoConstraints)</div><div class="line">(</div><div class="line"> “&lt;<span class="string">NSLayoutConstraint:</span><span class="number">0x7ff3b16c2ae0</span> <span class="string">H:</span>[<span class="string">AwesomeView:</span><span class="number">0x7ff3b16bfa00</span>(<span class="number">100</span>)]&gt;”,</div><div class="line"> “&lt;<span class="string">NSLayoutConstraint:</span><span class="number">0x7ff3b16c2330</span> <span class="string">H:</span>[<span class="string">AwesomeView:</span><span class="number">0x7ff3b16bfa00</span>(<span class="number">200</span>)]&gt;”</div><div class="line">)</div><div class="line">Will attempt to recover by breaking constraint</div><div class="line">&lt;<span class="string">NSLayoutConstraint:</span><span class="number">0x7ff3b16c2330</span> <span class="string">H:</span>[<span class="string">AwesomeView:</span><span class="number">0x7ff3b16bfa00</span>(<span class="number">200</span>)]&gt;</div><div class="line">…</div></pre></td></tr></table></figure></p>
+<p><code>AwesomeView</code>添加的宽度/高度是100/100，而它的superview也添加了宽度/高度，但是是200/200，这样autoLayout就不知道该选择哪个约束条件了，因为它们的优先级都一样。</p>
+<p>一种解决办法是这样的，将<code>AwesomeView</code>自身的优先级降低一点。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[self <span class="string">addConstraint:</span>(&#123;</div><div class="line"> NSLayoutConstraint *constraint;</div><div class="line"> constraint = [NSLayoutConstraint <span class="string">constraintWithItem:</span>self <span class="string">attribute:</span>NSLayoutAttributeWidth <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>nil <span class="string">attribute:</span><span class="number">0</span> <span class="string">multiplier:</span><span class="number">0</span> <span class="string">constant:</span><span class="number">100</span>];</div><div class="line"> constraint.priority = <span class="number">800</span>;</div><div class="line"> constraint;</div><div class="line"> &#125;)];</div></pre></td></tr></table></figure>
+<p>这样autoLayout就可以做出选择了，因为它自身添加的优先级比较低，它就可以选择superview添加的约束了。</p>
 <p>然而，尽管这样可以解决问题，但正确的方式是通过<em> intrinsicContentSize</em>来指定它的高度。</p>
 <h4 id="UIView的子类绝不应该给它的superview添加约束"><a href="#UIView的子类绝不应该给它的superview添加约束" class="headerlink" title="UIView的子类绝不应该给它的superview添加约束"></a>UIView的子类绝不应该给它的superview添加约束</h4><p>和上面的原因一样，子视图绝不应该给他的父视图添加约束。子视图的位置是由父视图决定的。</p>
-<p>像这么做很糟糕：</p>
-<pre><code>- (void)didMoveToSuperview {
-     [super didMoveToSuperview];
-     [self.superview addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-}
-</code></pre><p><em>太糟糕了</em>，它不能离开相对于它的父视图的位置。所以，当父视图想把Awesome放到另一个位置上会怎么样？是的，就会抛出来另一个<em>Unable to simultaneously satisfy constraints</em>的问题。</p>
-<h4 id="updateConstraints是用来更新约束条件的"><a href="#updateConstraints是用来更新约束条件的" class="headerlink" title="updateConstraints是用来更新约束条件的"></a>updateConstraints是用来更新约束条件的</h4><p>顾名思义，<em>updateConstraints</em>只是被用来更新需要的约束的。一个正确的实现<em> updateConstraints</em>的方式应该长这个样子：</p>
-<pre><code>- (instancetype)init
-{
- … 
- init stuff
- …
- _labelCenterYConstraints = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
- [self addConstraint:_labelCenterYConstraints];
- label.text = @”I Am truly awesome!”;
- …
-}
-- (void)updateConstraints {
-  self.labelCenterYConstraints.constant = self.labelVerticalDisplacement;
-  [super updateConstraints];
-}
-</code></pre><p>然后在需要的地方：</p>
-<pre><code>awesome.labelVerticalDisplacement = 40;
-[awesome setNeedsUpdateConstraints];
-</code></pre><p>调用<em> setNeedsUpdateConstraints</em>会使autoLayout重新计算布局，因此会调用<em> updateConstraints</em>，从而读取新的label状态并更新约束。</p>
-<p>在上面的例子中，你本可以只更新<em> _labelCenterYConstraints</em>这个约束，如果你的视图暴露出约束，或者如果你可以简单获得一个约束，那就直接设置约束的常量好了，不必使用<em>updateConstraints</em>。所以，上面的代码也可以这么实现：</p>
-<pre><code>awesome.labelCenterYConstraints.constant = 40;
-</code></pre><p>一个<strong>非常糟糕</strong>的<em> updateConstraints</em>的实现会长这个样子：</p>
-<pre><code>- (void)updateConstraints {
-  [self removeConstraints:self.constraints];
-  /*
-  create the constraint here
-  */
-  [super updateConstraints]; 
-}
-</code></pre><p>这么做是非常错误的，因为：</p>
+<p>像这么做很糟糕：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)didMoveToSuperview &#123;</div><div class="line">     [<span class="keyword">super</span> didMoveToSuperview];</div><div class="line">     [self.superview <span class="string">addConstraint:</span>[NSLayoutConstraint <span class="string">constraintWithItem:</span>self <span class="string">attribute:</span>NSLayoutAttributeCenterX <span class="string">relatedBy:</span>NSLayoutRelationEqual <span class="string">toItem:</span>self.superview <span class="string">attribute:</span>NSLayoutAttributeCenterX <span class="string">multiplier:</span><span class="number">1</span> <span class="string">constant:</span><span class="number">0</span>]];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>太糟糕了</em>，它不能离开相对于它的父视图的位置。所以，当父视图想把Awesome放到另一个位置上会怎么样？是的，就会抛出来另一个<em>Unable to simultaneously satisfy constraints</em>的问题。</p>
+<h4 id="updateConstraints是用来更新约束条件的"><a href="#updateConstraints是用来更新约束条件的" class="headerlink" title="updateConstraints是用来更新约束条件的"></a>updateConstraints是用来更新约束条件的</h4><p>顾名思义，<code>updateConstraints</code>只是被用来更新需要的约束的。一个正确的实现<code>updateConstraints</code>的方式应该长这个样子：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)init</div><div class="line">&#123;</div><div class="line"> …</div><div class="line"> init stuff</div><div class="line"> …</div><div class="line"> _labelCenterYConstraints = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:label attribute:<span class="built_in">NSLayoutAttributeCenterY</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span> attribute:<span class="built_in">NSLayoutAttributeCenterY</span> multiplier:<span class="number">1</span> constant:<span class="number">0</span>];</div><div class="line"> [<span class="keyword">self</span> addConstraint:_labelCenterYConstraints];</div><div class="line"> label.text = @”I Am truly awesome!”;</div><div class="line"> …</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)updateConstraints &#123;</div><div class="line">  <span class="keyword">self</span>.labelCenterYConstraints.constant = <span class="keyword">self</span>.labelVerticalDisplacement;</div><div class="line">  [<span class="keyword">super</span> updateConstraints];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后在需要的地方：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">awesome.labelVerticalDisplacement = <span class="number">40</span><span class="comment">;</span></div><div class="line">[awesome setNeedsUpdateConstraints]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>调用<code>setNeedsUpdateConstraints</code>会使autoLayout重新计算布局，因此会调用<em> updateConstraints</em>，从而读取新的label状态并更新约束。</p>
+<p>在上面的例子中，你本可以只更新<em> _labelCenterYConstraints</em>这个约束，如果你的视图暴露出约束，或者如果你可以简单获得一个约束，那就直接设置约束的常量好了，不必使用<em>updateConstraints</em>。所以，上面的代码也可以这么实现：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awesome.labelCenterYConstraints.constant = <span class="number">40</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>一个<strong>非常糟糕</strong>的<em> updateConstraints</em>的实现会长这个样子：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)updateConstraints &#123;</div><div class="line">  [<span class="keyword">self</span> removeConstraints:<span class="keyword">self</span>.constraints];</div><div class="line">  <span class="comment">/*</span></div><div class="line">  create the constraint here</div><div class="line">  */</div><div class="line">  [<span class="keyword">super</span> updateConstraints];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这么做是非常错误的，因为：</p>
 <ul>
 <li>系统调用<em> updateConstraints</em>很多次，因此移除或者重新创建可能会校验约束的合理性。</li>
-<li><em><code>[self removeConstraints:self.constraints]</code>; </em>会移除包括xib或storyboard创建的所有约束条件，你该怎么重新创建这些约束？（赶紧说你不能！）</li>
-<li>上面的<em>updateConstraints</em>实现会覆盖掉<em>intrinsicContentSize</em>的效果，因为你在调用<em><code>[super updateConstraints];</code></em>后移除了系统添加的约束条件。</li>
-<li><em>updateConstraints</em>应该被用来创建约束条件一次，然后仅仅移除掉失效的约束。它绝不该是一个移除所有约束再把每个传过来的布局添加上的地方。（感谢Alexis提供以下补充。）</li>
+<li><code>[self removeConstraints:self.constraints]</code>; 会移除包括xib或storyboard创建的所有约束条件，你该怎么重新创建这些约束？（赶紧说你不能！）</li>
+<li>上面的<em>updateConstraints</em>实现会覆盖掉<em>intrinsicContentSize</em>的效果，因为你在调用<code>[super updateConstraints];</code>后移除了系统添加的约束条件。</li>
+<li><code>updateConstraints</code>应该被用来创建约束条件一次，然后仅仅移除掉失效的约束。它绝不该是一个移除所有约束再把每个传过来的布局添加上的地方。（感谢Alexis提供以下补充。）</li>
 </ul>
-<p>正确的实现方式是这样：</p>
-<pre><code>- (void)updateConstraints {
-  if (!didSetConstraints) {
- didSetConstraints = YES;
-  //create the constraint here
-  }
-
-  //Update the constraints if needed
-  [super updateConstraints];
-}
-</code></pre><p>在上面的代码中，创建约束的动作只会执行一次，然后在接下来的<em>updateConstraints</em>调用中，只会对这些已创建的约束的常量进行修改。</p>
+<p>正确的实现方式是这样：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)updateConstraints &#123;</div><div class="line">  <span class="keyword">if</span> (!didSetConstraints) &#123;</div><div class="line"> didSetConstraints = <span class="literal">YES</span>;</div><div class="line">  <span class="comment">//create the constraint here</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//Update the constraints if needed</span></div><div class="line">  [<span class="keyword">super</span> updateConstraints];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在上面的代码中，创建约束的动作只会执行一次，然后在接下来的<em>updateConstraints</em>调用中，只会对这些已创建的约束的常量进行修改。</p>
 <p>我一直在追寻真理！所以如果你有很多更好的实践经验，请在twitter上和我分享。</p>
 
 	
@@ -615,7 +543,7 @@ Will attempt to recover by breaking constraint
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -639,7 +567,7 @@ Will attempt to recover by breaking constraint
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

@@ -388,30 +388,14 @@
 <p>不能。当和KVO打交道时你应该谨记以下规则：</p>
 <p><u>每当创建一个观察者（observer）的时候，你就要负责移除这个观察者。观察者是通过它的上下文（context）来标记唯一性的——因此，上下文必须是唯一的。当接收通知时（以及在苹果的Lion系统中，移除观察者时），你应该检查的是 <strong>上下文</strong> ，而不是path。</u></p>
 <p>处理被观察对象的最佳方法是，在被观察对象的<code>setter</code>方法中移除和创建KVO事件。</p>
-<p>```<br>static int fooObservanceContext;</p>
-<ul>
-<li><p>(void)setFoo:(Foo *)foo<br>{<br>  [_foo removeObserver:self forKeyPath:@”bar” context:&amp;fooObservanceContext];</p>
-<p>  _foo = foo; // or whatever ownership handling is needed.</p>
-<p>  [foo addObserver:self forKeyPath:@”bar” options:0 context:&amp;fooObservanceContext];<br>}</p>
-</li>
-<li><p>(void)observeValueForKeyPath:(NSString <em>)keyPath ofObject:(id)object change:(NSDictionary </em>)change context:(void *)context<br>{<br>  if (context == &amp;fooObservanceContext) {</p>
-<pre><code>// handle change
-</code></pre><p>  } else {</p>
-<pre><code>// not my observer callback
-[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-</code></pre><p>  }<br>}</p>
-</li>
-<li><p>(void)dealloc<br>{<br>  self.foo = nil; // removes observer<br>}<br>```<br>当使用KVO时，你必须确保观察者和被观察者这两个对象的生命周期，和正在执行的KVO事件的生命周期一样长。</p>
-</li>
-</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> fooObservanceContext;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)<span class="string">setFoo:</span>(Foo \*)foo</div><div class="line">&#123;</div><div class="line">	[_foo <span class="string">removeObserver:</span>self <span class="string">forKeyPath:</span>@<span class="string">"bar"</span> <span class="string">context:</span>&amp;fooObservanceContext];</div><div class="line"></div><div class="line">	_foo = foo; <span class="comment">// or whatever ownership handling is needed.</span></div><div class="line"></div><div class="line">	[foo <span class="string">addObserver:</span>self <span class="string">forKeyPath:</span>@<span class="string">"bar"</span> <span class="string">options:</span><span class="number">0</span> <span class="string">context:</span>&amp;fooObservanceContext];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)<span class="string">observeValueForKeyPath:</span>(NSString *)keyPath <span class="string">ofObject:</span>(id)object <span class="string">change:</span>(NSDictionary *)change <span class="string">context:</span>(<span class="keyword">void</span> \*)context</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (context == &amp;fooObservanceContext) &#123;</div><div class="line">	    <span class="comment">// handle change</span></div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">	    <span class="comment">// not my observer callback</span></div><div class="line">	    [<span class="keyword">super</span> <span class="string">observeValueForKeyPath:</span>keyPath <span class="string">ofObject:</span>object <span class="string">change:</span>change <span class="string">context:</span>context];</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">	self.foo = nil; <span class="comment">// removes observer</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当使用KVO时，你必须确保观察者和被观察者这两个对象的生命周期，和正在执行的KVO事件的生命周期一样长。</p>
 <p>当添加一个KVO事件时，你需要衡量是否正确移除了同一个KVO事件。不要凭空假设，你是KVO的唯一使用者。框架中的类可能会根据它们自己的需求来使用KVO，所以需要在回调时检查上下文。</p>
 <p>最后，我想指出的是：被观察的属性必须是支持KVO的。<a href="http://stackoverflow.com/questions/4874288/use-key-value-observing-to-get-a-kvo-callback-on-a-uiviews-frame/19701380#19701380" target="_blank" rel="external">你不可能观察任何属性</a>。</p>
 <hr>
 <h4 id="Rayfleck的回答"><a href="#Rayfleck的回答" class="headerlink" title="Rayfleck的回答:"></a><a href="http://stackoverflow.com/users/165050/rayfleck" target="_blank" rel="external">Rayfleck</a>的回答:</h4><p><code>NSKeyValueObserving</code> 协议中有部分是这样的：</p>
-<p>```</p>
-<ul>
-<li>(void *)observationInfo<br>```<br>它会列出观察者。但只有在debug的时候有用。<br>可以在控制台输入：<code>po [observedObject observationInfo]</code>，就可以得到一个漂亮的观察者和key path的概览。</li>
-</ul>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="literal">void</span> <span class="string">\*)observationInfo</span></div></pre></td></tr></table></figure>
+<p>它会列出观察者。但只有在debug的时候有用。<br>可以在控制台输入：<code>po [observedObject observationInfo]</code>，就可以得到一个漂亮的观察者和key path的概览。</p>
 
 	
 	
@@ -534,7 +518,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -558,7 +542,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>

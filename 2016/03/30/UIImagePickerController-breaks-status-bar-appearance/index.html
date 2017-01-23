@@ -383,17 +383,11 @@
 		<p>As Rich86man mentioned <a href="http://stackoverflow.com/a/18883563/1594792" target="_blank" rel="external">here</a>, the following is a possible solution.</p>
 <blockquote>
 <p>In the view controller who calls the image picker, set yourself as the delegate of the image Picker. (You’re probably already doing this)<br>     UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];<br>     imagePicker.delegate = self;</p>
-<p>Since UIImagePickerController is a type of Navigation controller, you’re also setting yourself as the UINavigationController delegate. Then :</p>
-<pre><code>- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-}
-</code></pre><p>Replace UIStatusBarStyleLightContent with whatever style you are looking for.</p>
+<p>Since UIImagePickerController is a type of Navigation controller, you’re also setting yourself as the UINavigationController delegate. Then :<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; 	<span class="selector-tag">-</span> (void)<span class="selector-tag">navigationController</span><span class="selector-pseudo">:(UINavigationController</span> *)<span class="selector-tag">navigationController</span> <span class="selector-tag">willShowViewController</span><span class="selector-pseudo">:(UIViewController</span> *)<span class="selector-tag">viewController</span> <span class="selector-tag">animated</span><span class="selector-pseudo">:(BOOL)animated</span></div><div class="line">&gt; 	&#123;</div><div class="line">&gt; 	      <span class="selector-attr">[[UIApplication sharedApplication]</span> <span class="selector-tag">setStatusBarStyle</span><span class="selector-pseudo">:UIStatusBarStyleLightContent</span>];</div><div class="line">&gt; 	&#125;</div></pre></td></tr></table></figure></p>
+<p>Replace UIStatusBarStyleLightContent with whatever style you are looking for.</p>
 </blockquote>
-<p>However, in my case, I found it would be fine just adding a line of code(only add as you need) in <code>- viewWillAppear:</code> function.</p>
-<pre><code>[[UIApplication sharedApplication] setStatusBarHidden:NO];
-[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-</code></pre><p>Each time UIImagePickerController dismissed, <code>- viewWillAppear:</code> would be called and set status bar right.</p>
+<p>However, in my case, I found it would be fine just adding a line of code(only add as you need) in <code>- viewWillAppear:</code> function.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[[UIApplication sharedApplication]</span> <span class="selector-tag">setStatusBarHidden</span><span class="selector-pseudo">:NO</span>];</div><div class="line"><span class="selector-attr">[[UIApplication sharedApplication]</span> <span class="selector-tag">setStatusBarStyle</span><span class="selector-pseudo">:UIStatusBarStyleLightContent</span> <span class="selector-tag">animated</span><span class="selector-pseudo">:YES</span>];</div></pre></td></tr></table></figure></p>
+<p>Each time UIImagePickerController dismissed, <code>- viewWillAppear:</code> would be called and set status bar right.</p>
 
 	
 	
@@ -516,7 +510,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
         </ul>
     </li>
 
@@ -540,7 +534,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">82</span>
+             <span class="sidebar-badge">83</span>
         </a>
     </li>
 </ul>
