@@ -4,6 +4,54 @@
   
     
     <entry>
+      <title><![CDATA[__attribute__小结]]></title>
+      <url>http://www.calios.gq/2017/02/20/attribute-%E5%B0%8F%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h3 id="1-attribute-是什么？"><a href="#1-attribute-是什么？" class="headerlink" title="1.__attribute__是什么？"></a>1.<code>__attribute__</code>是什么？</h3><p><code>__attribute__</code>是Clang提供的、用来在C，C++和Objective-C中修饰代码定义的 <strong>编译指令</strong>。它为声明的代码提供了额外的属性，来帮助编译器优化或者为代码的使用者显示有用的警告信息。</p>
+<h3 id="2-attribute-有什么用？"><a href="#2-attribute-有什么用？" class="headerlink" title="2.__attribute__有什么用？"></a>2.<code>__attribute__</code>有什么用？</h3><p><code>__attribute__</code>命令提供代码运行需要的上下文。提供上下文的重要性怎么强调都不过分。通过详细地给出API如何命令编译器的定义，开发者可以获得显而易见的益处。同样是一束鲜花，是要在情人节送给女朋友还是要用来探望术后的病人，效果是完全不同的。而<code>__attribute__</code>的作用就好像鲜花上附加的一张卡片，上面写的是“送给最爱的某某”还是“愿某某早日康复”是完全由你来决定的。</p>
+<p>正如Mattt在<a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">这里</a>指出的：</p>
+<blockquote>
+<p>当涉及到编译器优化时，上下文就是王道。通过约束你的代码的解释方式，你可以让生成的代码尽可能的高效。不只是为了编译器。下一个看代码的人也会感激（你所提供的）额外的上下文信息。</p>
+</blockquote>
+<h3 id="3-attribute-怎么用？"><a href="#3-attribute-怎么用？" class="headerlink" title="3.__attribute__怎么用？"></a>3.<code>__attribute__</code>怎么用？</h3><p>它的语法是这样的：<code>__attribute__((interrupt(“TYPE&quot;)))</code>。</p>
+<p>每当你有机会来给代码定义（变量，参数，函数，方法，类等等）提供额外的上下文信息时，你都应该使用<code>__attribute__</code>。但除非你知道自己在干什么，否则，不要滥用。因为提供一个错误的上下文比没有提供上下文更糟糕。</p>
+<h3 id="4-attribute-使用举例？"><a href="#4-attribute-使用举例？" class="headerlink" title="4.__attribute__使用举例？"></a>4.<code>__attribute__</code>使用举例？</h3><p><strong>声明一个API在某平台的可用性：<strong>attribute</strong>((availability(…)))：如 NS_AVAILABLE 和 NS_DEPRECATED</strong></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_AVAILABLE(<span class="name">_mac</span>, _ios) CF_AVAILABLE(<span class="name">_mac</span>, _ios)</div><div class="line">#define CF_AVAILABLE(<span class="name">_mac</span>, _ios) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_mac)))</div></pre></td></tr></table></figure>
+<p>在<code>Foundation</code>库的<code>NSString.h</code>中的使用：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>containsString:<span class="params">(NSString *)</span>str NS_AVAILABLE<span class="params">(<span class="number">10</span>_10, <span class="number">8</span>_0)</span>;</div></pre></td></tr></table></figure></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, __VA_ARGS__)</div><div class="line">#define CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_macIntro,deprecated=_macDep,message=<span class="string">""</span> __VA_ARGS__)))</div></pre></td></tr></table></figure>
+<p>同样在<code>Foundation</code>库的<code>NSString.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path <span class="built_in">NS_DEPRECATED</span>(<span class="number">10</span>_0, <span class="number">10</span>_4, <span class="number">2</span>_0, <span class="number">2</span>_0);（用带有encoding/usedEncoding和error参数的方法替代）</div></pre></td></tr></table></figure></p>
+<p><strong>声明一个函数中包含带有指定格式参数的格式化字符串：<strong>attribute</strong>((format(…)))：NS_FORMAT_FUNCTION</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjCRuntime.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FOUNDATION_EXPORT <span class="keyword">void</span> <span class="built_in">NSLog</span>(<span class="built_in">NSString</span> *format, ...) <span class="built_in">NS_FORMAT_FUNCTION</span>(<span class="number">1</span>,<span class="number">2</span>) <span class="built_in">NS_NO_TAIL_CALL</span>;</div><div class="line"><span class="meta">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))</span></div></pre></td></tr></table></figure></p>
+<p>语法说明：<code>__attribute__((format(format_type, format_string_index, first_format_argument_index)))
+format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
+<p><strong>声明被修饰的函数必须在重写的时候调用super的方法：<strong>attribute</strong>((objc_requires_super))：NS_REQUIRES_SUPER</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjcRuntime.h</code>中：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NS_REQUIRES_SUPER    <span class="comment">// 防止头文件的重复包含和编译。</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> __has_attribute(objc_requires_super)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NS_REQUIRES_SUPER __attribute__((objc_requires_super))</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NS_REQUIRES_SUPER</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure></p>
+<p>比如在自定义的<code>@interface Student: NSObject</code>中声明了:<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="name">void</span>)foo NS_REQUIRES_SUPER<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>那么在<code>@interface CollegeStudent: Student</code>的实现文件中，像这样写一个空的<code>-foo</code>函数是会报出警告的：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)foo <span class="comment">&#123;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">warning: <span class="function"><span class="keyword">Method</span> <span class="title">possibly</span> <span class="title">missing</span> <span class="title">a</span> [<span class="title">super</span> <span class="title">foo</span>] <span class="title">call</span></span></div></pre></td></tr></table></figure></p>
+<p><strong>其他更多的attribute使用：</strong></p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/Attributes%20in%20Clang%20%E2%80%94%20Clang%203.8%20documentation.png" alt="Attributes in Clange"></p>
+<h3 id="5-小结"><a href="#5-小结" class="headerlink" title="5.小结"></a>5.小结</h3><p>总而言之，当你想给自己写的类、方法、参数添加一些限制条件的时候，<code>__attribute__</code>可以为你提供一种可行的解决方案。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://blog.twitter.com/2014/attribute-directives-in-objective-c" target="_blank" rel="external">https://blog.twitter.com/2014/attribute-directives-in-objective-c</a></li>
+<li><a href="http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html" target="_blank" rel="external">http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html</a></li>
+<li><a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">http://nshipster.com/__attribute__/</a></li>
+<li><a href="http://blog.sunnyxx.com/2016/05/14/clang-attributes/" target="_blank" rel="external">http://blog.sunnyxx.com/2016/05/14/clang-attributes/</a></li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Clang </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Some barriers when using TesseractOCR]]></title>
       <url>http://www.calios.gq/2017/01/11/Some-barriers-when-using-TesseractOCR/</url>
       <content type="html"><![CDATA[<p>1.Install TesseractOCR with CocoaPods.</p>
@@ -26,6 +74,16 @@
 <li><a href="https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios" target="_blank" rel="external">https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> TesseractOCR </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -69,6 +127,18 @@
 <li><a href="https://forums.developer.apple.com/thread/10239" target="_blank" rel="external">https://forums.developer.apple.com/thread/10239</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Download </tag>
+            
+            <tag> NSURLSession </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -80,6 +150,16 @@
 <p>4.在<code>CDDownloadManager.m</code>，或是其他创建了<code>NSURLSession</code>实例的类中，实现如下方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)URLSessionDidFinishEventsForBackgroundURLSession:(<span class="built_in">NSURLSession</span> *)session</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, __FUNCTION__);</div><div class="line"></div><div class="line">    [<span class="keyword">self</span>.session getTasksWithCompletionHandler:^(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionDataTask</span> *&gt; * _Nonnull dataTasks, <span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionUploadTask</span> *&gt; * _Nonnull uploadTasks, <span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionDownloadTask</span> *&gt; * _Nonnull downloadTasks) &#123;</div><div class="line">        <span class="keyword">if</span> (downloadTasks.count == <span class="number">0</span>) &#123;</div><div class="line">            <span class="comment">// A.</span></div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.savedCompletionHandler != <span class="literal">nil</span>) &#123;</div><div class="line">                <span class="keyword">void</span>(^completionHandler)() = <span class="keyword">self</span>.savedCompletionHandler;</div><div class="line"></div><div class="line">                <span class="keyword">self</span>.savedCompletionHandler = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">                <span class="comment">// B.</span></div><div class="line">                [[<span class="built_in">NSOperationQueue</span> mainQueue] addOperationWithBlock:^&#123;</div><div class="line">                    completionHandler();</div><div class="line">                    <span class="comment">// C.</span></div><div class="line">                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];</div><div class="line">                    content.title = <span class="string">@"Calios said:"</span>;</div><div class="line">                    content.body = <span class="string">@"Hi, what about enjoy Swift in 2017?"</span>;</div><div class="line">                    content.sound = [UNNotificationSound defaultSound];</div><div class="line">                    content.badge = @([[<span class="built_in">UIApplication</span> sharedApplication] applicationIconBadgeNumber] + <span class="number">1</span>);</div><div class="line"></div><div class="line">                    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:<span class="number">5.</span>f repeats:<span class="literal">NO</span>];</div><div class="line">                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:<span class="string">@"FiveSecond"</span> content:content trigger:trigger];</div><div class="line"></div><div class="line">                    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];</div><div class="line">                    [center addNotificationRequest:request withCompletionHandler:^(<span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">                        <span class="keyword">if</span> (!error) &#123;</div><div class="line">                            <span class="built_in">NSLog</span>(<span class="string">@"add notification request succeed!"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;];</div><div class="line">                &#125;];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>对应上段代码的几点说明：<br>A. 这里的<code>self.savedCompletionHandler</code>就是上面在<code>AppDelegate.m</code>中被赋值的家伙。<br>B. 由于提供的completion handler是<code>UIKIt</code>的一部分，所以一定要在主线程中调用。<br>C. 这里的操作是在所有下载完成后弹出一个本地通知，并在console显示一行log。可以根据需求自行更改。<strong>注：</strong>iOS 10之后，本地通知和远程通知相关的接口都移到了<code>UserNotification</code>中，API也有很多变化，这里不再赘述，更多详情可参见喵神的<a href="https://onevcat.com/2016/08/notification/" target="_blank" rel="external">这篇博客</a>。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Background </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -102,6 +182,16 @@
 <li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Block </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -112,6 +202,16 @@
 <p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
 <p>—— Calios<br>2017.01.10</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> 2017 </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -161,6 +261,16 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li><a href="http://stackoverflow.com/a/29937730/1594792" target="_blank" rel="external">http://stackoverflow.com/a/29937730/1594792</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -176,6 +286,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li><a href="http://stackoverflow.com/a/7211910/1594792" target="_blank" rel="external">http://stackoverflow.com/a/7211910/1594792</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Terminal </tag>
+            
+            <tag> Vim </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -213,6 +335,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li><a href="http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/" target="_blank" rel="external">http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Xcode </tag>
+            
+            <tag> 译言 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -366,6 +500,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li>时间允许的条件下，同类型bug可以设置关联bug，方便开发人员统一修复。</li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -384,6 +530,16 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <p>11.Add tags for SVN:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># First of all, the `ios/1.0.39219` directory should already exists. If it doesn't, you can create it using `svn mkdir` like below.</span></div><div class="line"><span class="variable">$ </span>svn mkdir <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span> -m <span class="string">"create tag v1.0 for iOS."</span></div><div class="line"><span class="variable">$ </span>svn copy <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/trunk</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/project</span>A <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span>/projectA -m <span class="string">"create v1.0. Before updating all the base url and cas url."</span></div><div class="line"></div><div class="line">Committed revision <span class="number">41000</span>.</div></pre></td></tr></table></figure>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Terminal </tag>
+            
+            <tag> SVN </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -397,6 +553,16 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 </blockquote>
 <p>It does work in two of my projects and the warnings and errors are silent again. LOL.</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Xcode </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -428,6 +594,16 @@ end
 <p>Here’s <a href="http://stackoverflow.com/a/24005242/1594792" target="_blank" rel="external">step by step integration for Xcode between Objc and Swift in project</a>.</p>
 <p>However, I failed to use OC framework in Swift-based project with Cocoapods and still couldn’t tell why. I’ll add it later if I make it.</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -459,6 +635,16 @@ end
 <li><a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/GestureRecognizer_basics/GestureRecognizer_basics.html#//apple_ref/doc/uid/TP40009541-CH2-SW2" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/GestureRecognizer_basics/GestureRecognizer_basics.html#//apple_ref/doc/uid/TP40009541-CH2-SW2</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -478,6 +664,18 @@ end
 <p>我相信思维这种东西，没有那么多天生的快与慢。快者，如福尔摩斯，也无非是以他自己的方式建造了一座记忆宫殿，而他知晓通往宫殿每个角落的最短路径。慢者，如我等，还需要刻意训练自己的思维能力，让大脑中的灰质细胞不断增加，让神经元更容易地将灰质细胞连接起来，让我们可以更加“融会贯通”。</p>
 <h3 id="3-要经常总结，落到文字和图片上。"><a href="#3-要经常总结，落到文字和图片上。" class="headerlink" title="3.要经常总结，落到文字和图片上。"></a>3.要经常总结，落到文字和图片上。</h3><p>这个不用多说了。这也是我写这个博客的初衷之一吧。:)</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -500,6 +698,18 @@ end
 <h3 id="Set-hight-of-UITextView-CGFLOAT-MAX"><a href="#Set-hight-of-UITextView-CGFLOAT-MAX" class="headerlink" title="Set hight of UITextView CGFLOAT_MAX"></a>Set hight of UITextView <code>CGFLOAT_MAX</code></h3><p>In any case, this is more than enough to allow the UITextView to scroll and accommodate long passages of text.</p>
 <h3 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a><code>NSRange</code></h3><p>来自Mattt的一篇：<a href="http://nshipster.com/nsrange/" target="_blank" rel="external">http://nshipster.com/nsrange/</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+            <tag> TextKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -559,6 +769,16 @@ end
 <li>开源中国iOS版本源码：<a href="http://git.oschina.net/oschina/iphone-app/tree/master" target="_blank" rel="external">http://git.oschina.net/oschina/iphone-app/tree/master</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> RichText </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -569,6 +789,16 @@ end
 <p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
 <p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -582,6 +812,14 @@ end
 </blockquote>
 <p>So, I have to @synthesize the property on my own, and now it’s quiet and cute again. :P</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -599,6 +837,16 @@ end
 <p>For more details, please check <a href="https://github.com/CaliosD/CDEmptyDataSet" target="_blank" rel="external">this</a>.</p>
 <h5 id="References"><a href="#References" class="headerlink" title="References"></a>References</h5><p>－ <a href="http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html" target="_blank" rel="external">http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html</a><br>－ <a href="https://github.com/dzenbot/DZNEmptyDataSet" target="_blank" rel="external">https://github.com/dzenbot/DZNEmptyDataSet</a><br>－ <a href="http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview" target="_blank" rel="external">http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SolutionSummary </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -610,6 +858,16 @@ end
 <p><code>indentationLevel</code> property for UITableViewCell</p>
 </blockquote>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -658,6 +916,16 @@ end
 <p>More detail encodings are <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" target="_blank" rel="external">here</a>.</p>
 <p>OK. That’s finally done. See you another topic. :]</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Runtime </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -685,6 +953,16 @@ end
 <p>As touch events arrive, the table view highlights rows in anticipation of the user selecting them. As it processes those touch events, the table view calls this method to ask your delegate if a given cell should be highlighted. Your delegate can implement this method and use it to prevent the highlighting of a row when another row is already selected or when other relevant criteria occur.<br>If you do not implement this method, the default return value is YES.</p>
 </blockquote>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -723,6 +1001,18 @@ end
 </code></pre><p>来自<a href="http://stackoverflow.com/a/6305493/1594792" title="http://stackoverflow.com/a/6305493/1594792" target="_blank" rel="external">这里</a>。UITableView同理。</p>
 <p>果然是简洁至上。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> JumpNStruggleOut </tag>
+            
+            <tag> Summary </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -733,6 +1023,16 @@ end
 <p>3.Refresh launchpad (I used it when failed to find icons in it.)<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Dock/</span>*.db; killall Dock</div></pre></td></tr></table></figure></p>
 <p>4.A tip of showing download things in App Store<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ lsof <span class="string">| grep -i pkg</span></div></pre></td></tr></table></figure></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Bash </tag>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -747,6 +1047,16 @@ end
 <p>However, in my case, I found it would be fine just adding a line of code(only add as you need) in <code>- viewWillAppear:</code> function.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[[UIApplication sharedApplication]</span> <span class="selector-tag">setStatusBarHidden</span><span class="selector-pseudo">:NO</span>];</div><div class="line"><span class="selector-attr">[[UIApplication sharedApplication]</span> <span class="selector-tag">setStatusBarStyle</span><span class="selector-pseudo">:UIStatusBarStyleLightContent</span> <span class="selector-tag">animated</span><span class="selector-pseudo">:YES</span>];</div></pre></td></tr></table></figure></p>
 <p>Each time UIImagePickerController dismissed, <code>- viewWillAppear:</code> would be called and set status bar right.</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -760,6 +1070,18 @@ end
 <li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+            <tag> UICollectionView </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -777,6 +1099,18 @@ end
 <li><a href="http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/" target="_blank" rel="external">http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+            <tag> 译言 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -797,6 +1131,16 @@ end
 <li><a href="http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216" target="_blank" rel="external">http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> CoreAnimation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -817,6 +1161,16 @@ end
 <li><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">http://stackoverflow.com/a/25663421/1594792</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Swift </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -833,6 +1187,16 @@ end
 <li><a href="http://nshipster.com/random/" target="_blank" rel="external">http://nshipster.com/random/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Foundation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -851,6 +1215,18 @@ end
 <li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView" target="_blank" rel="external">https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> iOS8 </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -881,6 +1257,16 @@ end
 <p><strong>Ref:</strong></p>
 <p>部分内容翻译自：<br><a href="https://www.shinobicontrols.com/blog/ios8-day-by-day-day-34-corelocation-authorization" target="_blank" rel="external">https://www.shinobicontrols.com/blog/ios8-day-by-day-day-34-corelocation-authorization</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> iOS8 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -904,6 +1290,16 @@ end
 <li>回到折腾AppleScript的原始问题：在写markdown过程中，将剪切板的图片自动上传到七牛，并生成URL返回到剪切版，方便在markdown中插入图片。这个小功能，该如何实现？（建议但不局限于python和AppleScript。）</li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -931,6 +1327,14 @@ end
 <li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -967,6 +1371,16 @@ end
 <li><a href="http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work" target="_blank" rel="external">http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> CoreAnimation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -978,6 +1392,16 @@ end
 <p>例如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.png"</span>];</div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(img, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure></p>
 <p>回调方法长这样：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">image</span>:(UIImage *)<span class="keyword">image</span></div><div class="line">    didFinishSavingWithError:(NSError *)<span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>:(void *)<span class="keyword">contextInfo</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// Was there an error?</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">error</span> != NULL)</div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show error message...</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  <span class="comment">// No errors</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show message image successfully saved</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1004,6 +1428,18 @@ end
 <p>自私，是因为为了质量奋斗的过程让你日渐成长。而无私，是因为更好的代码、更好的软件对其他人更有益。</p>
 <p>当其他人对你的软件有所要求，首要的就是如果他们启动了它，它是否能<em>保持着</em>启动的状态。任何不能对此问题足够重视的程序员 —— 或是那些总是将崩溃粉饰成生活常态的人 —— 我们可以优先充分地享受其中的巨大乐趣，而这些人无法体会。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1015,6 +1451,16 @@ end
 <p><strong>Ref: </strong></p>
 <p><a href="http://stackoverflow.com/a/586529/1594792" target="_blank" rel="external">http://stackoverflow.com/a/586529/1594792</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Foundation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1146,6 +1592,16 @@ end
 <li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 多线程 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1169,6 +1625,16 @@ end
 </li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Terminal </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1183,6 +1649,16 @@ end
 <p>4.Constraint Identifier(iOS 7.0+)<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[NSLayoutConstraint <span class="string">autoSetIdentifier:</span>@<span class="string">"Pin Container View Edges"</span> <span class="string">forConstraints:</span>^&#123;</div><div class="line">	[self.containerView <span class="string">autoPinToTopLayoutGuideOfViewController:</span>self <span class="string">withInset:</span><span class="number">10.0</span>];</div><div class="line">	[self.containerView <span class="string">autoPinEdgesToSuperviewEdgesWithInsets:</span>UIEdgeInsetsMake(<span class="number">0.0</span>, <span class="number">10.0</span>, <span class="number">10.0</span>, <span class="number">10.0</span>) <span class="string">excludingEdge:</span>ALEdgeTop];</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
 <p>5.Constraints Without Installing<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.horizontalLayoutConstraints = [<span class="built_in">NSLayoutConstraint</span> autoCreateAndInstallConstraints:^&#123;</div><div class="line">	[views autoSetViewsDimension:ALDimensionHeight toSize:<span class="number">40.0</span>];</div><div class="line">	[views autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeHorizontal withFixedSpacing:<span class="number">10.0</span> insetSpacing:<span class="literal">YES</span> matchedSizes:<span class="literal">YES</span>];</div><div class="line">	[<span class="keyword">self</span>.redView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.isShowingHorizontalLayout) &#123;</div><div class="line">    [<span class="keyword">self</span>.verticalLayoutConstraints autoRemoveConstraints];</div><div class="line">    [<span class="keyword">self</span>.horizontalLayoutConstraints autoInstallConstraints];</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    [<span class="keyword">self</span>.horizontalLayoutConstraints autoRemoveConstraints];</div><div class="line">    [<span class="keyword">self</span>.verticalLayoutConstraints autoInstallConstraints];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1236,6 +1712,16 @@ end
 <li>Authenticating with a RESTful service using NSURLCredential：<br>  <a href="http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/" target="_blank" rel="external">http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1263,6 +1749,16 @@ end
 <p>在<code>－cancelAll</code>这个方法中，装着正在运行的operation的数组<code>copiedOperations</code>给每一个operation都发送了一个<code>cancel</code>的消息，并且将数组中的全部元素移除。结束战斗。</p>
 <p>再进一步想，<code>NSArray</code>中有这两个方法，<code>NSSet</code>中应该也有这两个方法。都是让子元素批量调用同一方法的作用，不像for循环那样可以区别对待不同元素，这一点需要注意。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1337,6 +1833,16 @@ end
 <li>关于位运算：<a href="http://www.cnblogs.com/cute/p/3786283.html" target="_blank" rel="external">http://www.cnblogs.com/cute/p/3786283.html</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1352,6 +1858,18 @@ end
 <p>曾看慶写过，说构建知识体系就像是看地图，要不断地放大、缩小：放大时，一个小镇都会变得很大，街道、楼房，事无巨细；缩小时，纵观全国、全世界，横向的比较才有意义。如今想来，恍有所悟，终于从接受变成了理解。</p>
 <p>于是，便不再烦躁对于服务器方面的学习该使用哪种语言、哪种技术，因为一通百通，具体的哪一种就没那么重要了。岁月长河中，终是有那一波又一波的语言和技术倒在沙滩上，不变的，是千淘万漉的河底鹅卵，历经冲刷而日渐滑润，熠熠生辉。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1377,6 +1895,18 @@ end
 <h4 id="Instruments"><a href="#Instruments" class="headerlink" title="Instruments"></a>Instruments</h4><p>Instruments非常棒。查看你的app分配了多少的内存是个好主意，同时，查看内存泄漏也是非常重要的。</p>
 <p>如果你的app崩溃了，使用Zombies工具是个好主意。你的问题可能和zombies并没有关系，但是在怀疑的过程中，排除法是很值得使用的。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1408,6 +1938,16 @@ end
 <p><a href="http://stackoverflow.com/questions/348170/undo-git-add-before-commit" target="_blank" rel="external">http://stackoverflow.com/questions/348170/undo-git-add-before-commit</a></p>
 <p><a href="http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit" target="_blank" rel="external">http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Terminal </tag>
+            
+            <tag> Git </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1462,6 +2002,14 @@ end
 </li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> LLDB - iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1508,6 +2056,18 @@ end
 <h4 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h4><p>初始化你的变量。就这样。如果我每修复一个仅仅将变量初始化为nil就解决的崩溃bug就能拿到一个硬币的话 —— 那我已经有好些硬币了。你肯定希望不要获得这样的硬币。</p>
 <p>不初始化你的变量就像在玩汽油，然后还说，没问题的，因为火柴在口袋里。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1532,6 +2092,18 @@ end
 <p>深究原因的话，还是代码的防御性不强。从别处获取的值不应该拿过来就直接使用，而应该复制给一个新的变量，之后自己继续用这个新的变量。反过来，作为传出去的参数，最好也能略微封装一下，不要把private的成员变量直接就传出去，防止引入外面的污染。</p>
 <p><strong>PS：</strong><br>当然，对于从UITableView传值出去，通知机制会更方便些，免得一层层的写代理。但也要注意同样的问题。提高自己代码的健壮性。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> JumpNStruggleOut </tag>
+            
+            <tag> Summary </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1579,6 +2151,16 @@ end
 <p>在上面的代码中，创建约束的动作只会执行一次，然后在接下来的<em>updateConstraints</em>调用中，只会对这些已创建的约束的常量进行修改。</p>
 <p>我一直在追寻真理！所以如果你有很多更好的实践经验，请在twitter上和我分享。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1596,6 +2178,14 @@ end
 <p>In my aspect, developers are meant that you dare to explore spaces even unfamiliar to them, get down to issues, and grow up steadily even compared with yourself several days before. </p>
 <p>Or else, you’re just a lazy coder.</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1620,6 +2210,14 @@ end
 <p><strong>Ref:</strong></p>
 <p><a href="https://developer.apple.com/library/mac/recipes/xcode_help-project_editor/RenamingaProject/RenamingaProject.html" target="_blank" rel="external">https://developer.apple.com/library/mac/recipes/xcode_help-project_editor/RenamingaProject/RenamingaProject.html</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1652,6 +2250,18 @@ end
 <li><a href="http://objccn.io/issue-17-2/" target="_blank" rel="external">代码签名探析</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Bash </tag>
+            
+            <tag> EnjoyMyCoffee </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1689,6 +2299,18 @@ end
 </code></pre><p>顾名思义，它叫做<em>不安全</em>。</p>
 <p>不要带着剪刀跑。嘿 —— 甚至不要碰那些剪刀。剪刀有毒。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1720,6 +2342,18 @@ end
 <p>但是有一个需要谨记及避免的事：回调block可以安全地调用类方法和C语言函数。如果实例消失的话，实例方法就是不安全的 —— 但是类方法和C语言函数理论上是可以安全调用的。</p>
 <p>我不经常使用这个知识点，但是我会不断的发现它的确有用。要么谨慎点使用它，要么干脆不用。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1732,6 +2366,16 @@ end
 DetailViewController *detailViewController = [storyboard instantiateViewControllerWithIdentifier:@&quot;DetailViewController&quot;];
 [self.navigationController pushViewController:detailViewController animated:YES];
 </code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Storyboard </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1818,6 +2462,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 </ul>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>本文并没有很详细的列出在处理视频播放时具体的API，更多的是想给之后类似的“技术调研”提供一种思考的模式，不至于上来就一头乱撞。实现一个功能不难，通过实现功能来训练自己的思维能力，才能让自己更有效率的提升吧。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -1834,6 +2490,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>8.计算匹配的数量 -c<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">语法：<span class="keyword">grep</span> -<span class="keyword">c</span> “pattern” filename</div><div class="line"></div><div class="line">$ <span class="keyword">grep</span> -<span class="keyword">c</span> “<span class="keyword">go</span>” demo_text</div><div class="line"><span class="number">3</span></div></pre></td></tr></table></figure></p>
 <p>9.只显示匹配规则的文件名字 -l<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">grep</span> -l <span class="keyword">this</span> demo_*</div><div class="line">demo_file</div><div class="line">demo_file1</div></pre></td></tr></table></figure></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Bash </tag>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2043,6 +2709,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><a href="https://github.com/philc/vimium/issues/1642" title="https://github.com/philc/vimium/issues/1642" target="_blank" rel="external">Caret mode in Github vimiim issues</a></p>
 <p><a href="https://github.com/philc/vimium/blob/master/README.md" target="_blank" rel="external">https://github.com/philc/vimium/blob/master/README.md</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Chrome </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2067,6 +2743,14 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 </tbody>
 </table>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2115,6 +2799,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>如果在测试和性能分析后，你发现自己不得不把一些东西挪到后台队列中，挑那些可以被完美分离的部分，并保证它们被完美隔离开。使用代理模式；不要使用KVO或者通知模式。</p>
 <p>最后，如果你仍然需要走些野路子 —— 比如说在后台队列中更新你的模型 —— 切记你应用的其他部分要么是运行在主线程上，要么是不分割的整体，能让你在走野路子时不必考虑它们。然后：小心行事，不要乐观太早。（乐观主义者创造崩溃。）</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2145,6 +2841,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>但是这是个糟糕的主意。你可能本可以保留自己写的处理通知的方法，但是你也让你的整理工作更加糟糕，因为现在你就额外多了一个对象需要照看，又需要稍后调用<code>removeObserver</code>。这就意味着没有批量取消注册；它意味着你要回去做审核的工作，这就意味着你又多了一件事情要保障。</p>
 <p>基于block的版本意味着你可以让注册和处理通知一起保留 —— 但是这么做的话，在整理工作和潜在崩溃方面的代价实在是太大了。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2174,6 +2882,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>答案是：对layoutManagers的副本进行枚举。问题就解决了。</p>
 <p>常言道：如果你从别人的代码中获取一个集合，对副本进行枚举总没坏处，防患于未然嘛。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2222,6 +2942,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <li>理论上，绑定和KVO是为了解耦而生的，而实际上这种耦合就是那么紧密 —— 在某种程度上，如果没有更紧密的话 —— 更难debug，更难矫正。通常情况下，最好把观察模式明确写清（不要写成<code>keyPaths ForValues AffectingXyz</code>这种），避免在keyPath中出现”.”字符。</li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2233,6 +2965,18 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>译文索引：</p>
 <p><a href="http://www.calios.gq/2015/11/12/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-1%EF%BC%9AKVO%E4%B8%8E%E6%89%8B%E5%8A%A8%E7%BB%91%E5%AE%9A/" title="http://www.calios.gq/2015/11/12/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-1%EF%BC%9AKVO%E4%B8%8E%E6%89%8B%E5%8A%A8%E7%BB%91%E5%AE%9A/">#1: KVO与手动绑定</a><br><a href="http://www.calios.gq/2015/11/13/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-2%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%82%E5%B8%B8/" title="http://www.calios.gq/2015/11/13/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-2%EF%BC%9A%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%82%E5%B8%B8/">#2: 可变对象的异常</a><br><a href="http://www.calios.gq/2015/11/16/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-3%EF%BC%9ANSNotification/" title="http://www.calios.gq/2015/11/16/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-3%EF%BC%9ANSNotification/">#3: NSNotification</a><br><a href="http://www.calios.gq/2015/11/19/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-4%EF%BC%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" title="http://www.calios.gq/2015/11/19/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-4%EF%BC%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">#4: 线程</a><br><a href="http://www.calios.gq/2015/11/26/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-5%EF%BC%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" title="http://www.calios.gq/2015/11/26/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-5%EF%BC%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/">#5: 线程2</a><br><a href="http://www.calios.gq/2015/11/26/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-6%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%92%8C%E5%AD%98%E5%8F%96%E5%99%A8/" title="http://www.calios.gq/2015/11/26/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-6%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%92%8C%E5%AD%98%E5%8F%96%E5%99%A8/">#6: 属性和存取器</a><br><a href="http://www.calios.gq/2015/12/19/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-7%EF%BC%9A%E4%BB%80%E4%B9%88%E9%83%BD%E4%B8%8D%E5%81%9A/" title="http://www.calios.gq/2015/12/19/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-7%EF%BC%9A%E4%BB%80%E4%B9%88%E9%83%BD%E4%B8%8D%E5%81%9A/">#7: 什么都不做</a><br><a href="http://www.calios.gq/2016/01/21/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-8%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84/" title="http://www.calios.gq/2016/01/21/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-8%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84/">#8: 基本架构</a><br><a href="http://www.calios.gq/2016/02/24/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-9%EF%BC%9A%E5%BF%83%E6%80%81/" title="http://www.calios.gq/2016/02/24/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-9%EF%BC%9A%E5%BF%83%E6%80%81/">#9: 心态</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+            <tag> NotToCrashSeries </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2252,6 +2996,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><strong>Ref:</strong></p>
 <p><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="external">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> MongoDB </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2386,6 +3140,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 </li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> AVPlayer </tag>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2409,6 +3173,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><strong>Ref:</strong></p>
 <p><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316599.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316599.html</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Bash </tag>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2433,6 +3207,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>苹果正在加大应用安全的管控，这个举措可以看出苹果对信息安全的重视，也暴露出大部分应用传输数据时都是未经过加密的，或使用私有方式加密，以至于苹果开始对开发者提出要求。</p>
 <p>私有加密虽然一定程度上是安全的，但是终究不是一个长久之计。全世界这么多安全专家在维护<code>HTTPS</code>安全，早日使用<code>HTTPS</code>确保信息安全才是王道！也省去了私有加密协议的安全隐患！</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> iOS9 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2455,6 +3239,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="literal">void</span> <span class="string">\*)observationInfo</span></div></pre></td></tr></table></figure>
 <p>它会列出观察者。但只有在debug的时候有用。<br>可以在控制台输入：<code>po [observedObject observationInfo]</code>，就可以得到一个漂亮的观察者和key path的概览。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 译言 </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2474,6 +3268,14 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><a href="http://stackoverflow.com/questions/2765024/how-to-set-the-title-of-uibutton-as-left-alignment" target="_blank" rel="external">http://stackoverflow.com/questions/2765024/how-to-set-the-title-of-uibutton-as-left-alignment</a></p>
 <p><a href="http://stackoverflow.com/questions/5062405/uinavigationcontroller-hiding-back-button-on-one-view-hides-it-for-all-views" target="_blank" rel="external">http://stackoverflow.com/questions/5062405/uinavigationcontroller-hiding-back-button-on-one-view-hides-it-for-all-views</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2492,6 +3294,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><strong>Ref:</strong></p>
 <p><a href="http://www.cocoachina.com/bbs/read.php?tid=280249" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid=280249</a><br><a href="http://stackoverflow.com/questions/18986407/ios7-when-uisearchbar-added-in-uinavigationbar-not-showing-cancel-button" target="_blank" rel="external">iOS7 when UIsearchbar added in UINavigationBar not showing cancel button</a><br><a href="http://stackoverflow.com/a/12598711/1594792" target="_blank" rel="external">UISearchBar clear background color or set background image</a><br><a href="http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1" target="_blank" rel="external">http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2508,6 +3320,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 </ul>
 <p>以上，均可在 Xcode -> Preferences -> Key Bindings -> Debug Menu 中设置快捷键。<br><img src="http://i12.tietuku.com/a137140412ce894c.png" alt=""></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Xcode </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2523,6 +3345,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><strong>Ref:</strong></p>
 <p><a href="http://stackoverflow.com/questions/23020326/assertion-failure-in-uitableview-layoutsublayersoflayer" target="_blank" rel="external">http://stackoverflow.com/questions/23020326/assertion-failure-in-uitableview-layoutsublayersoflayer</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2549,6 +3381,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><a href="http://stackoverflow.com/questions/12650137/how-to-change-the-device-orientation-programmatically-in-ios-6" target="_blank" rel="external">How to change the device orientation programmatically in iOS 6</a> (In fact, it also works for iOS7 &amp; iOS8. XD)</p>
 <p><a href="http://stackoverflow.com/questions/26611646/ios7-ios8-allow-only-portrait-in-view-controller" target="_blank" rel="external">IOS7/IOS8 Allow only portrait in view controller</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UIKit </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2576,6 +3418,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p><strong>Ref:</strong></p>
 <p><a href="https://developer.apple.com/library/mac/qa/qa1176/_index.html" target="_blank" rel="external">https://developer.apple.com/library/mac/qa/qa1176/_index.html</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2597,6 +3449,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAShapeLayer</span> *maskWithHole = [<span class="built_in">CAShapeLayer</span> layer];</div><div class="line"></div><div class="line"><span class="comment">// Both frames are defined in the same coordinate system</span></div><div class="line"><span class="built_in">CGRect</span> biggerRect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, [[<span class="built_in">UIScreen</span> mainScreen] bounds].size.width,[[<span class="built_in">UIScreen</span> mainScreen] bounds].size.height - <span class="number">64</span>);</div><div class="line"><span class="built_in">CGRect</span> smallerRect = <span class="built_in">CGRectMake</span>((kScreenWidth - PickerSize)/<span class="number">2</span> + <span class="number">5</span>, <span class="number">100</span> + <span class="number">5</span>, PickerSize - <span class="number">10</span>, PickerSize/<span class="number">2</span> - <span class="number">10</span>);</div><div class="line"></div><div class="line"><span class="built_in">UIBezierPath</span> *maskPath = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line"></div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line"></div><div class="line">[maskWithHole setPath:[maskPath <span class="built_in">CGPath</span>]];</div><div class="line">[maskWithHole setFillRule:kCAFillRuleEvenOdd];</div><div class="line">[maskWithHole setFillColor:[[<span class="built_in">UIColor</span> colorWithWhite:<span class="number">0.45</span> alpha:<span class="number">0.45</span>] <span class="built_in">CGColor</span>]];</div><div class="line"></div><div class="line">[<span class="keyword">self</span>.view.layer insertSublayer:maskWithHole above:_preview];</div></pre></td></tr></table></figure>
 <p><strong>Ref:</strong><br><a href="http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path" target="_blank" rel="external">http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path</a></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> CoreAnimation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2627,6 +3489,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <li><code>⌘+/</code>，高亮显示鼠标位置。</li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Terminal </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2651,6 +3523,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>附上一张完整快捷键的图。</p>
 <p><img src="http://i12.tietuku.com/c65f289668849506.png" alt="" title="Xcode shortcuts"></p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Xcode </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2673,6 +3555,14 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <li><a href="https://github.com/lukabernardi/LBBlurredImage" target="_blank" rel="external">LBBlurredImage</a>: LBBlurredImage is an UIImageView category that permit to set an image and make this blurred.</li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2685,6 +3575,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>4.配置通知传递的自定义数据参数<code>userInfo</code>（这一步可选）。 </p>
 <p>5.调用通知，可以使用<code>scheduleLocalNotification:</code> 按计划调度一个通知，也可以使用<code>presentLocalNotificationNow</code> 立即调用通知。</p>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Foundation </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
@@ -2772,6 +3672,16 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <li>Formatting sandbox: <a href="http://meta.stackexchange.com/questions/3122/formatting-sandbox/3431#3431" target="_blank" rel="external">http://meta.stackexchange.com/questions/3122/formatting-sandbox/3431#3431</a></li>
 </ul>
 ]]></content>
+      
+        
+        <tags>
+            
+            <tag> Blog </tag>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+        
     </entry>
     
   
