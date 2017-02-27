@@ -10,7 +10,7 @@
     <!-- Title -->
     
     <title>
-        EnjoyMyCoffee-1：项目自动编译及打包 | Calios&#39; Eden
+        标签: Objective-C | Calios&#39; Eden
     </title>
     
     <!-- Favicons -->
@@ -46,7 +46,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://www.calios.gq">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="EnjoyMyCoffee-1：项目自动编译及打包 | Calios&#39; Eden">
+    <meta property="og:title" content="标签: Objective-C | Calios&#39; Eden">
     <meta property="og:description" content="Stedfast as thou art.">
     
      <!--[if lte IE 9]>
@@ -200,259 +200,93 @@
                 </button>
 				
 				
-                <!-- Post TOC -->
-
+                <!-- Index Module -->
+<div class="material-index mdl-grid">
+	
+    <div class="locate-thumbnail-symbol"></div>
     
-	<!-- Back Button -->
-<!--
-	<div class="material-back" id="backhome-div" tabindex="0">
-		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
-			<i class="material-icons" role="presentation">arrow_back</i>
-			<span class="mdl-button__ripple-container">
-				<span class="mdl-ripple"></span>
-			</span>
-		</a>
-	</div>			
--->
-	<!-- Left aligned menu below button -->
-	<button id="post-toc-trigger-btn"
-			class="mdl-button mdl-js-button mdl-button--icon">
-	  <i class="material-icons">format_list_numbered</i>
-	</button>
-
-	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-		for="post-toc-trigger-btn">
-			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编译Build"><span class="post-toc-number">1.</span> <span class="post-toc-text">编译Build</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打包成ipa"><span class="post-toc-number">2.</span> <span class="post-toc-text">打包成ipa</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重命名ipa"><span class="post-toc-number">3.</span> <span class="post-toc-text">重命名ipa</span></a></li></ol>
+    
 		
-<!--			<li class="mdl-menu__item">Some Action</li>-->
-	</ul>
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-		
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-	<!-- Paradox Post Header -->
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
 	
 		
 			<!-- Random Thumbnail -->
 			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-				<script>
+		
+	
+				
+		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/2017/02/17/Objective-C基础教程（第2版）总结/">Objective-C基础教程（第2版）总结</a></p>
+	</div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            
+OOP真正的革命性就是它在调用代码中使用间接（indirect），如使用变量、文件和参数等。“没有什么是通过间接解决不了的问题，如果有，...
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/02/17/Objective-C基础教程（第2版）总结/" target="_self">继续阅读</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Calios's avatar">
+            </div>
+            <div>
+                <strong>Calios</strong>
+                <span>2月 17, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+            
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
+        </div>
+    </div>
+            
+</div>
+
+		
+		
+    
+    
+	
+		<script>
     
     var randomNum;
-    randomNum = Math.floor(Math.random() * 19 + 1);
     
-    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+    var locatePost = $(".locate-thumbnail-symbol").next();
+    for(var i=0; i < 5; i++){
+        
+        randomNum = Math.floor(Math.random() * 19 + 1);
+        
+        locatePost.children(".post_thumbnail-random").attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')')
+        
+        locatePost = locatePost.next();
+    }
     
 </script>
 
-		
 	
-        <p class="article-headline-p">
-            EnjoyMyCoffee-1：项目自动编译及打包
-        </p>
-    </div>
-
-	
-
-				
-				
-					<!-- Paradox Post Info -->
-					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Calios</strong>
-        <span>12月 01, 2015</span>
-    </div>
-
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-<!--
-    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-        <i class="material-icons" role="presentation">favorite</i>
-        <span class="visuallyhidden">favorites</span>
-    </button>
--->
-
-    <!-- Qrcode -->
-    
-
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Bash/">Bash</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/EnjoyMyCoffee/">EnjoyMyCoffee</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/iOS/">iOS</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=EnjoyMyCoffee-1：项目自动编译及打包&url=http://www.calios.gq//2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html&pic=&searchPic=false&style=simple" target="_blank">
-        <li class="mdl-menu__item">
-            分享到微博
-        </li>
-    </a>
-    
-
-    <!-- Share Twitter -->
-    
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=EnjoyMyCoffee-1：项目自动编译及打包&url=http://www.calios.gq//2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html&via=Calios" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Twitter
-        </li>
-    </a>
-    
-
-    <!-- Share Facebook -->
-    
-    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Facebook
-        </li>
-    </a>
-    
-
-    <!-- Share Google+ -->
-    
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Google+
-        </li>
-    </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Calios&#39; Eden&title=EnjoyMyCoffee-1：项目自动编译及打包&summary=Stedfast as thou art.&pics=http://www.calios.gq/img/favicon.png&url=http://www.calios.gq/2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 QQ
-        </li>
-    </a>
-    
-
-    <!-- Share Telegram -->
-    
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://www.calios.gq/2015/12/01/EnjoyMyCoffee-1：项目自动编译及打包/index.html&text=EnjoyMyCoffee-1：项目自动编译及打包" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Telegram
-        </li>
-    </a>
-    
-</ul>
 
 </div>
-
-				
-
-                <!-- Post Content -->
-                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-	
-		<p>每到项目提测之后，就需要几乎天天打包ipa上传到ftp上去，大体步骤如下：<br>1.在Xcode中将代码编译打包为ipa，并重命名为***-currentDateTime.ipa；<br>2.打开FileZilla，连接到服务器上的ftp；<br>3.下载已有的plist文件到本地，更改其中的小版本号；<br>4.删除ftp上已有的***_test.ipa文件和***_test.plst文件；<br>5.将本地打包好的***_test.ipa文件和更改后的plist文件上传；<br>6.关闭FileZilla。</p>
-<p>好麻烦。。。</p>
-<p>简直是浪费时间。所以，为什么不写段代码替我做这些无聊的事呢？至少可以每天留出品尝一杯咖啡的时间。</p>
-<p>Let’s move.</p>
-<hr>
-<h4 id="编译Build"><a href="#编译Build" class="headerlink" title="编译Build"></a>编译Build</h4><p>Xcode提供了命令行build的命令，即xcodebuild。可以通过<code>man xcodebuild</code>查看该命令的所有详细说明，也可以用<code>xcodebuild -usage</code>查看所有的可用参数。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -workspace YourProject<span class="selector-class">.xcworkspace</span> -scheme YourProject -configuration <span class="string">"Release"</span> -destination generic/platform=iOS <span class="selector-id">#build</span> BUILD_DIR=<span class="string">"$BUILD_DIR"</span> BUILD_ROOT=<span class="string">"$BUILD_ROOT"</span></div></pre></td></tr></table></figure></p>
-<p>这里特别说明下<code>-destination</code>这个参数。如果要指定运行在某一个已连接设备，需要使用<code>iOS</code>选项。它支持<code>id</code>和<code>name</code>两个key，二者任取其一。<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">"platform=iOS,name=Gio's iPhone"</span> \</span></div><div class="line">  clean test</div><div class="line"></div><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">'platform=iOS,id=YOUR_PHONE_UUID'</span> \</span></div><div class="line">  clean test</div></pre></td></tr></table></figure></p>
-<p>同理，运行在模拟器中也是类似。更多详情见<a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">这里</a>。由于我的使用场景通常是用企业账号来打包上传、供测试使用，所以这里使用的是<code>-destination generic/platform=iOS</code>，并不指定某一确切设备。</p>
-<h4 id="打包成ipa"><a href="#打包成ipa" class="headerlink" title="打包成ipa"></a>打包成ipa</h4><p>上一步build后生成了YourProject.app文件，可以用xcrun来将其打包成ipa。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"<span class="variable">$APP_PATH</span>"</span> -o <span class="string">"<span class="variable">$IPA_PATH</span>"</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>这里补充一个小的知识点：.app和.ipa的差别：<br>.app是应用程序包。它包括可执行文件、Info.plist文件、图标、launch图片和一些其他应用程序资源。应用程序包是最终安装在设备上的部分。<br>.ipa是对.app应用程序包和一些只是为了供iTunes使用的文件（比如iTunesArtwork）的归档。</p>
-</blockquote>
-<p>另外，这里有一个需要注意的地方，xcrun需要<strong>绝对路径</strong>，相对路径是不管用的，会报类似这样的错：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun fails with <span class="keyword">zip</span> I/O <span class="keyword">error</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory <span class="keyword">zip</span> <span class="keyword">error</span>:…</div></pre></td></tr></table></figure></p>
-<p>你可以用<code>$pwd/YourProject</code>来获取。</p>
-<h4 id="重命名ipa"><a href="#重命名ipa" class="headerlink" title="重命名ipa"></a>重命名ipa</h4><p>如果每次打包的ipa都是同样的名字，估计你很快就会分不清哪个版本是哪个版本，所以将ipa重命名添加上打包时间不失为一个不错的选择。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BUILD_DATETIME=<span class="string">"$(date +%Y%m%d%H%M%S)"</span></div><div class="line">mv $IPA_PATH <span class="string">"$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIME.ipa"</span></div></pre></td></tr></table></figure></p>
-<p>到此为止，需要上传到ftp的ipa已经准备好了。详细代码在<a href="https://github.com/CaliosD/xcode_tool/blob/master/build_n_package.sh" target="_blank" rel="external">这里</a>：。接下来的一篇，就要开始上传啦～</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">Xcodebuild Destination Cheatsheet</a></li>
-<li><a href="http://stackoverflow.com/questions/2949916/what-is-different-betwen-ipa-and-app-format-in-using-iphone" target="_blank" rel="external">what is different betwen .ipa and .app format in using iphone?</a></li>
-<li><a href="http://stackoverflow.com/questions/25415333/xcrun-fails-with-zip-i-o-error-no-such-file-or-directory-zip-error" target="_blank" rel="external">xcrun fails with zip I/O error: No such file or directory zip error</a></li>
-<li><a href="http://blog.devtang.com/blog/2012/02/16/apply-daily-build-in-ios-project/" target="_blank" rel="external">给iOS工程增加Daily Build</a></li>
-<li><a href="http://stackoverflow.com/questions/20551566/display-current-date-and-time-without-punctuation" target="_blank" rel="external">Display current date and time without punctuation</a></li>
-<li><a href="http://objccn.io/issue-17-2/" target="_blank" rel="external">代码签名探析</a></li>
-</ul>
-
-	
-	
-	
-	
-</div>
-				
-				
-
-                <!-- Post Comments -->
-                
-                    
-
-
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    
-    <!-- Prev Nav -->
-    
-        <a href="/2015/12/09/Checklist-for-renaming-an-iOS-project-totally/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/2015/11/26/【译】如何避免程序崩溃-6：属性和存取器/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-        </div>
-    </div>
 
 				
 				
@@ -625,13 +459,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 				
 				
-				
-					<!-- Footer Top Button -->
-					<div class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
 				
 				
 				<!--Footer-->
