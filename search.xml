@@ -93,7 +93,7 @@
     <entry>
       <title><![CDATA[C的宏魔法]]></title>
       <url>http://www.calios.gq/2017/02/23/C%E7%9A%84%E5%AE%8F%E9%AD%94%E6%B3%95/</url>
-      <content type="html"><![CDATA[<h2 id="1-和"><a href="#1-和" class="headerlink" title="1.#和"></a>1.#和</h2><ul>
+      <content type="html"><![CDATA[<h2 id="1-和"><a href="#1-和" class="headerlink" title="1.#和#\"></a>1.#和#\</h2><ul>
 <li><strong>#：String-izing Tokens</strong>，作用是把宏参数转化成以传入的参数名为内容的字符串。通常可以用于debug时打印参数。<br>比如说，如果定义成这样：<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define PRINT_TOKEN(<span class="name">token</span>) NSLog(<span class="name">#token</span> <span class="string">" is %d"</span>, token)</div></pre></td></tr></table></figure>
 </li>
 </ul>
