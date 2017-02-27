@@ -10,7 +10,7 @@
     <!-- Title -->
     
     <title>
-        關於 | Calios&#39; Eden
+        C的几个基本概念：结构体、指针、函数指针、内存分配等 | Calios&#39; Eden
     </title>
     
     <!-- Favicons -->
@@ -46,7 +46,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://www.calios.gq">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="關於 | Calios&#39; Eden">
+    <meta property="og:title" content="C的几个基本概念：结构体、指针、函数指针、内存分配等 | Calios&#39; Eden">
     <meta property="og:description" content="Stedfast as thou art.">
     
      <!--[if lte IE 9]>
@@ -202,6 +202,33 @@
 				
                 <!-- Post TOC -->
 
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#typedef-struct和单纯struct定义的差别"><span class="post-toc-number">1.</span> <span class="post-toc-text">typedef struct和单纯struct定义的差别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针"><span class="post-toc-number">2.</span> <span class="post-toc-text">指针</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数指针"><span class="post-toc-number">3.</span> <span class="post-toc-text">函数指针</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指向结构体的指针"><span class="post-toc-number">4.</span> <span class="post-toc-text">指向结构体的指针</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指针的比较"><span class="post-toc-number">5.</span> <span class="post-toc-text">指针的比较</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#空指针"><span class="post-toc-number">6.</span> <span class="post-toc-text">空指针</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存分配"><span class="post-toc-number">7.</span> <span class="post-toc-text">内存分配</span></a></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
 
 <!-- Layouts -->
 
@@ -230,7 +257,7 @@
 		
 	
         <p class="article-headline-p">
-            關於
+            C的几个基本概念：结构体、指针、函数指针、内存分配等
         </p>
     </div>
 
@@ -248,7 +275,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Calios</strong>
-        <span>9月 09, 2015</span>
+        <span>2月 27, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -267,6 +294,15 @@
 
     <!-- Tags (bookmark) -->
     
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/C语言/">C语言</a>
+    </ul>
+    
 
     <!-- Share -->
     <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
@@ -281,7 +317,7 @@
 
     <!-- Share Weibo -->
     
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=關於&url=http://www.calios.gq//about/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=C的几个基本概念：结构体、指针、函数指针、内存分配等&url=http://www.calios.gq//2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             分享到微博
         </li>
@@ -290,7 +326,7 @@
 
     <!-- Share Twitter -->
     
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=關於&url=http://www.calios.gq//about/index.html&via=Calios" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C的几个基本概念：结构体、指针、函数指针、内存分配等&url=http://www.calios.gq//2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html&via=Calios" target="_blank">
         <li class="mdl-menu__item">
             分享到 Twitter
         </li>
@@ -299,7 +335,7 @@
 
     <!-- Share Facebook -->
     
-    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//about/index.html" target="_blank">
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 Facebook
         </li>
@@ -308,7 +344,7 @@
 
     <!-- Share Google+ -->
     
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//about/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 Google+
         </li>
@@ -320,7 +356,7 @@
 
     <!-- Share QQ -->
     
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Calios&#39; Eden&title=關於&summary=Stedfast as thou art.&pics=http://www.calios.gq/img/favicon.png&url=http://www.calios.gq/about/index.html" target="_blank">
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Calios&#39; Eden&title=C的几个基本概念：结构体、指针、函数指针、内存分配等&summary=Stedfast as thou art.&pics=http://www.calios.gq/img/favicon.png&url=http://www.calios.gq/2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 QQ
         </li>
@@ -329,7 +365,7 @@
 
     <!-- Share Telegram -->
     
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://www.calios.gq/about/index.html&text=關於" target="_blank">
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://www.calios.gq/2017/02/27/C的几个基本概念：结构体、指针、函数指针、内存分配等/index.html&text=C的几个基本概念：结构体、指针、函数指针、内存分配等" target="_blank">
         <li class="mdl-menu__item">
             分享到 Telegram
         </li>
@@ -344,14 +380,79 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>With a heart full of curiousness, hope, and patience, go on and on, and live the most of it.</p>
+		<h3 id="typedef-struct和单纯struct定义的差别"><a href="#typedef-struct和单纯struct定义的差别" class="headerlink" title="typedef struct和单纯struct定义的差别"></a>typedef struct和单纯struct定义的差别</h3><p>通常来说是<code>typedef</code>和<code>struct</code>定义都写。</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">X</span> </span>&#123;</div><div class="line">    int x;</div><div class="line">&#125;X;</div></pre></td></tr></table></figure>
+<p>为了更加清晰明了，拆成两部分来看：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S</span></span> &#123;            <span class="comment">// 第一部分</span></div><div class="line">    <span class="keyword">int</span> x;</div><div class="line">&#125;;</div><div class="line">typedef <span class="class"><span class="keyword">struct</span> <span class="title">S</span></span> S;   <span class="comment">// 第二部分</span></div></pre></td></tr></table></figure>
+<p>首先第一部分，在struct的命名空间中，定义了唯一的<code>S</code>。此时，你可以用<code>struct S</code>来定义变量或者函数的参数。比如这样：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">struct</span> S argument)</span></span>;  <span class="comment">// 这里的struct是必需的</span></div></pre></td></tr></table></figure></p>
+<p>第二部分在全局的命名空间中添加了一个叫<code>S</code>的别名，这就允许你这么写了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(S argument)</span></span>;         <span class="comment">// 这里不再需要struct了</span></div></pre></td></tr></table></figure>
+<p>既然定义唯一标识的命名空间不同，在struct中和全局都定义<code>S</code>就没有问题。因为这不是重复定义唯一标识，而是相当于在不同空间创建不同的标识。</p>
+<p>让我们把差别表现得更明显一点：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> S &#123;</div><div class="line">    <span class="keyword">int</span> x;</div><div class="line">&#125;T;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">S</span><span class="params">()</span> </span>&#123;&#125;     <span class="comment">// 正确</span></div><div class="line"><span class="comment">// void T() &#123;&#125;     // 错误：T已经被定义为struct S的别名了</span></div></pre></td></tr></table></figure>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>对于一个变量而言，可以看做由四部分构成：</p>
 <ul>
-<li>Everything you’ve ever wanted is on the other side of fear.</li>
-<li>“Do you want to be locked into tricycles because they’re easy to learn?” – Douglas Englebart</li>
-<li>Life’s altered you, as it’s altered me. And what would be the point of living if we didn’t let life change us? </li>
+<li>名字</li>
+<li>存储位置</li>
+<li>存储的数据类型</li>
+<li>当前的值</li>
 </ul>
-<p>Life is like a box of chocolate, what does the next taste like?</p>
-<p>Calios<br>2015.09.17</p>
+<p>如果能够理解这两点：1.变量是怎样存储的，2.除了名字之外通过其他方式也可以获取变量，那么就几乎可以理解指针的概念了。</p>
+<p>先来看一个简单的例子：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int x = <span class="number">39</span>;     </div><div class="line">int* y = <span class="variable">&amp;x</span>;         </div><div class="line">printf(<span class="string">"x: \n\t value:%d \n\t addr:%p \ny: \n\t value:%d \n\t addr: %p \n"</span>,x,<span class="variable">&amp;x</span>,*y,<span class="variable">&amp;y</span>);</div><div class="line"><span class="symbol"></span></div><div class="line">Output:</div><div class="line"><span class="symbol">x:</span></div><div class="line"><span class="symbol">	 value:</span><span class="number">39</span></div><div class="line"><span class="symbol">	 addr:</span><span class="number">0x7fff5fbff728</span></div><div class="line"><span class="symbol">y:</span></div><div class="line"><span class="symbol">	 value:</span><span class="number">39</span></div><div class="line"><span class="symbol">	 addr:</span> <span class="number">0x7fff5fbff720</span></div></pre></td></tr></table></figure>
+<p>我们着重来看这一行：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> *y = &amp;x;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>“*”是指针的标志，意思是我们不想在这个变量中存储的实际的数值，而是只存一个指向这个数值的地址。</li>
+<li>“*”前面的数据类型，表示的是从指针存储的地址中一次能够读写的数据字节数。这里是<code>int</code>，所以是32位的4字节，64位的8字节。</li>
+<li><code>y</code>是这个指针变量的名字；</li>
+<li><code>=</code>是把右边的值赋给左边；</li>
+<li><code>&amp;</code>，读作”xx的地址”，是引用的操作符。<strong>引用，意味着将一个已有变量的地址赋给一个指针变量。</strong></li>
+</ul>
+<p>所以这一句的意思是：把<code>x</code>的地址赋值给一个类型为<code>int</code>的指针变量<code>y</code>。</p>
+<p>反过来，一旦你获取了一个存储着地址的指针变量，通过这个指针很自然就可以获取它指向的值，比如上面例子最后一行打印<code>*y</code>可以得到<code>x</code>的值，这个操作就叫做 <strong>解引用</strong>，也可以理解为“按图索骥”，操作符是“*”，可以读作“被xx指向的值”。</p>
+<p>对指针的理解，可以类比快捷方式：</p>
+<p>比如我在<code>/Users/calios/Desktop</code>路径下创建一个名为<code>aliasTest.txt</code>的文件，打开并输入<code>This is aliasTest file from Desktop.</code>并保存。右键创建快捷方式，并将名为<code>aliasTest.txt alias</code>的快捷方式扔到<code>/Users/calios/Documents</code>路径下。双击<code>aliasTest.txt alias</code>文件，将文件内容修改为<code>This is aliasTest file from Documents.</code>并保存。当然，聪明如你，肯定知道这时候修改的文件其实是源文件<code>aliasTest.txt</code>。此时，无论是从哪个路径下打开文件，看到的都是<code>This is aliasTest file from Documents.</code>。</p>
+<p>同理，身处内存不同区域的指针变量，只要存储着同一个变量的地址，那么指向的值就是相同的。</p>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p>理解了上面的指针，我们来看函数指针。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 函数声明</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">myFun</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</div><div class="line"><span class="keyword">void</span> (*funPointer)(<span class="keyword">int</span>);</div><div class="line"></div><div class="line"><span class="comment">// 函数实现</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">myFun</span><span class="params">(<span class="keyword">int</span> x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"myFun: %d\n"</span>,x);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 函数调用</span></div><div class="line">funPointer = &amp;myFun;  <span class="comment">//将myFun函数的地址赋给funPointer变量</span></div><div class="line">(*funPointer)(<span class="number">200</span>);  <span class="comment">//通过函数指针变量来调用函数</span></div></pre></td></tr></table></figure>
+<p>函数指针和变量指针在语言层面是没有差别的。但是在运行过程中，变量指针是指向堆区、栈区、静态区和全局区；而函数指针指向text区，就是代码段。所以函数指针执行括号的时候，会执行汇编的jump，就是跳转指令到text段的代码。</p>
+<h3 id="指向结构体的指针"><a href="#指向结构体的指针" class="headerlink" title="指向结构体的指针"></a>指向结构体的指针</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">struct <span class="keyword">box </span>*p = …<span class="comment">;</span></div><div class="line">p-&gt;width = <span class="number">20</span><span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>在处理指向结构体类型的指针时，“-&gt;”可以让你一步实现对指针解引用，并获取指定的字段值。如上面代码中，第二行的“-&gt;”实现了指针p的解引用，并获取了结构体中<code>width</code>字段。</p>
+<p>不管结构体的实例是什么——访问其成员其实就是加成员的偏移量。</p>
+<h3 id="指针的比较"><a href="#指针的比较" class="headerlink" title="指针的比较"></a>指针的比较</h3><p>在使用指针来读取或修改它指向的值时，有时候通过比较两个指针是否指向同一个值是很有用的。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> data[<span class="number">2</span>] = &#123;<span class="number">99</span>,<span class="number">99</span>&#125;;</div><div class="line"><span class="keyword">int</span> *m = &amp;data[<span class="number">0</span>];</div><div class="line"><span class="keyword">int</span> *n = &amp;data[<span class="number">1</span>];</div><div class="line"><span class="keyword">if</span> (*m == *n) &#123;   <span class="comment">// A</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"the two values are the same"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"the two values ( %p vs %p ) are different"</span>,m,n);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>观察A处的判断条件，如果是<code>(*m == *n)</code>，比较的是两个指针指向的值是否相同，所以会走第一个分支；而如果是<code>(m == n)</code>，则比较的是两个指针本身的地址，所以会走第二个分支。</p>
+<h3 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h3><p>在C语言中的，不指向任何数据的空指针用<code>NULL</code>表示。例如：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> *p = <span class="literal">NULL</span>;</div></pre></td></tr></table></figure></p>
+<p>而在Objective-C中通常用<code>nil</code>表示指向一个空对象，并逐渐摒弃了C中用<code>NULL</code>表示的方式。</p>
+<p>同时也要注意，不要试图对NULL指针获取解引用，这会导致错误并立即退出程序。</p>
+<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><p>在讲解C语言中的内存区块分配之前，先来看一点说明。</p>
+<p>通常来说可以把变量分成三种：</p>
+<ul>
+<li>局部变量</li>
+<li>全局变量</li>
+<li>静态变量<br>可以由它们组合成“全局静态变量”或是“局部静态变量”。</li>
+</ul>
+<p>接着我们来看五个内存区块：</p>
+<p>1.程序区：也用来指代文本区，是存储可执行程序的二进制代码的区域。<br>2.数据区：分成以下两部分，通常位于堆的上面或者栈的上面，但绝不会在堆和栈之间的区域。</p>
+<ul>
+<li>未初始化的数据区：也叫<code>bss</code>。包括未初始化的全局变量、全局常量和局部静态变量。</li>
+<li>初始化的数据区：包括初始化的全局变量、全局常量和局部静态变量。这部分的大小取决于源代码中数值所占的大小，在运行时不会改变。<br>3.栈区：用来存储函数中创建的变量，比如函数中的局部变量、传入函数的参数和返回值等。在栈中存储的变量在函数执行结束之后就会被移除。<br>4.堆区：用来支持动态内存分配。比如调用<code>malloc</code>、<code>calloc</code>或者<code>realloc</code>等方法。</li>
+</ul>
+<blockquote>
+<p><code>malloc</code>的完整定义是<code>void *malloc(size_t size)</code>，它可以根据参数、从堆中动态分配一块内存，并返回指向第一个字节的指针，或是在出错的时候返回一个NULL。<br>与<code>malloc</code>相关的函数还有：</p>
+<ul>
+<li><code>calloc()</code>：为数组在内存中分配空间。</li>
+<li><code>realloc()</code>：重新分配指定大小的内存空间。</li>
+<li><code>free()</code>：释放之前分配的空间。</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>Meaning of referencing and dereferencing：<br><a href="http://stackoverflow.com/a/14224977/1594792" target="_blank" rel="external">http://stackoverflow.com/a/14224977/1594792</a></li>
+<li>Pointers in Objective-C：<br><a href="http://www.drdobbs.com/mobile/pointers-in-objective-c/225700236" target="_blank" rel="external">http://www.drdobbs.com/mobile/pointers-in-objective-c/225700236</a><br><a href="http://www.drdobbs.com/mobile/pointers-in-objective-c/225700236?pgno=2" target="_blank" rel="external">http://www.drdobbs.com/mobile/pointers-in-objective-c/225700236?pgno=2</a></li>
+<li><a href="https://gist.github.com/CaliosD/192ba8bfb78f0c08ca85ac442eb20ca7" target="_blank" rel="external">https://gist.github.com/CaliosD/192ba8bfb78f0c08ca85ac442eb20ca7</a></li>
+<li><a href="http://stackoverflow.com/questions/14588767/where-in-memory-are-my-variables-stored-in-c" target="_blank" rel="external">http://stackoverflow.com/questions/14588767/where-in-memory-are-my-variables-stored-in-c</a></li>
+</ul>
 
 	
 	
@@ -379,6 +480,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/02/20/attribute-小结/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
         </div>
@@ -555,6 +664,13 @@ It will not impact the appearance and can give developers a lot of support :)
 
 				
 				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 				
 				
 				<!--Footer-->
