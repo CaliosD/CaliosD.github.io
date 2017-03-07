@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title><![CDATA[[SourceRead]-MJExtension]]></title>
+      <url>http://www.calios.gq/2017/03/07/SourceRead-MJExtension/</url>
+      <content type="html"><![CDATA[<p>MJExtension的源码，从最常用的<code>-objectArrayWithKeyValuesArray:</code>（字典数组转模型数组）和<code>-keyValuesArrayWithObjectArray:</code>（模型数组转字典数组）入手，就进入了<code>NSObject+MJKeyValue</code>分类。在梳理过这个类的实现方法之后，发现归根到底，核心的方法就这两个：<code>-setKeyValue:error:</code>（字典转模型）和<code>-keyValuesWithError:</code>（模型转字典）。</p>
+<p>我们分别来看这两个方法。</p>
+<h3 id="setKeyValue-error"><a href="#setKeyValue-error" class="headerlink" title="-setKeyValue:error:"></a><code>-setKeyValue:error:</code></h3><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (instance<span class="keyword">type</span>)setKeyValues:(<span class="type">NSDictionary</span> *)keyValues error:(<span class="type">NSError</span> *__autoreleasing *)error</div><div class="line">&#123;</div><div class="line">    <span class="type">MJAssertError</span>([keyValues isKindOfClass:[<span class="type">NSDictionary</span> class]], self, error, @<span class="string">"keyValues参数不是一个字典"</span>);</div><div class="line">    …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>进入函数后，首先是一个断言，保证传入参数是一个字典。这里体现了防御式编程的思想，具体介绍可以看<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" rel="external">wiki</a>（英文版比中文版的信息完整）。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">NSArray *ignoredPropertyNames = <span class="literal">nil</span>;</div><div class="line"><span class="keyword">if</span> ([[<span class="keyword">self</span> <span class="class"><span class="keyword">class</span>] <span class="title">respondsToSelector</span>:@<span class="title">selector</span>(<span class="title">ignoredPropertyNames</span>)]) &#123;</span></div><div class="line">      ignoredPropertyNames = [[<span class="keyword">self</span> <span class="class"><span class="keyword">class</span>] <span class="title">ignoredPropertyNames</span>];</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先检查是否有需要忽略的属性，即不进行字典和模型转换的属性。<code>ignoredPropertyNames</code>这个方法来自<code>MJKeyValue</code>协议，除此之外，<code>MJKeyValue</code>协议中还定义了一些对于属性名的特殊处理，如替换属性名（<code>replacedKeyFromPropertyName</code>），指定数组中需要转换的模型类（<code>objectClassInArray</code>），和字典转模型完毕/模型转字典完毕时调用的方法。</p>
+<p>往下走，进入核心部分。<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[[self class] enumerateIvarsWithBlock:^(<span class="name">MJIvar</span> *ivar, BOOL *stop) &#123;    </div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中<code>enumerateIvarsWithBlock:</code>实现如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)enumerateIvarsWithBlock:(MJIvarsBlock)block</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> MJCachedIvarsKey;</div><div class="line">    <span class="comment">// 获得成员变量</span></div><div class="line">    <span class="built_in">NSMutableArray</span> *cachedIvars = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;MJCachedIvarsKey);    <span class="comment">// A</span></div><div class="line">    <span class="keyword">if</span> (cachedIvars == <span class="literal">nil</span>) &#123;</div><div class="line">        cachedIvars = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"></div><div class="line">        [<span class="keyword">self</span> enumerateClassesWithBlock:^(__<span class="keyword">unsafe_unretained</span> Class c, <span class="built_in">BOOL</span> *stop) &#123;</div><div class="line">            <span class="comment">// 1.获得所有的成员变量</span></div><div class="line">            <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</div><div class="line">            Ivar *ivars = class_copyIvarList(c, &amp;outCount);    <span class="comment">// B</span></div><div class="line"></div><div class="line">            <span class="comment">// 2.遍历每一个成员变量</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i&lt;outCount; i++) &#123;</div><div class="line">                MJIvar *ivar = [MJIvar cachedIvarWithIvar:ivars[i]];    <span class="comment">// C</span></div><div class="line">                ivar.srcClass = c;</div><div class="line">                <span class="built_in">NSString</span> *key = [<span class="keyword">self</span> ivarKey:ivar.propertyName];</div><div class="line">                [ivar setKey:key forClass:<span class="keyword">self</span>];</div><div class="line">                <span class="comment">// 数组中的模型类</span></div><div class="line">                [ivar setObjectClassInArray:[<span class="keyword">self</span> ivarObjectClassInArray:ivar.propertyName] forClass:<span class="keyword">self</span>];</div><div class="line">                [cachedIvars addObject:ivar];    <span class="comment">// D</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// 3.释放内存</span></div><div class="line">            free(ivars);    <span class="comment">// B</span></div><div class="line">        &#125;];</div><div class="line">        objc_setAssociatedObject(<span class="keyword">self</span>, &amp;MJCachedIvarsKey, cachedIvars, OBJC_ASSOCIATION_RETAIN_NONATOMIC);    <span class="comment">// A</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 遍历成员变量</span></div><div class="line">    <span class="built_in">BOOL</span> stop = <span class="literal">NO</span>;</div><div class="line">    <span class="keyword">for</span> (MJIvar *ivar <span class="keyword">in</span> cachedIvars) &#123;</div><div class="line">        block(ivar, &amp;stop);</div><div class="line">        <span class="keyword">if</span> (stop) <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>有这样三个点可以看一下：<br>A：<code>id objc_getAssociatedObject(id object, const void *key)</code>和<code>void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)</code>这一对方法，没什么需要赘述的。<br>B：<code>Ivar *class_copyIvarList(Class cls, unsigned int *outCount)</code>经常用来获取类的成员变量列表，返回值是一个指针的数组，类型是Ivar，在使用过之后记得到调用<code>free()</code>来释放数组的内存。</p>
+<blockquote>
+<p>我在这里简单写了一个获取类的成员变量列表的方法，仅供参考。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)printIvarsOfClass:(Class)c</div><div class="line">&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> ivarCount = <span class="number">0</span>;</div><div class="line">    Ivar *ivars = class_copyIvarList(c, &amp;ivarCount);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"====== Ivars of %@ are: "</span>, c);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ivarCount; i++) &#123;</div><div class="line">        Ivar var = ivars[i];</div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* name = ivar_getName(var);</div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* typeEncoding = ivar_getTypeEncoding(var);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%s, %s \n"</span>, name, typeEncoding);</div><div class="line">    &#125;</div><div class="line">    free(ivars);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>C：用Ivar初始化一个<code>MJIvar</code>实例。MJIvar可以理解为在原有的Ivar基础上，添加了成员名、成员属性名、类型等常用属性和常用方法。<br>D：将设置好的MJIvar实例添加到缓存的成员变量中，以备后用，同时也提高了后续使用的效率。</p>
+<p>后面的代码，作者注释已经很清楚了，就不再赘述。</p>
+<h3 id="keyValuesWithError"><a href="#keyValuesWithError" class="headerlink" title="-keyValuesWithError:"></a><code>-keyValuesWithError:</code></h3><p>来看这个核心方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSDictionary</span> *)keyValuesWithError:(<span class="built_in">NSError</span> *__autoreleasing *)error</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 如果自己不是模型类</span></div><div class="line">    <span class="keyword">if</span> ([MJFoundation isClassFromFoundation:[<span class="keyword">self</span> <span class="keyword">class</span>]]) <span class="keyword">return</span> (<span class="built_in">NSDictionary</span> *)<span class="keyword">self</span>;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首先涉及到<code>MJFoundation</code>类的一个（也是唯一一个）方法：<code>+isClassFromFoundation:</code>。代码并不复杂：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load</div><div class="line">&#123;</div><div class="line">    _foundationClasses = [<span class="built_in">NSSet</span> setWithObjects:</div><div class="line">                          [<span class="built_in">NSObject</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSURL</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDate</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSNumber</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDecimalNumber</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSData</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableData</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSArray</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableArray</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDictionary</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableDictionary</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSString</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableString</span> <span class="keyword">class</span>], <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>)isClassFromFoundation:(Class)c</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [_foundationClasses containsObject:c];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>只是检查一下传入的类是否属于基本类。这里要看的，其实是它上面的方法<code>+(void)load</code>。</p>
+<blockquote>
+<p><code>+load</code>在所属类一加载完的时候就会被调用，非常早。如果是在应用中或是应用链接的框架中实现<code>+load</code>，<code>+load</code>会在<code>main()</code>函数调用之前执行。如果是在一个可加载的bundle中实现<code>+load</code>，它就会在bundle加载的过程中执行。<code>+load</code>特别的一点是，如果在类和该类的category中都实现了<code>+load</code>方法，两个<code>+load</code>方法都会被执行。这就意味着<code>+load</code>是存放类似method swizzling这种魔鬼的好地方。:]</p>
+<p>与<code>+load</code>类似的是<code>+initialize</code>方法，它是个比<code>+load</code>更安全的存放代码的地方。当类第一次加载的时候，<code>+initialize</code>并不会调用。当有消息发送给类的 时候，runtime会首先检查<code>+initialize</code>是否已经被调用，如果没有，就会在处理消息发送之前先调用<code>+initialize</code>。</p>
+</blockquote>
+<p>更多关于<code>+load</code>和<code>+initialize</code>的讲解，可以看Mike Ash的<a href="https://www.mikeash.com/pyblog/friday-qa-2009-05-22-objective-c-class-loading-and-initialization.html" target="_blank" rel="external">这篇</a>。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> SourceRead </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[C的几个基本概念：结构体、指针、函数指针、内存分配等]]></title>
       <url>http://www.calios.gq/2017/02/27/C%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%EF%BC%9A%E7%BB%93%E6%9E%84%E4%BD%93%E3%80%81%E6%8C%87%E9%92%88%E3%80%81%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E3%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%89/</url>
       <content type="html"><![CDATA[<h3 id="typedef-struct和单纯struct定义的差别"><a href="#typedef-struct和单纯struct定义的差别" class="headerlink" title="typedef struct和单纯struct定义的差别"></a>typedef struct和单纯struct定义的差别</h3><p>通常来说是<code>typedef</code>和<code>struct</code>定义都写。</p>
@@ -1427,9 +1465,9 @@ end
             
             <tag> iOS </tag>
             
-            <tag> iOS8 </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> iOS8 </tag>
             
         </tags>
         
@@ -2361,9 +2399,9 @@ end
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AutoLayout </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -3350,9 +3388,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AVPlayer </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AVPlayer </tag>
             
         </tags>
         
@@ -3555,9 +3593,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AutoLayout </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
