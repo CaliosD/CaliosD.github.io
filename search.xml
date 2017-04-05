@@ -1465,9 +1465,9 @@ end
             
             <tag> iOS </tag>
             
-            <tag> iOS8 </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> iOS8 </tag>
             
         </tags>
         
@@ -2399,9 +2399,9 @@ end
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
@@ -3388,9 +3388,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AVPlayer </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -3593,9 +3593,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
