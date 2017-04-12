@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> GPS and related · Calios' Eden</title><meta name="description" content="GPS and related - Calios"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.calios.gq/atom.xml" title="Calios' Eden"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/img/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/calios1124" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/caliosd" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">GPS and related</h1><div class="post-info">2017年3月22日</div><div class="post-content"><h3 id="iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it"><a href="#iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it" class="headerlink" title="iPhone Location: How apps access the iPhone location and what they can do with it."></a>iPhone Location: How apps access the iPhone location and what they can do with it.</h3><a id="more"></a>
+<ul>
+<li>Requesting an appropriate level of accuracy(the options are 3km, 1km, 100m, 10m, Best, or Best for navigation) is all about minimizing battery drain.<ul>
+<li>At a low of accuracy(e.g. 3km), the phone could determine its location solely from cellular or wifi signals, which would avoid powering up the GPS and conserve battery life.</li>
+<li>At higher levels of accuracy(e.g. 10m), the phone listens to all available signals that it can use to determine its location — which includes GPS and iBeacons, in addition to wifi and cellular</li>
+<li>Apple does not say specifically say which signals are used at which levels of accuracy.</li>
+</ul>
+</li>
+<li>An app can force the use of GPS by specifying “Best” — this will cause the phone to use GPS constantly to determine location as accurately as possible.</li>
+<li>When the phone has a lock on 4 satellites, it can determine its elevation.<ul>
+<li>With 3 satellites, it can only determine location.</li>
+</ul>
+</li>
+<li>Significant Location Changes Only<ul>
+<li>As an alternative to receiving updates every time the phone moves, an app can request that it receive a location update only when the phone’s location has changed “significantly”.</li>
+<li>This will avoid powering up the GPS and will rely on cell towers and wifi signals only — resulting in substantially reduced power consumption.</li>
+<li>“Significant” is not defined.</li>
+</ul>
+</li>
+<li>Region Monitoring<ul>
+<li>where an app defines one or more regions by specifying their center and radius.</li>
+<li>Then the phone notifies the app whenever it enters or exits a region.</li>
+<li>This uses wifi and cell towers only, so accuracy is similar to “significant changes only” and regions will only work if they are fairly large.</li>
+</ul>
+</li>
+<li>iBeacons<ul>
+<li>iBeacons are small wireless sensors that can transmit data to an iPhone using Bluetooth Low Energy(BLE)</li>
+<li>iBeacons allow apps to receive special promotions, coupons, recommendations, etc, from business in real time when users are nearby</li>
+<li>An app can display the information received from the business, or it can make use of the knowledge that the iBeacon is nearby for navigational purposes as a form of region monitoring.</li>
+</ul>
+</li>
+<li>Inaccuracy Makes Distances Long<ul>
+<li>When tracking the user’s path with high level of accuracy, any inaccuracies in location measurement will almost always cause the path to be longer than it should.</li>
+</ul>
+</li>
+<li>“Snapping” to Roads<ul>
+<li>To counteract the extra distance problem and provide a smoother path, iPhone will “snap” location updates to a known road network when the user is traveling about 15mph(on the assumption that the user is driving or biking during that time).</li>
+<li>Apps have no way of knowing when this is happening — all they see are location updates like normal, but when the locations are later projected on a map, it is clear when this was happening.</li>
+</ul>
+</li>
+<li>GPS Signal Quality<ul>
+<li>GPS requires line-of-sight communication, so anything that blocks a direct path from the phone to a satellite can interfere with the signal (this includes trees, mountains, buildings, car roofs, etc)</li>
+<li>When a direct GPS signal is blocked and the user is near a large solid object like a building, the GPS signal can arrive at the phone indirectly after bouncing off the building.</li>
+<li>Because GPS works by measuring very precisely how long the signal takes to get from the satellite to the phone, when the signal takes a longer path like this, the calculated location will be off.</li>
+</ul>
+</li>
+<li>Post-Processing<ul>
+<li>It is difficult to overcome these limitations on the phone while the app is running.</li>
+<li>However, if the app is recording a user’s path and saving it to a server(e.g. the way a fitness tracking app would), the server can make some corrections after upload, such as<ul>
+<li>Snapping to roads or other known locations</li>
+<li>Smoothing out jagged parts of the path</li>
+<li>Replacing the inaccurate elevation reported by the phone with known elevation at that location</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Map Displays<ul>
+<li>iPhone makes displaying maps in apps really easy</li>
+<li>Many common functions are built-in and require very little from the app developer, including:<ul>
+<li>Displaying user location on the map</li>
+<li>Displaying annotations and overlays on the map that zoom and scale with the map</li>
+<li>Centering the map on the user’s location</li>
+</ul>
+</li>
+<li>Geocoding(getting latitude/longitude coordinates from an address) and reverse geocoding(getting an address from latitude/longitude coordinates) is also built-in and quite easy to use</li>
+</ul>
+</li>
+<li><strong>How iPhone determines its location:</strong><ul>
+<li>Four types of signals<ul>
+<li>iPhone can use 4 different types of signals to determine its location<ul>
+<li>Cellular</li>
+<li>Wifi</li>
+<li>GPS</li>
+<li>Bluetooth (from iBeacons)</li>
+</ul>
+</li>
+<li>The phone’s location is determined by combining one or more of these signals(Which signals are used depends on availability and the requested accuracy)</li>
+<li>All of this happens behind the scenes — any app can access the location of the phone, but the app does not know how it was calculated</li>
+</ul>
+</li>
+<li>Cellular<ul>
+<li>The location of cell towers is known to a high degree of accuracy. Based on the signal strength from various towers, the phone can estimate how far it is from each of them and calculate the phone’s location</li>
+<li>This is always available when the phone has cell coverage, but is not very accurate since the towers can be far away and distance based on signal strength is not very accurate</li>
+</ul>
+</li>
+<li>Wifi<ul>
+<li>The phone uses the same process to determine location using wifi signals as it does for cellular signals, with distance estimated to the wifi hotspots based on signal strength</li>
+<li>The locations of wifi hotspots have been crowdsourced for this purpose</li>
+<li>Using wifi is more accurate than cell towers, but the user needs to have wifi turned on</li>
+</ul>
+</li>
+<li>iBeacons<ul>
+<li>When the phone detects a Bluetooth Low Energy signal from an iBeacon, in addition to knowing that an iBeacon is nearby, the phone can use the relative signal strength from multiple iBeacons to determine its location using the same technique that it uses for cellular and wifi signals</li>
+<li>iBeacon signals only travel about 50 feet, so this location would be fairly accurate</li>
+<li>This is particularly useful indoors, where GPS reception is poor</li>
+</ul>
+</li>
+<li>GPS<ul>
+<li>GPS is the most accurate of the 4 signals, but it is slow to get started</li>
+<li>The phone needs to “lock on” 3-4 satellites within its line of sight before it can use GPS to determine location<ul>
+<li>This can take anywhere from 15 seconds to several minutes, depending on the phone’s view of the sky</li>
+<li>3 satellites can provide location; a fourth provides elevation</li>
+<li>The phone uses its location calculated from other sources(e.g. cellular and wifi) to determine which satellites are within its line of sight at the current time, speeding up this process(this is called Assisted GPS, or A-GPS)</li>
+</ul>
+</li>
+<li>Before the phone has a GPS lock, location is less accurate</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="In-iOS8-is-there-any-way-to-turn-off-all-radios-EXCEPT-GPS"><a href="#In-iOS8-is-there-any-way-to-turn-off-all-radios-EXCEPT-GPS" class="headerlink" title="In iOS8 is there any way to turn off all radios EXCEPT GPS?"></a>In iOS8 is there any way to turn off all radios EXCEPT GPS?</h3><p>(Latest answer on Aug 13, 2016. <a href="https://discussions.apple.com/thread/6543352?start=15&amp;tstart=0" target="_blank" rel="external">https://discussions.apple.com/thread/6543352?start=15&amp;tstart=0</a>)<br>iOS 9 has enabled GPS in Airplane mode. Tried and tested, works as it should.<br>iOS 8 walk-around would be setting sim-card pin, restarting the phone, not entering pin#, sim would be deactivated, however the phone would still look for emergency bands.<br>iOS 7 had a bug that would activate GPS when compass app was launched while the phone was in Airplane mode.</p>
+<p>Since iOS 8.2, you can still use the GPS even in flight mode.(<a href="http://apple.stackexchange.com/questions/98649/does-airplane-mode-disable-gps?rq=1" target="_blank" rel="external">http://apple.stackexchange.com/questions/98649/does-airplane-mode-disable-gps?rq=1</a>)<br>GPS continues to work in airplane mode. Tested on iPhone 5s and SE with iOS 8, 9 and now 10. It may take longer (up to several minutes)to get the first fix but has full performance afterwards. It even works in an airplane when the iPhone is close to a window.</p>
+<hr>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h3><ul>
+<li><a href="https://learnaboutcoding.wordpress.com/iphone-course/iphone-location/" target="_blank" rel="external">https://learnaboutcoding.wordpress.com/iphone-course/iphone-location/</a></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/04/12/CAS登录之iOS端总结/" class="prev">PREV</a><a href="/2017/03/07/SourceRead-MJExtension/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://www.calios.gq">Calios</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
