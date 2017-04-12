@@ -1074,14 +1074,10 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li>Specify a target for each pod.</li>
 </ul>
 <p>eg. if before you had your Podfile written like this:</p>
-<pre><code>pod &apos;Alamofire&apos;, &apos;~&gt; 3.1.4&apos;
-pod &apos;SwiftyJSON&apos;, &apos;~&gt; 2.3.2&apos;
-</code></pre><p>just change it to</p>
-<pre><code>target &quot;TargetName&quot; do
-    pod &apos;Alamofire&apos;, &apos;~&gt; 3.1.4&apos;
-    pod &apos;SwiftyJSON&apos;, &apos;~&gt; 2.3.2&apos;
-end
-</code></pre><h3 id="Bridging-between-Objective-C-and-Swift"><a href="#Bridging-between-Objective-C-and-Swift" class="headerlink" title="Bridging between Objective-C and Swift."></a>Bridging between Objective-C and Swift.</h3><ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">pod</span> <span class="string">'Alamofire'</span>, <span class="string">'~&gt; 3.1.4'</span></div><div class="line">pod <span class="string">'SwiftyJSON'</span>, <span class="string">'~&gt; 2.3.2'</span></div></pre></td></tr></table></figure>
+<p>just change it to</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">target <span class="string">"TargetName"</span> <span class="built_in">do</span></div><div class="line">    pod <span class="string">'Alamofire'</span>, <span class="string">'~&gt; 3.1.4'</span></div><div class="line">    pod <span class="string">'SwiftyJSON'</span>, <span class="string">'~&gt; 2.3.2'</span></div><div class="line"><span class="built_in">end</span></div></pre></td></tr></table></figure>
+<h3 id="Bridging-between-Objective-C-and-Swift"><a href="#Bridging-between-Objective-C-and-Swift" class="headerlink" title="Bridging between Objective-C and Swift."></a>Bridging between Objective-C and Swift.</h3><ul>
 <li>In fact, after installing <code>Charts</code> with Cocoapods and building <code>.xcworkspace</code>, it automatically generates <code>Charts-Swift.h</code> file, which you can use directly in you <code>.m</code> file with <code>#import &lt;Charts/Charts-Swift.h&gt;</code>.(Here my project is OC-based.)</li>
 <li>Check some build settings and parameters:<ul>
 <li>Product Module Name: yourProject</li>
@@ -1094,6 +1090,8 @@ end
 </ul>
 <p>Here’s <a href="http://stackoverflow.com/a/24005242/1594792" target="_blank" rel="external">step by step integration for Xcode between Objc and Swift in project</a>.</p>
 <p>However, I failed to use OC framework in Swift-based project with Cocoapods and still couldn’t tell why. I’ll add it later if I make it.</p>
+<p><strong>Update on 2017-04-12</strong></p>
+<p>I finally import Objective-C framework into Swift-based project, just after change <code>Targets/Build Settings/Swift Compiler-General/Install Objective-C Compatibility Header</code> in Xcode from <code>No</code> to <code>Yes</code>. :]</p>
 ]]></content>
       
         
@@ -2656,9 +2654,9 @@ end
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
@@ -3645,9 +3643,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AVPlayer </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -3850,9 +3848,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
