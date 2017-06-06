@@ -116,7 +116,7 @@
     <link href="http://www.calios.gq/2017/04/19/WebSocket%E5%88%9D%E6%8E%A2/"/>
     <id>http://www.calios.gq/2017/04/19/WebSocket初探/</id>
     <published>2017-04-19T06:56:15.000Z</published>
-    <updated>2017-06-06T08:03:29.000Z</updated>
+    <updated>2017-06-06T08:04:54.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-基础概要"><a href="#1-基础概要" class="headerlink" title="1.基础概要"></a>1.基础概要</h3><p><strong>应用层</strong>，主要解决如何包装数据：HTTP、FTP、Telnet等。其中，HTTP连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。所以是<strong>短连接</strong>。相对而言，socket连接是<strong>长连接</strong>，两端一旦建立连接将不会主动断掉。但由于各种环境因素可能会断开，所以当一个socket连接中没有数据传输时，为了维持连接需要发送<strong>心跳消息</strong>。<br><strong>传输层</strong>，主要解决数据如何在网络中传输：TCP协议。<br><strong>网络层</strong>，主要解决数据如何在网络中传输：IP协议。</p>
 <blockquote>
@@ -504,11 +504,37 @@
   </entry>
   
   <entry>
+    <title>Objective-C Runtime Programming Guide 翻译及详解</title>
+    <link href="http://www.calios.gq/2017/03/16/Objective-C-Runtime-Programming-Guide-%E7%BF%BB%E8%AF%91%E5%8F%8A%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.calios.gq/2017/03/16/Objective-C-Runtime-Programming-Guide-翻译及详解/</id>
+    <published>2017-03-16T08:35:30.000Z</published>
+    <updated>2017-06-06T08:52:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>近日大脑一抽筋，尝试使用GitBook Editor的同时翻了一篇Runtime Programming的官方文档。</p>
+<p>链接在此：<a href="https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/" target="_blank" rel="external">https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/</a></p>
+<p>以此留念。欢迎各种批评指正。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;近日大脑一抽筋，尝试使用GitBook Editor的同时翻了一篇Runtime Programming的官方文档。&lt;/p&gt;
+&lt;p&gt;链接在此：&lt;a href=&quot;https://caliosd.gitbooks.io/objective-c-runtime-programmi
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://www.calios.gq/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[SourceRead]-MJExtension</title>
-    <link href="http://www.calios.gq/2017/03/07/SourceRead-MJExtension/"/>
-    <id>http://www.calios.gq/2017/03/07/SourceRead-MJExtension/</id>
+    <link href="http://www.calios.gq/2017/03/07/%5BSourceRead%5D-MJExtension/"/>
+    <id>http://www.calios.gq/2017/03/07/[SourceRead]-MJExtension/</id>
     <published>2017-03-07T09:09:51.000Z</published>
-    <updated>2017-03-07T09:15:39.000Z</updated>
+    <updated>2017-06-06T08:49:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>MJExtension的源码，从最常用的<code>-objectArrayWithKeyValuesArray:</code>（字典数组转模型数组）和<code>-keyValuesArrayWithObjectArray:</code>（模型数组转字典数组）入手，就进入了<code>NSObject+MJKeyValue</code>分类。在梳理过这个类的实现方法之后，发现归根到底，核心的方法就这两个：<code>-setKeyValue:error:</code>（字典转模型）和<code>-keyValuesWithError:</code>（模型转字典）。</p>
 <p>我们分别来看这两个方法。</p>
@@ -542,6 +568,8 @@
     
     
       <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://www.calios.gq/tags/Runtime/"/>
     
       <category term="SourceRead" scheme="http://www.calios.gq/tags/SourceRead/"/>
     
@@ -1353,40 +1381,6 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
       <category term="PragmaticProgrammer" scheme="http://www.calios.gq/tags/PragmaticProgrammer/"/>
     
       <category term="脑洞开一开" scheme="http://www.calios.gq/tags/%E8%84%91%E6%B4%9E%E5%BC%80%E4%B8%80%E5%BC%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实用svn命令</title>
-    <link href="http://www.calios.gq/2016/07/24/%E5%AE%9E%E7%94%A8svn%E5%91%BD%E4%BB%A4/"/>
-    <id>http://www.calios.gq/2016/07/24/实用svn命令/</id>
-    <published>2016-07-24T08:17:22.000Z</published>
-    <updated>2017-01-20T10:02:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.Check all the changed files:<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">st</span></div></pre></td></tr></table></figure></p>
-<p>2.Check the differences between this version and the last version:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn diff -r PREV filename</div></pre></td></tr></table></figure></p>
-<p>3.Undo add a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert --recursive folder_name</div></pre></td></tr></table></figure></p>
-<p>4.Undo delete a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert . --recursive</div></pre></td></tr></table></figure></p>
-<p>5.Delete all locally missing files: <a href="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" title="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" target="_blank" rel="external">solutions</a></p>
-<p>6.Delete a folder from svn repository:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn delete http://www.yourrepository.com/svn/folder --message "Deleting"</div></pre></td></tr></table></figure></p>
-<p>7.Revert to a previous SVN revision of a file:<br><figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">merge</span> -c -<span class="number">854</span> l3toks.dtx</div></pre></td></tr></table></figure></p>
-<p>8.Ignore Pods foler:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn propset <span class="symbol">svn:</span>ignore Pods .</div></pre></td></tr></table></figure></p>
-<p>9.SVN remains in conflict status:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn resolved &lt;filename <span class="keyword">or</span> directory <span class="keyword">that</span> gives trouble&gt;</div></pre></td></tr></table></figure></p>
-<p>10.View all historical changes to a file in SVN:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># history_of_file</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Outputs the full history of a given file as a sequence of</span></div><div class="line"><span class="comment"># logentry/diff pairs.  The first revision of the file is emitted as</span></div><div class="line"><span class="comment"># full text since there's not previous version to compare it to.</span></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">history_of_file</span></span>() &#123;</div><div class="line">    url=<span class="variable">$1</span> <span class="comment"># current url of file</span></div><div class="line">    svn <span class="built_in">log</span> -q <span class="variable">$url</span> | grep -E <span class="_">-e</span> <span class="string">"^r[[:digit:]]+"</span> -o | cut -c2- | sort -n | &#123;</div><div class="line"></div><div class="line"><span class="comment">#       first revision as full text</span></div><div class="line">        <span class="built_in">echo</span></div><div class="line">        <span class="built_in">read</span> r</div><div class="line">        svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        svn cat -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        <span class="built_in">echo</span></div><div class="line"></div><div class="line"><span class="comment">#       remaining revisions as differences to previous revision</span></div><div class="line">        <span class="keyword">while</span> <span class="built_in">read</span> r</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="built_in">echo</span></div><div class="line">            svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            svn diff -c<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            <span class="built_in">echo</span></div><div class="line">        <span class="keyword">done</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$ history_of_file <span class="variable">$1</span></div></pre></td></tr></table></figure></p>
-<p>11.Add tags for SVN:</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># First of all, the `ios/1.0.39219` directory should already exists. If it doesn't, you can create it using `svn mkdir` like below.</span></div><div class="line"><span class="variable">$ </span>svn mkdir <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span> -m <span class="string">"create tag v1.0 for iOS."</span></div><div class="line"><span class="variable">$ </span>svn copy <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/trunk</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/project</span>A <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span>/projectA -m <span class="string">"create v1.0. Before updating all the base url and cas url."</span></div><div class="line"></div><div class="line">Committed revision <span class="number">41000</span>.</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.Check all the changed files:&lt;br&gt;&lt;figure class=&quot;highlight avrasm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td
-    
-    </summary>
-    
-    
-      <category term="Terminal" scheme="http://www.calios.gq/tags/Terminal/"/>
-    
-      <category term="SVN" scheme="http://www.calios.gq/tags/SVN/"/>
     
   </entry>
   

@@ -459,8 +459,27 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Objective-C Runtime Programming Guide 翻译及详解]]></title>
+      <url>http://www.calios.gq/2017/03/16/Objective-C-Runtime-Programming-Guide-%E7%BF%BB%E8%AF%91%E5%8F%8A%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<p>近日大脑一抽筋，尝试使用GitBook Editor的同时翻了一篇Runtime Programming的官方文档。</p>
+<p>链接在此：<a href="https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/" target="_blank" rel="external">https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/</a></p>
+<p>以此留念。欢迎各种批评指正。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Runtime </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[[SourceRead]-MJExtension]]></title>
-      <url>http://www.calios.gq/2017/03/07/SourceRead-MJExtension/</url>
+      <url>http://www.calios.gq/2017/03/07/%5BSourceRead%5D-MJExtension/</url>
       <content type="html"><![CDATA[<p>MJExtension的源码，从最常用的<code>-objectArrayWithKeyValuesArray:</code>（字典数组转模型数组）和<code>-keyValuesArrayWithObjectArray:</code>（模型数组转字典数组）入手，就进入了<code>NSObject+MJKeyValue</code>分类。在梳理过这个类的实现方法之后，发现归根到底，核心的方法就这两个：<code>-setKeyValue:error:</code>（字典转模型）和<code>-keyValuesWithError:</code>（模型转字典）。</p>
 <p>我们分别来看这两个方法。</p>
 <h3 id="setKeyValue-error"><a href="#setKeyValue-error" class="headerlink" title="-setKeyValue:error:"></a><code>-setKeyValue:error:</code></h3><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (instance<span class="keyword">type</span>)setKeyValues:(<span class="type">NSDictionary</span> *)keyValues error:(<span class="type">NSError</span> *__autoreleasing *)error</div><div class="line">&#123;</div><div class="line">    <span class="type">MJAssertError</span>([keyValues isKindOfClass:[<span class="type">NSDictionary</span> class]], self, error, @<span class="string">"keyValues参数不是一个字典"</span>);</div><div class="line">    …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -489,6 +508,8 @@
         <tags>
             
             <tag> iOS </tag>
+            
+            <tag> Runtime </tag>
             
             <tag> SourceRead </tag>
             
@@ -2852,9 +2873,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
@@ -3841,9 +3862,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AVPlayer </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -4046,9 +4067,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
