@@ -76,6 +76,7 @@
 <li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1</a></li>
 <li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html</a></li>
 <li><a href="https://stackoverflow.com/q/3018242/1594792" target="_blank" rel="external">https://stackoverflow.com/q/3018242/1594792</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html" target="_blank" rel="external">https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html</a></li>
 </ul>
 ]]></content>
       
@@ -94,7 +95,7 @@
     
     <entry>
       <title><![CDATA[Regex Notes]]></title>
-      <url>http://www.calios.gq/2017/04/12/Regex-Notes/</url>
+      <url>http://www.calios.gq/2017/04/15/Regex-Notes/</url>
       <content type="html"><![CDATA[<h3 id="Some-definitions-before-we-start"><a href="#Some-definitions-before-we-start" class="headerlink" title="Some definitions before we start:"></a>Some definitions before we start:</h3><ul>
 <li><strong>literal</strong>: A <strong>literal</strong> is any character we use in a search or matching expression, for example, to find <strong>ind</strong> in w <strong>ind</strong> ows the <strong>ind</strong> is a <strong>literal</strong> string - each character plays a part in the search, it is <strong>literally</strong> the string we want to find.</li>
 </ul>
@@ -1809,9 +1810,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> iOS8 </tag>
+            
+            <tag> UIKit </tag>
             
         </tags>
         

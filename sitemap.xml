@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.calios.gq/2017/04/15/Regex-Notes/</loc>
+    
+    <lastmod>2017-06-06T06:26:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.calios.gq/about/index.html</loc>
+    
+    <lastmod>2017-06-06T06:24:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/</loc>
     
-    <lastmod>2017-06-06T06:16:22.000Z</lastmod>
+    <lastmod>2017-06-06T06:20:45.000Z</lastmod>
     
   </url>
   
@@ -12,13 +26,6 @@
     <loc>http://www.calios.gq/2016/05/27/Some-notes-for-Charts/</loc>
     
     <lastmod>2017-04-12T07:52:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.calios.gq/2017/04/12/Regex-Notes/</loc>
-    
-    <lastmod>2017-04-12T07:48:05.000Z</lastmod>
     
   </url>
   
@@ -33,13 +40,6 @@
     <loc>http://www.calios.gq/2017/04/12/CAS%E7%99%BB%E5%BD%95%E4%B9%8BiOS%E7%AB%AF%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2017-04-12T07:12:52.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.calios.gq/about/index.html</loc>
-    
-    <lastmod>2017-04-05T02:38:24.000Z</lastmod>
     
   </url>
   
