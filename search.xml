@@ -4,6 +4,95 @@
   
     
     <entry>
+      <title><![CDATA[KVO & KVC 知识点小结]]></title>
+      <url>http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/</url>
+      <content type="html"><![CDATA[<h3 id="1-KVO"><a href="#1-KVO" class="headerlink" title="1.KVO"></a>1.KVO</h3><h5 id="1-1-属性依赖的机制"><a href="#1-1-属性依赖的机制" class="headerlink" title="1.1 属性依赖的机制"></a>1.1 属性依赖的机制</h5><p>在objc.io讲解KVC和KVO的一篇<a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">文章</a>中，举了一个体现属性依赖机制的例子，例子的逻辑结构如下图。完整代码见<a href="https://github.com/objcio/issue-7-lab-color-space-explorer" target="_blank" rel="external">github</a>。</p>
+<a id="more"></a>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/1.1%20PropertyDependency.png" alt="属性依赖机制"></p>
+<p><strong>图解：</strong></p>
+<ul>
+<li>该图表现了通过改变L、a、b的滑块，更新上图右侧view的背景颜色的实现原理。</li>
+<li>L、a、b代表Lab色彩空间中颜色的三种影响因素。</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="name">NSSet&lt;NSString</span> *&gt;) keyPathsForValuesAffectingValueForKey: (NSString *)key<span class="comment">;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>key：受key path影响的key。</li>
+<li>return：返回影响指定key的一组key path。</li>
+<li>使用：<code>+ (NSSet&lt;NSString *&gt;) keyPathsForValuesAffecting&lt;Key&gt;</code>。</li>
+</ul>
+<p><strong>详解：</strong></p>
+<ul>
+<li>red的变化受L影响，green变化受L和a影响，blue变化受L和b影响，最终red、green和blue共同决定color属性，即view显示的背景颜色。</li>
+<li>通过实现对应的+keyPathsForValuesAffectingRedComponent/GreenComponent/BlueComponent/Color来指定各个属性之间的依赖关系。</li>
+<li>添加属性后，会在代码提示中自动生成如下名称的方法，选择一个就好了。</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingRedComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObject:<span class="string">@"lComponent"</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingGreenComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"lComponent"</span>, <span class="string">@"aComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingBlueComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"lComponent"</span>, <span class="string">@"bComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingColor</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"redComponent"</span>, <span class="string">@"greenComponent"</span>, <span class="string">@"blueComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="1-2-KVO"><a href="#1-2-KVO" class="headerlink" title="1.2 KVO"></a>1.2 KVO</h5><p>添加对LabColor的实例对象labColor的属性color的观察者，并添加相应的响应事件，更新view的backgroundColor。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>addObserver:<span class="params">(NSObject *)</span>anObserver</div><div class="line">         forKeyPath:<span class="params">(NSString *)</span>keyPath</div><div class="line">            options:<span class="params">(NSKeyValueObservingOptions)</span>options</div><div class="line">            context:<span class="params">(void *)</span>context</div><div class="line">- <span class="params">(void)</span>observeValueForKeyPath:<span class="params">(NSString *)</span>keyPath</div><div class="line">                      ofObject:<span class="params">(id)</span>object</div><div class="line">                        change:<span class="params">(NSDictionary *)</span>change</div><div class="line">                       context:<span class="params">(void *)</span>context</div></pre></td></tr></table></figure>
+<p>对于options的几个可选值：</p>
+<ul>
+<li>获取变化之前的值用NSKeyValueObservingOptionOld，获取变化之后的值用NSKeyValueObservingOptionNew，二者都取用按位或。</li>
+<li>在添加观察者之前就立即发送变化的通知用NSKeyValueObservingOptionInitial，可以通过这种一次性的通知确定被观察者某属性的初始值。</li>
+<li>在即将发生变化之前发送通知用NSKeyValueObservingOptionPrior（通常都是发生变化后发送通知）。<br>建议设置Context，避免子类和父类观察同一对象的同一属性。</li>
+</ul>
+<p><strong>注意：</strong> KVO的add方法并不对观察对象、被观察对象和context持有强引用，所以要自行确保对于观察对象、被观察对象和context的强引用。</p>
+<h5 id="1-3-手动通知"><a href="#1-3-手动通知" class="headerlink" title="1.3 手动通知"></a>1.3 手动通知</h5><ul>
+<li>如何手动通知？</li>
+</ul>
+<p>当我们需要override 属性的setter方法时，有时候需要添加一些自定义的控制，再进行赋值。这时需要关闭系统自动调用 <code>-willChangeValueForKey:</code>和 <code>-didChangeValueForKey:</code>的行为，改为手动调用这两个方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)automaticallyNotifiesObserversForLComponent;</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setLComponent:(<span class="keyword">double</span>)lComponent;</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_lComponent == lComponent) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"lComponent"</span>];</div><div class="line">    _lComponent = lComponent;</div><div class="line">    [<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"lComponent"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>何时需要手动通知？<ul>
+<li>使用 <code>-will|didChangeValueForKey:</code>的正确方式是，当你没有通过KVO兼容的accessor或setter改变property时，这种情况下KVO机制是不会捕获到变化的，需要手动触发。</li>
+<li>只要触发setter，即使当前值没有改变，也会产生KVO的通知。当处于效率考虑、希望避免这种无用通知时可以考虑手动通知。</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-4-KVO与线程"><a href="#1-4-KVO与线程" class="headerlink" title="1.4 KVO与线程"></a>1.4 KVO与线程</h5><p>通常来说，不推荐把KVO和多线程混合使用。因为KVO的行为是同步的，发生变化的线程和处理变化的线程应该是同一个线程。如果要使用多队列或是线程，我们不应该跨队列或是跨线程使用KVO。</p>
+<h5 id="1-5-KVO实现细节"><a href="#1-5-KVO实现细节" class="headerlink" title="1.5 KVO实现细节"></a>1.5 KVO实现细节</h5><p>自动的KVO是通过一种叫<code>isa-swizzling</code>的技术实现的。isa指针通常是指向对象的类，类的分发表中包含着指向该类实现的方法的一些指针。<br>当观察者被注册为要观察对象的某个属性时，被观察者对象isa指针就被改变了，它不再指向实际的类，而是指向一个中间类。因此isa指针并不能反映实例所属的真正类。如果想要获取实例对象的类，应该使用class方法。</p>
+<p>（然而，在Mike Ash一篇<a href="https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html" target="_blank" rel="external">谈论KVO在runtime层面如何实现的文章</a>中谈到，当你第一次观察指定类的对象时，KVO会在runtime创建一个全新的、继承自你的class的子类。在这个全新的类中，它override了任何被观察key的set方法，然后把你的对象的isa指针转移，这样你的对象就成为了这个新类的实例。被override的方法正是通知观察者实现的本质。逻辑是这样的：对于key的改变必须走key的set方法。通过override它的set方法，就可以劫持它，并且在它被调用的时候发送通知给观察者。苹果公司实在是不想将这个机制暴露出来，因此，除了setter之外，那个动态的子类还override了<code>-class</code>方法，来向你返回原始的类。如果你不仔细研究的话，KVO改变的对象就像没有被观察一样。私以为，Mike说得更接近真相。毕竟，真相只有一个。:P）</p>
+<h5 id="1-6-KVO相关API"><a href="#1-6-KVO相关API" class="headerlink" title="1.6 KVO相关API"></a>1.6 KVO相关API</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVO%20API.png" alt="KVO API"></p>
+<h3 id="2-KVC"><a href="#2-KVC" class="headerlink" title="2.KVC"></a>2.KVC</h3><h5 id="2-1-不需要-property的KVC"><a href="#2-1-不需要-property的KVC" class="headerlink" title="2.1 不需要@property的KVC"></a>2.1 不需要@property的KVC</h5><ul>
+<li>直接添加 <code>-&lt;key&gt;</code> 和 <code>-set&lt;Key&gt;:</code> 方法；</li>
+<li>要正确处理nil，需要override <code>-setNilValueForKey:</code> 方法；</li>
+<li>还可以通过override如下方法来让一个类支持KVC，但是会影响性能。</li>
+</ul>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(id)</span>valueForUndefinedKey:<span class="params">(NSString *)</span>key;</div><div class="line">- <span class="params">(void)</span>setValue:<span class="params">(id)</span>value forUndefinedKey:<span class="params">(NSString *)</span>key;</div></pre></td></tr></table></figure>
+<ul>
+<li>Foundation 框架支持直接访问实例变量。请小心的使用这个特性。你可以去查看 <code>+accessInstanceVariablesDirectly</code> 的文档。这个值默认是 <code>YES</code> 的时候，Foundation 会按照 <code>_&lt;key&gt;</code>, <code>_is&lt;Key&gt;</code>, <code>&lt;key&gt;</code>和 <code>is&lt;Key&gt;</code> 的顺序查找实例变量。</li>
+</ul>
+<h5 id="2-2-通过集合代理对象实现KVC"><a href="#2-2-通过集合代理对象实现KVC" class="headerlink" title="2.2 通过集合代理对象实现KVC"></a>2.2 通过集合代理对象实现KVC</h5><h5 id="2-3-常见错误"><a href="#2-3-常见错误" class="headerlink" title="2.3 常见错误"></a>2.3 常见错误</h5><ul>
+<li>KVO 旨在观察 <em>关系 (relationship)</em> 而不是集合。我们不能观察 NSArray，我们只能观察一个对象的属性——而这个属性有可能是 NSArray。相似地，观察 self 不是永远都生效的。而且这不是一个好的设计。</li>
+</ul>
+<h5 id="2-4-KVV（键值验证）"><a href="#2-4-KVV（键值验证）" class="headerlink" title="2.4 KVV（键值验证）"></a>2.4 KVV（键值验证）</h5><ul>
+<li>KVV 也是 KVC API 的一部分。这是一个用来验证属性值的 API，只是它光靠自己很难提供逻辑和功能。</li>
+<li>用 KVV 验证 model 类的值是 Cocoa 的惯例。</li>
+<li>需要在model中提供 <code>-validate&lt;Key&gt;:error:</code>方法。</li>
+</ul>
+<h5 id="2-5-KVC相关API"><a href="#2-5-KVC相关API" class="headerlink" title="2.5 KVC相关API"></a>2.5 KVC相关API</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVC%20API.png" alt="KVC API"></p>
+<h5 id="2-6-valueForKey-实现过程"><a href="#2-6-valueForKey-实现过程" class="headerlink" title="2.6 -valueForKey: 实现过程"></a>2.6 <code>-valueForKey:</code> 实现过程</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVC%20Process.jpg" alt="valueForKey:"></p>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h3><ul>
+<li><a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html</a></li>
+<li><a href="https://stackoverflow.com/q/3018242/1594792" target="_blank" rel="external">https://stackoverflow.com/q/3018242/1594792</a></li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> KVC </tag>
+            
+            <tag> KVO </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Regex Notes]]></title>
       <url>http://www.calios.gq/2017/04/12/Regex-Notes/</url>
       <content type="html"><![CDATA[<h3 id="Some-definitions-before-we-start"><a href="#Some-definitions-before-we-start" class="headerlink" title="Some definitions before we start:"></a>Some definitions before we start:</h3><ul>
@@ -1720,9 +1809,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
             
             <tag> iOS </tag>
             
-            <tag> iOS8 </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> iOS8 </tag>
             
         </tags>
         

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        © Material Theme 
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.2.5
+    -->
+    
+    <!-- Title -->
+    
+    <title>
+        KVO &amp; KVC 知识点小结 | Calios&#39; Eden
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Calios">
+    <meta name="description" content="Stedfast as thou art.">
+    <meta name="keywords" content="Calios, Calios&#39;s Eden">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Calios&#39; Eden">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.calios.gq">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="KVO &amp; KVC 知识点小结 | Calios&#39; Eden">
+    <meta property="og:description" content="Stedfast as thou art.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+		/* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/atom-one-dark.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                <!-- Post TOC -->
+
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-KVO"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.KVO</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-1-属性依赖的机制"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">1.1 属性依赖的机制</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-2-KVO"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">1.2 KVO</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-3-手动通知"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">1.3 手动通知</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-4-KVO与线程"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">1.4 KVO与线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-5-KVO实现细节"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">1.5 KVO实现细节</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-6-KVO相关API"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">1.6 KVO相关API</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-KVC"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.KVC</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-1-不需要-property的KVC"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">2.1 不需要@property的KVC</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-2-通过集合代理对象实现KVC"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">2.2 通过集合代理对象实现KVC</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-3-常见错误"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">2.3 常见错误</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-4-KVV（键值验证）"><span class="post-toc-number">2.0.4.</span> <span class="post-toc-text">2.4 KVV（键值验证）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-5-KVC相关API"><span class="post-toc-number">2.0.5.</span> <span class="post-toc-text">2.5 KVC相关API</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-6-valueForKey-实现过程"><span class="post-toc-number">2.0.6.</span> <span class="post-toc-text">2.6 -valueForKey: 实现过程</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Ref"><span class="post-toc-number">3.</span> <span class="post-toc-text">Ref:</span></a></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 19 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            KVO & KVC 知识点小结
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Calios</strong>
+        <span>5月 12, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/KVC/">KVC</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/KVO/">KVO</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/iOS/">iOS</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=KVO &amp; KVC 知识点小结&url=http://www.calios.gq//2017/05/12/KVO-KVC-missing-points/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+    
+
+    <!-- Share Twitter -->
+    
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=KVO &amp; KVC 知识点小结&url=http://www.calios.gq//2017/05/12/KVO-KVC-missing-points/index.html&via=Calios" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+    
+
+    <!-- Share Facebook -->
+    
+    <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.calios.gq//2017/05/12/KVO-KVC-missing-points/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Facebook
+        </li>
+    </a>
+    
+
+    <!-- Share Google+ -->
+    
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://www.calios.gq//2017/05/12/KVO-KVC-missing-points/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Calios&#39; Eden&title=KVO &amp; KVC 知识点小结&summary=Stedfast as thou art.&pics=http://www.calios.gq/img/favicon.png&url=http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 QQ
+        </li>
+    </a>
+    
+
+    <!-- Share Telegram -->
+    
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/index.html&text=KVO &amp; KVC 知识点小结" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Telegram
+        </li>
+    </a>
+    
+</ul>
+
+</div>
+
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h3 id="1-KVO"><a href="#1-KVO" class="headerlink" title="1.KVO"></a>1.KVO</h3><h5 id="1-1-属性依赖的机制"><a href="#1-1-属性依赖的机制" class="headerlink" title="1.1 属性依赖的机制"></a>1.1 属性依赖的机制</h5><p>在objc.io讲解KVC和KVO的一篇<a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">文章</a>中，举了一个体现属性依赖机制的例子，例子的逻辑结构如下图。完整代码见<a href="https://github.com/objcio/issue-7-lab-color-space-explorer" target="_blank" rel="external">github</a>。</p>
+<a id="more"></a>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/1.1%20PropertyDependency.png" alt="属性依赖机制"></p>
+<p><strong>图解：</strong></p>
+<ul>
+<li>该图表现了通过改变L、a、b的滑块，更新上图右侧view的背景颜色的实现原理。</li>
+<li>L、a、b代表Lab色彩空间中颜色的三种影响因素。</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="name">NSSet&lt;NSString</span> *&gt;) keyPathsForValuesAffectingValueForKey: (NSString *)key<span class="comment">;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>key：受key path影响的key。</li>
+<li>return：返回影响指定key的一组key path。</li>
+<li>使用：<code>+ (NSSet&lt;NSString *&gt;) keyPathsForValuesAffecting&lt;Key&gt;</code>。</li>
+</ul>
+<p><strong>详解：</strong></p>
+<ul>
+<li>red的变化受L影响，green变化受L和a影响，blue变化受L和b影响，最终red、green和blue共同决定color属性，即view显示的背景颜色。</li>
+<li>通过实现对应的+keyPathsForValuesAffectingRedComponent/GreenComponent/BlueComponent/Color来指定各个属性之间的依赖关系。</li>
+<li>添加属性后，会在代码提示中自动生成如下名称的方法，选择一个就好了。</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingRedComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObject:<span class="string">@"lComponent"</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingGreenComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"lComponent"</span>, <span class="string">@"aComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingBlueComponent</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"lComponent"</span>, <span class="string">@"bComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPathsForValuesAffectingColor</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@"redComponent"</span>, <span class="string">@"greenComponent"</span>, <span class="string">@"blueComponent"</span>, <span class="literal">nil</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="1-2-KVO"><a href="#1-2-KVO" class="headerlink" title="1.2 KVO"></a>1.2 KVO</h5><p>添加对LabColor的实例对象labColor的属性color的观察者，并添加相应的响应事件，更新view的backgroundColor。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>addObserver:<span class="params">(NSObject *)</span>anObserver</div><div class="line">         forKeyPath:<span class="params">(NSString *)</span>keyPath</div><div class="line">            options:<span class="params">(NSKeyValueObservingOptions)</span>options</div><div class="line">            context:<span class="params">(void *)</span>context</div><div class="line">- <span class="params">(void)</span>observeValueForKeyPath:<span class="params">(NSString *)</span>keyPath</div><div class="line">                      ofObject:<span class="params">(id)</span>object</div><div class="line">                        change:<span class="params">(NSDictionary *)</span>change</div><div class="line">                       context:<span class="params">(void *)</span>context</div></pre></td></tr></table></figure>
+<p>对于options的几个可选值：</p>
+<ul>
+<li>获取变化之前的值用NSKeyValueObservingOptionOld，获取变化之后的值用NSKeyValueObservingOptionNew，二者都取用按位或。</li>
+<li>在添加观察者之前就立即发送变化的通知用NSKeyValueObservingOptionInitial，可以通过这种一次性的通知确定被观察者某属性的初始值。</li>
+<li>在即将发生变化之前发送通知用NSKeyValueObservingOptionPrior（通常都是发生变化后发送通知）。<br>建议设置Context，避免子类和父类观察同一对象的同一属性。</li>
+</ul>
+<p><strong>注意：</strong> KVO的add方法并不对观察对象、被观察对象和context持有强引用，所以要自行确保对于观察对象、被观察对象和context的强引用。</p>
+<h5 id="1-3-手动通知"><a href="#1-3-手动通知" class="headerlink" title="1.3 手动通知"></a>1.3 手动通知</h5><ul>
+<li>如何手动通知？</li>
+</ul>
+<p>当我们需要override 属性的setter方法时，有时候需要添加一些自定义的控制，再进行赋值。这时需要关闭系统自动调用 <code>-willChangeValueForKey:</code>和 <code>-didChangeValueForKey:</code>的行为，改为手动调用这两个方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)automaticallyNotifiesObserversForLComponent;</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setLComponent:(<span class="keyword">double</span>)lComponent;</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_lComponent == lComponent) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"lComponent"</span>];</div><div class="line">    _lComponent = lComponent;</div><div class="line">    [<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"lComponent"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>何时需要手动通知？<ul>
+<li>使用 <code>-will|didChangeValueForKey:</code>的正确方式是，当你没有通过KVO兼容的accessor或setter改变property时，这种情况下KVO机制是不会捕获到变化的，需要手动触发。</li>
+<li>只要触发setter，即使当前值没有改变，也会产生KVO的通知。当处于效率考虑、希望避免这种无用通知时可以考虑手动通知。</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-4-KVO与线程"><a href="#1-4-KVO与线程" class="headerlink" title="1.4 KVO与线程"></a>1.4 KVO与线程</h5><p>通常来说，不推荐把KVO和多线程混合使用。因为KVO的行为是同步的，发生变化的线程和处理变化的线程应该是同一个线程。如果要使用多队列或是线程，我们不应该跨队列或是跨线程使用KVO。</p>
+<h5 id="1-5-KVO实现细节"><a href="#1-5-KVO实现细节" class="headerlink" title="1.5 KVO实现细节"></a>1.5 KVO实现细节</h5><p>自动的KVO是通过一种叫<code>isa-swizzling</code>的技术实现的。isa指针通常是指向对象的类，类的分发表中包含着指向该类实现的方法的一些指针。<br>当观察者被注册为要观察对象的某个属性时，被观察者对象isa指针就被改变了，它不再指向实际的类，而是指向一个中间类。因此isa指针并不能反映实例所属的真正类。如果想要获取实例对象的类，应该使用class方法。</p>
+<p>（然而，在Mike Ash一篇<a href="https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html" target="_blank" rel="external">谈论KVO在runtime层面如何实现的文章</a>中谈到，当你第一次观察指定类的对象时，KVO会在runtime创建一个全新的、继承自你的class的子类。在这个全新的类中，它override了任何被观察key的set方法，然后把你的对象的isa指针转移，这样你的对象就成为了这个新类的实例。被override的方法正是通知观察者实现的本质。逻辑是这样的：对于key的改变必须走key的set方法。通过override它的set方法，就可以劫持它，并且在它被调用的时候发送通知给观察者。苹果公司实在是不想将这个机制暴露出来，因此，除了setter之外，那个动态的子类还override了<code>-class</code>方法，来向你返回原始的类。如果你不仔细研究的话，KVO改变的对象就像没有被观察一样。私以为，Mike说得更接近真相。毕竟，真相只有一个。:P）</p>
+<h5 id="1-6-KVO相关API"><a href="#1-6-KVO相关API" class="headerlink" title="1.6 KVO相关API"></a>1.6 KVO相关API</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVO%20API.png" alt="KVO API"></p>
+<h3 id="2-KVC"><a href="#2-KVC" class="headerlink" title="2.KVC"></a>2.KVC</h3><h5 id="2-1-不需要-property的KVC"><a href="#2-1-不需要-property的KVC" class="headerlink" title="2.1 不需要@property的KVC"></a>2.1 不需要@property的KVC</h5><ul>
+<li>直接添加 <code>-&lt;key&gt;</code> 和 <code>-set&lt;Key&gt;:</code> 方法；</li>
+<li>要正确处理nil，需要override <code>-setNilValueForKey:</code> 方法；</li>
+<li>还可以通过override如下方法来让一个类支持KVC，但是会影响性能。</li>
+</ul>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(id)</span>valueForUndefinedKey:<span class="params">(NSString *)</span>key;</div><div class="line">- <span class="params">(void)</span>setValue:<span class="params">(id)</span>value forUndefinedKey:<span class="params">(NSString *)</span>key;</div></pre></td></tr></table></figure>
+<ul>
+<li>Foundation 框架支持直接访问实例变量。请小心的使用这个特性。你可以去查看 <code>+accessInstanceVariablesDirectly</code> 的文档。这个值默认是 <code>YES</code> 的时候，Foundation 会按照 <code>_&lt;key&gt;</code>, <code>_is&lt;Key&gt;</code>, <code>&lt;key&gt;</code>和 <code>is&lt;Key&gt;</code> 的顺序查找实例变量。</li>
+</ul>
+<h5 id="2-2-通过集合代理对象实现KVC"><a href="#2-2-通过集合代理对象实现KVC" class="headerlink" title="2.2 通过集合代理对象实现KVC"></a>2.2 通过集合代理对象实现KVC</h5><h5 id="2-3-常见错误"><a href="#2-3-常见错误" class="headerlink" title="2.3 常见错误"></a>2.3 常见错误</h5><ul>
+<li>KVO 旨在观察 <em>关系 (relationship)</em> 而不是集合。我们不能观察 NSArray，我们只能观察一个对象的属性——而这个属性有可能是 NSArray。相似地，观察 self 不是永远都生效的。而且这不是一个好的设计。</li>
+</ul>
+<h5 id="2-4-KVV（键值验证）"><a href="#2-4-KVV（键值验证）" class="headerlink" title="2.4 KVV（键值验证）"></a>2.4 KVV（键值验证）</h5><ul>
+<li>KVV 也是 KVC API 的一部分。这是一个用来验证属性值的 API，只是它光靠自己很难提供逻辑和功能。</li>
+<li>用 KVV 验证 model 类的值是 Cocoa 的惯例。</li>
+<li>需要在model中提供 <code>-validate&lt;Key&gt;:error:</code>方法。</li>
+</ul>
+<h5 id="2-5-KVC相关API"><a href="#2-5-KVC相关API" class="headerlink" title="2.5 KVC相关API"></a>2.5 KVC相关API</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVC%20API.png" alt="KVC API"></p>
+<h5 id="2-6-valueForKey-实现过程"><a href="#2-6-valueForKey-实现过程" class="headerlink" title="2.6 -valueForKey: 实现过程"></a>2.6 <code>-valueForKey:</code> 实现过程</h5><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/KVC%20Process.jpg" alt="valueForKey:"></p>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref:"></a>Ref:</h3><ul>
+<li><a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueCoding/index.html#//apple_ref/doc/uid/10000107-SW1</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html</a></li>
+<li><a href="https://stackoverflow.com/q/3018242/1594792" target="_blank" rel="external">https://stackoverflow.com/q/3018242/1594792</a></li>
+</ul>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/04/12/Regex-Notes/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Calios's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        calios_1124@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">三月 2016<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">10</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/01/">一月 2016<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">十二月 2015<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">12</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/08/">八月 2015<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/07/">七月 2015<span class="sidebar_archives-count">3</span></a>
+        </ul>
+    </li>
+
+    <!-- Categories  -->
+    
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+		<li>
+			<a href="/about" title="关于">
+				关于
+			</a>
+		</li>
+	
+		<li>
+			<a href="/mo" title="墨">
+				墨
+			</a>
+		</li>
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             文章总数
+             <span class="sidebar-badge">92</span>
+        </a>
+    </li>
+</ul>
+
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		主题 - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    
+
+    <!-- Facebook -->
+    
+    
+
+    <!-- Google + -->
+    
+    
+
+    <!-- Weibo -->
+    
+    <a href="http://weibo.com/calios1124" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-weibo.png);">
+        <span class="visuallyhidden">Weibo</span>
+    </button></a>
+    
+
+    <!-- Instagram -->
+    
+    <a href="https://www.instagram.com/calios_1124" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-instagram.png);">
+        <span class="visuallyhidden">Instagram</span>
+    </button></a>
+    
+
+    <!-- Tumblr -->
+    
+    
+
+    <!-- Github -->
+    
+    <a href="https://github.com/caliosd" target="_blank"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+        <span class="visuallyhidden">Github</span>
+    </button></a>
+    
+
+    <!-- LinkedIn -->
+    
+    
+
+    <!-- Zhihu -->
+    
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Calios' Eden</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+	<script>
+	var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title;
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out characters
+                            var start = first_occur - 6;
+                            var end = first_occur + 6;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 10;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substr(start, end); 
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
+                            })
+                            str += "<p class=\"search-result\">" + match_content +"...</p>" +"</a>";
+                        }
+                    }
+                })
+                $resultContent.innerHTML = str;
+            })
+        }
+    })
+}
+</script>
+
+	<script>
+        var inputArea = document.querySelector("#search");
+        var getSearchFile = function(){
+            var path = "search.xml";
+            searchFunc(path, 'search', 'local-search-result');
+        }
+
+        if(inputArea != null) inputArea.onfocus = function(){ getSearchFile() }
+	</script>
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+
+<!-- MathJax Load-->
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
