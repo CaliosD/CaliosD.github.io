@@ -112,6 +112,36 @@
   </entry>
   
   <entry>
+    <title>随笔一则-0422</title>
+    <link href="http://www.calios.gq/2017/04/23/%E9%9A%8F%E7%AC%94%E4%B8%80%E5%88%99-0422/"/>
+    <id>http://www.calios.gq/2017/04/23/随笔一则-0422/</id>
+    <published>2017-04-23T05:32:43.000Z</published>
+    <updated>2017-06-12T05:33:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个兴起参加了美团周末的技术沙龙，技术上的收获不敢说有多少，感想倒是有一些。</p>
+<h3 id="所谓长见识，无非是“走出去”和“走进来”"><a href="#所谓长见识，无非是“走出去”和“走进来”" class="headerlink" title="所谓长见识，无非是“走出去”和“走进来”"></a>所谓长见识，无非是“走出去”和“走进来”</h3><p>做小app做惯了，难免井底观天，不知移动开发的深浅了。只有当面向用户量数以万计、十万、百万的app时，一些宏观的问题才会浮出水面。比如说系统模块化的分割，比如说代码的多端复用，比如说性能监控方案。往大了说，这应该是应用系统普遍会遇到的问题，而不仅仅是移动端；往小了说，一个简单的app，如果想从这些方面进行优化，也是需要费一些心思的。</p>
+<p>这大概，是我第一次切身地意识到，在大厂工作，是站在巨人的肩膀上这件事吧。虽说用户量高的app不一定是大厂，但大厂的用户量一定不少。</p>
+<h3 id="所谓社交，无非是踏出自己的舒适区"><a href="#所谓社交，无非是踏出自己的舒适区" class="headerlink" title="所谓社交，无非是踏出自己的舒适区"></a>所谓社交，无非是踏出自己的舒适区</h3><p>第一次与黑魔法的同学们线下见面，虽然之前有一点小害羞，但见到之后也就没感觉了。互相交流一下对于某个话题的看法，更多的是听他们聊某个自己不甚熟悉的点。终于有一种同伴的感觉。这是对于一直独处的我弥足珍贵的。</p>
+<p>想起之前在摄影群，自己也是通过思维导图打开一点局面的，这次也是。可能，这是可以从自己身上深入挖掘的一个点吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一个兴起参加了美团周末的技术沙龙，技术上的收获不敢说有多少，感想倒是有一些。&lt;/p&gt;
+&lt;h3 id=&quot;所谓长见识，无非是“走出去”和“走进来”&quot;&gt;&lt;a href=&quot;#所谓长见识，无非是“走出去”和“走进来”&quot; class=&quot;headerlink&quot; title=&quot;所谓长见识，
+    
+    </summary>
+    
+    
+      <category term="PragmaticProgrammer" scheme="http://www.calios.gq/tags/PragmaticProgrammer/"/>
+    
+      <category term="脑洞开一开" scheme="http://www.calios.gq/tags/%E8%84%91%E6%B4%9E%E5%BC%80%E4%B8%80%E5%BC%80/"/>
+    
+      <category term="随笔" scheme="http://www.calios.gq/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
     <title>WebSocket初探</title>
     <link href="http://www.calios.gq/2017/04/19/WebSocket%E5%88%9D%E6%8E%A2/"/>
     <id>http://www.calios.gq/2017/04/19/WebSocket初探/</id>
@@ -856,6 +886,36 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
   </entry>
   
   <entry>
+    <title>随笔一则-0209-旅行与Objective-C</title>
+    <link href="http://www.calios.gq/2017/02/09/%E9%9A%8F%E7%AC%94%E4%B8%80%E5%88%99-0209-%E6%97%85%E8%A1%8C%E4%B8%8EObjective-C/"/>
+    <id>http://www.calios.gq/2017/02/09/随笔一则-0209-旅行与Objective-C/</id>
+    <published>2017-02-09T05:36:33.000Z</published>
+    <updated>2017-06-12T05:44:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。</p>
+<p>我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。</p>
+<p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p>
+<p>这样看来，旅行于我，是平面上扩展视野的疆土，是滋养心尖的养分；而Objective-C于我，是立体上挖掘一门语言的美感，是构建知识树的根基。二者在某种程度上，带给我的是类似的体验。这或许正是居然能够用后者来抚慰前者的原因吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。&lt;/p&gt;
+&lt;p&gt;我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。&lt;/p&gt;
+&lt;p&gt;而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Ob
+    
+    </summary>
+    
+    
+      <category term="PragmaticProgrammer" scheme="http://www.calios.gq/tags/PragmaticProgrammer/"/>
+    
+      <category term="脑洞开一开" scheme="http://www.calios.gq/tags/%E8%84%91%E6%B4%9E%E5%BC%80%E4%B8%80%E5%BC%80/"/>
+    
+      <category term="随笔" scheme="http://www.calios.gq/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Some barriers when using TesseractOCR</title>
     <link href="http://www.calios.gq/2017/01/11/Some-barriers-when-using-TesseractOCR/"/>
     <id>http://www.calios.gq/2017/01/11/Some-barriers-when-using-TesseractOCR/</id>
@@ -1153,234 +1213,6 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
       <category term="Terminal" scheme="http://www.calios.gq/tags/Terminal/"/>
     
       <category term="Vim" scheme="http://www.calios.gq/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【译】Workspace &amp; Project &amp; Target &amp; Scheme 的区别</title>
-    <link href="http://www.calios.gq/2016/09/03/%E3%80%90%E8%AF%91%E3%80%91Workspace-Project-Target-Scheme-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://www.calios.gq/2016/09/03/【译】Workspace-Project-Target-Scheme-的区别/</id>
-    <published>2016-09-03T02:11:54.000Z</published>
-    <updated>2017-01-11T06:42:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>来自<a href="http://stackoverflow.com/users/916299/james-webster" title="http://stackoverflow.com/users/916299/james-webster" target="_blank" rel="external">James Webster</a>的回答：</p>
-<ul>
-<li><strong>Workspace:</strong> 包含一个或多个<code>project</code>，这些<code>project</code>通常是相互关联的。</li>
-<li><strong>Project:</strong> 包括代码和资源等等。（你会熟悉这些的。）</li>
-<li><strong>Target:</strong> 每个<code>project</code>都有一个或多个<code>target</code>。<ul>
-<li>每个target都定义了该<code>project</code>的 build setting列表。</li>
-<li>每个target还定义了在build时需要引用或使用的类、资源、自定义脚本的列表。</li>
-<li>Target通常用于同一个project的不同发布版本。<ul>
-<li>比如，我的项目有两个target，一个通用构建和一个官方构建，其中后者包含额外测试功能，可能还包含几种背景音乐轨道，还有一个切换轨道的按钮。</li>
-<li>你应该已经习惯于向默认的target中添加类和资源了。</li>
-<li>你可以挑选哪些类／资源被添加到哪个target中。<ul>
-<li>在我的例子中，我有一个叫“DebugHandler”的类要添加到官方构建中。</li>
-</ul>
-</li>
-<li>如果你添加测试，就需要添加一个新的target了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Scheme: </strong> Scheme定义了当你按下“Build”，“Test”，“Profile”的时候会发生什么。<ul>
-<li>通常情况下，每个target包括至少一个scheme。</li>
-<li>你可以为你的target自动创建scheme，方法是在 Scheme > Manage Schemes，点“Autocreate Schemes Now”。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/a/20637892/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20637892/1594792</a></li>
-<li><a href="http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/" target="_blank" rel="external">http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;来自&lt;a href=&quot;http://stackoverflow.com/users/916299/james-webster&quot; title=&quot;http://stackoverflow.com/users/916299/james-webster&quot; target=&quot;_blan
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
-    
-      <category term="Xcode" scheme="http://www.calios.gq/tags/Xcode/"/>
-    
-      <category term="译言" scheme="http://www.calios.gq/tags/%E8%AF%91%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>某HR项目iOS端总结</title>
-    <link href="http://www.calios.gq/2016/08/19/%E6%9F%90HR%E9%A1%B9%E7%9B%AEiOS%E7%AB%AF%E6%80%BB%E7%BB%93/"/>
-    <id>http://www.calios.gq/2016/08/19/某HR项目iOS端总结/</id>
-    <published>2016-08-19T03:32:54.000Z</published>
-    <updated>2017-06-06T07:03:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-产品设计"><a href="#1-产品设计" class="headerlink" title="1.产品设计"></a>1.产品设计</h3><ul>
-<li>及时更新RP图。</li>
-<li>对于iOS和Android差异化不大的页面，可以使用一套RP图。</li>
-<li>保证对页面逻辑的详细说明。</li>
-<li>对于特殊状态（如筛选、搜索等）的说明／图解要清晰。</li>
-</ul>
-<h3 id="2-接口文档部分"><a href="#2-接口文档部分" class="headerlink" title="2.接口文档部分"></a>2.接口文档部分</h3><h5 id="2-1-文档编写的注意事项："><a href="#2-1-文档编写的注意事项：" class="headerlink" title="2.1 文档编写的注意事项："></a>2.1 文档编写的注意事项：</h5><ul>
-<li>对于所有接口都通用的参数或JSON数据格式，可以添加公共设置的部分，集中说明。 </li>
-<li>请求数据的参数，要说明哪些是必须的，哪些是可选的，可选的默认值是什么。 </li>
-<li>说清请求数据的方式是GET还是POST。 </li>
-<li>命名要清晰，对于<strong>名词</strong>命名的参数，区分清楚<code>xxId</code>和<code>xxTitle</code>，而不是<code>xx</code>。 </li>
-<li>标记类型、状态类型的文字，与其移动端和服务器各自手动维护一组枚举值，不如传输<strong>文字本身</strong>。 </li>
-<li>请求参数和返回参数中，特殊类型的数据要说明。如日期的格式是<code>yyyy-MM-dd</code>、<code>yyyy/MM/dd</code>还是<code>yyyy.MM</code>。 </li>
-<li>无需将userId/username传给服务器时，坚决不传，避免服务器端对于userId/username的误用。</li>
-<li>可以将“凡是以<code>xxId</code>命名的字段一定为表的主键”这样的规则写在文档开始的公共说明中。</li>
-<li>明确可选参数对应值为空时，是传“key:”” ”还是直接不传参数的key。</li>
-<li>文档中要有详实的例子，还要注意按照接口调用的时序组织文档。</li>
-</ul>
-<h5 id="2-2-工作流程："><a href="#2-2-工作流程：" class="headerlink" title="2.2 工作流程："></a>2.2 工作流程：</h5><ul>
-<li>现在的流程：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端开发 》移动端接口设计</strong> 》pc端接口开发 </li>
-</ul>
-<ul>
-<li><p>可优化为：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端接口设计 》移动端开发</strong> 》pc端接口开发 </p>
-</li>
-<li><p>优化后的好处：</p>
-<ul>
-<li>避免移动端Model构建时，逐个比对字段名称的问题。</li>
-<li>减少pc端依照“移动端写的接口文档”各种修改字段名的问题。</li>
-<li>面向接口进行代码设计，可以在项目初期就对各功能模块有整体认识。</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-3-编写工具："><a href="#2-3-编写工具：" class="headerlink" title="2.3 编写工具："></a>2.3 编写工具：</h5><ul>
-<li><p>现在的工具：<br>  word + SVN(?)</p>
-</li>
-<li><p>存在的问题：</p>
-<ul>
-<li>各种和文档相关的样式、乱码、排版的问题。</li>
-<li>无法即时调试，需自行粘贴到postman去测试。</li>
-</ul>
-</li>
-<li><p>可优化为：<br>  － swagger：<a href="http://editor.swagger.io/#/" target="_blank" rel="external">http://editor.swagger.io/#/</a><br>  － RAP（from Alibaba）： </p>
-<ul>
-<li>Github：<a href="https://github.com/thx/RAP" target="_blank" rel="external">https://github.com/thx/RAP </a><ul>
-<li>说明：<a href="http://div.io/topic/642" target="_blank" rel="external">http://div.io/topic/642</a> </li>
-<li>例子：<a href="http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446" target="_blank" rel="external">http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-4-接口设计要考虑的问题（供参考）："><a href="#2-4-接口设计要考虑的问题（供参考）：" class="headerlink" title="2.4 接口设计要考虑的问题（供参考）："></a>2.4 接口设计要考虑的问题（供参考）：</h5><ul>
-<li><a href="http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html" target="_blank" rel="external">http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html </a></li>
-<li><a href="https://segmentfault.com/q/1010000002523945" title="https://segmentfault.com/q/1010000002523945" target="_blank" rel="external">https://segmentfault.com/q/1010000002523945</a> </li>
-</ul>
-<h3 id="3-移动端开发"><a href="#3-移动端开发" class="headerlink" title="3.移动端开发"></a>3.移动端开发</h3><h5 id="3-1-BugList分析"><a href="#3-1-BugList分析" class="headerlink" title="3.1 BugList分析"></a>3.1 BugList分析</h5><p>BugList（iOS端）汇总图表及明细<br>（见<code>XX HR iOS端BugList汇总及明细.xlsx</code>）</p>
-<p>Bug数量最多的类型前三类（单位：个）：</p>
-<ul>
-<li>逻辑缺失（23）</li>
-<li>和pc端对接问题（19）</li>
-<li>未与RP图对照（14）</li>
-</ul>
-<p>逐个分析一下：</p>
-<h5 id="3-1-1-逻辑缺失"><a href="#3-1-1-逻辑缺失" class="headerlink" title="3.1.1 逻辑缺失"></a>3.1.1 逻辑缺失</h5><p>共计23个逻辑缺失的Bug中，比较突出的问题有：</p>
-<ul>
-<li>数据更新后没有自动刷新的问题（6个）  </li>
-<li>页面或数据状态的保存或传递问题（5个）；</li>
-<li>网络请求时，可选参数key为空的处理（2个）。</li>
-</ul>
-<p><strong>解决建议</strong></p>
-<ul>
-<li>对于数据有可能更新的列表，要添加自动刷新功能；</li>
-<li>请求数据时，可以不传的参数key需要单独处理。</li>
-</ul>
-<h5 id="3-1-2-和pc端对接问题"><a href="#3-1-2-和pc端对接问题" class="headerlink" title="3.1.2 和pc端对接问题"></a>3.1.2 和pc端对接问题</h5><p>和pc端对接的相关Bug中，问题主要集中在：</p>
-<ul>
-<li>移动端使用字段错误，导致展示错误信息（6个）；</li>
-<li>不同接口的<code>BaseURL</code>不相同（后期已统一）（3个）；</li>
-<li>移动端使用的校验方式与pc端不一致（3个）；</li>
-<li>空值的传输和处理（3个）：当某字段的值为空时，需传给服务器key和空值。</li>
-</ul>
-<p><strong>解决建议</strong></p>
-<ul>
-<li>增强对接口文档的统一理解；</li>
-<li>pc端和移动端可以在各自的接口开发时约定好：<ul>
-<li>所有接口的<code>BaseURL</code>；</li>
-<li>除了<code>status=1</code>和<code>status=-1</code>的状态外，其他可能存在<code>status=0</code>的接口。</li>
-</ul>
-</li>
-</ul>
-<h5 id="3-1-3-未与RP图对照"><a href="#3-1-3-未与RP图对照" class="headerlink" title="3.1.3 未与RP图对照"></a>3.1.3 未与RP图对照</h5><p>主要由于在RP图不断更新的过程中，未能及时变更相应流程、操作和用户友好性的细节。这一部分的bug，是应该在自测中消除掉的。</p>
-<h5 id="3-2-代码分析"><a href="#3-2-代码分析" class="headerlink" title="3.2 代码分析"></a>3.2 代码分析</h5><h5 id="3-2-1-代码行数统计"><a href="#3-2-1-代码行数统计" class="headerlink" title="3.2.1 代码行数统计"></a>3.2.1 代码行数统计</h5><table>
-<thead>
-<tr>
-<th>文件夹</th>
-<th>代码行数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Classes</td>
-<td>21357</td>
-</tr>
-<tr>
-<td>Utility</td>
-<td>2941</td>
-</tr>
-<tr>
-<td>Constant</td>
-<td>1498</td>
-</tr>
-<tr>
-<td>AppDelegate</td>
-<td>201</td>
-</tr>
-<tr>
-<td>Categories</td>
-<td>1758</td>
-</tr>
-<tr>
-<td><strong>Sum</strong></td>
-<td><strong>27755</strong></td>
-</tr>
-</tbody>
-</table>
-<h5 id="3-2-2-公共类的封装"><a href="#3-2-2-公共类的封装" class="headerlink" title="3.2.2 公共类的封装"></a>3.2.2 公共类的封装</h5><ul>
-<li><code>BaseFundamentalViewController</code>中封装了空数据的处理、网络请求等通用功能，项目中几乎所有controller都继承自该类。</li>
-<li><code>BaseViewController</code>继承自<code>BaseFundamentalViewController</code>。主要封装了与TableView相关的功能，如上拉加载、添加／清除筛选条件等。没有特殊需求的普通列表的展示，只需要不到50行代码。</li>
-<li><code>BaseWebViewController</code>继承自<code>BaseFundamentalViewController</code>。主要用于全屏的webview模板展示。</li>
-</ul>
-<h5 id="3-2-3-代码复用"><a href="#3-2-3-代码复用" class="headerlink" title="3.2.3 代码复用"></a>3.2.3 代码复用</h5><ul>
-<li>以后可能用到的功能模块：<ul>
-<li><code>Base</code>系列；</li>
-<li>下载管理（<em>待完善</em>）；</li>
-<li>WebView模板展示（GRMustache）；</li>
-<li>表格展示（GridView）；</li>
-<li>Charts展示（Charts）；</li>
-<li>图片浏览及选择（支持多选，MWPhotoBrowser）；</li>
-<li>表单的展示及填写（XLForm）；</li>
-<li>年月选择器。</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-美工-amp-测试"><a href="#4-美工-amp-测试" class="headerlink" title="4.美工 &amp; 测试"></a>4.美工 &amp; 测试</h3><ul>
-<li>对于移动端的切图可以逐渐模板化，如某些固定尺寸、固定的需求（如：Android的图片设计时有效内容尽量居中，便于自行剪裁）等。</li>
-<li>时间允许的条件下，同类型bug可以设置关联bug，方便开发人员统一修复。</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-产品设计&quot;&gt;&lt;a href=&quot;#1-产品设计&quot; class=&quot;headerlink&quot; title=&quot;1.产品设计&quot;&gt;&lt;/a&gt;1.产品设计&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;及时更新RP图。&lt;/li&gt;
-&lt;li&gt;对于iOS和Android差异化不大的页面，可以使用一套RP
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
-    
-      <category term="PragmaticProgrammer" scheme="http://www.calios.gq/tags/PragmaticProgrammer/"/>
-    
-      <category term="脑洞开一开" scheme="http://www.calios.gq/tags/%E8%84%91%E6%B4%9E%E5%BC%80%E4%B8%80%E5%BC%80/"/>
     
   </entry>
   

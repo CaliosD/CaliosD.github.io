@@ -94,6 +94,29 @@
     </entry>
     
     <entry>
+      <title><![CDATA[随笔一则-0422]]></title>
+      <url>http://www.calios.gq/2017/04/23/%E9%9A%8F%E7%AC%94%E4%B8%80%E5%88%99-0422/</url>
+      <content type="html"><![CDATA[<p>一个兴起参加了美团周末的技术沙龙，技术上的收获不敢说有多少，感想倒是有一些。</p>
+<h3 id="所谓长见识，无非是“走出去”和“走进来”"><a href="#所谓长见识，无非是“走出去”和“走进来”" class="headerlink" title="所谓长见识，无非是“走出去”和“走进来”"></a>所谓长见识，无非是“走出去”和“走进来”</h3><p>做小app做惯了，难免井底观天，不知移动开发的深浅了。只有当面向用户量数以万计、十万、百万的app时，一些宏观的问题才会浮出水面。比如说系统模块化的分割，比如说代码的多端复用，比如说性能监控方案。往大了说，这应该是应用系统普遍会遇到的问题，而不仅仅是移动端；往小了说，一个简单的app，如果想从这些方面进行优化，也是需要费一些心思的。</p>
+<p>这大概，是我第一次切身地意识到，在大厂工作，是站在巨人的肩膀上这件事吧。虽说用户量高的app不一定是大厂，但大厂的用户量一定不少。</p>
+<h3 id="所谓社交，无非是踏出自己的舒适区"><a href="#所谓社交，无非是踏出自己的舒适区" class="headerlink" title="所谓社交，无非是踏出自己的舒适区"></a>所谓社交，无非是踏出自己的舒适区</h3><p>第一次与黑魔法的同学们线下见面，虽然之前有一点小害羞，但见到之后也就没感觉了。互相交流一下对于某个话题的看法，更多的是听他们聊某个自己不甚熟悉的点。终于有一种同伴的感觉。这是对于一直独处的我弥足珍贵的。</p>
+<p>想起之前在摄影群，自己也是通过思维导图打开一点局面的，这次也是。可能，这是可以从自己身上深入挖掘的一个点吧。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[WebSocket初探]]></title>
       <url>http://www.calios.gq/2017/04/19/WebSocket%E5%88%9D%E6%8E%A2/</url>
       <content type="html"><![CDATA[<h3 id="1-基础概要"><a href="#1-基础概要" class="headerlink" title="1.基础概要"></a>1.基础概要</h3><p><strong>应用层</strong>，主要解决如何包装数据：HTTP、FTP、Telnet等。其中，HTTP连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。所以是<strong>短连接</strong>。相对而言，socket连接是<strong>长连接</strong>，两端一旦建立连接将不会主动断掉。但由于各种环境因素可能会断开，所以当一个socket连接中没有数据传输时，为了维持连接需要发送<strong>心跳消息</strong>。<br><strong>传输层</strong>，主要解决数据如何在网络中传输：TCP协议。<br><strong>网络层</strong>，主要解决数据如何在网络中传输：IP协议。</p>
@@ -772,6 +795,28 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
     </entry>
     
     <entry>
+      <title><![CDATA[随笔一则-0209-旅行与Objective-C]]></title>
+      <url>http://www.calios.gq/2017/02/09/%E9%9A%8F%E7%AC%94%E4%B8%80%E5%88%99-0209-%E6%97%85%E8%A1%8C%E4%B8%8EObjective-C/</url>
+      <content type="html"><![CDATA[<p>我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。</p>
+<p>我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。</p>
+<p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p>
+<p>这样看来，旅行于我，是平面上扩展视野的疆土，是滋养心尖的养分；而Objective-C于我，是立体上挖掘一门语言的美感，是构建知识树的根基。二者在某种程度上，带给我的是类似的体验。这或许正是居然能够用后者来抚慰前者的原因吧。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> PragmaticProgrammer </tag>
+            
+            <tag> 脑洞开一开 </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Some barriers when using TesseractOCR]]></title>
       <url>http://www.calios.gq/2017/01/11/Some-barriers-when-using-TesseractOCR/</url>
       <content type="html"><![CDATA[<p>1.Install TesseractOCR with CocoaPods.</p>
@@ -1369,7 +1414,7 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
       <title><![CDATA[随笔一则 5月23日移动端会议有感]]></title>
       <url>http://www.calios.gq/2016/05/24/%E9%9A%8F%E7%AC%94%E4%B8%80%E5%88%99-5%E6%9C%8823%E6%97%A5%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%9A%E8%AE%AE%E6%9C%89%E6%84%9F/</url>
       <content type="html"><![CDATA[<h3 id="1-技术，最后的终点都是应用。所以，要充分考虑use-case。"><a href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case。" class="headerlink" title="1. 技术，最后的终点都是应用。所以，要充分考虑use case。"></a>1. 技术，最后的终点都是应用。所以，要充分考虑use case。</h3><p><strong>例如：</strong>考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？</p>
-<p><strong>延伸思考：</strong>获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排<br>的效果。</p>
+<p><strong>延伸思考：</strong>获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。</p>
 <p><strong>结论：</strong>不止是测试需要测试案例，设计需要Persona，开发的技术调研、选择技术方案时也需要充分考虑use case。</p>
 <h3 id="2-思考一个问题，要尽量全方位地考虑。"><a href="#2-思考一个问题，要尽量全方位地考虑。" class="headerlink" title="2. 思考一个问题，要尽量全方位地考虑。"></a>2. 思考一个问题，要尽量全方位地考虑。</h3><p><img src="http://mmbiz.qpic.cn/mmbiz/bwj0DnTUVQuIQvnX7vuvibCtVicEGt9jGXV03CW3RRSjAwAzs6jUmEKoIgNBoInCqn6pibl7TwB5x19SejSfEAvUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="" title="思考能力的六大分类"></p>
 <p>恰好今天早上看到了奴隶社会发的这篇<a href="http://mp.weixin.qq.com/s?__biz=MzA3NDMyOTcxMQ==&amp;mid=2651240054&amp;idx=1&amp;sn=927642e6f2a884458a2356b7e8dacf04&amp;scene=1&amp;srcid=0524kbGqhd8mXTrnlAU68vnh&amp;from=groupmessage&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">《独立思考能力怎么培养？》</a>。一方面，对于自己子女今后的教育多了一分思考；另一方面，想到昨天的会议中也有部分与之相通。通常情况下，我们还都处于上图六个层次的底三层，仅限于应用。或者说，只知道<em>用什么（what）</em>和<em>怎么做（how）</em>，但是对于<em>为什么（why）</em>却知之甚少。</p>
@@ -2873,9 +2918,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AutoLayout </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -3542,7 +3587,7 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <h4 id="一条重要规则"><a href="#一条重要规则" class="headerlink" title="一条重要规则"></a>一条重要规则</h4><p>我有一条简单而粗暴有效的规则：<em>只在主线程</em> 发送NSNotification。无一例外。如果一些代码运行在另一个线程，而它需要发送一个通知，那它必须在主线程做这件事。</p>
 <p>这就避免了所有你不希望的线程发来的通知所导致的问题。这样也避免了因为没有取消通知注册而带来的一团乱麻的情形。</p>
 <p>一个应用基本上所有的代码都应在运行在主线程中。NSOperation或者GCD queue中运行的代码应该和其他所有代码分离开，当多个对象协同工作时应该用代理模式（用或者不用block）。</p>
-<p>保证通知总是在主线程被发送应该是 <em>小菜一碟</em>。（我会在另一篇《如何避免程序崩溃》系列的文章中详细将线程和队列。）</p>
+<p>保证通知总是在主线程被发送应该是 <em>小菜一碟</em>。（我会在<a href="http://www.calios.gq/2015/11/19/%E3%80%90%E8%AF%91%E3%80%91%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83-4%EF%BC%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">另一篇</a>《如何避免程序崩溃》系列的文章中详细将线程和队列。）</p>
 <h4 id="批量取消注册"><a href="#批量取消注册" class="headerlink" title="批量取消注册"></a>批量取消注册</h4><p>有些人喜欢在<code>dealloc</code>中做些额外的维护工作，来精确地给每个NSNotification取消注册。你会看到这样的代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[[NSNotificationCenter defaultCenter]</span> <span class="selector-tag">removeObserver</span><span class="selector-pseudo">:self</span> <span class="selector-tag">name</span><span class="selector-pseudo">:kSomeNotificationName</span> <span class="selector-tag">object</span><span class="selector-pseudo">:someObject</span>];</div><div class="line"><span class="selector-attr">[[NSNotificationCenter defaultCenter]</span> <span class="selector-tag">removeObserver</span><span class="selector-pseudo">:self</span> <span class="selector-tag">name</span><span class="selector-pseudo">:kSomeOtherNotificationName</span> <span class="selector-tag">object</span><span class="selector-pseudo">:someOtherObject</span>];</div><div class="line"><span class="selector-tag">etc</span>...</div></pre></td></tr></table></figure></p>
 <p>你可以证明你写的是对的。但是简单扫一眼代码是不够的 —— 随着时间的增长，你不得不仔细思考自己的代码。</p>
 <p>以后，你或者别人可能会添加另一个通知，然后忘了为那个通知调用<code>removeObserver</code>。然后，就崩溃了。</p>
@@ -3643,7 +3688,7 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <h4 id="一个更好的解决办法"><a href="#一个更好的解决办法" class="headerlink" title="一个更好的解决办法"></a>一个更好的解决办法</h4><p>让我们回归到我们试图解决的问题上来：</p>
 <p>modelObject.title的更新，会使controller.title更新，而controller.title的更新，会使button.title更新。</p>
 <p>简而言之：controller知道modelObject和button，但是后两者之间并不知道彼此的存在，也不知道controller的存在。这就是我们怎么避开invalidate函数来解决问题。</p>
-<p>在controller中，灭掉自定义getter。灭掉<code>keyPaths ForValues AffectingTitle</code>.灭掉<code>bind: toObject: withKeyPath: options:</code>的使用。</p>
+<p>在controller中，灭掉自定义getter。灭掉<code>keyPathsForValuesAffectingTitle</code>.灭掉<code>bind: toObject: withKeyPath: options:</code>的使用。</p>
 <p>取而代之的是，创建自定义的setter —— 因为，无论如何，setter在改变的时候总是会被调用，所有需要解决的问题就是广播title属性的更新。<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-(void)setTitle:(NSString *)<span class="built_in">title</span> &#123;</div><div class="line">  _<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">  self.button.<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>问题解决了一半：当controller.title改变时，button.title也随之改变。</p>
 <p>我们不能对modelObject做同样的事情，因为它不知道controller的存在。所以反过来，让controller来观察modelObject.title。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self.modelObject <span class="string">addObserver:</span>self <span class="string">forKeyPath:</span> kTitleKey <span class="string">options:</span><span class="number">0</span> <span class="string">context:</span> kTitleContext];</div></pre></td></tr></table></figure></p>
@@ -3657,7 +3702,7 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <li>当你广播数据更新时，用自定义的setter，而不是自定义getter（毕竟是在<em>setter</em>中更新的数据）。</li>
 <li>避免invalidate这样的函数，尽量让引用计数做它自己的事情 —— 因为如果<em>你</em>是那个跟踪计数的角色，你多半会出错。（我发现我不是总能够避免invalidate这样的函数，但是可能性总是比你想的要多那么一点）</li>
 <li>在思考你的应用中发生了什么时，任何形式的观察死锁都会带来困难：在任何时候它有足够理由出现时，都最好是准确的。一旦你有了足够多的这种藤蔓般无处不在的观察模式，你就建造了一个不见天日的丛林，对它的每一点改变都会让你如履薄冰。</li>
-<li>理论上，绑定和KVO是为了解耦而生的，而实际上这种耦合就是那么紧密 —— 在某种程度上，如果没有更紧密的话 —— 更难debug，更难矫正。通常情况下，最好把观察模式明确写清（不要写成<code>keyPaths ForValues AffectingXyz</code>这种），避免在keyPath中出现”.”字符。</li>
+<li>理论上，绑定和KVO是为了解耦而生的，而实际上这种耦合就是那么紧密 —— 在某种程度上，如果没有更紧密的话 —— 更难debug，更难矫正。通常情况下，最好把观察模式明确写清（不要写成<code>keyPathsForValuesAffectingXyz</code>这种），避免在keyPath中出现”.”字符。</li>
 </ul>
 ]]></content>
       
@@ -3862,9 +3907,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AVPlayer </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AVPlayer </tag>
             
         </tags>
         
@@ -4067,9 +4112,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AutoLayout </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
