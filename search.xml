@@ -971,8 +971,6 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
         
         <tags>
             
-            <tag> 2017 </tag>
-            
             <tag> 随笔 </tag>
             
         </tags>
@@ -1285,9 +1283,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
       <content type="html"><![CDATA[<p>1.Check all the changed files:<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">st</span></div></pre></td></tr></table></figure></p>
 <p>2.Check the differences between this version and the last version:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn diff -r PREV filename</div></pre></td></tr></table></figure></p>
 <p>3.Undo add a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert --recursive folder_name</div></pre></td></tr></table></figure></p>
-<p>4.Undo delete a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert . --recursive</div></pre></td></tr></table></figure></p>
+<p>4.Undo delete a file before commit:<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn revert . <span class="comment">--recursive</span></div></pre></td></tr></table></figure></p>
 <p>5.Delete all locally missing files: <a href="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" title="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" target="_blank" rel="external">solutions</a></p>
-<p>6.Delete a folder from svn repository:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn delete http://www.yourrepository.com/svn/folder --message "Deleting"</div></pre></td></tr></table></figure></p>
+<p>6.Delete a folder from svn repository:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">delete</span> http:<span class="regexp">//</span>www.yourrepository.com<span class="regexp">/svn/</span>folder --message <span class="string">"Deleting"</span></div></pre></td></tr></table></figure></p>
 <p>7.Revert to a previous SVN revision of a file:<br><figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">merge</span> -c -<span class="number">854</span> l3toks.dtx</div></pre></td></tr></table></figure></p>
 <p>8.Ignore Pods foler:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>svn propset <span class="symbol">svn:</span>ignore Pods .</div></pre></td></tr></table></figure></p>
 <p>9.SVN remains in conflict status:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn resolved &lt;filename <span class="keyword">or</span> directory <span class="keyword">that</span> gives trouble&gt;</div></pre></td></tr></table></figure></p>
@@ -2769,7 +2767,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
         <tags>
             
-            <tag> LLDB - iOS </tag>
+            <tag> iOS </tag>
+            
+            <tag> LLDB </tag>
             
         </tags>
         
@@ -2911,9 +2911,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
@@ -4111,9 +4111,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
