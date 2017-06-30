@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.calios.gq/"/>
-  <updated>2017-06-29T02:38:41.000Z</updated>
+  <updated>2017-06-30T02:32:07.000Z</updated>
   <id>http://www.calios.gq/</id>
   
   <author>
@@ -16,13 +16,101 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>关于copy的常见问题</title>
+    <link href="http://www.calios.gq/2017/06/29/%E5%85%B3%E4%BA%8Ecopy%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://www.calios.gq/2017/06/29/关于copy的常见问题/</id>
+    <published>2017-06-29T06:22:49.000Z</published>
+    <updated>2017-06-30T02:32:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-property中的copy关键字如何使用？"><a href="#1-property中的copy关键字如何使用？" class="headerlink" title="1.@property中的copy关键字如何使用？"></a>1.<code>@property</code>中的<code>copy</code>关键字如何使用？</h3><ul>
+<li>对于<code>NSString</code>、<code>NSArray</code>、<code>NSDictionary</code>而言：见下面几个问题的回答。</li>
+<li>对于block而言：需要使用<code>copy</code>是为了在原有上下文范围外，继续追踪它捕获的状态。在使用ARC的时候不需要担心这个问题，因为是自动进行的，但是最佳实践是为property属性标记上这个必然的行为（即，添加上copy关键字）。</li>
+</ul>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/block%20copy.png" alt="block copy"></p>
+<p>其他关于ARC遇上Block的问题，可以参见之后的<a href="someother link">iOS的内存管理之block</a>一文。</p>
+<h3 id="2-用-property声明的NSString-NSArray-NSDictionary，常用copy关键字，为什么？如果改用strong，可能会有什么问题？"><a href="#2-用-property声明的NSString-NSArray-NSDictionary，常用copy关键字，为什么？如果改用strong，可能会有什么问题？" class="headerlink" title="2.用@property声明的NSString/NSArray/NSDictionary，常用copy关键字，为什么？如果改用strong，可能会有什么问题？"></a>2.用<code>@property</code>声明的<code>NSString/NSArray/NSDictionary</code>，常用<code>copy</code>关键字，为什么？如果改用<code>strong</code>，可能会有什么问题？</h3><p><strong>结论：</strong>使用<code>copy</code>是为了防止传入的属性值被意外更改。如果改为<code>strong</code>，一旦传入的参数是一个可变类型的对象，那么这个参数就会随着这个对象的变化而变化，而这个变化并不一定是<code>@property</code>所属的类内部所期望的，造成不可控的结果。</p>
+<p><strong>做个实验来验证：</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// strong vs copy (string)</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *strongString;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *copiedString;</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">NSMutableString</span> *s = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"test"</span>];</div><div class="line"><span class="keyword">self</span>.strongString = s;</div><div class="line"><span class="keyword">self</span>.copiedString = s;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"original string: %p"</span>, s);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"strong string: %p"</span>, _strongString);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copied string: %p"</span>, _copiedString);</div><div class="line">[s appendString:<span class="string">@" something else"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"original = %@, strong = %@, copied = %@"</span>, s, <span class="keyword">self</span>.strongString, <span class="keyword">self</span>.copiedString);</div><div class="line"></div><div class="line"><span class="comment">// Console:</span></div><div class="line"><span class="number">2017</span><span class="number">-06</span><span class="number">-29</span> <span class="number">11</span>:<span class="number">19</span>:<span class="number">16.453</span> iOS Example[<span class="number">68464</span>:<span class="number">37016982</span>] original string: <span class="number">0x618000263a40</span></div><div class="line"><span class="number">2017</span><span class="number">-06</span><span class="number">-29</span> <span class="number">11</span>:<span class="number">19</span>:<span class="number">16.453</span> iOS Example[<span class="number">68464</span>:<span class="number">37016982</span>] <span class="keyword">strong</span> string: <span class="number">0x618000263a40</span></div><div class="line"><span class="number">2017</span><span class="number">-06</span><span class="number">-29</span> <span class="number">11</span>:<span class="number">19</span>:<span class="number">16.453</span> iOS Example[<span class="number">68464</span>:<span class="number">37016982</span>] copied string: <span class="number">0xa000000747365744</span></div><div class="line"><span class="number">2017</span><span class="number">-06</span><span class="number">-29</span> <span class="number">11</span>:<span class="number">19</span>:<span class="number">16.453</span> iOS Example[<span class="number">68464</span>:<span class="number">37016982</span>] original = test something <span class="keyword">else</span>, <span class="keyword">strong</span> = test something <span class="keyword">else</span>, copied = test</div></pre></td></tr></table></figure></p>
+<p>可以看到，原可变字符串的地址和strong字符串的地址相同，只进行了指针拷贝，而copy字符串的地址是另一个。因此在修改原字符串的时候，使用copy不会改变字符串，而使用strong则会随之变化。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/copy&amp;strong.png" alt="copy&amp;strong"></p>
+<h3 id="3-用-property声明的NSString、NSArray、NSDictionary的可变类型NSMutableString、NSMutableArray、NSMutableDictionary，用copy是否有问题？"><a href="#3-用-property声明的NSString、NSArray、NSDictionary的可变类型NSMutableString、NSMutableArray、NSMutableDictionary，用copy是否有问题？" class="headerlink" title="3.用@property声明的NSString、NSArray、NSDictionary的可变类型NSMutableString、NSMutableArray、NSMutableDictionary，用copy是否有问题？"></a>3.用<code>@property</code>声明的<code>NSString、NSArray、NSDictionary</code>的可变类型<code>NSMutableString、NSMutableArray、NSMutableDictionary</code>，用<code>copy</code>是否有问题？</h3><p><strong>结论：</strong>会有问题。因为<code>copy</code>只是将可变类型的对象复制成为不可变的对象，也就无法进行添加、删除、修改的操作。</p>
+<p><strong>做个实验来验证：（顺便和<code>strong</code>进行对比）</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// strong vs copy (array)</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *strongMutableArray;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSMutableArray</span> *copiedMutableArray;</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *a = [<span class="built_in">NSMutableArray</span> arrayWithObjects:@<span class="number">1</span>, @<span class="number">2</span>, <span class="literal">nil</span>];</div><div class="line"><span class="keyword">self</span>.strongMutableArray = a;</div><div class="line"><span class="keyword">self</span>.copiedMutableArray = a;</div><div class="line">[<span class="keyword">self</span>.strongMutableArray removeObjectAtIndex:<span class="number">0</span>];</div><div class="line">[<span class="keyword">self</span>.copiedMutableArray removeObjectAtIndex:<span class="number">0</span>];	<span class="comment">// &lt;-- Crash here!!</span></div><div class="line"></div><div class="line"><span class="comment">// Console:</span></div><div class="line"><span class="number">2017</span><span class="number">-06</span><span class="number">-29</span> <span class="number">11</span>:<span class="number">19</span>:<span class="number">16.453</span> iOS Example[<span class="number">68464</span>:<span class="number">37016982</span>] -[__NSArrayI removeObjectAtIndex:]: unrecognized selector sent to instance <span class="number">0x60800003f3c0</span></div><div class="line">(lldb) po <span class="keyword">self</span>.copiedMutableArray</div><div class="line">&lt;__NSArrayI <span class="number">0x60800003f3c0</span>&gt;(</div><div class="line"><span class="number">1</span>,</div><div class="line"><span class="number">2</span></div><div class="line">)</div><div class="line"></div><div class="line"></div><div class="line">(lldb) po [<span class="keyword">self</span>.copiedMutableArray isKindOfClass:[<span class="built_in">NSMutableArray</span> <span class="keyword">class</span>]]</div><div class="line"><span class="literal">NO</span></div><div class="line"></div><div class="line">(lldb) po [<span class="keyword">self</span>.copiedMutableArray isKindOfClass:[<span class="built_in">NSArray</span> <span class="keyword">class</span>]]</div><div class="line"><span class="literal">YES</span></div></pre></td></tr></table></figure>
+<p>可以看出，代码在运行到<code>[self.copiedMutableArray removeObjectAtIndex:0];</code>一行的时候就挂掉了，原因是给<code>NSArray</code>发送<code>removeObjectAtIndex:</code>消息导致<code>unrecognized selector sent to instance</code>。因为作为copy后得到的<code>NSArray</code>对象，并没有任何修改数组的方法。</p>
+<p><code>po</code>一下验证推断：<code>self.copiedMutableArray</code>的确是<code>NSArray</code>类型的对象。<br>证毕。</p>
+<h3 id="4-对集合类对象和非集合类对象的copy与mutableCopy操作"><a href="#4-对集合类对象和非集合类对象的copy与mutableCopy操作" class="headerlink" title="4.对集合类对象和非集合类对象的copy与mutableCopy操作"></a>4.对集合类对象和非集合类对象的<code>copy</code>与<code>mutableCopy</code>操作</h3><p><strong>结论</strong></p>
+<p><strong>非集合对象：</strong></p>
+<table>
+<thead>
+<tr>
+<th>非集合对象</th>
+<th>immutable object</th>
+<th>mutable object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>copy</td>
+<td>浅拷贝</td>
+<td>深拷贝</td>
+</tr>
+<tr>
+<td>mutableCopy</td>
+<td>深拷贝</td>
+<td>深拷贝</td>
+</tr>
+</tbody>
+</table>
+<p><strong>集合对象：</strong></p>
+<table>
+<thead>
+<tr>
+<th>集合对象</th>
+<th>immutable object</th>
+<th>mutable object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>copy</td>
+<td>浅拷贝</td>
+<td>单层深拷贝</td>
+</tr>
+<tr>
+<td>mutableCopy</td>
+<td>单层深拷贝</td>
+<td>单层深拷贝</td>
+</tr>
+</tbody>
+</table>
+<p>这里的单层深拷贝是指，对于集合对象，仅复制集合对象本身，并不复制其中的元素，即集合对象是内容复制，其中的对象元素是指针复制。</p>
+<p><strong>做个试验来验证：</strong></p>
+<p><strong>非集合对象：</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// copy vs mutableCopy (non-collection object)</span></div><div class="line">NSMutableString *mutableString = [NSMutableString stringWithString:@<span class="string">"immutableString"</span>];</div><div class="line">NSString *cpString = [mutableString <span class="keyword">copy</span>];</div><div class="line">NSString *mcpString = [mutableString mutableCopy];</div><div class="line">NSString *sString = mutableString;</div><div class="line">[mutableString appendString:@" <span class="keyword">copy</span>”];</div><div class="line"></div><div class="line">NSLog(@<span class="string">"mutable copy: \ncopy: %@(%p)\nmutable copy: %@(%p)\norginal: %@(%p)"</span>, cpString, cpString,mcpString,mcpString, sString,sString);</div><div class="line"></div><div class="line">NSString *immutableString = @<span class="string">"immutableString"</span>;</div><div class="line">NSString *imcpString = [immutableString <span class="keyword">copy</span>];</div><div class="line">NSString *immcpString = [immutableString mutableCopy];</div><div class="line"></div><div class="line">NSLog(@<span class="string">"immutable copy: \ncopy: %p\nmutable copy: %p\norginal: %p"</span>, imcpString, immcpString, immutableString);</div><div class="line"></div><div class="line"><span class="comment">// Console:</span></div><div class="line">2017-06-29 13:50:41.125 iOS Example[71672:37269990] mutable <span class="keyword">copy</span>: </div><div class="line"><span class="keyword">copy</span>: immutableString(0x600000241620)</div><div class="line">mutable <span class="keyword">copy</span>: immutableString(0x60000007a600)</div><div class="line">orginal: immutableString <span class="keyword">copy</span>(0x60000007a640)</div><div class="line">2017-06-29 13:50:41.126 iOS Example[71672:37269990] immutable <span class="keyword">copy</span>: </div><div class="line"><span class="keyword">copy</span>: 0x105d7b620</div><div class="line">mutable <span class="keyword">copy</span>: 0x618000076e80</div><div class="line">orginal: 0x105d7b620</div></pre></td></tr></table></figure>
+<p><strong>集合对象：</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">// <span class="keyword">copy</span><span class="bash"> vs mutableCopy (collection object)</span></div><div class="line">NSMutableArray *mutableArray = [NSMutableArray arrayWithObjects:@<span class="number">1</span>, @<span class="number">2</span>, nil];</div><div class="line">NSArray *cpArray = [mutableArray <span class="keyword">copy</span><span class="bash">];</span></div><div class="line">NSArray *mcpArray = [mutableArray mutableCopy];</div><div class="line">NSArray *sArray = mutableArray;</div><div class="line">[mutableArray addObject:@<span class="number">3</span>];</div><div class="line"></div><div class="line">NSLog(@<span class="string">"mutable copy: \ncopy: %@(%p)\nmutable copy: %@(%p)\norginal: %@(%p)"</span>, cpArray, cpArray,mcpArray,mcpArray, sArray,sArray);</div><div class="line"></div><div class="line">NSArray *immutableArray = @[@<span class="number">5</span>, @<span class="number">6</span>];</div><div class="line">NSArray *imcpArray = [immutableArray <span class="keyword">copy</span><span class="bash">];</span></div><div class="line">NSArray *immcpArray = [immutableArray mutableCopy];</div><div class="line"></div><div class="line">NSLog(@<span class="string">"immutable copy: \ncopy: %@(%p)\nmutable copy: %@(%p)\norginal: %@(%p)"</span>, imcpArray, imcpArray,immcpArray,immcpArray, immutableArray,immutableArray);</div><div class="line"></div><div class="line">// Console:</div><div class="line"><span class="number">2017</span>-<span class="number">06</span>-<span class="number">29</span> <span class="number">14</span>:<span class="number">03</span>:<span class="number">00.059</span> iOS Example[<span class="number">71958</span>:<span class="number">37305362</span>] mutable <span class="keyword">copy</span><span class="bash">: </span></div><div class="line"><span class="keyword">copy</span><span class="bash">: (</span></div><div class="line">    <span class="number">1</span>,</div><div class="line">    <span class="number">2</span></div><div class="line">)(<span class="number">0</span>x618000036520)</div><div class="line">mutable <span class="keyword">copy</span><span class="bash">: (</span></div><div class="line">    <span class="number">1</span>,</div><div class="line">    <span class="number">2</span></div><div class="line">)(<span class="number">0</span>x61800005f830)</div><div class="line">orginal: (</div><div class="line">    <span class="number">1</span>,</div><div class="line">    <span class="number">2</span>,</div><div class="line">    <span class="number">3</span></div><div class="line">)(<span class="number">0</span>x61800005f860)</div><div class="line"><span class="number">2017</span>-<span class="number">06</span>-<span class="number">29</span> <span class="number">14</span>:<span class="number">03</span>:<span class="number">00.059</span> iOS Example[<span class="number">71958</span>:<span class="number">37305362</span>] immutable <span class="keyword">copy</span><span class="bash">: </span></div><div class="line"><span class="keyword">copy</span><span class="bash">: (</span></div><div class="line">    <span class="number">5</span>,</div><div class="line">    <span class="number">6</span></div><div class="line">)(<span class="number">0</span>x608000036600)</div><div class="line">mutable <span class="keyword">copy</span><span class="bash">: (</span></div><div class="line">    <span class="number">5</span>,</div><div class="line">    <span class="number">6</span></div><div class="line">)(<span class="number">0</span>x60800005d5e0)</div><div class="line">orginal: (</div><div class="line">    <span class="number">5</span>,</div><div class="line">    <span class="number">6</span></div><div class="line">)(<span class="number">0</span>x608000036600)</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-property中的copy关键字如何使用？&quot;&gt;&lt;a href=&quot;#1-property中的copy关键字如何使用？&quot; class=&quot;headerlink&quot; title=&quot;1.@property中的copy关键字如何使用？&quot;&gt;&lt;/a&gt;1.&lt;code&gt;@prop
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
+    
+      <category term="copy" scheme="http://www.calios.gq/tags/copy/"/>
+    
+  </entry>
+  
+  <entry>
     <title>iOS的内存管理之ARC部分总结</title>
     <link href="http://www.calios.gq/2017/06/29/iOS%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8BARC%E9%83%A8%E5%88%86%E6%80%BB%E7%BB%93/"/>
     <id>http://www.calios.gq/2017/06/29/iOS的内存管理之ARC部分总结/</id>
     <published>2017-06-29T01:46:40.000Z</published>
-    <updated>2017-06-29T02:38:41.000Z</updated>
+    <updated>2017-06-29T02:40:39.000Z</updated>
     
     <content type="html"><![CDATA[<p>在《Objective-C高级编程：iOS与OS X多线程和内存管理》一书中，对于ARC的部分有详尽的讲解。我将这一部分整理成思维导图，算是一个归档吧。</p>
+<a id="more"></a>
 <p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/iOS%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.png" alt="内存管理之ARC部分"></p>
 <p>如下是一些需要注意的点：</p>
 <h3 id="0-id"><a href="#0-id" class="headerlink" title="0.id"></a>0.<code>id</code></h3><ul>
@@ -59,10 +147,12 @@
 </ul>
 <h3 id="6-归零弱引用（Zeroing-weak-reference）"><a href="#6-归零弱引用（Zeroing-weak-reference）" class="headerlink" title="6.归零弱引用（Zeroing weak reference）"></a>6.归零弱引用（Zeroing weak reference）</h3><p>即让对象自己去清空弱引用的对象，这种特殊的弱引用被称为归零弱引用。在它指向的对象释放后，这些弱引用会被设置为零（即nil）。</p>
 <p>有两种方式可以声明归零弱引用：</p>
-<pre><code>- 声明变量时使用__weak关键字或对属性使用weak特性。
-- 在不支持弱引用的旧系统上，可以使用苹果公司提供的__unsafe_unretained关键字和unsafe_unretained特性。
-</code></pre><h3 id="7-循环引用"><a href="#7-循环引用" class="headerlink" title="7.循环引用"></a>7.循环引用</h3><ul>
-<li>a.propertyB = b; b.propertyA = a; b的引用计数+1，a的引用计数+1。引用计数一直无法为零，造成循环引用。</li>
+<ul>
+<li>声明变量时使用<code>__weak</code>关键字或对属性使用weak特性。</li>
+<li>在不支持弱引用的旧系统上，可以使用苹果公司提供的<code>__unsafe_unretained</code>关键字和<code>unsafe_unretained</code>特性。</li>
+</ul>
+<h3 id="7-循环引用"><a href="#7-循环引用" class="headerlink" title="7.循环引用"></a>7.循环引用</h3><ul>
+<li><code>a.propertyB = b; b.propertyA = a;</code> b的引用计数+1，a的引用计数+1。引用计数一直无法为零，造成循环引用。</li>
 <li>如何解？<ul>
 <li>原因在于，b和a都会引用计数至少为1。</li>
 <li>暴力解法：b或者a多调用一下release。然后就挂了。ㄟ( ▔. ▔ )ㄏ</li>
@@ -79,7 +169,6 @@
     <summary type="html">
     
       &lt;p&gt;在《Objective-C高级编程：iOS与OS X多线程和内存管理》一书中，对于ARC的部分有详尽的讲解。我将这一部分整理成思维导图，算是一个归档吧。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://7xkwcv.com1.z0.glb.clouddn.com/iOS%E
     
     </summary>
     
@@ -1187,72 +1276,6 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
     
     
       <category term="随笔" scheme="http://www.calios.gq/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析自定义UINavigationBar返回按钮（一）</title>
-    <link href="http://www.calios.gq/2016/10/28/%E6%B5%85%E6%9E%90%E8%87%AA%E5%AE%9A%E4%B9%89UINavigationBar%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://www.calios.gq/2016/10/28/浅析自定义UINavigationBar返回按钮（一）/</id>
-    <published>2016-10-28T09:52:21.000Z</published>
-    <updated>2016-11-01T05:15:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/navbar.png" alt="" title="自定义navigationBar返回按钮"></p>
-<p>这里主要有两个关键点：一是把原有的上一层的title去掉，二是把返回按钮的indicator图片换成自定义的。</p>
-<p>对于第一点，解决办法是：</p>
-<pre><code>[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
-</code></pre><p>对于第二点，有两个解决办法：</p>
-<pre><code>// Solution 1:
-UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
-[UINavigationBar appearance].backIndicatorImage = img;
-[UINavigationBar appearance].backIndicatorTransitionMaskImage = img;
-
-// Solution 2:
-[[UIBarButtonItem appearance] setBackButtonBackgroundImage:[img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width - 1, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-</code></pre><p>对于第一个解决办法，需要注意的是，如果是自定义的back indicator image，<code>backIndicatorImage</code>和<code>backIndicatorTransitionMaskImage</code>必须成对出现，<a href="https://developer.apple.com/reference/uikit/uinavigationbar/1624938-backindicatortransitionmaskimage" target="_blank" rel="external">同时设置</a>。</p>
-<p>对于第二个解决办法，需要注意的是，如果直接把<code>img</code>传进去，就会发现，图片被拉长了，变成了一柄剑。。。</p>
-<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/navBar-sword.png" alt=""></p>
-<p>而在<code>-setBackButtonBackgroundImage: forState: barMetrics</code>的api中，特意添加了注释提醒开发者：<code>backgroundImage must be a resizable image for good results.</code></p>
-<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/nav-showFrame.png" alt=""></p>
-<p>这里我的理解是，navigation bar返回按钮的图片+文字的placeholder有固定尺寸，当图片不够填充满这个区域的时候，会自动拉伸，所以注释中要求开发者传入一个可调整大小的图片作为参数。</p>
-<p>而当我们调用<code>resizableImageWithCapInsets:</code>方法，并传入capInsets时，相当于锁定了cap insets的部分，让其余部分进行拉伸。在上面的代码中，设置capInsets为<code>UIEdgeInsetsMake(0, img.size.width, 0, 0)</code>，相当于保证原图片宽度范围内的图片不被拉伸，也就保证了原图片的显示效果。当然，调用<code>resizableImageWithCapInsets:</code>方法，<a href="https://developer.apple.com/reference/uikit/uiimage/1624102-resizableimagewithcapinsets" target="_blank" rel="external">实际上是返回了一张新图片，原有的图片是无法触及的</a>。</p>
-<p>可以通过下面面包片模具的🌰来理解这个方法（嗯，吃货的思路就是这么独特。。～_～ ）：</p>
-<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/bread.jpeg" alt=""></p>
-<p>蓝色框范围内是原面包片（即原图片）；蓝色框和绿色框之间的面包边儿就是你设定的capInsets，这取决于你使用什么样的模具；而绿色框范围内是你可以自由发挥的部分，里面夹猕猴桃香蕉片随你（即可拉伸范围。。嗯，对于面包片是纵向的伸展）。</p>
-<hr>
-<p>以下引自苹果官方文档，列在此处，备查。</p>
-<blockquote>
-<p>从iOS5.0及之后，可以通过以下（自定义bar样式）列举的方法来自定义UINavigationBar的样式。你可以用<code>[UINavigationBar appearance]</code>来自定义所有UINavigationBar的样式，也可以只改变单独的一个。</p>
-<p>在iOS 7中，UINavigationBar的<code>tintColor</code>会影响返回指示按钮的图片、按钮的标题和按钮的图片。<code>barTintColor</code>会影响bar本身的颜色。另外，navigation bar默认是半透明的。开关半透明的设置不会影响按钮，因为它们是没有背景的。</p>
-<p>自定义bar样式：</p>
-<ul>
-<li><code>backIndicatorImage</code>：返回按钮边上的图片</li>
-<li><code>backIndicatorTransitionMaskImage</code>：在push和pop过程中作为内容的蒙版的图片（@_@）</li>
-<li><code>titleVerticalPositionAdjustmentForBarMetrics:</code>：对给定的横屏或竖屏的bar调整title的垂直方向的位置偏移。</li>
-<li><code>titleTextAttributes</code>：bar的title的各种显示属性，如字体、颜色、阴影等。</li>
-</ul>
-</blockquote>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="https://developer.apple.com/reference/uikit/uinavigationbar" target="_blank" rel="external">https://developer.apple.com/reference/uikit/uinavigationbar</a></li>
-<li><a href="https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc" target="_blank" rel="external">https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc</a></li>
-<li><a href="http://stackoverflow.com/a/20986544/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20986544/1594792</a></li>
-<li><a href="http://stackoverflow.com/a/29937730/1594792" target="_blank" rel="external">http://stackoverflow.com/a/29937730/1594792</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://7xkwcv.com1.z0.glb.clouddn.com/navbar.png&quot; alt=&quot;&quot; title=&quot;自定义navigationBar返回按钮&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这里主要有两个关键点：一是把原有的上一层的title去掉，二是把返
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
-    
-      <category term="UIKit" scheme="http://www.calios.gq/tags/UIKit/"/>
     
   </entry>
   
