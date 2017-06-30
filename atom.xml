@@ -188,6 +188,65 @@
   </entry>
   
   <entry>
+    <title>Issue of lazy loading property</title>
+    <link href="http://www.calios.gq/2017/05/30/Issue-of-lazy-loading-property/"/>
+    <id>http://www.calios.gq/2017/05/30/Issue-of-lazy-loading-property/</id>
+    <published>2017-05-30T03:49:09.000Z</published>
+    <updated>2017-06-30T08:08:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>I’ve got some <code>readonly</code> properties in my .h file. And when I tried to lazy loading them as usual like this.<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyView.h</span></div><div class="line">@property (nonatomic, strong, readonly) UIImageView *imageView;</div><div class="line"></div><div class="line"><span class="comment">// MyView.m</span></div><div class="line">- (UIImageView *)imageView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="variable">_imageView</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">_imageView</span> = [UIImageView new];</div><div class="line">        <span class="variable">_imageView</span>.translatesAutoresizingMaskIntoConstraints = NO;</div><div class="line">        <span class="variable">_imageView</span>.backgroundColor = [UIColor clearColor];</div><div class="line">        <span class="variable">_imageView</span>.contentMode = UIViewContentModeScaleAspectFit;</div><div class="line">        <span class="variable">_imageView</span>.userInteractionEnabled = NO;</div><div class="line">        <span class="variable">_imageView</span>.accessibilityIdentifier = @<span class="string">"empty set image view"</span>;</div><div class="line"></div><div class="line">        <span class="variable">_imageView</span>.<span class="built_in">image</span> = <span class="variable">_defaultImage</span>;</div><div class="line"></div><div class="line">        [<span class="variable">_contentView</span> addSubview:<span class="variable">_imageView</span>];</div><div class="line">    &#125;</div><div class="line">    return <span class="variable">_imageView</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Then…bang! It threw out errors in bulk, yelling “Use of undeclared identifier ‘_imageView’”. What the hell have I done!</p>
+<p>Luckily, I found some explainations <a href="http://stackoverflow.com/a/13670924/1594792" target="_blank" rel="external">here</a>. It says:</p>
+<blockquote>
+<p>Newer Xcode versions can create a @synthesize statement automatically and use the underscore prefix for instance variables. In this case however, <strong>since the property is read-only and you provide a getter method, Xcode does not synthesize the property automatically.</strong></p>
+</blockquote>
+<p>So, I have to @synthesize the property on my own, and now it’s quiet and cute again. :P</p>
+<p>— <strong>Update: 2017-05-30</strong> —</p>
+<p>I happened to recall this issue when clearing up the whole system of Objective-C. Let’s dig deeper about this issue and find if there’s a diamond in it. :P</p>
+<p>This issue has references of two points: <code>@property</code> and <code>@synthesize</code>. Let’s dig more details one by one.</p>
+<ul>
+<li><code>@property</code>: I’d love to reference this paragraph of <a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="external">Ry’s Objective-C Tutorial</a> to show the goal of @property in Objective-C.</li>
+</ul>
+<blockquote>
+<p>An object’s properties let other objects inspect or change its state. But, in a well-designed object-oriented program, it’s not possible to directly access the internal state of an object. Instead, accessor methods (getters and setters) are used as an abstraction for interacting with the object’s underlying data.<br><img src="http://7xkwcv.com1.z0.glb.clouddn.com/Interacting%20with%20a%20property%20via%20accessor%20methods.png" alt="Interacting with a property via accessor methods"><br>The goal of the @property directive is to make it easy to create and configure properties by automatically generating these accessor methods. It allows you to specify the behavior of a public property on a semantic level, and it takes care of the implementation details for you.</p>
+</blockquote>
+<ul>
+<li><code>@synthesize</code>: First of all, this feature is called <strong>autosynthesis</strong> of properties and it’s an <a href="http://clang.llvm.org/docs/LanguageExtensions.html#objective-c-autosynthesis-of-properties" target="_blank" rel="external">Objective-C language extension supported by clang</a>, which is the default compiler used by Xcode.</li>
+</ul>
+<p>Thanks to autosynthesis you don’t need to explicitly synthesize the property as it will be automatically synthesized by the compiler as <code>@synthesize propertyName = _propertyName</code>.</p>
+<p>While, there’re some exceptions here:</p>
+<ul>
+<li>Readwrite property with custom getter and setter;</li>
+<li>Readonly property with custom getter;</li>
+<li>@dynamic (which is opposited to <code>@synthesize</code>);</li>
+<li>Properites declared in a @protocol;</li>
+<li>Properties declared in a category;</li>
+<li>Overriden properties.</li>
+</ul>
+<p>!(Readwrite property with custom getter and setter)[<a href="http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png" target="_blank" rel="external">http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png</a>]</p>
+<p>In this condition, property <code>name</code> is set to be <code>readwrite</code>(as it is by default) with custom getter and setter. At this time, compiler believes that you want to take full control over <code>@property</code> manually, and then forbids autosynthesis for you.</p>
+<p>We’ve already been used to not defining ivars on our own, once you have to use ivar, while autosynthesis is invalid, you’ll have to use <code>@synthesize</code> to compound ivars.</p>
+<p>Here’s a little sample.</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Tesla</span> : <span class="title">Car</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *name;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Tesla</span></span></div><div class="line"><span class="keyword">@synthesize</span> name;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)printVar</div><div class="line">&#123;</div><div class="line">	<span class="keyword">super</span>.name = <span class="string">@"Car"</span>;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"Tesla: Hello %@, ivar: %@，super: %@"</span>, <span class="keyword">self</span>.name, <span class="keyword">self</span>-&gt;name, <span class="keyword">super</span>.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>Output in console:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2017<span class="selector-tag">-06-30</span> 16<span class="selector-pseudo">:02</span><span class="selector-pseudo">:03.946</span> <span class="selector-tag">BlockSample</span><span class="selector-attr">[86278:38771956]</span> <span class="selector-tag">Tesla</span>: <span class="selector-tag">Hello</span> <span class="selector-tag">Tesla</span>, <span class="selector-tag">ivar</span>: <span class="selector-tag">Tesla</span>，<span class="selector-tag">super</span>: <span class="selector-tag">Car</span></div></pre></td></tr></table></figure>
+<p>It’s also fine to get subclass’s ivar <code>name</code> simply by <code>name</code>.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;I’ve got some &lt;code&gt;readonly&lt;/code&gt; properties in my .h file. And when I tried to lazy loading them as usual like this.&lt;br&gt;&lt;figure class=
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
+    
+      <category term="property" scheme="http://www.calios.gq/tags/property/"/>
+    
+  </entry>
+  
+  <entry>
     <title>KVO &amp; KVC 知识点小结</title>
     <link href="http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/"/>
     <id>http://www.calios.gq/2017/05/12/KVO-KVC-missing-points/</id>
@@ -1258,32 +1317,6 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
       <category term="iOS" scheme="http://www.calios.gq/tags/iOS/"/>
     
       <category term="Block" scheme="http://www.calios.gq/tags/Block/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>写在2017年初</title>
-    <link href="http://www.calios.gq/2017/01/10/%E5%86%99%E5%9C%A82017%E5%B9%B4%E5%88%9D/"/>
-    <id>http://www.calios.gq/2017/01/10/写在2017年初/</id>
-    <published>2017-01-10T02:22:16.000Z</published>
-    <updated>2017-06-12T07:58:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
-<p>终于在2017年的第十天被我修理好了。继续第三年的blog之旅。</p>
-<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
-<p>—— Calios<br>2017.01.10</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。&lt;/p&gt;
-&lt;p&gt;终于在2017年的第十天被我修理好了。继续第三年的blog之旅。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;但求把知识变成能力；&lt;/strong
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="http://www.calios.gq/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
