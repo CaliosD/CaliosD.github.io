@@ -192,7 +192,7 @@
 <li>Properties declared in a category;</li>
 <li>Overriden properties.</li>
 </ul>
-<p>!(Readwrite property with custom getter and setter)[<a href="http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png" target="_blank" rel="external">http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png</a>]</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png" alt="Readwrite property with custom getter and setter"></p>
 <p>In this condition, property <code>name</code> is set to be <code>readwrite</code>(as it is by default) with custom getter and setter. At this time, compiler believes that you want to take full control over <code>@property</code> manually, and then forbids autosynthesis for you.</p>
 <p>We’ve already been used to not defining ivars on our own, once you have to use ivar, while autosynthesis is invalid, you’ll have to use <code>@synthesize</code> to compound ivars.</p>
 <p>Here’s a little sample.</p>
@@ -3100,9 +3100,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
@@ -4095,9 +4095,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> AVPlayer </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
         
@@ -4300,9 +4300,9 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
         
         <tags>
             
-            <tag> AutoLayout </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> AutoLayout </tag>
             
         </tags>
         
