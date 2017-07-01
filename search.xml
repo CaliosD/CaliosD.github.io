@@ -167,21 +167,18 @@
 <p>Then…bang! It threw out errors in bulk, yelling “Use of undeclared identifier ‘_imageView’”. What the hell have I done!</p>
 <p>Luckily, I found some explainations <a href="http://stackoverflow.com/a/13670924/1594792" target="_blank" rel="external">here</a>. It says:</p>
 <blockquote>
-<p>Newer Xcode versions can create a @synthesize statement automatically and use the underscore prefix for instance variables. In this case however, <strong>since the property is read-only and you provide a getter method, Xcode does not synthesize the property automatically.</strong></p>
+<p>Newer Xcode versions can create a <code>@synthesize</code> statement automatically and use the underscore prefix for instance variables. In this case however, <strong>since the property is read-only and you provide a getter method, Xcode does not synthesize the property automatically.</strong></p>
 </blockquote>
-<p>So, I have to @synthesize the property on my own, and now it’s quiet and cute again. :P</p>
-<p>— <strong>Update: 2017-05-30</strong> —</p>
+<p>So, I have to <code>@synthesize</code> the property on my own, and now it’s quiet and cute again. :P</p>
+<hr>
+<p><strong>Update: 2017-05-30</strong></p>
 <p>I happened to recall this issue when clearing up the whole system of Objective-C. Let’s dig deeper about this issue and find if there’s a diamond in it. :P</p>
 <p>This issue has references of two points: <code>@property</code> and <code>@synthesize</code>. Let’s dig more details one by one.</p>
-<ul>
-<li><code>@property</code>: I’d love to reference this paragraph of <a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="external">Ry’s Objective-C Tutorial</a> to show the goal of @property in Objective-C.</li>
-</ul>
+<h3 id="1-property"><a href="#1-property" class="headerlink" title="1.@property"></a>1.<code>@property</code></h3><p>I’d love to reference this paragraph of <a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="external">Ry’s Objective-C Tutorial</a> to show the goal of @property in Objective-C.</p>
 <blockquote>
 <p>An object’s properties let other objects inspect or change its state. But, in a well-designed object-oriented program, it’s not possible to directly access the internal state of an object. Instead, accessor methods (getters and setters) are used as an abstraction for interacting with the object’s underlying data.<br><img src="http://7xkwcv.com1.z0.glb.clouddn.com/Interacting%20with%20a%20property%20via%20accessor%20methods.png" alt="Interacting with a property via accessor methods"><br>The goal of the @property directive is to make it easy to create and configure properties by automatically generating these accessor methods. It allows you to specify the behavior of a public property on a semantic level, and it takes care of the implementation details for you.</p>
 </blockquote>
-<ul>
-<li><code>@synthesize</code>: First of all, this feature is called <strong>autosynthesis</strong> of properties and it’s an <a href="http://clang.llvm.org/docs/LanguageExtensions.html#objective-c-autosynthesis-of-properties" target="_blank" rel="external">Objective-C language extension supported by clang</a>, which is the default compiler used by Xcode.</li>
-</ul>
+<h3 id="2-synthesize"><a href="#2-synthesize" class="headerlink" title="2.@synthesize"></a>2.<code>@synthesize</code></h3><p>First of all, this feature is called <strong>autosynthesis</strong> of properties and it’s an <a href="http://clang.llvm.org/docs/LanguageExtensions.html#objective-c-autosynthesis-of-properties" target="_blank" rel="external">Objective-C language extension supported by clang</a>, which is the default compiler used by Xcode.</p>
 <p>Thanks to autosynthesis you don’t need to explicitly synthesize the property as it will be automatically synthesized by the compiler as <code>@synthesize propertyName = _propertyName</code>.</p>
 <p>While, there’re some exceptions here:</p>
 <ul>
@@ -194,12 +191,20 @@
 </ul>
 <p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/synthesize2.png" alt="Readwrite property with custom getter and setter"></p>
 <p>In this condition, property <code>name</code> is set to be <code>readwrite</code>(as it is by default) with custom getter and setter. At this time, compiler believes that you want to take full control over <code>@property</code> manually, and then forbids autosynthesis for you.</p>
+<p><strong>—Note—</strong> atomic property’s accessor type must be paired, either custom or autosynthesis. Or else, there would be a warning like this.</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/synthesize.png" alt="atomic property&#39;s custom accessor must be paired"></p>
+<p><strong>—Note End—</strong></p>
 <p>We’ve already been used to not defining ivars on our own, once you have to use ivar, while autosynthesis is invalid, you’ll have to use <code>@synthesize</code> to compound ivars(i.e. let out the comment for line 24 in the image above).</p>
 <p>Here’s a little sample.</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Tesla</span> : <span class="title">Car</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *name;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Tesla</span></span></div><div class="line"><span class="keyword">@synthesize</span> name;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)printVar</div><div class="line">&#123;</div><div class="line">	<span class="keyword">super</span>.name = <span class="string">@"Car"</span>;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"Tesla: Hello %@, ivar: %@，super: %@"</span>, <span class="keyword">self</span>.name, <span class="keyword">self</span>-&gt;name, <span class="keyword">super</span>.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p>Output in console:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2017<span class="selector-tag">-06-30</span> 16<span class="selector-pseudo">:02</span><span class="selector-pseudo">:03.946</span> <span class="selector-tag">BlockSample</span><span class="selector-attr">[86278:38771956]</span> <span class="selector-tag">Tesla</span>: <span class="selector-tag">Hello</span> <span class="selector-tag">Tesla</span>, <span class="selector-tag">ivar</span>: <span class="selector-tag">Tesla</span>，<span class="selector-tag">super</span>: <span class="selector-tag">Car</span></div></pre></td></tr></table></figure>
 <p>It’s also fine to get subclass’s ivar <code>name</code> simply by <code>name</code>.</p>
+<h3 id="3-One-more-note-for-dynamic-which-always-appears-hand-in-hand-with-synthesize"><a href="#3-One-more-note-for-dynamic-which-always-appears-hand-in-hand-with-synthesize" class="headerlink" title="3.One more note for @dynamic (which always appears hand in hand with @synthesize =.=)"></a>3.One more note for <code>@dynamic</code> (which always appears hand in hand with @synthesize =.=)</h3><p>This is cited from <a href="http://theocacao.com/document.page/516" target="_blank" rel="external">this article</a>, under the heading “Methods provided at runtime”.</p>
+<blockquote>
+<p>Some accessors are created dynamically at runtime, such as certain ones used in CoreData’s NSManagedObject class. If you want to declare and use properties for these cases, but want to avoid warnings about methods missing at compile time, you can use the <code>@dynamic</code> directive instead of <code>@synthesize</code>.</p>
+<p>Using the <code>@dynamic</code> directive essentially tells the compiler “don’t worry about it, a method is on the way.” :]</p>
+</blockquote>
 ]]></content>
       
         
@@ -2171,9 +2176,9 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
             
             <tag> iOS </tag>
             
-            <tag> iOS8 </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> iOS8 </tag>
             
         </tags>
         
