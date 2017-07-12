@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>从AFNetworking看世界：（一）URL Session | Calios' Eden</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">从AFNetworking看世界：（一）URL Session</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">从AFNetworking看世界：（一）URL Session</h1><div class="post-content"><p>对于AFNetworking这个库而言，似乎读源码这件事已经被不同人解析了很多遍了。然而，今日重读，又有新的发现。<br>子曰：学而时习之，不亦乐乎？脑补着他为已有知识的新感悟而手之舞之足之蹈之，深感孔子也确是一个可爱的人。</p>
+<p>一个好的第三方库，甚至可以重塑你对某个知识块的理解。AFNetworking就是这样的库。它重塑了我对HTTP协议的理解。感谢Mattt，感谢所有贡献者。</p>
+<p>这个系列我会写什么：</p>
+<ul>
+<li>与Cocoa的URL Session相比，AFNetworking做了什么；</li>
+<li>从AFNetworking看HTTP协议；</li>
+<li>从AFNetworking看如何解决Read-write问题；</li>
+<li>Multipart/form-data；</li>
+<li>Stream？</li>
+<li>Security？</li>
+<li>Asyn testing？</li>
+<li>……</li>
+</ul>
+<p>不会写什么：</p>
+<ul>
+<li>line-by-line讲具体某个函数的使用；</li>
+<li>TODO；</li>
+<li>……</li>
+</ul>
+<p>这个系列着重于对于网络请求这一部分知识的整体把控，而不会过多追究细节实现。所以，细节控们，可能会让你们失望喽~ :P</p>
+<p>废话不多说，先进入我们的第一个话题：在URL Session的基础上，AFNetworking做了什么。</p>
+<h1 id="1-URL-Session-Programming"><a href="#1-URL-Session-Programming" class="headerlink" title="1.URL Session Programming"></a>1.URL Session Programming</h1><p>在重读AFNetworking之前，我们首先来理清一下<em>URL Session Programming</em>中的几个关键的类之间的关系：<code>NSURLSession</code>、<code>NSURLSessionConfiguration</code>和<code>NSURLSessionTask</code>。</p>
+<p>在一个app中，可以通过<code>NSURLSession</code>创建一个或多个的session，每个session用来协调一组相关数据的传输任务。比如说，你在写一个web浏览器，那么可能每个tab或者每个window创建一个session，或者是一个session响应用户操作、另一个session处理后台下载。在每个session中，你都可以添加一系列的task，每个task代表着一个指定URL的请求。简而言之，session和task，即<code>NSURLSession</code>和<code>NSURLSessionTask</code>，是一对多的关系。</p>
+<p>在每个URL session中的一组task，都共享着一个configuration，这个configuration定义了连接建立的行为，比如是否允许通过移动数据建立连接等等，这个就是<code>NSURLSessionConfiguration</code>类，它和NSURLSession是一对一的关系。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/url%20session%E5%87%A0%E4%B8%AA%E7%B1%BB.png" alt="几个关键类的关系图"></p>
+<p>更多原生URL Session的内容，可以看<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html" target="_blank" rel="external">官方文档</a>或通过下图按图索骥。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/URL%20Session%20Programming%20Guide.png" alt="URL Session Programming Guide"></p>
+<h1 id="2-与AFNetworking的对接：AFURLSessionManager类"><a href="#2-与AFNetworking的对接：AFURLSessionManager类" class="headerlink" title="2.与AFNetworking的对接：AFURLSessionManager类"></a>2.与AFNetworking的对接：<code>AFURLSessionManager</code>类</h1><h3 id="2-1-AFURLSessionManager大观"><a href="#2-1-AFURLSessionManager大观" class="headerlink" title="2.1 AFURLSessionManager大观"></a>2.1 <code>AFURLSessionManager</code>大观</h3><p>了解了原生接口提供的内容，我们来看AFNetworking在它的基础上做了什么。</p>
+<p>在AFNetworking中，与原生的Foundation类<code>NSURLSession</code>直接对接的类是<code>AFURLSessionManager</code>。</p>
+<p>在<code>AFURLSessionManager</code>这个类中，包括：</p>
+<ul>
+<li>一个<code>NSURLSession</code>的实例来管理各种task；</li>
+<li>一个字典<code>mutableTaskDelegatesKeyedByTaskIdentifier</code>来存储<code>（task.taskIdentifier: AFURLSessionManagerTaskDelegate实例）</code>的键值对，后面我们会细说这个属性；</li>
+<li>初始化session时传入的<code>operationQueue</code>；</li>
+<li>几个分别装着各种上传、下载、数据task的数组；</li>
+<li>用来安置<code>completionBlock</code>的queue和group。</li>
+</ul>
+<p>以及对以下各个protocol的实现：</p>
+<p><strong>NSURLSessionDelegate</strong></p>
+<ul>
+<li><code>URLSession:didBecomeInvalidWithError:</code></li>
+<li><code>URLSession:didReceiveChallenge:completionHandler:</code></li>
+<li><code>URLSessionDidFinishEventsForBackgroundURLSession:</code></li>
+</ul>
+<p><strong>NSURLSessionTaskDelegate</strong></p>
+<ul>
+<li><code>URLSession:willPerformHTTPRedirection:newRequest:completionHandler:</code></li>
+<li><code>URLSession:task:didReceiveChallenge:completionHandler:</code></li>
+<li><code>URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:</code></li>
+<li><code>URLSession:task:needNewBodyStream:</code></li>
+<li><p><code>URLSession:task:didCompleteWithError:</code></p>
+<p><strong>NSURLSessionDataDelegate</strong></p>
+</li>
+<li><p><code>URLSession:dataTask:didReceiveResponse:completionHandler:</code></p>
+</li>
+<li><code>URLSession:dataTask:didBecomeDownloadTask:</code></li>
+<li><code>URLSession:dataTask:didReceiveData:</code></li>
+<li><code>URLSession:dataTask:willCacheResponse:completionHandler:</code></li>
+</ul>
+<p><strong>NSURLSessionDownloadDelegate</strong></p>
+<ul>
+<li><code>URLSession:downloadTask:didFinishDownloadingToURL:</code></li>
+<li><code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesWritten:totalBytesExpectedToWrite:</code></li>
+<li><code>URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:</code></li>
+</ul>
+<p>这几个protocol的关系是这样的：</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/URL%20Session%20Protocols.png" alt="protocol关系图"></p>
+<p>在<code>AFURLSessionManager</code>如下图所示的众多属性中，我们着重来看一个：<code>mutableTaskDelegatesKeyedByTaskIdentifier</code>。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/AFURLSessionManager.png" alt="AFURLSessionManager主要属性图"></p>
+<h3 id="2-2-session与task的纽带：AFURLSessionManagerTaskDelegate"><a href="#2-2-session与task的纽带：AFURLSessionManagerTaskDelegate" class="headerlink" title="2.2 session与task的纽带：AFURLSessionManagerTaskDelegate"></a>2.2 session与task的纽带：<code>AFURLSessionManagerTaskDelegate</code></h3><p>还记得上面<code>NSURLSession</code>和<code>NSURLSessionTask</code>的关系图吗？是的，<code>AFURLSessionManager</code>和<code>AFURLSessionManagerTaskDelegate</code>也是类似的一对多的关系。而<code>mutableTaskDelegatesKeyedByTaskIdentifier</code>就是用来存放<code>task.taskIdentifier: AFURLSessionManagerTaskDelegate实例</code>键值对的地方。</p>
+<p>事实上，<code>AFURLSessionManagerTaskDelegate</code>类是与task一一对应的wrapper类，主要存储对于单个task而言的progress信息、progress的block和completion handler。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/AFURLSessionManagerTaskDelegate.png" alt="AFURLSessionManagerTaskDelegate的属性图"></p>
+<p>在这个类中，实现了如下<code>NSURLSessionTaskDelegate</code>, <code>NSURLSessionDataDelegate</code>, <code>NSURLSessionDownloadDelegate</code>的方法：</p>
+<p><strong>NSURLSessionTaskDelegate</strong></p>
+<ul>
+<li><code>URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:</code></li>
+<li><code>URLSession:task:didCompleteWithError:</code></li>
+</ul>
+<p><strong>NSURLSessionDataDelegate</strong></p>
+<ul>
+<li><code>URLSession:dataTask:didReceiveData:</code></li>
+</ul>
+<p><strong>NSURLSessionDownloadDelegate</strong></p>
+<ul>
+<li><code>URLSession:downloadTask:didFinishDownloadingToURL:</code></li>
+<li><code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesWritten:totalBytesExpectedToWrite:</code></li>
+<li><code>URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:</code></li>
+</ul>
+<p>由此可见，AFNetworking为我们提供了对于session和task的双层控制，这与原生的API是一脉相承的。</p>
+<h1 id="3-对HTTP的有力支持：AFHTTPSessionManager类"><a href="#3-对HTTP的有力支持：AFHTTPSessionManager类" class="headerlink" title="3.对HTTP的有力支持：AFHTTPSessionManager类"></a>3.对HTTP的有力支持：<code>AFHTTPSessionManager</code>类</h1><p>继承自<code>AFURLSessionManager</code>，<code>AFHTTPSessionManager</code>添加了针对HTTP请求的便捷方法，支持包括<code>GET</code>、<code>POST</code>、<code>HEAD</code>、<code>PUT</code>、<code>PATCH</code>和<code>DELETE</code>在内的六种请求方式。</p>
+<p>在<code>AFURLSessionManager</code>中创建各种<code>NSURLSessionTask</code>时，需要传入<code>NSURLRequest</code>实例；而·AFHTTPSessionManager·在此基础上添加了通过<code>baseURL</code>和<code>URLString</code>拼接成<code>NSURL</code>、<code>requestSerializer</code>、<code>responseSerializer</code>和<code>securityPolicy</code>实例的配置，再创建各种<code>NSURLSessionTask</code>时，只需要传入<code>URLString</code>和请求参数即可，极大地提高了开发的便捷性。</p>
+<p>下图为常用HTTP请求方法的调用栈：</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/%E5%B8%B8%E7%94%A8HTTP%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8%E6%A0%88.png" alt="常用HTTP请求方法的调用栈"></p>
+<p>可以看出，由于<code>POST</code>时可以构建body，所以划分出两个分支来分别创建request和task。更多关于HTTP的body的内容，之后的文章中会详细说明。</p>
+<p>当然，归根到底，<code>AFHTTPSessionManager</code>是通过配置的各种参数，创建出<code>NSURLRequest</code>后，调用父类的 <code>- (NSURLSessionDataTask *)dataTaskWithRequest: uploadProgress: downloadProgress: completionHandler:</code>方法创建出<code>NSURLSessionTask</code>。</p>
+<hr>
+<p>以上，就是URL Session直接相关的两个类。</p>
+<p>（感觉给自己挖了一个大坑，push着自己来填啊~~~ㄟ( ▔, ▔ )ㄏ 2333333）</p>
+</div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.calios.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/TextKit/" style="font-size: 15px;">TextKit</a> <a href="/tags/Bash/" style="font-size: 15px;">Bash</a> <a href="/tags/AutoLayout/" style="font-size: 15px;">AutoLayout</a> <a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/PragmaticProgrammer/" style="font-size: 15px;">PragmaticProgrammer</a> <a href="/tags/AVPlayer/" style="font-size: 15px;">AVPlayer</a> <a href="/tags/Background/" style="font-size: 15px;">Background</a> <a href="/tags/Block/" style="font-size: 15px;">Block</a> <a href="/tags/CoreAnimation/" style="font-size: 15px;">CoreAnimation</a> <a href="/tags/CAS/" style="font-size: 15px;">CAS</a> <a href="/tags/UIKit/" style="font-size: 15px;">UIKit</a> <a href="/tags/iOS8/" style="font-size: 15px;">iOS8</a> <a href="/tags/C语言/" style="font-size: 15px;">C语言</a> <a href="/tags/EnjoyMyCoffee/" style="font-size: 15px;">EnjoyMyCoffee</a> <a href="/tags/Runtime/" style="font-size: 15px;">Runtime</a> <a href="/tags/GPS/" style="font-size: 15px;">GPS</a> <a href="/tags/Foundation/" style="font-size: 15px;">Foundation</a> <a href="/tags/property/" style="font-size: 15px;">property</a> <a href="/tags/LLDB/" style="font-size: 15px;">LLDB</a> <a href="/tags/KVC/" style="font-size: 15px;">KVC</a> <a href="/tags/KVO/" style="font-size: 15px;">KVO</a> <a href="/tags/MongoDB/" style="font-size: 15px;">MongoDB</a> <a href="/tags/Objective-C/" style="font-size: 15px;">Objective-C</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/Regex/" style="font-size: 15px;">Regex</a> <a href="/tags/SolutionSummary/" style="font-size: 15px;">SolutionSummary</a> <a href="/tags/TesseractOCR/" style="font-size: 15px;">TesseractOCR</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/UICollectionView/" style="font-size: 15px;">UICollectionView</a> <a href="/tags/Swift/" style="font-size: 15px;">Swift</a> <a href="/tags/Chrome/" style="font-size: 15px;">Chrome</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/WebSocket/" style="font-size: 15px;">WebSocket</a> <a href="/tags/SourceRead/" style="font-size: 15px;">SourceRead</a> <a href="/tags/Clang/" style="font-size: 15px;">Clang</a> <a href="/tags/RichText/" style="font-size: 15px;">RichText</a> <a href="/tags/Terminal/" style="font-size: 15px;">Terminal</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/ARC/" style="font-size: 15px;">ARC</a> <a href="/tags/内存管理/" style="font-size: 15px;">内存管理</a> <a href="/tags/脑洞开一开/" style="font-size: 15px;">脑洞开一开</a> <a href="/tags/译言/" style="font-size: 15px;">译言</a> <a href="/tags/NotToCrashSeries/" style="font-size: 15px;">NotToCrashSeries</a> <a href="/tags/Download/" style="font-size: 15px;">Download</a> <a href="/tags/NSURLSession/" style="font-size: 15px;">NSURLSession</a> <a href="/tags/iOS9/" style="font-size: 15px;">iOS9</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/copy/" style="font-size: 15px;">copy</a> <a href="/tags/SVN/" style="font-size: 15px;">SVN</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Storyboard/" style="font-size: 15px;">Storyboard</a> <a href="/tags/JumpNStruggleOut/" style="font-size: 15px;">JumpNStruggleOut</a> <a href="/tags/Summary/" style="font-size: 15px;">Summary</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/iOS的内存管理之ARC部分总结/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/关于copy的常见问题/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/KVO-KVC-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/随笔一则-0422/">随笔一则-0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/WebSocket初探/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/Regex-Notes/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/CAS登录之iOS端总结/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/GPS-and-related/">GPS and related</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/16/Objective-C-Runtime-Programming-Guide-翻译及详解/">Objective-C Runtime Programming Guide 翻译及详解</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
