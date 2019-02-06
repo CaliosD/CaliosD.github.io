@@ -1,9 +1,1900 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2017/01/10/background-fetch/">Background fetch</a></h1><div class="post-meta">01/10/17</div><div class="post-content"><p>如下是iOS7开始支持的background fetch在下载管理中的应用。</p>
-<p>1.Target -> Capabilities -> Background Modes，打开开关，勾选<code>Background fetch</code>一项。<br>2.在负责下载管理的<code>CDDownloadManager</code>，或是<code>AppDelegate</code>中，添加<code>@property (nonatomic, copy) void (^savedCompletionHandler)();</code>属性，用于临时存储<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>传入的block（详细说明见后文）。<br>3.在<code>AppDelegate.m</code>中添加如下方法：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>application:<span class="params">(UIApplication *)</span>application handleEventsForBackgroundURLSession:<span class="params">(NSString *)</span>identifier completionHandler:<span class="params">(void (^)</span><span class="params">()</span>)completionHandler</div><div class="line">&#123;</div><div class="line">    NSLog<span class="params">(@<span class="string">"%s"</span>,__FUNCTION__)</span>;</div><div class="line"></div><div class="line">    [CDDownloadManager sharedManager].savedCompletionHandler = completionHandler;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2017/01/10/background-fetch/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/01/10/notes-for-block/">Block学习笔记</a></h1><div class="post-meta">01/10/17</div><div class="post-content"><h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)block1</div><div class="line">&#123;</div><div class="line">    <span class="built_in">int</span> (^myTest)(<span class="built_in">int</span>) = ^(<span class="built_in">int</span> <span class="built_in">num</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">num</span> * <span class="built_in">num</span>;</div><div class="line">    &#125;;</div><div class="line">    NSLog(@<span class="string">"double: %d"</span>,myTest(<span class="number">9</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2017/01/10/notes-for-block/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/01/10/at-the-beginning-of-2017/">写在2017年初</a></h1><div class="post-meta">01/10/17</div><div class="post-content"><p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/3/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/3/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/background-fetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/10/background-fetch/" itemprop="url">Background fetch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T11:00:51+08:00">
+                01/10/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>如下是iOS7开始支持的background fetch在下载管理中的应用。</p>
+<p>1.Target -> Capabilities -> Background Modes，打开开关，勾选<code>Background fetch</code>一项。<br>2.在负责下载管理的<code>CDDownloadManager</code>，或是<code>AppDelegate</code>中，添加<code>@property (nonatomic, copy) void (^savedCompletionHandler)();</code>属性，用于临时存储<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>传入的block（详细说明见后文）。<br>3.在<code>AppDelegate.m</code>中添加如下方法：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>application:<span class="params">(UIApplication *)</span>application handleEventsForBackgroundURLSession:<span class="params">(NSString *)</span>identifier completionHandler:<span class="params">(void (^)</span><span class="params">()</span>)completionHandler</div><div class="line">&#123;</div><div class="line">    NSLog<span class="params">(@<span class="string">"%s"</span>,__FUNCTION__)</span>;</div><div class="line"></div><div class="line">    [CDDownloadManager sharedManager].savedCompletionHandler = completionHandler;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在iOS中，当后台传输结束或是需要认证时，如果你的app不是正在运行的状态，它就会自动在后来重新启动，然后app的<code>UIApplicationDelegate</code> 会收到<code>application:handleEventsForBackgroundURLSession:completionHandler:</code>消息。这个函数中包括导致app启动的session的identifier。你的app应该在用相同的identifier创建后台configuration对象之前，把这个completion handler存下来。新创建的session会自动和正在执行的后台活动关联起来。</p>
+<p>4.在<code>CDDownloadManager.m</code>，或是其他创建了<code>NSURLSession</code>实例的类中，实现如下方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)URLSessionDidFinishEventsForBackgroundURLSession:(<span class="built_in">NSURLSession</span> *)session</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, __FUNCTION__);</div><div class="line"></div><div class="line">    [<span class="keyword">self</span>.session getTasksWithCompletionHandler:^(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionDataTask</span> *&gt; * _Nonnull dataTasks, <span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionUploadTask</span> *&gt; * _Nonnull uploadTasks, <span class="built_in">NSArray</span>&lt;<span class="built_in">NSURLSessionDownloadTask</span> *&gt; * _Nonnull downloadTasks) &#123;</div><div class="line">        <span class="keyword">if</span> (downloadTasks.count == <span class="number">0</span>) &#123;</div><div class="line">            <span class="comment">// A.</span></div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.savedCompletionHandler != <span class="literal">nil</span>) &#123;</div><div class="line">                <span class="keyword">void</span>(^completionHandler)() = <span class="keyword">self</span>.savedCompletionHandler;</div><div class="line"></div><div class="line">                <span class="keyword">self</span>.savedCompletionHandler = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">                <span class="comment">// B.</span></div><div class="line">                [[<span class="built_in">NSOperationQueue</span> mainQueue] addOperationWithBlock:^&#123;</div><div class="line">                    completionHandler();</div><div class="line">                    <span class="comment">// C.</span></div><div class="line">                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];</div><div class="line">                    content.title = <span class="string">@"Calios said:"</span>;</div><div class="line">                    content.body = <span class="string">@"Hi, what about enjoy Swift in 2017?"</span>;</div><div class="line">                    content.sound = [UNNotificationSound defaultSound];</div><div class="line">                    content.badge = @([[<span class="built_in">UIApplication</span> sharedApplication] applicationIconBadgeNumber] + <span class="number">1</span>);</div><div class="line"></div><div class="line">                    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:<span class="number">5.</span>f repeats:<span class="literal">NO</span>];</div><div class="line">                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:<span class="string">@"FiveSecond"</span> content:content trigger:trigger];</div><div class="line"></div><div class="line">                    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];</div><div class="line">                    [center addNotificationRequest:request withCompletionHandler:^(<span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">                        <span class="keyword">if</span> (!error) &#123;</div><div class="line">                            <span class="built_in">NSLog</span>(<span class="string">@"add notification request succeed!"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;];</div><div class="line">                &#125;];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对应上段代码的几点说明：<br>A. 这里的<code>self.savedCompletionHandler</code>就是上面在<code>AppDelegate.m</code>中被赋值的家伙。<br>B. 由于提供的completion handler是<code>UIKIt</code>的一部分，所以一定要在主线程中调用。<br>C. 这里的操作是在所有下载完成后弹出一个本地通知，并在console显示一行log。可以根据需求自行更改。<strong>注：</strong>iOS 10之后，本地通知和远程通知相关的接口都移到了<code>UserNotification</code>中，API也有很多变化，这里不再赘述，更多详情可参见喵神的<a href="https://onevcat.com/2016/08/notification/" target="_blank" rel="external">这篇博客</a>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/notes-for-block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/10/notes-for-block/" itemprop="url">Block学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T10:59:16+08:00">
+                01/10/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-Block声明"><a href="#1-Block声明" class="headerlink" title="1.Block声明"></a>1.Block声明</h3><p>编译器和运行时让block中引用的所有变量都被保存下来，以备在block的所有副本的生命周期中使用。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)block1</div><div class="line">&#123;</div><div class="line">    <span class="built_in">int</span> (^myTest)(<span class="built_in">int</span>) = ^(<span class="built_in">int</span> <span class="built_in">num</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">num</span> * <span class="built_in">num</span>;</div><div class="line">    &#125;;</div><div class="line">    NSLog(@<span class="string">"double: %d"</span>,myTest(<span class="number">9</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2-在block中改变的外部变量，需要用-block声明"><a href="#2-在block中改变的外部变量，需要用-block声明" class="headerlink" title="2.在block中改变的外部变量，需要用__block声明"></a>2.在block中改变的外部变量，需要用<code>__block</code>声明</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)block2</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSArray</span> *stringsArray = @[ <span class="string">@"string 1"</span>,</div><div class="line">                               <span class="string">@"String 21"</span>, <span class="comment">// &lt;-</span></div><div class="line">                               <span class="string">@"string 12"</span>,</div><div class="line">                               <span class="string">@"String 11"</span>,</div><div class="line">                               <span class="string">@"Strîng 21"</span>, <span class="comment">// &lt;-</span></div><div class="line">                               <span class="string">@"Striñg 21"</span>, <span class="comment">// &lt;-</span></div><div class="line">                               <span class="string">@"String 02"</span> ];</div><div class="line"></div><div class="line">    <span class="built_in">NSLocale</span> *currentLocale = [<span class="built_in">NSLocale</span> currentLocale];</div><div class="line">    __block <span class="built_in">NSUInteger</span> orderedSameCount = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">NSArray</span> *diacriticInsensitiveSortArray = [stringsArray sortedArrayUsingComparator:^(<span class="keyword">id</span> string1, <span class="keyword">id</span> string2) &#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSRange</span> string1Range = <span class="built_in">NSMakeRange</span>(<span class="number">0</span>, [string1 length]);</div><div class="line">        <span class="built_in">NSComparisonResult</span> comparisonResult = [string1 compare:string2 options:<span class="built_in">NSDiacriticInsensitiveSearch</span> range:string1Range locale:currentLocale];</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (comparisonResult == <span class="built_in">NSOrderedSame</span>) &#123;</div><div class="line">            orderedSameCount++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> comparisonResult;</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"diacriticInsensitiveSortArray: %@"</span>, diacriticInsensitiveSortArray);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"orderedSameCount: %lu"</span>, (<span class="keyword">unsigned</span> <span class="keyword">long</span>)orderedSameCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-block支持不定个数的参数（variadic-arguments）"><a href="#3-block支持不定个数的参数（variadic-arguments）" class="headerlink" title="3.block支持不定个数的参数（variadic arguments）"></a>3.block支持不定个数的参数（variadic arguments）</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)block3</div><div class="line">&#123;</div><div class="line">    <span class="keyword">void</span> (^variadicParams)(<span class="built_in">NSString</span>*, ...) = ^(<span class="built_in">NSString</span> *format, ...) &#123;</div><div class="line">        <span class="keyword">id</span> eachObject;</div><div class="line">        va_list argumentList;   <span class="comment">// va_list是指向变量列表的指针</span></div><div class="line">        <span class="keyword">if</span> (format) &#123;   <span class="comment">// 第一个参数并不是变量列表中的一个</span></div><div class="line">            <span class="built_in">NSMutableArray</span> *tmpArray = [<span class="built_in">NSMutableArray</span> arrayWithObject:format];</div><div class="line">            va_start(argumentList, format); <span class="comment">// 初始化va_list，并让它指向传入的参数（format）后面紧跟的第一个参数</span></div><div class="line">            <span class="keyword">while</span> ((eachObject = va_arg(argumentList, <span class="keyword">id</span>)) != <span class="literal">nil</span>)&#123;  <span class="comment">//   va_arg，取出列表中的下一个参数。必须指明参数的类型（这样va_arg才能知道该给它分配多少空间）</span></div><div class="line">                [tmpArray addObject:eachObject];    <span class="comment">// 不会把任何nil对象添加到tmpArray中</span></div><div class="line">            &#125;</div><div class="line">            va_end(argumentList);   <span class="comment">// 释放va_list这个数据结构所持有的任何内存</span></div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"variadic params: %@"</span>,tmpArray);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    variadicParams(<span class="string">@"11"</span>,<span class="string">@"22"</span>,<span class="string">@"333"</span>,<span class="string">@"666"</span>,<span class="literal">nil</span>);  <span class="comment">//   Calios:这里最后一个参数必须传nil，args必须有最后一个结尾，否则是无法判断的。But，why？</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="4-几种类型的变量与block的交互"><a href="#4-几种类型的变量与block的交互" class="headerlink" title="4.几种类型的变量与block的交互"></a>4.几种类型的变量与block的交互</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSInteger</span> CounterGlobal;    <span class="comment">//   Calios:It throws out error for not finding CounterGlobal if extern is added. But, why?</span></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSInteger</span> CounterStatic;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)block4</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSInteger</span> localCounter = <span class="number">42</span>;</div><div class="line">    __block <span class="keyword">char</span> localCharacter;</div><div class="line"></div><div class="line">    <span class="keyword">void</span> (^aBlock)(<span class="keyword">void</span>) = ^(<span class="keyword">void</span>) &#123;</div><div class="line">        ++CounterGlobal;</div><div class="line">        ++CounterStatic;</div><div class="line">        CounterGlobal = localCounter; <span class="comment">// localCounter fixed at block creation</span></div><div class="line">        localCharacter = <span class="string">'a'</span>; <span class="comment">// sets localCharacter in enclosing scope</span></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    ++localCounter; <span class="comment">// unseen by the block</span></div><div class="line">    localCharacter = <span class="string">'b'</span>;</div><div class="line"></div><div class="line">    aBlock(); <span class="comment">// execute the block</span></div><div class="line">    <span class="comment">// localCharacter now 'a'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-当block被复制的时候，它会对block中使用的对象变量产生强引用。"><a href="#5-当block被复制的时候，它会对block中使用的对象变量产生强引用。" class="headerlink" title="5.当block被复制的时候，它会对block中使用的对象变量产生强引用。"></a>5.当block被复制的时候，它会对block中使用的对象变量产生强引用。</h3><p>如果你在一个方法的实现中使用了block：</p>
+<ul>
+<li>如果你使用了实例变量的引用，那么就对 <strong>self</strong> 产生了强引用；</li>
+<li>如果你使用了实例变量的值，那么就对 <strong>该变量</strong> 产生了强引用。<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">	- (<span class="literal">void</span>)block5</div><div class="line">	&#123;</div><div class="line"><span class="literal">void</span> (^doSomethingWithObject)(id) = ^(id <span class="keyword">var</span>)&#123;</div><div class="line">	NSLog(@<span class="string">"do something: %@"</span>,<span class="keyword">var</span>);</div><div class="line">&#125;;</div><div class="line">dispatch<span class="string">\_queue\_t</span> queue = dispatch<span class="string">\_queue\_create("com.calios.BlockSample.someQueue",</span> DISPATCH<span class="string">\_QUEUE\_SERIAL);</span></div><div class="line">dispatch<span class="string">\_async(queue,</span> ^&#123;    <span class="regexp">// dispatch\_async()是将block拷贝到指定的queue中，而复制操作（Block\_copy()）会将block移动到堆上。</span></div><div class="line">	// instanceVariable <span class="keyword">is</span> used <span class="keyword">by</span> reference, a strong reference <span class="keyword">is</span> made <span class="keyword">to</span> self</div><div class="line">	doSomethingWithObject(instanceVariable);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line">id localVariable = instanceVariable;</div><div class="line">dispatch<span class="string">\_async(queue,</span> ^&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 localVariable is used by value, a strong reference is made to localVariable</div><div class="line">	 (and not to self).</div><div class="line">	 */</div><div class="line">	doSomethingWithObject(localVariable);</div><div class="line">&#125;);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="6-应该避免的做法"><a href="#6-应该避免的做法" class="headerlink" title="6.应该避免的做法"></a>6.应该避免的做法</h3><p>block字面量（即^{ … }）是代表这个block的局部栈数据结构的地址。因此，局部栈数据结构的作用于就是仅限于大括号中的语句，所以你应 <strong>避免</strong> 向下面这样使用block。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)block6</div><div class="line">&#123;</div><div class="line">    dontDoThis();</div><div class="line">    dontDoThisEither();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dontDoThis</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">void</span> (^blockArray[<span class="number">3</span>])(<span class="keyword">void</span>);  <span class="comment">// an array of 3 block references</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; ++i) &#123;</div><div class="line">        blockArray[i] = ^&#123; <span class="built_in">printf</span>(<span class="string">"hello, %d\n"</span>, i); &#125;;</div><div class="line">        <span class="comment">// WRONG: The block literal scope is the "for" loop.</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dontDoThisEither</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">void</span> (^block)(<span class="keyword">void</span>);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> i = arc4random() % <span class="number">1024</span>;</div><div class="line">    <span class="keyword">if</span> (i &gt; <span class="number">1000</span>) &#123;</div><div class="line">        block = ^&#123; <span class="built_in">printf</span>(<span class="string">"got i at: %d\n"</span>, i); &#125;;</div><div class="line">        <span class="comment">// WRONG: The block literal scope is the "then" clause.</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/at-the-beginning-of-2017/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/10/at-the-beginning-of-2017/" itemprop="url">写在2017年初</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T10:22:16+08:00">
+                01/10/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在本地的Homebrew被我搞挂掉之后，博客休眠了两个多月。本地的草稿箱一直增加，online的内容一直没变化。实在不能忍了。</p>
 <p>终于在2017年的第十天被我修理好了。继续第三年的blog之旅。</p>
-<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p></div><p class="readmore"><a href="/2017/01/10/at-the-beginning-of-2017/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/10/28/back-button-in-custom-UINavigationBar/">浅析自定义UINavigationBar返回按钮（一）</a></h1><div class="post-meta">10/28/16</div><div class="post-content"><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/navbar.png" alt="" title="自定义navigationBar返回按钮"></p>
-<p>这里主要有两个关键点：一是把原有的上一层的title去掉，二是把返回按钮的indicator图片换成自定义的。</p></div><p class="readmore"><a href="/2016/10/28/back-button-in-custom-UINavigationBar/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/10/18/how-to-update-vim-in-Mac/">如何更新Mac中自带的Vim</a></h1><div class="post-meta">10/18/16</div><div class="post-content"><p>前几天翻卖桃君的公众号，温故了一下Vim 8.0的种种我目前也用不上的特性，竟是兴奋了一会儿，接着就开始考虑怎么把本机的Vim升级成8.0了。</p>
-<p>根据SOF上的一个回答，步骤如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Create the directories you need</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo mkdir -p /opt/<span class="built_in">local</span>/bin</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Download, compile, and install the latest Vim</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ~</span></div><div class="line"><span class="meta">$</span><span class="bash"> hg <span class="built_in">clone</span> https://bitbucket.org/vim-mirror/vim or git <span class="built_in">clone</span> https://github.com/vim/vim.git</span></div><div class="line"><span class="meta">$</span><span class="bash"></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> vim</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./configure --prefix=/opt/<span class="built_in">local</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> make</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Add the binary to your path, ahead of /usr/bin</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'PATH=/opt/local/bin:$PATH'</span> &gt;&gt; ~/.bash_profile</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Reload bash_profile so the changes take effect in this window</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/10/18/how-to-update-vim-in-Mac/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/09/03/differences-among-workspace-project-target-scheme/">【译】Workspace &amp; Project &amp; Target &amp; Scheme 的区别</a></h1><div class="post-meta">09/03/16</div><div class="post-content"><p>来自<a href="http://stackoverflow.com/users/916299/james-webster" title="http://stackoverflow.com/users/916299/james-webster" target="_blank" rel="external">James Webster</a>的回答：</p></div><p class="readmore"><a href="/2016/09/03/differences-among-workspace-project-target-scheme/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/08/19/summary-for-hr-project/">某HR项目iOS端总结</a></h1><div class="post-meta">08/19/16</div><div class="post-content"><h3 id="1-产品设计"><a href="#1-产品设计" class="headerlink" title="1.产品设计"></a>1.产品设计</h3><ul>
+<p><strong>但求把知识变成能力；</strong><br><strong>但求把枯涩的知识变成丰盈的语言；</strong><br><strong>但求我心依旧。</strong></p>
+<p>—— Calios<br>2017.01.10</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/28/back-button-in-custom-UINavigationBar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/28/back-button-in-custom-UINavigationBar/" itemprop="url">浅析自定义UINavigationBar返回按钮（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-28T17:52:21+08:00">
+                10/28/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/navbar.png" alt="" title="自定义navigationBar返回按钮"></p>
+<p>这里主要有两个关键点：一是把原有的上一层的title去掉，二是把返回按钮的indicator图片换成自定义的。</p>
+<p>对于第一点，解决办法是：</p>
+<pre><code>[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+</code></pre><p>对于第二点，有两个解决办法：</p>
+<pre><code>// Solution 1:
+UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
+[UINavigationBar appearance].backIndicatorImage = img;
+[UINavigationBar appearance].backIndicatorTransitionMaskImage = img;
+
+// Solution 2:
+[[UIBarButtonItem appearance] setBackButtonBackgroundImage:[img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width - 1, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+</code></pre><p>对于第一个解决办法，需要注意的是，如果是自定义的back indicator image，<code>backIndicatorImage</code>和<code>backIndicatorTransitionMaskImage</code>必须成对出现，<a href="https://developer.apple.com/reference/uikit/uinavigationbar/1624938-backindicatortransitionmaskimage" target="_blank" rel="external">同时设置</a>。</p>
+<p>对于第二个解决办法，需要注意的是，如果直接把<code>img</code>传进去，就会发现，图片被拉长了，变成了一柄剑。。。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/navBar-sword.png" alt=""></p>
+<p>而在<code>-setBackButtonBackgroundImage: forState: barMetrics</code>的api中，特意添加了注释提醒开发者：<code>backgroundImage must be a resizable image for good results.</code></p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/nav-showFrame.png" alt=""></p>
+<p>这里我的理解是，navigation bar返回按钮的图片+文字的placeholder有固定尺寸，当图片不够填充满这个区域的时候，会自动拉伸，所以注释中要求开发者传入一个可调整大小的图片作为参数。</p>
+<p>而当我们调用<code>resizableImageWithCapInsets:</code>方法，并传入capInsets时，相当于锁定了cap insets的部分，让其余部分进行拉伸。在上面的代码中，设置capInsets为<code>UIEdgeInsetsMake(0, img.size.width, 0, 0)</code>，相当于保证原图片宽度范围内的图片不被拉伸，也就保证了原图片的显示效果。当然，调用<code>resizableImageWithCapInsets:</code>方法，<a href="https://developer.apple.com/reference/uikit/uiimage/1624102-resizableimagewithcapinsets" target="_blank" rel="external">实际上是返回了一张新图片，原有的图片是无法触及的</a>。</p>
+<p>可以通过下面面包片模具的🌰来理解这个方法（嗯，吃货的思路就是这么独特。。～_～ ）：</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/bread.jpeg" alt=""></p>
+<p>蓝色框范围内是原面包片（即原图片）；蓝色框和绿色框之间的面包边儿就是你设定的capInsets，这取决于你使用什么样的模具；而绿色框范围内是你可以自由发挥的部分，里面夹猕猴桃香蕉片随你（即可拉伸范围。。嗯，对于面包片是纵向的伸展）。</p>
+<hr>
+<p>以下引自苹果官方文档，列在此处，备查。</p>
+<blockquote>
+<p>从iOS5.0及之后，可以通过以下（自定义bar样式）列举的方法来自定义UINavigationBar的样式。你可以用<code>[UINavigationBar appearance]</code>来自定义所有UINavigationBar的样式，也可以只改变单独的一个。</p>
+<p>在iOS 7中，UINavigationBar的<code>tintColor</code>会影响返回指示按钮的图片、按钮的标题和按钮的图片。<code>barTintColor</code>会影响bar本身的颜色。另外，navigation bar默认是半透明的。开关半透明的设置不会影响按钮，因为它们是没有背景的。</p>
+<p>自定义bar样式：</p>
+<ul>
+<li><code>backIndicatorImage</code>：返回按钮边上的图片</li>
+<li><code>backIndicatorTransitionMaskImage</code>：在push和pop过程中作为内容的蒙版的图片（@_@）</li>
+<li><code>titleVerticalPositionAdjustmentForBarMetrics:</code>：对给定的横屏或竖屏的bar调整title的垂直方向的位置偏移。</li>
+<li><code>titleTextAttributes</code>：bar的title的各种显示属性，如字体、颜色、阴影等。</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://developer.apple.com/reference/uikit/uinavigationbar" target="_blank" rel="external">https://developer.apple.com/reference/uikit/uinavigationbar</a></li>
+<li><a href="https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc" target="_blank" rel="external">https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc</a></li>
+<li><a href="http://stackoverflow.com/a/20986544/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20986544/1594792</a></li>
+<li><a href="http://stackoverflow.com/a/29937730/1594792" target="_blank" rel="external">http://stackoverflow.com/a/29937730/1594792</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/18/how-to-update-vim-in-Mac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/18/how-to-update-vim-in-Mac/" itemprop="url">如何更新Mac中自带的Vim</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-18T17:07:31+08:00">
+                10/18/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前几天翻卖桃君的公众号，温故了一下Vim 8.0的种种我目前也用不上的特性，竟是兴奋了一会儿，接着就开始考虑怎么把本机的Vim升级成8.0了。</p>
+<p>根据SOF上的一个回答，步骤如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Create the directories you need</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo mkdir -p /opt/<span class="built_in">local</span>/bin</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Download, compile, and install the latest Vim</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ~</span></div><div class="line"><span class="meta">$</span><span class="bash"> hg <span class="built_in">clone</span> https://bitbucket.org/vim-mirror/vim or git <span class="built_in">clone</span> https://github.com/vim/vim.git</span></div><div class="line"><span class="meta">$</span><span class="bash"></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> vim</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./configure --prefix=/opt/<span class="built_in">local</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> make</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Add the binary to your path, ahead of /usr/bin</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'PATH=/opt/local/bin:$PATH'</span> &gt;&gt; ~/.bash_profile</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Reload bash_profile so the changes take effect in this window</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></div></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong></p>
+<p><code>/usr/bin</code>路径下的文件，除非有明确的理由，否则不要改动。一旦操作失误，无法回退。所以，谨慎为妙。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/a/7211910/1594792" target="_blank" rel="external">http://stackoverflow.com/a/7211910/1594792</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/09/03/differences-among-workspace-project-target-scheme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/09/03/differences-among-workspace-project-target-scheme/" itemprop="url">【译】Workspace & Project & Target & Scheme 的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-03T10:11:54+08:00">
+                09/03/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>来自<a href="http://stackoverflow.com/users/916299/james-webster" title="http://stackoverflow.com/users/916299/james-webster" target="_blank" rel="external">James Webster</a>的回答：</p>
+<ul>
+<li><strong>Workspace:</strong> 包含一个或多个<code>project</code>，这些<code>project</code>通常是相互关联的。</li>
+<li><strong>Project:</strong> 包括代码和资源等等。（你会熟悉这些的。）</li>
+<li><strong>Target:</strong> 每个<code>project</code>都有一个或多个<code>target</code>。<ul>
+<li>每个target都定义了该<code>project</code>的 build setting列表。</li>
+<li>每个target还定义了在build时需要引用或使用的类、资源、自定义脚本的列表。</li>
+<li>Target通常用于同一个project的不同发布版本。<ul>
+<li>比如，我的项目有两个target，一个通用构建和一个官方构建，其中后者包含额外测试功能，可能还包含几种背景音乐轨道，还有一个切换轨道的按钮。</li>
+<li>你应该已经习惯于向默认的target中添加类和资源了。</li>
+<li>你可以挑选哪些类／资源被添加到哪个target中。<ul>
+<li>在我的例子中，我有一个叫“DebugHandler”的类要添加到官方构建中。</li>
+</ul>
+</li>
+<li>如果你添加测试，就需要添加一个新的target了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Scheme: </strong> Scheme定义了当你按下“Build”，“Test”，“Profile”的时候会发生什么。<ul>
+<li>通常情况下，每个target包括至少一个scheme。</li>
+<li>你可以为你的target自动创建scheme，方法是在 Scheme > Manage Schemes，点“Autocreate Schemes Now”。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/a/20637892/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20637892/1594792</a></li>
+<li><a href="http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/" target="_blank" rel="external">http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/08/19/summary-for-hr-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/08/19/summary-for-hr-project/" itemprop="url">某HR项目iOS端总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-19T11:32:54+08:00">
+                08/19/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-产品设计"><a href="#1-产品设计" class="headerlink" title="1.产品设计"></a>1.产品设计</h3><ul>
 <li>及时更新RP图。</li>
 <li>对于iOS和Android差异化不大的页面，可以使用一套RP图。</li>
-<li>保证对页面逻辑的详细说明。</li></div><p class="readmore"><a href="/2016/08/19/summary-for-hr-project/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/07/24/commands-in-svn/">实用svn命令</a></h1><div class="post-meta">07/24/16</div><div class="post-content"><p>1.Check all the changed files:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn st</span></div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/07/24/commands-in-svn/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">Set deployment target for CocoaPods’ pod in batches</a></h1><div class="post-meta">07/07/16</div><div class="post-content"><p>When I tried to <code>pod update</code> an old project, it changed all the pods’ deployment target to 8.0. I’ve been tired up with changing it all the time and finally found <a href="http://stackoverflow.com/a/37289688/1594792" title="http://stackoverflow.com/a/37289688/1594792" target="_blank" rel="external">this solution</a>.</p></div><p class="readmore"><a href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<li>保证对页面逻辑的详细说明。</li>
+<li>对于特殊状态（如筛选、搜索等）的说明／图解要清晰。</li>
+</ul>
+<h3 id="2-接口文档部分"><a href="#2-接口文档部分" class="headerlink" title="2.接口文档部分"></a>2.接口文档部分</h3><h5 id="2-1-文档编写的注意事项："><a href="#2-1-文档编写的注意事项：" class="headerlink" title="2.1 文档编写的注意事项："></a>2.1 文档编写的注意事项：</h5><ul>
+<li>对于所有接口都通用的参数或JSON数据格式，可以添加公共设置的部分，集中说明。 </li>
+<li>请求数据的参数，要说明哪些是必须的，哪些是可选的，可选的默认值是什么。 </li>
+<li>说清请求数据的方式是GET还是POST。 </li>
+<li>命名要清晰，对于<strong>名词</strong>命名的参数，区分清楚<code>xxId</code>和<code>xxTitle</code>，而不是<code>xx</code>。 </li>
+<li>标记类型、状态类型的文字，与其移动端和服务器各自手动维护一组枚举值，不如传输<strong>文字本身</strong>。 </li>
+<li>请求参数和返回参数中，特殊类型的数据要说明。如日期的格式是<code>yyyy-MM-dd</code>、<code>yyyy/MM/dd</code>还是<code>yyyy.MM</code>。 </li>
+<li>无需将userId/username传给服务器时，坚决不传，避免服务器端对于userId/username的误用。</li>
+<li>可以将“凡是以<code>xxId</code>命名的字段一定为表的主键”这样的规则写在文档开始的公共说明中。</li>
+<li>明确可选参数对应值为空时，是传“key:”” ”还是直接不传参数的key。</li>
+<li>文档中要有详实的例子，还要注意按照接口调用的时序组织文档。</li>
+</ul>
+<h5 id="2-2-工作流程："><a href="#2-2-工作流程：" class="headerlink" title="2.2 工作流程："></a>2.2 工作流程：</h5><ul>
+<li>现在的流程：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端开发 》移动端接口设计</strong> 》pc端接口开发 </li>
+</ul>
+<ul>
+<li><p>可优化为：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端接口设计 》移动端开发</strong> 》pc端接口开发 </p>
+</li>
+<li><p>优化后的好处：</p>
+<ul>
+<li>避免移动端Model构建时，逐个比对字段名称的问题。</li>
+<li>减少pc端依照“移动端写的接口文档”各种修改字段名的问题。</li>
+<li>面向接口进行代码设计，可以在项目初期就对各功能模块有整体认识。</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-3-编写工具："><a href="#2-3-编写工具：" class="headerlink" title="2.3 编写工具："></a>2.3 编写工具：</h5><ul>
+<li><p>现在的工具：<br>  word + SVN(?)</p>
+</li>
+<li><p>存在的问题：</p>
+<ul>
+<li>各种和文档相关的样式、乱码、排版的问题。</li>
+<li>无法即时调试，需自行粘贴到postman去测试。</li>
+</ul>
+</li>
+<li><p>可优化为：<br>  － swagger：<a href="http://editor.swagger.io/#/" target="_blank" rel="external">http://editor.swagger.io/#/</a><br>  － RAP（from Alibaba）： </p>
+<ul>
+<li>Github：<a href="https://github.com/thx/RAP" target="_blank" rel="external">https://github.com/thx/RAP </a><ul>
+<li>说明：<a href="http://div.io/topic/642" target="_blank" rel="external">http://div.io/topic/642</a> </li>
+<li>例子：<a href="http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446" target="_blank" rel="external">http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-4-接口设计要考虑的问题（供参考）："><a href="#2-4-接口设计要考虑的问题（供参考）：" class="headerlink" title="2.4 接口设计要考虑的问题（供参考）："></a>2.4 接口设计要考虑的问题（供参考）：</h5><ul>
+<li><a href="http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html" target="_blank" rel="external">http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html </a></li>
+<li><a href="https://segmentfault.com/q/1010000002523945" title="https://segmentfault.com/q/1010000002523945" target="_blank" rel="external">https://segmentfault.com/q/1010000002523945</a> </li>
+</ul>
+<h3 id="3-移动端开发"><a href="#3-移动端开发" class="headerlink" title="3.移动端开发"></a>3.移动端开发</h3><h5 id="3-1-BugList分析"><a href="#3-1-BugList分析" class="headerlink" title="3.1 BugList分析"></a>3.1 BugList分析</h5><p>BugList（iOS端）汇总图表及明细<br>（见<code>XX HR iOS端BugList汇总及明细.xlsx</code>）</p>
+<p>Bug数量最多的类型前三类（单位：个）：</p>
+<ul>
+<li>逻辑缺失（23）</li>
+<li>和pc端对接问题（19）</li>
+<li>未与RP图对照（14）</li>
+</ul>
+<p>逐个分析一下：</p>
+<h5 id="3-1-1-逻辑缺失"><a href="#3-1-1-逻辑缺失" class="headerlink" title="3.1.1 逻辑缺失"></a>3.1.1 逻辑缺失</h5><p>共计23个逻辑缺失的Bug中，比较突出的问题有：</p>
+<ul>
+<li>数据更新后没有自动刷新的问题（6个）  </li>
+<li>页面或数据状态的保存或传递问题（5个）；</li>
+<li>网络请求时，可选参数key为空的处理（2个）。</li>
+</ul>
+<p><strong>解决建议</strong></p>
+<ul>
+<li>对于数据有可能更新的列表，要添加自动刷新功能；</li>
+<li>请求数据时，可以不传的参数key需要单独处理。</li>
+</ul>
+<h5 id="3-1-2-和pc端对接问题"><a href="#3-1-2-和pc端对接问题" class="headerlink" title="3.1.2 和pc端对接问题"></a>3.1.2 和pc端对接问题</h5><p>和pc端对接的相关Bug中，问题主要集中在：</p>
+<ul>
+<li>移动端使用字段错误，导致展示错误信息（6个）；</li>
+<li>不同接口的<code>BaseURL</code>不相同（后期已统一）（3个）；</li>
+<li>移动端使用的校验方式与pc端不一致（3个）；</li>
+<li>空值的传输和处理（3个）：当某字段的值为空时，需传给服务器key和空值。</li>
+</ul>
+<p><strong>解决建议</strong></p>
+<ul>
+<li>增强对接口文档的统一理解；</li>
+<li>pc端和移动端可以在各自的接口开发时约定好：<ul>
+<li>所有接口的<code>BaseURL</code>；</li>
+<li>除了<code>status=1</code>和<code>status=-1</code>的状态外，其他可能存在<code>status=0</code>的接口。</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-1-3-未与RP图对照"><a href="#3-1-3-未与RP图对照" class="headerlink" title="3.1.3 未与RP图对照"></a>3.1.3 未与RP图对照</h5><p>主要由于在RP图不断更新的过程中，未能及时变更相应流程、操作和用户友好性的细节。这一部分的bug，是应该在自测中消除掉的。</p>
+<h5 id="3-2-代码分析"><a href="#3-2-代码分析" class="headerlink" title="3.2 代码分析"></a>3.2 代码分析</h5><h5 id="3-2-1-代码行数统计"><a href="#3-2-1-代码行数统计" class="headerlink" title="3.2.1 代码行数统计"></a>3.2.1 代码行数统计</h5><table>
+<thead>
+<tr>
+<th>文件夹</th>
+<th>代码行数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Classes</td>
+<td>21357</td>
+</tr>
+<tr>
+<td>Utility</td>
+<td>2941</td>
+</tr>
+<tr>
+<td>Constant</td>
+<td>1498</td>
+</tr>
+<tr>
+<td>AppDelegate</td>
+<td>201</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>1758</td>
+</tr>
+<tr>
+<td><strong>Sum</strong></td>
+<td><strong>27755</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="3-2-2-公共类的封装"><a href="#3-2-2-公共类的封装" class="headerlink" title="3.2.2 公共类的封装"></a>3.2.2 公共类的封装</h5><ul>
+<li><code>BaseFundamentalViewController</code>中封装了空数据的处理、网络请求等通用功能，项目中几乎所有controller都继承自该类。</li>
+<li><code>BaseViewController</code>继承自<code>BaseFundamentalViewController</code>。主要封装了与TableView相关的功能，如上拉加载、添加／清除筛选条件等。没有特殊需求的普通列表的展示，只需要不到50行代码。</li>
+<li><code>BaseWebViewController</code>继承自<code>BaseFundamentalViewController</code>。主要用于全屏的webview模板展示。</li>
+</ul>
+<h5 id="3-2-3-代码复用"><a href="#3-2-3-代码复用" class="headerlink" title="3.2.3 代码复用"></a>3.2.3 代码复用</h5><ul>
+<li>以后可能用到的功能模块：<ul>
+<li><code>Base</code>系列；</li>
+<li>下载管理（<em>待完善</em>）；</li>
+<li>WebView模板展示（GRMustache）；</li>
+<li>表格展示（GridView）；</li>
+<li>Charts展示（Charts）；</li>
+<li>图片浏览及选择（支持多选，MWPhotoBrowser）；</li>
+<li>表单的展示及填写（XLForm）；</li>
+<li>年月选择器。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-美工-amp-测试"><a href="#4-美工-amp-测试" class="headerlink" title="4.美工 &amp; 测试"></a>4.美工 &amp; 测试</h3><ul>
+<li>对于移动端的切图可以逐渐模板化，如某些固定尺寸、固定的需求（如：Android的图片设计时有效内容尽量居中，便于自行剪裁）等。</li>
+<li>时间允许的条件下，同类型bug可以设置关联bug，方便开发人员统一修复。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/24/commands-in-svn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/07/24/commands-in-svn/" itemprop="url">实用svn命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-24T16:17:22+08:00">
+                07/24/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.Check all the changed files:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn st</span></div></pre></td></tr></table></figure></p>
+<p>2.Check the differences between this version and the last version:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn diff -r PREV filename</span></div></pre></td></tr></table></figure></p>
+<p>3.Undo add a file before commit:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">	$ svn revert --recursive folder_name</div></pre></td></tr></table></figure></p>
+<p>4.Undo delete a file before commit:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn revert . --recursive</span></div></pre></td></tr></table></figure></p>
+<p>5.Delete all locally missing files: <a href="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" title="http://stackoverflow.com/questions/9600382/svn-command-to-delete-all-locally-missing-files" target="_blank" rel="external">solutions</a></p>
+<p>6.Delete a folder from svn repository:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn <span class="keyword">delete</span> http:<span class="regexp">//</span>www.yourrepository.com<span class="regexp">/svn/</span>folder --message <span class="string">"Deleting"</span></div></pre></td></tr></table></figure></p>
+<p>7.Revert to a previous SVN revision of a file:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn merge -c -854 l3toks.dtx</span></div></pre></td></tr></table></figure></p>
+<p>8.Ignore Pods foler:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> svn propset svn:ignore Pods .</span></div></pre></td></tr></table></figure></p>
+<p>9.SVN remains in conflict status:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ svn resolved &lt;filename <span class="keyword">or</span> directory <span class="keyword">that</span> gives trouble&gt;</div></pre></td></tr></table></figure></p>
+<p>10.View all historical changes to a file in SVN:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># history_of_file</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Outputs the full history of a given file as a sequence of</span></div><div class="line"><span class="comment"># logentry/diff pairs.  The first revision of the file is emitted as</span></div><div class="line"><span class="comment"># full text since there's not previous version to compare it to.</span></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">history_of_file</span></span>() &#123;</div><div class="line">    url=<span class="variable">$1</span> <span class="comment"># current url of file</span></div><div class="line">    svn <span class="built_in">log</span> -q <span class="variable">$url</span> | grep -E -e <span class="string">"^r[[:digit:]]+"</span> -o | cut -c2- | sort -n | &#123;</div><div class="line"></div><div class="line"><span class="comment">#       first revision as full text</span></div><div class="line">        <span class="built_in">echo</span></div><div class="line">        <span class="built_in">read</span> r</div><div class="line">        svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        svn cat -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        <span class="built_in">echo</span></div><div class="line"></div><div class="line"><span class="comment">#       remaining revisions as differences to previous revision</span></div><div class="line">        <span class="keyword">while</span> <span class="built_in">read</span> r</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="built_in">echo</span></div><div class="line">            svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            svn diff -c<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            <span class="built_in">echo</span></div><div class="line">        <span class="keyword">done</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$ history_of_file <span class="variable">$1</span></div></pre></td></tr></table></figure></p>
+<p>11.Add tags for SVN:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># First of all, the `ios/1.0.39219` directory should already exists. If it doesn't, you can create it using `svn mkdir` like below.</span></div><div class="line"><span class="variable">$ </span>svn mkdir <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span> -m <span class="string">"create tag v1.0 for iOS."</span></div><div class="line"><span class="variable">$ </span>svn copy <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/trunk</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/project</span>A <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span>/projectA -m <span class="string">"create v1.0. Before updating all the base url and cas url."</span></div><div class="line"></div><div class="line">Committed revision <span class="number">41000</span>.</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/" itemprop="url">Set deployment target for CocoaPods’ pod in batches</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-07T09:55:23+08:00">
+                07/07/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>When I tried to <code>pod update</code> an old project, it changed all the pods’ deployment target to 8.0. I’ve been tired up with changing it all the time and finally found <a href="http://stackoverflow.com/a/37289688/1594792" title="http://stackoverflow.com/a/37289688/1594792" target="_blank" rel="external">this solution</a>.</p>
+<p>It says:</p>
+<blockquote>
+<p>While some development versions of CocoaPods (as well as pre-1.0 versions) may have propagated the deployment target of the project down to the pods, this is no longer the case in 1.0. To work around this, the current developer recommends using a post-install hook.<br>Here’s a brute force approach to force a hard-coded deployment target for every pod in the generated Pods project. Paste this at the end of your Podfile:<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install <span class="built_in">do</span> |<span class="type">installer</span>|</div><div class="line">  <span class="type">installer</span>.pods_project.targets.each <span class="built_in">do</span> |<span class="type">target</span>|</div><div class="line">    <span class="type">target</span>.build_configurations.each <span class="built_in">do</span> |<span class="type">config</span>|</div><div class="line">      <span class="type">config</span>.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '<span class="number">9.2</span>'</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>Replace <code>9.2</code> with whatever deployment target you would like to use.</p>
+</blockquote>
+<p>It does work in two of my projects and the warnings and errors are silent again. LOL.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

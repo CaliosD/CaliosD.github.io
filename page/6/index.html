@@ -1,8 +1,1885 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2016/03/02/crash-related-to-UIVisualEffectView/">Crash related to `UIVisualEffectView`</a></h1><div class="post-meta">03/02/16</div><div class="post-content"><p>尝试在storyboard中添加了一个<code>UIVisualEffectView</code>，然后又添加了几个子视图，然后，就咻的一下，挂了。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2016</span><span class="number">-03</span><span class="number">-02</span> <span class="number">14</span>:<span class="number">57</span>:<span class="number">45.953</span> K06-Where[<span class="number">3499</span>:<span class="number">225450</span>] The view hierarchy <span class="keyword">is</span> <span class="keyword">not</span> prepared <span class="keyword">for</span> <span class="keyword">the</span> constraint: &lt;NSLayoutConstraint:<span class="number">0x7f843501d7f0</span> UIView:<span class="number">0x7f843501da50</span>.centerX == UIVisualEffectView:<span class="number">0x7f843501d150</span>.centerX&gt;</div><div class="line">    When added <span class="keyword">to</span> a view, <span class="keyword">the</span> constraint's items must be descendants <span class="keyword">of</span> <span class="keyword">that</span> view (<span class="keyword">or</span> <span class="keyword">the</span> view itself). This will crash <span class="keyword">if</span> <span class="keyword">the</span> constraint needs <span class="keyword">to</span> be resolved <span class="keyword">before</span> <span class="keyword">the</span> view hierarchy <span class="keyword">is</span> assembled. Break <span class="keyword">on</span> -[UIView(UIConstraintBasedLayout) _viewHierarchyUnpreparedForConstraint:] <span class="keyword">to</span> debug.</div><div class="line"><span class="number">2016</span><span class="number">-03</span><span class="number">-02</span> <span class="number">14</span>:<span class="number">57</span>:<span class="number">45.954</span> K06-Where[<span class="number">3499</span>:<span class="number">225450</span>] The view hierarchy <span class="keyword">is</span> <span class="keyword">not</span> prepared <span class="keyword">for</span> <span class="keyword">the</span> constraint: &lt;NSLayoutConstraint:<span class="number">0x7f843501e250</span> UIView:<span class="number">0x7f843501da50</span>.top == UIVisualEffectView:<span class="number">0x7f843501d150</span>.top + <span class="number">66</span>&gt;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/03/02/crash-related-to-UIVisualEffectView/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/02/corelocation-authorization-in-iOS8/">CoreLocation Authorization in iOS8+</a></h1><div class="post-meta">03/02/16</div><div class="post-content"><h5 id="1-CoreLocationManager中新增的方法"><a href="#1-CoreLocationManager中新增的方法" class="headerlink" title="1.CoreLocationManager中新增的方法"></a>1.<code>CoreLocationManager</code>中新增的方法</h5><p>iOS8在位置获取权限上做了更细的划分，也就是说，用户可以选择允许app在后台使用位置信息、在使用期间使用位置信息或者不允许使用位置信息。</p></div><p class="readmore"><a href="/2016/03/02/corelocation-authorization-in-iOS8/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/29/tips-for-AppleScript/">关于AppleScript的点滴</a></h1><div class="post-meta">02/29/16</div><div class="post-content"><p>1.AppleScript终极入门手册：</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/6/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/6/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/02/crash-related-to-UIVisualEffectView/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/02/crash-related-to-UIVisualEffectView/" itemprop="url">Crash related to `UIVisualEffectView`</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-02T16:03:01+08:00">
+                03/02/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>尝试在storyboard中添加了一个<code>UIVisualEffectView</code>，然后又添加了几个子视图，然后，就咻的一下，挂了。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">2016</span><span class="number">-03</span><span class="number">-02</span> <span class="number">14</span>:<span class="number">57</span>:<span class="number">45.953</span> K06-Where[<span class="number">3499</span>:<span class="number">225450</span>] The view hierarchy <span class="keyword">is</span> <span class="keyword">not</span> prepared <span class="keyword">for</span> <span class="keyword">the</span> constraint: &lt;NSLayoutConstraint:<span class="number">0x7f843501d7f0</span> UIView:<span class="number">0x7f843501da50</span>.centerX == UIVisualEffectView:<span class="number">0x7f843501d150</span>.centerX&gt;</div><div class="line">    When added <span class="keyword">to</span> a view, <span class="keyword">the</span> constraint's items must be descendants <span class="keyword">of</span> <span class="keyword">that</span> view (<span class="keyword">or</span> <span class="keyword">the</span> view itself). This will crash <span class="keyword">if</span> <span class="keyword">the</span> constraint needs <span class="keyword">to</span> be resolved <span class="keyword">before</span> <span class="keyword">the</span> view hierarchy <span class="keyword">is</span> assembled. Break <span class="keyword">on</span> -[UIView(UIConstraintBasedLayout) _viewHierarchyUnpreparedForConstraint:] <span class="keyword">to</span> debug.</div><div class="line"><span class="number">2016</span><span class="number">-03</span><span class="number">-02</span> <span class="number">14</span>:<span class="number">57</span>:<span class="number">45.954</span> K06-Where[<span class="number">3499</span>:<span class="number">225450</span>] The view hierarchy <span class="keyword">is</span> <span class="keyword">not</span> prepared <span class="keyword">for</span> <span class="keyword">the</span> constraint: &lt;NSLayoutConstraint:<span class="number">0x7f843501e250</span> UIView:<span class="number">0x7f843501da50</span>.top == UIVisualEffectView:<span class="number">0x7f843501d150</span>.top + <span class="number">66</span>&gt;</div></pre></td></tr></table></figure></p>
+<p><code>command + shift + 0</code>查一下苹果的文档：</p>
+<blockquote>
+<p>After you add the visual effect view to the view hierarchy, add any subviews to the contentView property of the visual effect view. Do not add subviews directly to the visual effect view itself. (From <a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView" title="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView" target="_blank" rel="external">🍎</a>)</p>
+</blockquote>
+<p>如同<code>UITableViewCell</code>一样，<code>UIVisualEffectView</code>有自己的<code>contentView</code>。所以，不管是添加子视图，还是添加子视图相关的约束，都应该加在这个<code>contentView</code>上，而不是直接加到<code>UIVisualEffectView</code>上。上面的crash就是由于子视图添加的约束不符合视图树的规则导致的。</p>
+<p>知道了这些，把原本添加在<code>UIVisualEffectView</code>的约束删掉，改为添加到它的<code>contentView</code>上。Over～</p>
+<hr>
+<p><strong> Ref: </strong></p>
 <ul>
-<li>中文版：<a href="http://blog.csdn.net/yang3wei/article/details/7964226" target="_blank" rel="external">http://blog.csdn.net/yang3wei/article/details/7964226</a></li></div><p class="readmore"><a href="/2016/02/29/tips-for-AppleScript/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/29/toll-free bridging/">Toll-free bridging</a></h1><div class="post-meta">02/29/16</div><div class="post-content"><blockquote>
-<p>所谓的Toll-free bridging是说可以在某个框架的方法或函数同时使用Core Foundatio和Foundation 框架中的某些类型。很多数据类型支持这一特性，其中包括群体和字符串数据类型。每个框架的类和类型描述都会对某个对象是否为 toll-Free bridged，应和什么对象桥接进行说明。<br>类型转换关键字区别：</p></div><p class="readmore"><a href="/2016/02/29/toll-free bridging/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/29/points-in-CoreAnimation/">CoreAnimation的几个知识点</a></h1><div class="post-meta">02/29/16</div><div class="post-content"><ul>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView" target="_blank" rel="external">https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIVisualEffectView/index.html#//apple_ref/occ/cl/UIVisualEffectView</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/02/corelocation-authorization-in-iOS8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/02/corelocation-authorization-in-iOS8/" itemprop="url">CoreLocation Authorization in iOS8+</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-02T15:59:32+08:00">
+                03/02/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-CoreLocationManager中新增的方法"><a href="#1-CoreLocationManager中新增的方法" class="headerlink" title="1.CoreLocationManager中新增的方法"></a>1.<code>CoreLocationManager</code>中新增的方法</h5><p>iOS8在位置获取权限上做了更细的划分，也就是说，用户可以选择允许app在后台使用位置信息、在使用期间使用位置信息或者不允许使用位置信息。</p>
+<p>因此，在<code>CLLocationManager</code>中添加了如下两个方法：</p>
+<ul>
+<li><code>requestWhenInUseAuthorization()</code>: 向用户请求只在app使用期间获取位置信息的权限。</li>
+<li><code>requestAlwaysAuthorization()</code>: 向用户请求app在后台使用位置信息的权限。</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">locationManager = CLLocationManager()</div><div class="line">locationManager<span class="selector-class">.delegate</span> = self</div><div class="line">locationManager<span class="selector-class">.desiredAccuracy</span> = kCLLocationAccuracyBest</div><div class="line">locationManager.requestAlwaysAuthorization()</div><div class="line">locationManager.startUpdatingLocation()</div></pre></td></tr></table></figure>
+<h5 id="2-提供说明信息"><a href="#2-提供说明信息" class="headerlink" title="2.提供说明信息"></a>2.提供说明信息</h5><p><code>CoreLocation</code>需要给用户展示一个信息，告诉他们为什么需要使用他们的位置信息。这个展示的信息，叫“usage string”，可以在info.plist文件中设置。</p>
+<p>然而，下拉列表中找到的唯一相关的<code>NSLocationUsageDescription</code>貌似不起什么作用。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/16-3-22/41359249.jpg" alt=""></p>
+<p>因为<code>NSLocationUsageDescription</code>在iOS8及iOS8+中都被忽略掉了。同时，有两个新的key被引入进来。</p>
+<ul>
+<li><code>NSLocationAlwaysUsageDescription</code>:前后台均允许使用</li>
+<li><code>NSLocationWhenInUseUsageDescription</code>: 只允许前台使用</li>
+</ul>
+<p>貌似Xcode并没有更新下拉列表中的内容，所以只能手动输入key了。</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/16-3-22/65397100.jpg" alt=""></p>
+<p>在iPhone中相应的设置信息可以在这里看到：</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/16-3-22/37636479.jpg" alt=""></p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/16-3-22/21834545.jpg" alt=""></p>
+<p>哦了，K06-Where结束了。回归地球。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<p>部分内容翻译自：<br><a href="https://www.shinobicontrols.com/blog/ios8-day-by-day-day-34-corelocation-authorization" target="_blank" rel="external">https://www.shinobicontrols.com/blog/ios8-day-by-day-day-34-corelocation-authorization</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/29/tips-for-AppleScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/29/tips-for-AppleScript/" itemprop="url">关于AppleScript的点滴</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T18:21:58+08:00">
+                02/29/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.AppleScript终极入门手册：</p>
+<ul>
+<li>中文版：<a href="http://blog.csdn.net/yang3wei/article/details/7964226" target="_blank" rel="external">http://blog.csdn.net/yang3wei/article/details/7964226</a></li>
+<li>英文版：<a href="http://computers.tutsplus.com/tutorials/the-ultimate-beginners-guide-to-applescript--mac-3436" target="_blank" rel="external">http://computers.tutsplus.com/tutorials/the-ultimate-beginners-guide-to-applescript–mac-3436</a></li>
+</ul>
+<p>2.保存到本地的.scpt文件如何在terminal中运行？<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> osascript myScript.scpt</span></div></pre></td></tr></table></figure></p>
+<p>3.更多资料见🍎官网：</p>
+<ul>
+<li><a href="https://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptLangGuide/introduction/ASLR_intro.html" target="_blank" rel="external">https://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptLangGuide/introduction/ASLR_intro.html</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html" target="_blank" rel="external">https://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html</a></li>
+</ul>
+<p>4.延伸思考：</p>
+<ul>
+<li>IFTTT的实现原理？</li>
+<li>OS X的app Automator如何使用？是否提供了更好的方式来提高生产效率？</li>
+<li>回到折腾AppleScript的原始问题：在写markdown过程中，将剪切板的图片自动上传到七牛，并生成URL返回到剪切版，方便在markdown中插入图片。这个小功能，该如何实现？（建议但不局限于python和AppleScript。）</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/29/toll-free bridging/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/29/toll-free bridging/" itemprop="url">Toll-free bridging</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T15:47:58+08:00">
+                02/29/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>所谓的Toll-free bridging是说可以在某个框架的方法或函数同时使用Core Foundatio和Foundation 框架中的某些类型。很多数据类型支持这一特性，其中包括群体和字符串数据类型。每个框架的类和类型描述都会对某个对象是否为 toll-Free bridged，应和什么对象桥接进行说明。<br>类型转换关键字区别：</p>
+<ul>
+<li>__bridge （相当于assign，还是要自己管理对象）</li>
+<li>__bridge_transfer（相当于copy后release，转让了自己对对象的所有权交给别人去管理）</li>
+<li>__bridge_retained（相当于retain，增加额对象的引用计数）  </li>
+</ul>
+<p>同时也要注意在没有ARC和xcode4.2后加入ARC的使用时的区别</p>
+</blockquote>
+<p>更多内容见Lancy的<a href="http://gracelancy.com/blog/2014/04/21/toll-free-bridging/" title="http://gracelancy.com/blog/2014/04/21/toll-free-bridging/" target="_blank" rel="external">这篇讲解</a>和苹果的文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html" title="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html" target="_blank" rel="external">Toll-Free Bridging</a>。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">http://blog.ibireme.com/2015/05/18/runloop/</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html</a></li>
+<li><a href="http://chun.tips/blog/2014/10/20/zou-jin-run-loopde-shi-jie-[?]-:shi-yao-shi-run-loop?/" target="_blank" rel="external">http://chun.tips/blog/2014/10/20/zou-jin-run-loopde-shi-jie-%5B%3F%5D-:shi-yao-shi-run-loop%3F/</a></li>
+<li>Toll-free bridged：<a href="http://gracelancy.com/blog/2014/04/21/toll-free-bridging/" target="_blank" rel="external">http://gracelancy.com/blog/2014/04/21/toll-free-bridging/</a></li>
+<li>调用栈：<a href="http://blog.chinaunix.net/uid-20760757-id-1872359.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-20760757-id-1872359.html</a></li>
+<li>RunLoop源代码：<a href="http://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c" target="_blank" rel="external">http://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c</a></li>
+<li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/29/points-in-CoreAnimation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/29/points-in-CoreAnimation/" itemprop="url">CoreAnimation的几个知识点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-29T15:40:33+08:00">
+                02/29/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
 <li><strong>矢量图 vs 位图（栅格图）</strong></li>
 </ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/VectorGraphicsExample.jpg" alt="（a）原始矢量图；（b）矢量图放大8倍；（c）位图放大8倍。位图的放大质量较差，但是矢量图可以不降低质量地无限放大。" title="矢量图和位图显示效果对比"></p></div><p class="readmore"><a href="/2016/02/29/points-in-CoreAnimation/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/25/UIImageWriteToSavedPhotosAlbum/">UIImageWriteToSavedPhotosAlbum保存图片到系统相册</a></h1><div class="post-meta">02/25/16</div><div class="post-content"><p>你可以使用如下方法来将指定图片添加到用户的相册。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">UIImageWriteToSavedPhotosAlbum</span> (</div><div class="line">                        <span class="built_in">UIImage</span> *image,</div><div class="line">                        <span class="keyword">id</span> completionTarget,</div><div class="line">                        SEL completionSelector,</div><div class="line">                    <span class="keyword">void</span> *contextInfo</div><div class="line">);</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/02/25/UIImageWriteToSavedPhotosAlbum/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/24/how-not-to-crash-9-mindset/">【译】如何避免程序崩溃-9：心态</a></h1><div class="post-meta">02/24/16</div><div class="post-content"><p><strong>题外话：</strong></p>
-<p>距离<a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">上一篇</a>已经一个月了，终于抽出一点时间来把最后一篇完结。噫吁嚱！</p></div><p class="readmore"><a href="/2016/02/24/how-not-to-crash-9-mindset/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/22/reverse-NSArray/">如何翻转NSArray</a></h1><div class="post-meta">02/22/16</div><div class="post-content"><p>其实<code>NSArray</code>中提供了现成的<code>-reverseObjectEnumerator</code>方法。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSArray *startArray = @[@<span class="string">"1"</span>,@<span class="string">"2"</span>,@<span class="string">"3"</span>,@<span class="string">"4"</span>]<span class="comment">;</span></div><div class="line">NSArray* reversedArray = [[startArray reverseObjectEnumerator] allObjects]<span class="comment">;</span></div><div class="line">NSLog(@<span class="string">"---- %@"</span>,reversedArray)<span class="comment">;</span></div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/02/22/reverse-NSArray/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/19/notes-for-multi-thread-programming/">iOS开发多线程学习笔记-1</a></h1><div class="post-meta">02/19/16</div><div class="post-content"><h3 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h3><h5 id="1-主线程"><a href="#1-主线程" class="headerlink" title="1.主线程"></a>1.主线程</h5><p>一个iOS程序运行后，默认会开启1条线程，称为“主线程”或“UI线程”<br>主线程的主要作用：</p></div><p class="readmore"><a href="/2016/02/19/notes-for-multi-thread-programming/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/VectorGraphicsExample.jpg" alt="（a）原始矢量图；（b）矢量图放大8倍；（c）位图放大8倍。位图的放大质量较差，但是矢量图可以不降低质量地无限放大。" title="矢量图和位图显示效果对比"></p>
+<p><strong>矢量图（vector）</strong>，也叫向量图，是通过多个对象组合生成的，对于其中每一个对象的记录方式都是以数学函数来实现的，缩放不失真。常用的矢量绘制软件有Adobe Illustrator、Freehand、Flash等。<br><strong>位图（bitmap）</strong>，也叫栅格图、像素图，即最小单位由像素构成的图，可操作对象是像素，可以改变图像的饱和度、明度和色相，缩放会失真。常用的位图绘制软件有Adobe Photoshop等。</p>
+<ul>
+<li>对于<code>position</code>和<code>anchorPoint</code>关系的理解<blockquote>
+<p>Point-based coordinates are used when specifying values that map directly to screen coordinates or must be specified relative to another layer, such as for the layer’s position property. Unit coordinates are used when the value should not be tied to screen coordinates because it is relative to some other value. For example, the layer’s anchorPoint property specifies a point relative to the bounds of the layer itself, which can change. (<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15" target="_blank" rel="external">Core Animation Programming Guide</a>)</p>
+</blockquote>
+</li>
+</ul>
+<p>简而言之，anchorPoint是一个点相对于layer本身的bounds而言的单元坐标，它可以改变；而position是layer相对superLayer坐标空间的位置。</p>
+<p>以桌子与白纸为例，如果固定图钉在桌上的位置，也就是positon不变，这个时候图钉处在白纸的不同地方就是不同的anchorPoint，相应地也就是不同的frame。<br>另一方面，如果固定图钉在白纸上的位置（没订在桌子上），不管怎么平移白纸，anchorPoint肯定是不变的，但frame肯定是随之变化的</p>
+<ul>
+<li><code>useEvenOddFillRule</code></li>
+</ul>
+<p>在看<a href="https://github.com/kishikawakatsumi/UCZProgressView" target="_blank" rel="external">UCZProgressView</a>的代码时发现了这么一个<code>UIBezierPath</code>的属性，而看起来<code>CAShapeLayer</code>也有类似的属性，叫<code>fillRule</code>，可以设置为<code>kCAFillRuleEvenOdd</code>或<code>kCAFillRuleNonZero</code>。那这个属性到底是做什么的呢？<br>解释比较清楚的是一篇关于SVG规范的文章，好在最基本的理论都是相通的。</p>
+<blockquote>
+<p> ‘fill-rule’ 属性用于指定使用哪一种算法去判断画布上的某区域是否属于该图形“内部” （内部区域将被填充）。对一个简单的无交叉的路径，哪块区域是“内部” 是很直观清除的。但是，对一个复杂的路径，比如自相交或者一个子路径包围另一个子路径，“内部”的理解就不那么明确了。<br><strong>nonzero</strong><br>字面意思是“非零”。按该规则，要判断一个点是否在图形内，从该点作任意方向的一条射线，然后检测射线与图形路径的交点情况。从0开始计数，路径从左向右穿过射线则计数加1，从右向左穿过射线则计数减1。得出计数结果后，如果结果是0，则认为点在图形外部，否则认为在内部。下图演示了nonzero规则:<br><img src="https://www.w3.org/TR/SVG/images/painting/fillrule-nonzero.png" alt=""><br><strong>evenodd</strong><br>字面意思是“奇偶”。按该规则，要判断一个点是否在图形内，从该点作任意方向的一条射线，然后检测射线与图形路径的交点的数量。如果结果是奇数则认为点在内部，是偶数则认为点在外部。下图演示了evenodd 规则:<br><img src="http://www.w3.org/TR/SVG/images/painting/fillrule-evenodd.png" alt=""></p>
+</blockquote>
+<p>又想到了之前在一个项目中实现的中间有洞的矩形view，翻来瞅一眼。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAShapeLayer</span> *maskWithHole = [<span class="built_in">CAShapeLayer</span> layer];</div><div class="line"></div><div class="line"><span class="comment">// Both frames are defined in the same coordinate system</span></div><div class="line"><span class="built_in">CGRect</span> biggerRect = <span class="built_in">CGRectMake</span>(<span class="number">30</span>, <span class="number">50</span>, <span class="number">120</span>, <span class="number">200</span>);</div><div class="line"><span class="built_in">CGRect</span> smallerRect = <span class="built_in">CGRectMake</span>(<span class="number">80</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">80</span>);</div><div class="line"></div><div class="line"><span class="built_in">UIBezierPath</span> *maskPath = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line"></div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line"></div><div class="line">[maskWithHole setPath:[maskPath <span class="built_in">CGPath</span>]];</div><div class="line">**[maskWithHole setFillRule:kCAFillRuleEvenOdd];**</div><div class="line">[maskWithHole setFillColor:[[<span class="built_in">UIColor</span> orangeColor] <span class="built_in">CGColor</span>]];</div></pre></td></tr></table></figure></p>
+<p>所以，为了“有洞”，最重要的是这一行<code>[maskWithHole setFillRule:kCAFillRuleEvenOdd];</code>。如果设置成<code>kCAFillRuleNonZero</code>（好吧，这个值是默认值），就会得到一个货真价实的实心矩形。当时没有意识到这句话的作用，现在终于明了了。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>Core Animation Programming Guide:<br><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15</a></li>
+<li><a href="http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path" target="_blank" rel="external">http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path</a></li>
+<li><a href="http://blog.csdn.net/cuixiping/article/details/7848369" target="_blank" rel="external">http://blog.csdn.net/cuixiping/article/details/7848369</a></li>
+<li><a href="http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work" target="_blank" rel="external">http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/25/UIImageWriteToSavedPhotosAlbum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/25/UIImageWriteToSavedPhotosAlbum/" itemprop="url">UIImageWriteToSavedPhotosAlbum保存图片到系统相册</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-25T10:36:34+08:00">
+                02/25/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>你可以使用如下方法来将指定图片添加到用户的相册。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">UIImageWriteToSavedPhotosAlbum</span> (</div><div class="line">                        <span class="built_in">UIImage</span> *image,</div><div class="line">                        <span class="keyword">id</span> completionTarget,</div><div class="line">                        SEL completionSelector,</div><div class="line">                    <span class="keyword">void</span> *contextInfo</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>image：要写入相册的图片；<br>completionTarget：可选项，保存完成后，回调方法所在的对象；<br>completionSelector：要调用的<code>completionTarget</code>的回调方法。这个可选方法应该遵从如下格式：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(void)                <span class="keyword">image</span>: (UIImage *) <span class="keyword">image</span></div><div class="line">    didFinishSavingWithError: (NSError *) <span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>: (void *) <span class="keyword">contextInfo</span>;</div></pre></td></tr></table></figure></p>
+<p>contextInfo：可选的参数，保存了一个指向context数据的指针，它将传递给回调方法。</p>
+<p>例如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.png"</span>];</div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(img, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure></p>
+<p>回调方法长这样：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">image</span>:(UIImage *)<span class="keyword">image</span></div><div class="line">    didFinishSavingWithError:(NSError *)<span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>:(void *)<span class="keyword">contextInfo</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// Was there an error?</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">error</span> != NULL)</div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show error message...</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  <span class="comment">// No errors</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show message image successfully saved</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/24/how-not-to-crash-9-mindset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/24/how-not-to-crash-9-mindset/" itemprop="url">【译】如何避免程序崩溃-9：心态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-24T16:35:27+08:00">
+                02/24/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>题外话：</strong></p>
+<p>距离<a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">上一篇</a>已经一个月了，终于抽出一点时间来把最后一篇完结。噫吁嚱！</p>
+<p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_9_mindset" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_9_mindset</a></p>
+<hr>
+<p>你知道吗？老话说得好，“不要写像你一样聪明的代码，因为需要比你<em> 更聪明</em> 的人来debug。”</p>
+<p>我过去一直认为这意味着我应该写有我80%聪明的代码。留一点用来debug。</p>
+<p>但随着时间推移，我开始觉得我应该写有我10%聪明的代码。我开始相信，真正的聪明是让代码足够简洁明了、以至于看起来毫无特征。</p>
+<p>这就是为什么我恪守这样的规则：<a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">除非做可以完全独立的事情，否则一切事情都放在主线程上做</a>；<a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/">尽量避免使用unsafe_unretained</a>等等。</p>
+<p>这意味着我不会因为成为一个代码魔术手而获得额外的加分。我不会把兔子从帽子里拖出来，当然也不会去走钢丝。我甚至都不会去<em>看</em>钢丝。</p>
+<p>如果需要，我会去做困难的事情，但是即使是困难的事情，最终的目的也是尽我所能地写出简洁而可读性很高的代码。如果最后代码看起来很简单 —— 给人印象不深，甚至好像一个初中生都能写出来 —— 那说明代码<em>不错</em>。</p>
+<p>往小了说，这意味着函数都很短小，较少使用嵌套。往大了说，架构和命名除非迫不得已，否则不会被迭代，就好像它没有做什么考虑一样，因为都已经足够明显了。</p>
+<p>这意味着不会过度抽象。精确意味着显而易见。但也意味着不会太过概化 —— 的确有时候两三件事其实是同一件事，这时它们可以在不影响可维护性的前提下概括起来。（当然，有时候不能这么做。）</p>
+<p>我避免紧连接和庞大的架构 —— 除非是最优方案的确是让x知道y。</p>
+<p>我坚持学习，让自己日渐成长。</p>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>编程和绘画、写作、建筑、谱曲的区别在于，它没有完结的产品。是的，有发布的版本，但是没有结束，只有放弃。</p>
+<p>代码存在于时间中，可能也会经手很多人 —— 你深知不知道会有多久或者会有谁。你永远不该忘了这一点。</p>
+<h4 id="披肩，面具"><a href="#披肩，面具" class="headerlink" title="披肩，面具"></a>披肩，面具</h4><p>在我年轻的时候，我想成为一个代码魔术手 —— 或者说，真正的<em>英雄</em>。但我逐渐认识到，<em>软件的实际质量要比我期望别人怎么看我重要得多</em>。</p>
+<p>更进一步说，质量是一种近乎精神上的奖励。它是一种为重于自我的事情奉献的行为，既自私又无私。</p>
+<p>自私，是因为为了质量奋斗的过程让你日渐成长。而无私，是因为更好的代码、更好的软件对其他人更有益。</p>
+<p>当其他人对你的软件有所要求，首要的就是如果他们启动了它，它是否能<em>保持着</em>启动的状态。任何不能对此问题足够重视的程序员 —— 或是那些总是将崩溃粉饰成生活常态的人 —— 我们可以优先充分地享受其中的巨大乐趣，而这些人无法体会。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/22/reverse-NSArray/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/22/reverse-NSArray/" itemprop="url">如何翻转NSArray</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-22T14:16:01+08:00">
+                02/22/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>其实<code>NSArray</code>中提供了现成的<code>-reverseObjectEnumerator</code>方法。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSArray *startArray = @[@<span class="string">"1"</span>,@<span class="string">"2"</span>,@<span class="string">"3"</span>,@<span class="string">"4"</span>]<span class="comment">;</span></div><div class="line">NSArray* reversedArray = [[startArray reverseObjectEnumerator] allObjects]<span class="comment">;</span></div><div class="line">NSLog(@<span class="string">"---- %@"</span>,reversedArray)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>控制台打印出来的信息如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">2016-02-22</span> <span class="selector-tag">14</span><span class="selector-pseudo">:13</span><span class="selector-pseudo">:23.539</span> <span class="selector-tag">Demo</span><span class="selector-attr">[1158:258529]</span> <span class="selector-tag">----</span> (</div><div class="line">    <span class="number">4</span>,</div><div class="line">    <span class="number">3</span>,</div><div class="line">    <span class="number">2</span>,</div><div class="line">    <span class="number">1</span></div><div class="line">)</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Ref: </strong></p>
+<p><a href="http://stackoverflow.com/a/586529/1594792" target="_blank" rel="external">http://stackoverflow.com/a/586529/1594792</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/19/notes-for-multi-thread-programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/19/notes-for-multi-thread-programming/" itemprop="url">iOS开发多线程学习笔记-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-19T11:13:25+08:00">
+                02/19/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h3><h5 id="1-主线程"><a href="#1-主线程" class="headerlink" title="1.主线程"></a>1.主线程</h5><p>一个iOS程序运行后，默认会开启1条线程，称为“主线程”或“UI线程”<br>主线程的主要作用：</p>
+<ul>
+<li>显示/刷新UI界面</li>
+<li>处理UI事件（比如点击事件、滚动事件、拖拽事件等）</li>
+</ul>
+<h5 id="2-创建线程"><a href="#2-创建线程" class="headerlink" title="2.创建线程"></a>2.创建线程</h5><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.Create a thread.</span></div><div class="line"><span class="comment">// 1-1. Normal initialize.</span></div><div class="line">    NSThread *thread = [[NSThread alloc] <span class="string">initWithTarget:</span>self <span class="string">selector:</span><span class="meta">@selector</span>(<span class="string">run:</span>) <span class="string">object:</span>@<span class="string">"1-1. Normal initialize."</span>];</div><div class="line">    thread.name = @<span class="string">"Thread A"</span>;</div><div class="line"><span class="comment">// 1-2. Auto-start after created.</span></div><div class="line">    [NSThread <span class="string">detachNewThreadSelector:</span><span class="meta">@selector</span>(<span class="string">run:</span>) <span class="string">toTarget:</span>self <span class="string">withObject:</span>@<span class="string">"1-2. Auto-start after created."</span>];</div><div class="line"><span class="comment">// 1-3. Invisibly create and start thread.</span></div><div class="line">    [self <span class="string">performSelectorInBackground:</span><span class="meta">@selector</span>(<span class="string">run:</span>) <span class="string">withObject:</span>@<span class="string">"1-3. Invisibly create and start thread."</span>];</div><div class="line"><span class="comment">// 1-2 &amp; 1-3: easy and handy, but cannot add more detail configuration.</span></div></pre></td></tr></table></figure>
+<h5 id="3-开启线程"><a href="#3-开启线程" class="headerlink" title="3.开启线程"></a>3.开启线程</h5><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// Once started, method `run` will be executed in <span class="keyword">thread</span> above.</div><div class="line">  [<span class="keyword">thread</span> start]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<h5 id="4-线程的死亡"><a href="#4-线程的死亡" class="headerlink" title="4.线程的死亡"></a>4.线程的死亡</h5><p>当线程的任务结束，发生异常，或者是强制退出这三种情况会导致线程的死亡。<br>线程死亡后，线程对象从内存中移除。</p>
+<h5 id="5-解决多线程访问同一资源的问题：互斥锁"><a href="#5-解决多线程访问同一资源的问题：互斥锁" class="headerlink" title="5.解决多线程访问同一资源的问题：互斥锁"></a>5.解决多线程访问同一资源的问题：互斥锁</h5><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@synchronized(锁对象)</span> &#123; <span class="comment">// 需要锁定的代码  &#125;</span></div></pre></td></tr></table></figure>
+<p><strong> 注意：</strong></p>
+<ul>
+<li>锁定1份代码只用1把锁，用多把锁是无效的。</li>
+<li>互斥锁，就是使用了线程同步技术。</li>
+<li>互斥锁的缺点是需要消耗大量CPU资源。</li>
+</ul>
+<h5 id="6-原子和非原子属性"><a href="#6-原子和非原子属性" class="headerlink" title="6.原子和非原子属性"></a>6.原子和非原子属性</h5><p>OC在定义属性时有nonatomic和atomic两种选择：</p>
+<ul>
+<li>atomic：原子属性，为setter方法加锁（默认就是atomic），线程安全，需要消耗大量的资源；</li>
+<li>nonatomic：非原子属性，不会为setter方法加锁，非线程安全，适合内存小的移动设备。</li>
+</ul>
+<h5 id="7-线程间通信常用方法"><a href="#7-线程间通信常用方法" class="headerlink" title="7.线程间通信常用方法"></a>7.线程间通信常用方法</h5><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>performSelectorOnMainThread:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(id)</span>arg waitUntilDone:<span class="params">(BOOL)</span>wait;</div><div class="line">- <span class="params">(void)</span>performSelector:<span class="params">(SEL)</span>aSelector onThread:<span class="params">(NSThread *)</span>thr withObject:<span class="params">(id)</span>arg waitUntilDone:<span class="params">(BOOL)</span>wait;</div></pre></td></tr></table></figure>
+<h5 id="8-关于iOS开发的建议："><a href="#8-关于iOS开发的建议：" class="headerlink" title="8.关于iOS开发的建议："></a>8.关于iOS开发的建议：</h5><ul>
+<li>所有属性都声明为nonatomic；</li>
+<li>尽量避免多线程抢夺同一块资源；</li>
+<li>尽量将加锁、资源抢夺的业务逻辑交给服务器端处理，减小移动客户端的压力。</li>
+</ul>
+<h3 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h3><h5 id="1-GCD简介："><a href="#1-GCD简介：" class="headerlink" title="1.GCD简介："></a>1.GCD简介：</h5><p>即Grand Central Dispatch，纯C语言，提供了非常多强大的函数。</p>
+<h5 id="2-GCD的优势："><a href="#2-GCD的优势：" class="headerlink" title="2.GCD的优势："></a>2.GCD的优势：</h5><ul>
+<li>GCD是苹果公司为多核的并行运算提出的解决方案；</li>
+<li>GCD会自动利用更多的CPU内核（比如双核、四核）；</li>
+<li>GCD会自动管理线程的生命周期（创建线程、调度任务、销毁线程）；</li>
+<li>程序员只需要告诉GCD想要执行什么任务，不需要编写任何线程管理代码。</li>
+</ul>
+<h5 id="3-提示："><a href="#3-提示：" class="headerlink" title="3.提示："></a>3.提示：</h5><ul>
+<li>GCD存在于libdispatch.dylib这个库中，这个调度库包含了GCD的所有的东西，但任何IOS程序，默认就加载了这个库，在程序运行的过程中会动态的加载这个库，不需要我们手动导入。</li>
+<li>GCD是纯C语言的，所以相关的代码是函数，而不是方法。方法是基于对象的，而函数则独立于对象（更多函数 vs 方法的讨论见<a href="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" title="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" target="_blank" rel="external">这里</a>）。</li>
+<li>GCD中的函数大多数都以dispatch开头。</li>
+<li>GCD的数据类型在ARC的环境下不需要再做release。</li>
+<li>CF（Core Foundation）的数据类型在ARC环境下还是需要做release。</li>
+</ul>
+<h5 id="4-任务和队列"><a href="#4-任务和队列" class="headerlink" title="4.任务和队列"></a>4.任务和队列</h5><ul>
+<li><p>GCD中有2个核心概念<br>  （1）任务：执行什么操作<br>  （2）队列：用来存放任务</p>
+</li>
+<li><p>GCD的使用就2个步骤<br>  （1）定制任务<br>  （2）确定想做的事情</p>
+</li>
+</ul>
+<p>将任务添加到队列中，GCD会自动将队列中的任务取出，放到对应的线程中执行。<br>提示：任务的取出遵循队列的FIFO原则：先进先出，后进后出。</p>
+<h5 id="5-执行任务"><a href="#5-执行任务" class="headerlink" title="5.执行任务"></a>5.执行任务</h5><p>将<code>block</code>（任务）交给<code>queue</code>（队列）执行。</p>
+<p>同步：<code>dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code><br>异步：<code>dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code></p>
+<h5 id="6-队列"><a href="#6-队列" class="headerlink" title="6.队列"></a>6.队列</h5><p>GCD的队列分两类：</p>
+<ul>
+<li>并发队列（Concurrent Dispatch Queue）：仅在异步函数下有效；</li>
+<li>串行队列（Serial Dispatch Queue）。</li>
+</ul>
+<p>区分<strong>同步、异步、并发、串行</strong>：</p>
+<ul>
+<li><p>同步和异步决定了要不要开启新的线程：</p>
+<ul>
+<li>同步：在当前线程中执行任务，不具备开启新线程的能力</li>
+<li>异步：在新的线程中执行任务，具备开启新线程的能力</li>
+</ul>
+</li>
+<li><p>并发和串行决定了任务的执行方式：</p>
+<ul>
+<li>并发：多个任务并发（同时）执行</li>
+<li>串行：一个任务执行完毕后，再执行下一个任务</li>
+</ul>
+</li>
+</ul>
+<h5 id="7-串行队列："><a href="#7-串行队列：" class="headerlink" title="7.串行队列："></a>7.串行队列：</h5><p>GCD中获得串行有2种途径：<br>（1）使用<code>dispatch_queue_create</code>函数创建串行队列<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">dispatch_queue_t</span>  dispatch_queue_create(<span class="keyword">const</span> <span class="keyword">char</span> *label,  <span class="keyword">dispatch_queue_attr_t</span> attr); <span class="comment">// 队列名称， 队列属性，一般用NULL即可</span></div><div class="line">示例：</div><div class="line"></div><div class="line">	<span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span> = dispatch_queue_create(<span class="string">"myTestQueue"</span>, <span class="literal">NULL</span>); <span class="comment">// 创建</span></div><div class="line">	dispatch_release(<span class="built_in">queue</span>); <span class="comment">// 非ARC需要释放手动创建的队列</span></div></pre></td></tr></table></figure></p>
+<p>（2）使用主队列（跟主线程相关联的队列）</p>
+<p>主队列是GCD自带的一种特殊的串行队列,放在主队列中的任务，都会放到主线程中执行。使用<code>dispatch_get_main_queue()</code>获得主队列。</p>
+<p>示例：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t<span class="built_in"> queue </span>= dispatch_get_main_queue();</div></pre></td></tr></table></figure></p>
+<p><strong> 注：</strong></p>
+<ul>
+<li>如果把任务放到主队列中进行处理，那么不论处理函数是异步的还是同步的都不会开启新的线程。</li>
+<li>要使用异步函数！如果使用同步函数，在主线程中执行主队列中得任务，会发生死循环，任务无法往下执行。</li>
+</ul>
+<h5 id="8-并行队列"><a href="#8-并行队列" class="headerlink" title="8.并行队列"></a>8.并行队列</h5><p>GCD默认已经提供了全局的并发队列，供整个应用使用，不需要手动创建。<br>使用<code>dispatch_get_global_queue</code>函数获得全局的并发队列。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">dispatch_queue_t</span> dispatch_get_global_queue(<span class="keyword">dispatch_queue_priority_t</span> priority,<span class="keyword">unsigned</span> <span class="keyword">long</span> flags);</div><div class="line">示例：</div><div class="line">第一个参数为优先级，这里选择默认的。第二个flags参数暂时无用，用<span class="number">0</span>即可。获取一个全局的默认优先级的并发队列。</div><div class="line"></div><div class="line">	<span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span> = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>); <span class="comment">// 获得全局并发队列</span></div></pre></td></tr></table></figure></p>
+<h5 id="9-线程间通信"><a href="#9-线程间通信" class="headerlink" title="9.线程间通信"></a>9.线程间通信</h5><p>从子线程回到主线程：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dispatch_async( <span class="name">dispatch_get_global_queue</span>(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    // 执⾏耗时的异步操作...</div><div class="line">    dispatch_async(<span class="name">dispatch_get_main_queue</span>(), ^&#123;</div><div class="line">        // 回到主线程,执⾏UI刷新操作</div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h5 id="10-常见用法"><a href="#10-常见用法" class="headerlink" title="10.常见用法"></a>10.常见用法</h5><ul>
+<li><strong>延迟执行</strong></li>
+</ul>
+<p>iOS常见的延时执行有2种方式<br>（1）调用NSObject的方法<code>[self performSelector:@selector(run) withObject:nil afterDelay:2.0];</code>。该方法在那个线程调用，那么run就在哪个线程执行（当前线程），通常是主线程。</p>
+<p>（2）使用GCD函数<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_after(<span class="name">dispatch_time</span>(<span class="name">DISPATCH_TIME_NOW</span>, (<span class="name">int64_t</span>)(<span class="number">2.0</span> * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</div><div class="line">    // 2秒后异步执行这里的代码...</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>一次性代码</strong></li>
+</ul>
+<p>使用<code>dispatch_once</code>函数能保证某段代码在程序运行过程中只被执行1次。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">    <span class="comment">// 只执行1次的代码(这里面默认是线程安全的)</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>整个程序运行过程中，只会执行一次。</p>
+<ul>
+<li><strong>队列组</strong></li>
+</ul>
+<p>有这么1种需求：NSOperationQueue</p>
+<p>首先：分别异步执行2个耗时的操作<br>其次：等2个异步操作都执行完毕后，再回到主线程执行操作</p>
+<p>如果想要快速高效地实现上述需求，可以考虑用队列组：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">dispatch_group_t group =  dispatch_group_create()<span class="comment">;</span></div><div class="line">dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">&#125;)<span class="comment">;</span></div><div class="line">dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">&#125;)<span class="comment">;</span></div><div class="line">dispatch_group_notify(<span class="name">group</span>, dispatch_get_main_queue(), ^&#123;</div><div class="line">    // 等前面的异步操作都执行完毕后，回到主线程...</div><div class="line">&#125;)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h3 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h3><h5 id="1-简单说明"><a href="#1-简单说明" class="headerlink" title="1.简单说明"></a>1.简单说明</h5><p>NSOperation的作⽤：配合使用NSOperation和NSOperationQueue也能实现多线程编程。<br>NSOperation和NSOperationQueue实现多线程的具体步骤：<br>（1）先将需要执行的操作封装到一个NSOperation对象中<br>（2）然后将NSOperation对象添加到NSOperationQueue中<br>（3）系统会⾃动将NSOperationQueue中的NSOperation取出来<br>（4）将取出的NSOperation封装的操作放到⼀条新线程中执⾏</p>
+<h5 id="2-NSOperation的子类"><a href="#2-NSOperation的子类" class="headerlink" title="2.NSOperation的子类"></a>2.NSOperation的子类</h5><p>NSOperation是个抽象类,并不具备封装操作的能力,必须使⽤它的子类。<br>使用NSOperation⼦类的方式有3种：<br>（1）NSInvocationOperation<br>（2）NSBlockOperation<br>（3）自定义子类继承NSOperation,实现内部相应的⽅法</p>
+<p><strong>注：</strong></p>
+<ul>
+<li>默认情况下，如果操作没有放到队列中queue中，都是同步执行。只有将NSOperation放到一个NSOperationQueue中,才会异步执行操作。</li>
+<li>只要NSBlockOperation封装的操作数大于1,就会异步执行操作。</li>
+</ul>
+<h5 id="3-NSOperationQueue"><a href="#3-NSOperationQueue" class="headerlink" title="3.NSOperationQueue"></a>3.NSOperationQueue</h5><p>NSOperationQueue的作⽤：NSOperation可以调⽤start⽅法来执⾏任务,但默认是同步执行的。如果将NSOperation添加到NSOperationQueue(操作队列)中,系统会自动异步执行NSOperation中的操作。<br><strong>添加操作到NSOperationQueue中，自动执行操作，自动开启线程。</strong></p>
+<p>NSOperationQueue 有两种不同类型的队列：主队列和自定义队列。主队列运行在主线程之上，而自定义队列在后台执行。在两种类型中，这些队列所处理的任务都使用 NSOperation 的子类来表述。</p>
+<h5 id="4-NSOperation基本操作"><a href="#4-NSOperation基本操作" class="headerlink" title="4.NSOperation基本操作"></a>4.NSOperation基本操作</h5><ul>
+<li>并发数：<code>-maxConcurrentOperationCount</code>；</li>
+<li>队列的取消、暂停和恢复：<code>-cancelAllOperations</code>，<code>-setSuspended:</code>；</li>
+<li>操作优先级：<code>-setQueuePriority:</code>；</li>
+<li>操作依赖：<ul>
+<li><code>-addDependency:</code></li>
+<li>可以在不同queue的NSOperation之间创建依赖关系</li>
+<li>避免循环依赖</li>
+</ul>
+</li>
+<li>监听操作的执行完毕：<br>  <code>- (void)setCompletionBlock:(void (^)(void))block;</code></li>
+</ul>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">	<span class="comment">//监听操作的执行完毕</span></div><div class="line">operation.completionBlock=^&#123;</div><div class="line">	<span class="comment">//.....操作完成后继续进行的操作</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>Difference between a method and a function:<br>  <a href="http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function" target="_blank" rel="external">http://stackoverflow.com/questions/155609/difference-between-a-method-and-a-function</a></li>
+<li>文顶顶的多线程系列：<br>  <a href="http://www.cnblogs.com/wendingding/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AF%87/" target="_blank" rel="external">http://www.cnblogs.com/wendingding/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AF%87/</a></li>
+<li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

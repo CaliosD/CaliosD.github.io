@@ -1,6 +1,1818 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2016/05/27/notes-for-Charts/">Some notes for Charts</a></h1><div class="post-meta">05/27/16</div><div class="post-content"><h3 id="Minimum-deployment-target-of-Charts-is-iOS-8-0"><a href="#Minimum-deployment-target-of-Charts-is-iOS-8-0" class="headerlink" title="Minimum deployment target of Charts is iOS 8.0."></a>Minimum deployment target of Charts is iOS <strong>8.0</strong>.</h3><h3 id="Cocoapods-1-0-0-tips"><a href="#Cocoapods-1-0-0-tips" class="headerlink" title="Cocoapods-1.0.0 tips."></a>Cocoapods-1.0.0 tips.</h3><ul></div><p class="readmore"><a href="/2016/05/27/notes-for-Charts/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/25/[SourceCodeRead]-CAPSPageMenu/">[SourceCodeRead]-CAPSPageMenu</a></h1><div class="post-meta">05/25/16</div><div class="post-content"><h3 id="［1］-所有配置选项均为extern-const-string"><a href="#［1］-所有配置选项均为extern-const-string" class="headerlink" title="［1］ 所有配置选项均为extern const string"></a>［1］ 所有配置选项均为extern const string</h3><p>具体来说，即：每个选项对应一个属性，在初始化方法中，通过获取到的选项字典依次给对象的各个属性赋值。</p></div><p class="readmore"><a href="/2016/05/25/[SourceCodeRead]-CAPSPageMenu/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/24/essay-mobile-meeting-160523/">0523-移动端会议有感</a></h1><div class="post-meta">05/24/16</div><div class="post-content"><h3 id="1-技术，最后的终点都是应用。所以，要充分考虑use-case"><a href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case" class="headerlink" title="1. 技术，最后的终点都是应用。所以，要充分考虑use case"></a>1. 技术，最后的终点都是应用。所以，要充分考虑use case</h3><p><strong>例如：</strong>考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？</p></div><p class="readmore"><a href="/2016/05/24/essay-mobile-meeting-160523/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/17/notes-for-TextKit/">Some notes for TextKit</a></h1><div class="post-meta">05/17/16</div><div class="post-content"><h3 id="Use-semantic-approach-for-font-in-latter-projects"><a href="#Use-semantic-approach-for-font-in-latter-projects" class="headerlink" title="Use semantic approach for font in latter projects"></a>Use semantic approach for font in latter projects</h3><blockquote></div><p class="readmore"><a href="/2016/05/17/notes-for-TextKit/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/17/rich-text-solutions-in-iOS/">iOS上富文本的解决方案</a></h1><div class="post-meta">05/17/16</div><div class="post-content"><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><p>富文本无非要实现两类效果：</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/4/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/4/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/27/notes-for-Charts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/27/notes-for-Charts/" itemprop="url">Some notes for Charts</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-27T16:34:37+08:00">
+                05/27/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Minimum-deployment-target-of-Charts-is-iOS-8-0"><a href="#Minimum-deployment-target-of-Charts-is-iOS-8-0" class="headerlink" title="Minimum deployment target of Charts is iOS 8.0."></a>Minimum deployment target of Charts is iOS <strong>8.0</strong>.</h3><h3 id="Cocoapods-1-0-0-tips"><a href="#Cocoapods-1-0-0-tips" class="headerlink" title="Cocoapods-1.0.0 tips."></a>Cocoapods-1.0.0 tips.</h3><ul>
+<li>Add <code>use_frameworks!</code> for iOS 8+;</li>
+<li>Specify a target for each pod.</li>
+</ul>
+<p>eg. if before you had your Podfile written like this:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">pod</span> <span class="string">'Alamofire'</span>, <span class="string">'~&gt; 3.1.4'</span></div><div class="line">pod <span class="string">'SwiftyJSON'</span>, <span class="string">'~&gt; 2.3.2'</span></div></pre></td></tr></table></figure>
+<p>just change it to</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">target <span class="string">"TargetName"</span> <span class="built_in">do</span></div><div class="line">    pod <span class="string">'Alamofire'</span>, <span class="string">'~&gt; 3.1.4'</span></div><div class="line">    pod <span class="string">'SwiftyJSON'</span>, <span class="string">'~&gt; 2.3.2'</span></div><div class="line"><span class="built_in">end</span></div></pre></td></tr></table></figure>
+<h3 id="Bridging-between-Objective-C-and-Swift"><a href="#Bridging-between-Objective-C-and-Swift" class="headerlink" title="Bridging between Objective-C and Swift."></a>Bridging between Objective-C and Swift.</h3><ul>
+<li>In fact, after installing <code>Charts</code> with Cocoapods and building <code>.xcworkspace</code>, it automatically generates <code>Charts-Swift.h</code> file, which you can use directly in you <code>.m</code> file with <code>#import &lt;Charts/Charts-Swift.h&gt;</code>.(Here my project is OC-based.)</li>
+<li>Check some build settings and parameters:<ul>
+<li>Product Module Name: yourProject</li>
+<li>Defines Module: YES</li>
+<li>Embedded Content Contains Swift: YES</li>
+<li>Install Objective-C Compatibility Header: YES</li>
+<li>Objective-C Bridging Header: $(SRCROOT)/Sources/SwiftBridging.h</li>
+</ul>
+</li>
+</ul>
+<p>Here’s <a href="http://stackoverflow.com/a/24005242/1594792" target="_blank" rel="external">step by step integration for Xcode between Objc and Swift in project</a>.</p>
+<p>However, I failed to use OC framework in Swift-based project with Cocoapods and still couldn’t tell why. I’ll add it later if I make it.</p>
+<p><strong>Update on 2017-04-12</strong></p>
+<p>I finally import Objective-C framework into Swift-based project, just after change <code>Targets/Build Settings/Swift Compiler-General/Install Objective-C Compatibility Header</code> in Xcode from <code>No</code> to <code>Yes</code>. :]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/25/[SourceCodeRead]-CAPSPageMenu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/25/[SourceCodeRead]-CAPSPageMenu/" itemprop="url">[SourceCodeRead]-CAPSPageMenu</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-25T18:11:14+08:00">
+                05/25/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="［1］-所有配置选项均为extern-const-string"><a href="#［1］-所有配置选项均为extern-const-string" class="headerlink" title="［1］ 所有配置选项均为extern const string"></a>［1］ 所有配置选项均为extern const string</h3><p>具体来说，即：每个选项对应一个属性，在初始化方法中，通过获取到的选项字典依次给对象的各个属性赋值。</p>
+<p>如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// CAPSPageMenu.h</span></div><div class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionSelectionIndicatorHeight</span>;</div><div class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionMenuItemSeparatorWidth</span>;</div><div class="line"></div><div class="line"><span class="comment">// CAPSPageMenu.m</span></div><div class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionSelectionIndicatorHeight</span>             = <span class="string">@"selectionIndicatorHeight"</span>;</div><div class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">CAPSPageMenuOptionMenuItemSeparatorWidth</span>               = <span class="string">@"menuItemSeparatorWidth"</span>;</div></pre></td></tr></table></figure></p>
+<p>在初始化方法中，根据遍历传入的options参数，依次给各个属性赋值。<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (instance<span class="keyword">type</span>)initWithViewControllers:(<span class="type">NSArray</span> *)viewControllers frame:(<span class="type">CGRect</span>)frame options:(<span class="type">NSDictionary</span> *)options&#123;</div><div class="line">		for (<span class="type">NSString</span> *key in options) &#123;</div><div class="line">            if ([key isEqualToString:<span class="type">CAPSPageMenuOptionSelectionIndicatorHeight</span>]) &#123;</div><div class="line">                _selectionIndicatorHeight = [options[key] floatValue];</div><div class="line">            &#125; else if ([key isEqualToString: <span class="type">CAPSPageMenuOptionMenuItemSeparatorWidth</span>]) &#123;</div><div class="line">                _menuItemSeparatorWidth = [options[key] floatValue];</div><div class="line">            &#125;</div><div class="line">	...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在使用时，传入组装好的自定义option。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  <span class="string">NSDictionary</span> <span class="meta">*parameters</span> <span class="string">=</span> <span class="string">@&#123;</span></div><div class="line"><span class="attr">CAPSPageMenuOptionScrollMenuBackgroundColor:</span> <span class="string">[UIColor</span> <span class="attr">colorWithRed:30.0/255.0</span> <span class="attr">green:30.0/255.0</span> <span class="attr">blue:30.0/255.0</span> <span class="attr">alpha:1.0],</span></div><div class="line"><span class="attr">CAPSPageMenuOptionViewBackgroundColor:</span> <span class="string">[UIColor</span> <span class="attr">colorWithRed:20.0/255.0</span> <span class="attr">green:20.0/255.0</span> <span class="attr">blue:20.0/255.0</span> <span class="attr">alpha:1.0],</span></div><div class="line"><span class="attr">CAPSPageMenuOptionSelectionIndicatorColor:</span> <span class="string">[UIColor</span> <span class="string">orangeColor]&#125;;</span></div><div class="line"></div><div class="line">  <span class="string">_pageMenu</span> <span class="string">=</span> <span class="string">[[CAPSPageMenu</span> <span class="string">alloc]</span> <span class="attr">initWithViewControllers:controllerArray</span> <span class="attr">frame:CGRectMake(0.0,</span> <span class="number">0.0</span><span class="string">,</span> <span class="string">self.view.frame.size.width,</span> <span class="string">self.view.frame.size.height)</span> <span class="attr">options:parameters];</span></div><div class="line">  <span class="string">[self.view</span> <span class="attr">addSubview:_pageMenu.view];</span></div></pre></td></tr></table></figure></p>
+<p>在很多系统的类库中都使用这种方式来传递自定义的选项值。比如<code>NSAttributedString</code>的初始化方法<code>-initWithString:attributes:</code>中的<code>attributes</code>是自己组装的dictionary，而其中的key就是UIKit下<code>NSAttributedString.h</code>中的“Predefined character attributes for text.”</p>
+<p>以后在写自己的类库中可以参考这种方式。</p>
+<h3 id="［2］-关于UIScrollView的scrollsToTop属性"><a href="#［2］-关于UIScrollView的scrollsToTop属性" class="headerlink" title="［2］ 关于UIScrollView的scrollsToTop属性"></a>［2］ 关于<code>UIScrollView</code>的<code>scrollsToTop</code>属性</h3><p>当用户点击status bar时，点击位置下面最靠近status bar的scroll view会滚到顶部，但只有以下条件都满足时才会生效：</p>
+<ul>
+<li><code>scrollsToTop</code>属性值为<code>YES</code>；</li>
+<li>代理方法<code>shouldScrollViewScrollToTop</code>没有返回<code>NO</code>；</li>
+<li>没有已经处于顶部。</li>
+</ul>
+<p>这里需要注意的是，如果有<strong>不止一个</strong>scroll view的<code>scrollsToTop</code>被置为<code>YES</code>，那么<strong>所有</strong>scroll view的“点击滚动到顶部”<strong>都不会生效</strong>。</p>
+<p>然而，UIScrollView的<code>scrollsToTop</code>默认是<code>YES</code>…所以，对于<code>CAPSPageMenu</code>中的两个scroll view，作者都手动将它们的<code>scrollsToTop</code>置为了<code>NO</code>。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">_menuScrollView.<span class="keyword">scrollsToTop </span>      = NO<span class="comment">;;</span></div><div class="line">_controllerScrollView.<span class="keyword">scrollsToTop </span>= NO<span class="comment">;;</span></div></pre></td></tr></table></figure></p>
+<p>另外，对于<code>UIScrollView</code>的子类们，如<code>UITableView</code>、<code>UICollectionView</code>、<code>UITextView</code>、<code>UIContainerView</code>等，该规则同样适用。</p>
+<h3 id="［3］-为什么在点击item时需要一个Timer？"><a href="#［3］-为什么在点击item时需要一个Timer？" class="headerlink" title="［3］ 为什么在点击item时需要一个Timer？"></a>［3］ 为什么在点击item时需要一个Timer？</h3><p>未知。。。</p>
+<h3 id="［4］-gestureRecognizer-shouldRecognizeSimultaneouslyWithGestureRecognizer"><a href="#［4］-gestureRecognizer-shouldRecognizeSimultaneouslyWithGestureRecognizer" class="headerlink" title="［4］-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:"></a>［4］<code>-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:</code></h3><p>虽然view和gesture recognizer可以是一对多的关系，但默认情况下，两个gesture recognizer是不能同时有效的。此时，若想两个gesture recognizer能同时处理它们各自的gesture，需要重写<code>UIScrollView</code>的protocol<code>-gestureRecognizer: shouldRecognizeSimultaneouslyWithGestureRecognizer:</code>，并在其中返回<code>YES</code>。</p>
+<p>在一个gesture recognizer对于gesture的识别会阻塞另一个gesture recognizer的gesture识别时，这个方法就会被调用了。</p>
+<p>当然，也可以根据需要在其中添加判断条件，使之返回不同的值。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(<span class="built_in">UIGestureRecognizer</span> *)otherGestureRecognizer</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> ([gestureRecognizer isKindOfClass:[<span class="built_in">UIPanGestureRecognizer</span> <span class="keyword">class</span>]]  &amp;&amp; [otherGestureRecognizer isKindOfClass:[<span class="built_in">UIScreenEdgePanGestureRecognizer</span> <span class="keyword">class</span>]]) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">      &#125;    </div><div class="line">	<span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/a/8960080/1594792" target="_blank" rel="external">http://stackoverflow.com/a/8960080/1594792</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/GestureRecognizer_basics/GestureRecognizer_basics.html#//apple_ref/doc/uid/TP40009541-CH2-SW2" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/GestureRecognizer_basics/GestureRecognizer_basics.html#//apple_ref/doc/uid/TP40009541-CH2-SW2</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/24/essay-mobile-meeting-160523/" itemprop="url">0523-移动端会议有感</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-24T11:26:38+08:00">
+                05/24/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-技术，最后的终点都是应用。所以，要充分考虑use-case"><a href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case" class="headerlink" title="1. 技术，最后的终点都是应用。所以，要充分考虑use case"></a>1. 技术，最后的终点都是应用。所以，要充分考虑use case</h3><p><strong>例如：</strong>考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？</p>
+<p><strong>延伸思考：</strong>获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。</p>
+<p><strong>结论：</strong>不止是测试需要测试案例，设计需要Persona，开发的技术调研、选择技术方案时也需要充分考虑use case。</p>
+<h3 id="2-思考一个问题，要尽量全方位地考虑"><a href="#2-思考一个问题，要尽量全方位地考虑" class="headerlink" title="2. 思考一个问题，要尽量全方位地考虑"></a>2. 思考一个问题，要尽量全方位地考虑</h3><p><img src="http://mmbiz.qpic.cn/mmbiz/bwj0DnTUVQuIQvnX7vuvibCtVicEGt9jGXV03CW3RRSjAwAzs6jUmEKoIgNBoInCqn6pibl7TwB5x19SejSfEAvUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="" title="思考能力的六大分类"></p>
+<p>恰好今天早上看到了奴隶社会发的这篇<a href="http://mp.weixin.qq.com/s?__biz=MzA3NDMyOTcxMQ==&amp;mid=2651240054&amp;idx=1&amp;sn=927642e6f2a884458a2356b7e8dacf04&amp;scene=1&amp;srcid=0524kbGqhd8mXTrnlAU68vnh&amp;from=groupmessage&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">《独立思考能力怎么培养？》</a>。一方面，对于自己子女今后的教育多了一分思考；另一方面，想到昨天的会议中也有部分与之相通。通常情况下，我们还都处于上图六个层次的底三层，仅限于应用。或者说，只知道<em>用什么（what）</em>和<em>怎么做（how）</em>，但是对于<em>为什么（why）</em>却知之甚少。</p>
+<ul>
+<li>为什么这种方案可以，为什么那种方案不可以？</li>
+<li>如果选择这种方案，现有的实现方式是什么？</li>
+<li>需要多少人月的投入？</li>
+<li>我们能否在已有实现方式的基础上实现微创新？</li>
+</ul>
+<p>我相信思维这种东西，没有那么多天生的快与慢。快者，如福尔摩斯，也无非是以他自己的方式建造了一座记忆宫殿，而他知晓通往宫殿每个角落的最短路径。慢者，如我等，还需要刻意训练自己的思维能力，让大脑中的灰质细胞不断增加，让神经元更容易地将灰质细胞连接起来，让我们可以更加“融会贯通”。</p>
+<h3 id="3-要经常总结，落到文字和图片上"><a href="#3-要经常总结，落到文字和图片上" class="headerlink" title="3.要经常总结，落到文字和图片上"></a>3.要经常总结，落到文字和图片上</h3><p>这个不用多说了。这也是我写这个博客的初衷之一吧。:)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/17/notes-for-TextKit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/17/notes-for-TextKit/" itemprop="url">Some notes for TextKit</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-17T17:16:21+08:00">
+                05/17/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Use-semantic-approach-for-font-in-latter-projects"><a href="#Use-semantic-approach-for-font-in-latter-projects" class="headerlink" title="Use semantic approach for font in latter projects"></a>Use semantic approach for font in latter projects</h3><blockquote>
+<ul>
+<li>Using a semantic approach to font names, such as UIFontTextStyleSubHeadline, helps avoid hard-coded font names and styles throughout your code — and ensures that your app will respond properly to user-defined typography settings as expected.</li>
+<li>Font descriptors help you avoid the use of hardcoded font strings to set font types and styles.</li>
+<li>Font descriptors are a type of descriptor language that allows you to modify fonts by applying specific attributes, or to obtain details of font metrics, without the need to instantiate an instance ofUIFont.</li>
+</ul>
+</blockquote>
+<h3 id="exclusionPaths-property"><a href="#exclusionPaths-property" class="headerlink" title="exclusionPaths property"></a><code>exclusionPaths</code> property</h3><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NS_CLASS_AVAILABLE(10_0, 7_0) @interface NSTextContainer<span class="keyword"> :</span> NSObject &lt;NSCoding, NSTextLayoutOrientationProvider&gt;</div><div class="line"></div><div class="line">// Default value<span class="keyword"> :</span> empty<span class="built_in"> array </span> An<span class="built_in"> array </span>of UIBezierPath representing the exclusion paths inside the receiver's bounding rect.</div><div class="line">@property(copy, NS_NONATOMIC_IOSONLY) NSArray&lt;UIBezierPath *&gt; *exclusionPaths NS_AVAILABLE(10_11, 7_0);</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<blockquote>
+<p> You might have noticed that the exclusionPaths property expects an instance of NSArray; therefore each container can support more than one exclusion path.</p>
+</blockquote>
+<h3 id="Class-clusters"><a href="#Class-clusters" class="headerlink" title="Class clusters"></a>Class clusters</h3><blockquote>
+<p>Class clusters are a commonly used design pattern throughout Apple’s frameworks.<br>A class cluster is simply the Objective-C implementation of the Abstract Factory pattern, which provides a common interface for creating families of related or dependent objects without specifying the concrete classes. Familiar classes such as NSArray and NSNumber are in fact the public interface to a cluster of classes.</p>
+</blockquote>
+<h3 id="Set-hight-of-UITextView-CGFLOAT-MAX"><a href="#Set-hight-of-UITextView-CGFLOAT-MAX" class="headerlink" title="Set hight of UITextView CGFLOAT_MAX"></a>Set hight of UITextView <code>CGFLOAT_MAX</code></h3><p>In any case, this is more than enough to allow the UITextView to scroll and accommodate long passages of text.</p>
+<h3 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a><code>NSRange</code></h3><p>来自Mattt的一篇：<a href="http://nshipster.com/nsrange/" target="_blank" rel="external">http://nshipster.com/nsrange/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/17/rich-text-solutions-in-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/17/rich-text-solutions-in-iOS/" itemprop="url">iOS上富文本的解决方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-17T17:02:44+08:00">
+                05/17/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><p>富文本无非要实现两类效果：</p>
 <ul>
 <li>图片和文字的混排</li>
 <li>文字样式的随意修改</li>
-</ul></div><p class="readmore"><a href="/2016/05/17/rich-text-solutions-in-iOS/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">How to check if UITextField/UITextView is empty?</a></h1><div class="post-meta">05/10/16</div><div class="post-content"><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/04/UITableView／UICollectionView-with-empty-data/">UITableView／UICollectionView with empty data</a></h1><div class="post-meta">05/04/16</div><div class="post-content"><h5 id="Use-case"><a href="#Use-case" class="headerlink" title="Use case"></a>Use case</h5><p>－ Empty data in <code>UITableView／UICollectionView</code><br>－ No network connection<br>－ Network connection failure<br>－ Loading data</p></div><p class="readmore"><a href="/2016/05/04/UITableView／UICollectionView-with-empty-data/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/05/04/notes-in-table-view-programming-guide-for-iOS/">Some notes in `Table View Programming Guide for iOS`</a></h1><div class="post-meta">05/04/16</div><div class="post-content"><blockquote>
-<p>If you want to change the background color of a cell, do so in the <code>tableView:willDisplayCell:forRowAtIndexPath:</code> method of your table view delegate.</p></div><p class="readmore"><a href="/2016/05/04/notes-in-table-view-programming-guide-for-iOS/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/04/26/dynamically-adding-class-methods-with-runtime/">Dynamically adding class methods with runtime</a></h1><div class="post-meta">04/26/16</div><div class="post-content"><p>Today I learned how to add dynamic instance methods in class like this.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"sing"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherSing, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherSing(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is singing."</span>,((People *)<span class="keyword">self</span>).name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/04/26/dynamically-adding-class-methods-with-runtime/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</ul>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul>
+<li>通过CoreText/TextKit来原生实现</li>
+<li>通过webView来间接实现</li>
+</ul>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>一图胜千言：<br><img src="http://7xkwcv.com1.z0.glb.clouddn.com/iOS%E4%B8%8A%E5%AF%8C%E6%96%87%E6%9C%AC%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.png" alt=""></p>
+<h4 id="通过CoreText-TextKit来原生实现"><a href="#通过CoreText-TextKit来原生实现" class="headerlink" title="通过CoreText/TextKit来原生实现"></a>通过CoreText/TextKit来原生实现</h4><p> iOS 6之前：CoreText,纯C语言,极其蛋疼<br> iOS 6开始：NSAttributedString,简单易用<br> iOS 7开始：TextKit,功能强大,简单易用</p>
+<p><strong>对于NSAttributedString（iOS6开始）：</strong></p>
+<ul>
+<li>可以给指定范围（range）内的string添加属性（见UIKit中的<code>NSAttributedString.h</code>中的属性列表）；</li>
+<li>可以使用它的类方法<code>attributedStringWithAttachment:</code>，将图片以附件（<code>NSTextAttachment</code>）的形式附加在已有NSAttributedString的后面。</li>
+</ul>
+<p><strong>对于TextKit（iOS7开始）：</strong></p>
+<ul>
+<li>可以通过继承<code>NSTextStorage</code>或<code>NSLayoutManager</code>来对不同的样式（如指定文字的高亮、背景颜色、下划线等）进行自定义处理；</li>
+<li>可以设置<code>NSTextContainer</code>的<code>exclusionPaths</code>属性来设置镂空区域。</li>
+</ul>
+<p><strong>对于DTCoreText：</strong></p>
+<ul>
+<li>对CoreText进行了封装；</li>
+<li>可以将html转换成<code>NSAttributedString</code>，而依然以<strong>html的样式</strong>展示出来；</li>
+<li>支持CSS样式的展示；</li>
+<li>支持内嵌html5视频及播放；</li>
+<li>支持对多种附件（图片、视频等）的自定义处理；</li>
+<li>支持远程图片等懒加载。</li>
+</ul>
+<p><strong>补充：</strong></p>
+<p>正如<a href="http://stackoverflow.com/questions/4217820/convert-html-to-nsattributedstring-in-ios/18886718#18886718" target="_blank" rel="external">pix</a>所说，iOS7起，UIKit中添加了<code>initWithData:options:documentAttributes:error:</code>方法，可以用HTML来初始化一个NSAttributedString对象。如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">NSAttributedString</span> alloc] initWithData:[htmlString dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>]</div><div class="line">                                 options:@&#123;<span class="built_in">NSDocumentTypeDocumentAttribute</span>: <span class="built_in">NSHTMLTextDocumentType</span>,</div><div class="line">                                           <span class="built_in">NSCharacterEncodingDocumentAttribute</span>: @(<span class="built_in">NSUTF8StringEncoding</span>)&#125;</div><div class="line">                      documentAttributes:<span class="literal">nil</span> error:<span class="literal">nil</span>];</div></pre></td></tr></table></figure></p>
+<p>但从评论中来看，普遍反映执行起来花费时间很长。所以类似情况，还是优先考虑使用DTCoreText。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>CoreText教程：<a href="https://www.raywenderlich.com/4147/core-text-tutorial-for-ios-making-a-magazine-app" target="_blank" rel="external">https://www.raywenderlich.com/4147/core-text-tutorial-for-ios-making-a-magazine-app</a></li>
+<li>DTCoreText: <a href="https://github.com/Cocoanetics/DTCoreText" target="_blank" rel="external">https://github.com/Cocoanetics/DTCoreText</a></li>
+<li>DTCoreText-Demo: <a href="https://github.com/yoon-boom/DTCoreText-DEMO" target="_blank" rel="external">https://github.com/yoon-boom/DTCoreText-DEMO</a>(Happy to find an executable one!)</li>
+<li>DTCoreText的源码分析：<a href="http://blog.cnbang.net/tech/2630/" target="_blank" rel="external">http://blog.cnbang.net/tech/2630/</a></li>
+<li>TextKit教程：<a href="https://www.raywenderlich.com/50151/text-kit-tutorial" target="_blank" rel="external">https://www.raywenderlich.com/50151/text-kit-tutorial</a></li>
+<li>YYText：<a href="https://github.com/ibireme/YYText" target="_blank" rel="external">https://github.com/ibireme/YYText</a></li>
+<li><a href="http://stackoverflow.com/questions/4217820/convert-html-to-nsattributedstring-in-ios/18886718#18886718" target="_blank" rel="external">http://stackoverflow.com/questions/4217820/convert-html-to-nsattributedstring-in-ios/18886718#18886718</a></li>
+</ul>
+<h4 id="通过webView来间接实现"><a href="#通过webView来间接实现" class="headerlink" title="通过webView来间接实现"></a>通过webView来间接实现</h4><p>原理是类似symfony中的twig模板，将设计好的模板存在项目中（.mustache和.html），字体保存为.ttf，然后每次请求数据时，将服务器返回的html用这个模板进行渲染，再用嵌入的webview加载，从而得到整体风格一致的页面。</p>
+<p>具体实现可以参考开源中国iOS版本的源码。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>GRMustache：<a href="https://github.com/groue/GRMustache" target="_blank" rel="external">https://github.com/groue/GRMustache</a></li>
+<li><a href="https://github.com/syntaxhighlighter/syntaxhighlighter" target="_blank" rel="external">https://github.com/syntaxhighlighter/syntaxhighlighter</a></li>
+<li>开源中国iOS版本源码：<a href="http://git.oschina.net/oschina/iphone-app/tree/master" target="_blank" rel="external">http://git.oschina.net/oschina/iphone-app/tree/master</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/" itemprop="url">How to check if UITextField/UITextView is empty?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-10T10:33:56+08:00">
+                05/10/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>In short, have a look at this image.</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
+<p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/04/UITableView／UICollectionView-with-empty-data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/04/UITableView／UICollectionView-with-empty-data/" itemprop="url">UITableView／UICollectionView with empty data</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-04T11:28:00+08:00">
+                05/04/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="Use-case"><a href="#Use-case" class="headerlink" title="Use case"></a>Use case</h5><p>－ Empty data in <code>UITableView／UICollectionView</code><br>－ No network connection<br>－ Network connection failure<br>－ Loading data</p>
+<h5 id="What-does-it-look-like-before"><a href="#What-does-it-look-like-before" class="headerlink" title="What does it look like before?"></a>What does it look like before?</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// BaseViewController.h</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view;</div><div class="line">- (<span class="keyword">void</span>)hideBlankView;</div><div class="line"></div><div class="line"><span class="comment">// BaseViewController.m</span></div><div class="line"><span class="meta">#pragma mark - Blank</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_blankView) &#123;</div><div class="line">        <span class="built_in">CGFloat</span> x = view.frame.origin.x;</div><div class="line">        <span class="built_in">CGFloat</span> width = view.frame.size.width;</div><div class="line">        <span class="built_in">CGFloat</span> height = view.frame.size.height;</div><div class="line">        _blankView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>( x + (width - <span class="number">175</span>)/<span class="number">2.</span>f, height/<span class="number">3.</span>f, <span class="number">175</span>, <span class="number">200</span>)];</div><div class="line">        _blankView.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</div><div class="line"><span class="comment">//        [self.view insertSubview:_blankView aboveSubview:view];</span></div><div class="line">        [<span class="keyword">self</span>.view addSubview:_blankView];</div><div class="line"></div><div class="line">        <span class="built_in">UIImageView</span> *blankImgView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"blank_content"</span>]];</div><div class="line">        blankImgView.frame = <span class="built_in">CGRectMake</span>(<span class="number">25</span>, <span class="number">0</span>, <span class="number">125</span>, <span class="number">150</span>);</div><div class="line">        [_blankView addSubview:blankImgView];</div><div class="line"></div><div class="line">        _attentionLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="built_in">CGRectGetMaxY</span>(blankImgView.frame) + kTVCVCellInset_X, <span class="number">175</span>, kMediumFontSize + <span class="number">2</span>)];</div><div class="line">        _attentionLabel.numberOfLines = <span class="number">0</span>;</div><div class="line">        _attentionLabel.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">        _attentionLabel.textColor = kLightGrayColor;</div><div class="line">        _attentionLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:kMediumFontSize];</div><div class="line">        [_blankView addSubview:_attentionLabel];</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:_blankView];</div><div class="line">    _attentionLabel.text = attention;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hideBlankView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_blankView != <span class="literal">nil</span>) &#123;</div><div class="line">        [_blankView removeFromSuperview];</div><div class="line">        _blankView  = <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And call these methods anywhere and choose the right <em>view</em> like this:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="literal">self</span> showBlankViewWithString:kNetworkFailureKey <span class="keyword">for</span>View:<span class="literal">self</span>.view];</div></pre></td></tr></table></figure></p>
+<p>or write <em>if-else</em> everywhere like this:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">if</span> (tmpArray.count &lt;= <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">YES</span>;</div><div class="line">    [<span class="keyword">self</span> showBlankViewWithString:<span class="string">@"No Data"</span> forView:<span class="keyword">self</span>.view];</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span>&#123;</div><div class="line">    [<span class="keyword">self</span> hideBlankView];</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">NO</span>;</div><div class="line">	......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="What-does-it-look-like-now"><a href="#What-does-it-look-like-now" class="headerlink" title="What does it look like now?"></a>What does it look like now?</h5><p>Get your data as usual and just call:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_EmptyData]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NetworkError]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NoNetwork]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>And all the annoying issues is done!</p>
+<p>The only thing you need to do is inheriting from<code>BaseEmptyViewController</code> and set <code>needsEmptyDataHandling</code> to be <code>YES</code>.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// YourViewController.h</span></div><div class="line"><span class="variable">@interface</span> <span class="attribute">YourViewController </span>: BaseEmptyViewController</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="comment">// YourViewController.m</span></div><div class="line">	self.needsEmptyDataHandling = YES;</div></pre></td></tr></table></figure></p>
+<p>For more details, please check <a href="https://github.com/CaliosD/CDEmptyDataSet" target="_blank" rel="external">this</a>.</p>
+<h5 id="References"><a href="#References" class="headerlink" title="References"></a>References</h5><p>－ <a href="http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html" target="_blank" rel="external">http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html</a><br>－ <a href="https://github.com/dzenbot/DZNEmptyDataSet" target="_blank" rel="external">https://github.com/dzenbot/DZNEmptyDataSet</a><br>－ <a href="http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview" target="_blank" rel="external">http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/04/notes-in-table-view-programming-guide-for-iOS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/04/notes-in-table-view-programming-guide-for-iOS/" itemprop="url">Some notes in `Table View Programming Guide for iOS`</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-04T11:06:07+08:00">
+                05/04/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>If you want to change the background color of a cell, do so in the <code>tableView:willDisplayCell:forRowAtIndexPath:</code> method of your table view delegate.</p>
+<p>The table view’s data source implementation of <code>tableView:cellForRowAtIndexPath:</code> should always reset all content when reusing a cell.</p>
+<p><code>indentationLevel</code> property for UITableViewCell</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/04/26/dynamically-adding-class-methods-with-runtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/26/dynamically-adding-class-methods-with-runtime/" itemprop="url">Dynamically adding class methods with runtime</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-26T16:38:28+08:00">
+                04/26/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Today I learned how to add dynamic instance methods in class like this.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"sing"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherSing, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherSing(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is singing."</span>,((People *)<span class="keyword">self</span>).name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>When I was typing the code myself, I found another similar method: <code>resolveClassMethod:</code>. Maybe I could use it the same way, I thought. So, here’s the first version.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Build and run.</p>
+<p>Boom! It crashed sadly, and an unrecognized selector error at runtime was throwed out.</p>
+<p>Why?</p>
+<p>Digging like a gopher in the Internet(:P), I found Jeff explained <a href="http://iphonedevelopment.blogspot.jp/2008/08/dynamically-adding-class-objects.html" target="_blank" rel="external">here</a> in detail:</p>
+<blockquote>
+<p>Because that code adds a method to the class object, which means you added an instance method to that class. That’s not what you want. What you want is to add a method to your class’ metaclass object instance, which means going to the runtime to get the Class object that represents the class’ metaclass object (say that five times fast!).</p>
+</blockquote>
+<p>So, replace the code above with below would work well.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        Class selfMetaClass = objc_getMetaClass([[<span class="keyword">self</span> className] UTF8String]);</div><div class="line">        class_addMethod(selfMetaClass, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Now, people could rock as they wished. :P</p>
+<p>Wait, what hell was the …  “”v@:”” ?? Seemed odd.</p>
+<p>Well, let’s have another digging(:P).</p>
+<p>Here it is:</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i/v</td>
+<td>return int/void  </td>
+</tr>
+<tr>
+<td>@</td>
+<td>parameter id(self)</td>
+</tr>
+<tr>
+<td>:</td>
+<td>SEL(_cmd)</td>
+</tr>
+<tr>
+<td>@</td>
+<td>id(str)</td>
+</tr>
+</tbody>
+</table>
+<p>More detail encodings are <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" target="_blank" rel="external">here</a>.</p>
+<p>OK. That’s finally done. See you another topic. :]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

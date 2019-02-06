@@ -1,15 +1,1851 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2017/03/22/gps-and-related/">GPS and related</a></h1><div class="post-meta">03/22/17</div><div class="post-content"><h3 id="iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it"><a href="#iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it" class="headerlink" title="iPhone Location: How apps access the iPhone location and what they can do with it."></a>iPhone Location: How apps access the iPhone location and what they can do with it.</h3><ul>
-<li>Requesting an appropriate level of accuracy(the options are 3km, 1km, 100m, 10m, Best, or Best for navigation) is all about minimizing battery drain.</div><p class="readmore"><a href="/2017/03/22/gps-and-related/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/03/16/Objective-C-runtime-programming-guide-translation/">Objective-C Runtime Programming Guide 翻译及详解</a></h1><div class="post-meta">03/16/17</div><div class="post-content"><p>近日大脑一抽筋，尝试使用GitBook Editor的同时翻了一篇Runtime Programming的官方文档。</p>
-<p>链接在此：<a href="https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/" target="_blank" rel="external">https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/</a></p></div><p class="readmore"><a href="/2017/03/16/Objective-C-runtime-programming-guide-translation/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/03/07/[SourceCodeRead]-MJExtension/">[SourceCodeRead]-MJExtension</a></h1><div class="post-meta">03/07/17</div><div class="post-content"><p>MJExtension的源码，从最常用的<code>-objectArrayWithKeyValuesArray:</code>（字典数组转模型数组）和<code>-keyValuesArrayWithObjectArray:</code>（模型数组转字典数组）入手，就进入了<code>NSObject+MJKeyValue</code>分类。在梳理过这个类的实现方法之后，发现归根到底，核心的方法就这两个：<code>-setKeyValue:error:</code>（字典转模型）和<code>-keyValuesWithError:</code>（模型转字典）。</p></div><p class="readmore"><a href="/2017/03/07/[SourceCodeRead]-MJExtension/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/02/23/black-magic-in-C/">C的宏魔法</a></h1><div class="post-meta">02/23/17</div><div class="post-content"><h2 id="“-”和”-”"><a href="#“-”和”-”" class="headerlink" title="“#”和”##”"></a>“#”和”##”</h2><ul>
-<li><strong>#：String-izing Tokens</strong>，作用是把宏参数转化成以传入的参数名为内容的字符串。通常可以用于debug时打印参数。<br>比如说，如果定义成这样：<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define PRINT_TOKEN(<span class="name">token</span>) NSLog(<span class="name">#token</span> <span class="string">" is %d"</span>, token)</div></pre></td></tr></table></figure></div><p class="readmore"><a href="/2017/02/23/black-magic-in-C/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/02/20/summary-for-attribute/">__attribute__小结</a></h1><div class="post-meta">02/20/17</div><div class="post-content"><h3 id="1-attribute-是什么？"><a href="#1-attribute-是什么？" class="headerlink" title="1.__attribute__是什么？"></a>1.<code>__attribute__</code>是什么？</h3><p><code>__attribute__</code>是Clang提供的、用来在C，C++和Objective-C中修饰代码定义的 <strong>编译指令</strong>。它为声明的代码提供了额外的属性，来帮助编译器优化或者为代码的使用者显示有用的警告信息。</p></div><p class="readmore"><a href="/2017/02/20/summary-for-attribute/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/02/17/summary-for-Objective-C-foundation-book/">Objective-C基础教程（第2版）总结</a></h1><div class="post-meta">02/17/17</div><div class="post-content"><p>— <strong>Updated: 170729</strong> —</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/2/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/2/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/03/22/gps-and-related/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/22/gps-and-related/" itemprop="url">GPS and related</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-22T14:35:02+08:00">
+                03/22/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it"><a href="#iPhone-Location-How-apps-access-the-iPhone-location-and-what-they-can-do-with-it" class="headerlink" title="iPhone Location: How apps access the iPhone location and what they can do with it."></a>iPhone Location: How apps access the iPhone location and what they can do with it.</h3><ul>
+<li>Requesting an appropriate level of accuracy(the options are 3km, 1km, 100m, 10m, Best, or Best for navigation) is all about minimizing battery drain.
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/22/gps-and-related/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/03/16/Objective-C-runtime-programming-guide-translation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/16/Objective-C-runtime-programming-guide-translation/" itemprop="url">Objective-C Runtime Programming Guide 翻译及详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-16T16:35:30+08:00">
+                03/16/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>近日大脑一抽筋，尝试使用GitBook Editor的同时翻了一篇Runtime Programming的官方文档。</p>
+<p>链接在此：<a href="https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/" target="_blank" rel="external">https://caliosd.gitbooks.io/objective-c-runtime-programming-guide/</a></p>
+<p>以此留念。欢迎各种批评指正。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/03/07/[SourceCodeRead]-MJExtension/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/07/[SourceCodeRead]-MJExtension/" itemprop="url">[SourceCodeRead]-MJExtension</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-07T17:09:51+08:00">
+                03/07/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MJExtension的源码，从最常用的<code>-objectArrayWithKeyValuesArray:</code>（字典数组转模型数组）和<code>-keyValuesArrayWithObjectArray:</code>（模型数组转字典数组）入手，就进入了<code>NSObject+MJKeyValue</code>分类。在梳理过这个类的实现方法之后，发现归根到底，核心的方法就这两个：<code>-setKeyValue:error:</code>（字典转模型）和<code>-keyValuesWithError:</code>（模型转字典）。</p>
+<p>我们分别来看这两个方法。</p>
+<h3 id="setKeyValue-error"><a href="#setKeyValue-error" class="headerlink" title="-setKeyValue:error:"></a><code>-setKeyValue:error:</code></h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)setKeyValues:(<span class="built_in">NSDictionary</span> *)keyValues error:(<span class="built_in">NSError</span> *__autoreleasing *)error</div><div class="line">&#123;</div><div class="line">    MJAssertError([keyValues isKindOfClass:[<span class="built_in">NSDictionary</span> <span class="keyword">class</span>]], <span class="keyword">self</span>, error, <span class="string">@"keyValues参数不是一个字典"</span>);</div><div class="line">    …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>进入函数后，首先是一个断言，保证传入参数是一个字典。这里体现了防御式编程的思想，具体介绍可以看<a href="https://en.wikipedia.org/wiki/Defensive_programming" target="_blank" rel="external">wiki</a>（英文版比中文版的信息完整）。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">NSArray *ignoredPropertyNames = <span class="literal">nil</span>;</div><div class="line"><span class="keyword">if</span> ([[<span class="keyword">self</span> <span class="class"><span class="keyword">class</span>] <span class="title">respondsToSelector</span>:@<span class="title">selector</span>(<span class="title">ignoredPropertyNames</span>)]) &#123;</span></div><div class="line">      ignoredPropertyNames = [[<span class="keyword">self</span> <span class="class"><span class="keyword">class</span>] <span class="title">ignoredPropertyNames</span>];</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先检查是否有需要忽略的属性，即不进行字典和模型转换的属性。<code>ignoredPropertyNames</code>这个方法来自<code>MJKeyValue</code>协议，除此之外，<code>MJKeyValue</code>协议中还定义了一些对于属性名的特殊处理，如替换属性名（<code>replacedKeyFromPropertyName</code>），指定数组中需要转换的模型类（<code>objectClassInArray</code>），和字典转模型完毕/模型转字典完毕时调用的方法。</p>
+<p>往下走，进入核心部分。<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[[self class] enumerateIvarsWithBlock:^(<span class="name">MJIvar</span> *ivar, BOOL *stop) &#123;    </div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中<code>enumerateIvarsWithBlock:</code>实现如下：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)enumerateIvarsWithBlock:(MJIvarsBlock)block</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> MJCachedIvarsKey;</div><div class="line">    <span class="comment">// 获得成员变量</span></div><div class="line">    <span class="built_in">NSMutableArray</span> *cachedIvars = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;MJCachedIvarsKey);    <span class="comment">// A</span></div><div class="line">    <span class="keyword">if</span> (cachedIvars == <span class="literal">nil</span>) &#123;</div><div class="line">        cachedIvars = [<span class="built_in">NSMutableArray</span> array];</div><div class="line"></div><div class="line">        [<span class="keyword">self</span> enumerateClassesWithBlock:^(__<span class="keyword">unsafe_unretained</span> Class c, <span class="built_in">BOOL</span> *stop) &#123;</div><div class="line">            <span class="comment">// 1.获得所有的成员变量</span></div><div class="line">            <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</div><div class="line">            Ivar *ivars = class_copyIvarList(c, &amp;outCount);    <span class="comment">// B</span></div><div class="line"></div><div class="line">            <span class="comment">// 2.遍历每一个成员变量</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i&lt;outCount; i++) &#123;</div><div class="line">                MJIvar *ivar = [MJIvar cachedIvarWithIvar:ivars[i]];    <span class="comment">// C</span></div><div class="line">                ivar.srcClass = c;</div><div class="line">                <span class="built_in">NSString</span> *key = [<span class="keyword">self</span> ivarKey:ivar.propertyName];</div><div class="line">                [ivar setKey:key forClass:<span class="keyword">self</span>];</div><div class="line">                <span class="comment">// 数组中的模型类</span></div><div class="line">                [ivar setObjectClassInArray:[<span class="keyword">self</span> ivarObjectClassInArray:ivar.propertyName] forClass:<span class="keyword">self</span>];</div><div class="line">                [cachedIvars addObject:ivar];    <span class="comment">// D</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// 3.释放内存</span></div><div class="line">            free(ivars);    <span class="comment">// B</span></div><div class="line">        &#125;];</div><div class="line">        objc_setAssociatedObject(<span class="keyword">self</span>, &amp;MJCachedIvarsKey, cachedIvars, OBJC_ASSOCIATION_RETAIN_NONATOMIC);    <span class="comment">// A</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 遍历成员变量</span></div><div class="line">    <span class="built_in">BOOL</span> stop = <span class="literal">NO</span>;</div><div class="line">    <span class="keyword">for</span> (MJIvar *ivar <span class="keyword">in</span> cachedIvars) &#123;</div><div class="line">        block(ivar, &amp;stop);</div><div class="line">        <span class="keyword">if</span> (stop) <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>有这样三个点可以看一下：<br>A：<code>id objc_getAssociatedObject(id object, const void *key)</code>和<code>void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)</code>这一对方法，没什么需要赘述的。<br>B：<code>Ivar *class_copyIvarList(Class cls, unsigned int *outCount)</code>经常用来获取类的成员变量列表，返回值是一个指针的数组，类型是Ivar，在使用过之后记得到调用<code>free()</code>来释放数组的内存。</p>
+<blockquote>
+<p>我在这里简单写了一个获取类的成员变量列表的方法，仅供参考。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)printIvarsOfClass:(Class)c</div><div class="line">&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> ivarCount = <span class="number">0</span>;</div><div class="line">    Ivar *ivars = class_copyIvarList(c, &amp;ivarCount);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"====== Ivars of %@ are: "</span>, c);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ivarCount; i++) &#123;</div><div class="line">        Ivar var = ivars[i];</div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* name = ivar_getName(var);</div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* typeEncoding = ivar_getTypeEncoding(var);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%s, %s \n"</span>, name, typeEncoding);</div><div class="line">    &#125;</div><div class="line">    free(ivars);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>C：用Ivar初始化一个<code>MJIvar</code>实例。MJIvar可以理解为在原有的Ivar基础上，添加了成员名、成员属性名、类型等常用属性和常用方法。<br>D：将设置好的MJIvar实例添加到缓存的成员变量中，以备后用，同时也提高了后续使用的效率。</p>
+<p>后面的代码，作者注释已经很清楚了，就不再赘述。</p>
+<h3 id="keyValuesWithError"><a href="#keyValuesWithError" class="headerlink" title="-keyValuesWithError:"></a><code>-keyValuesWithError:</code></h3><p>来看这个核心方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSDictionary</span> *)keyValuesWithError:(<span class="built_in">NSError</span> *__autoreleasing *)error</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 如果自己不是模型类</span></div><div class="line">    <span class="keyword">if</span> ([MJFoundation isClassFromFoundation:[<span class="keyword">self</span> <span class="keyword">class</span>]]) <span class="keyword">return</span> (<span class="built_in">NSDictionary</span> *)<span class="keyword">self</span>;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首先涉及到<code>MJFoundation</code>类的一个（也是唯一一个）方法：<code>+isClassFromFoundation:</code>。代码并不复杂：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)load</div><div class="line">&#123;</div><div class="line">    _foundationClasses = [<span class="built_in">NSSet</span> setWithObjects:</div><div class="line">                          [<span class="built_in">NSObject</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSURL</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDate</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSNumber</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDecimalNumber</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSData</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableData</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSArray</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableArray</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSDictionary</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableDictionary</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSString</span> <span class="keyword">class</span>],</div><div class="line">                          [<span class="built_in">NSMutableString</span> <span class="keyword">class</span>], <span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>)isClassFromFoundation:(Class)c</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [_foundationClasses containsObject:c];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>只是检查一下传入的类是否属于基本类。这里要看的，其实是它上面的方法<code>+(void)load</code>。</p>
+<blockquote>
+<p><code>+load</code>在所属类一加载完的时候就会被调用，非常早。如果是在应用中或是应用链接的框架中实现<code>+load</code>，<code>+load</code>会在<code>main()</code>函数调用之前执行。如果是在一个可加载的bundle中实现<code>+load</code>，它就会在bundle加载的过程中执行。<code>+load</code>特别的一点是，如果在类和该类的category中都实现了<code>+load</code>方法，两个<code>+load</code>方法都会被执行。这就意味着<code>+load</code>是存放类似method swizzling这种魔鬼的好地方。:]</p>
+<p>与<code>+load</code>类似的是<code>+initialize</code>方法，它是个比<code>+load</code>更安全的存放代码的地方。当类第一次加载的时候，<code>+initialize</code>并不会调用。当有消息发送给类的 时候，runtime会首先检查<code>+initialize</code>是否已经被调用，如果没有，就会在处理消息发送之前先调用<code>+initialize</code>。</p>
+</blockquote>
+<p>更多关于<code>+load</code>和<code>+initialize</code>的讲解，可以看Mike Ash的<a href="https://www.mikeash.com/pyblog/friday-qa-2009-05-22-objective-c-class-loading-and-initialization.html" target="_blank" rel="external">这篇</a>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/02/23/black-magic-in-C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/23/black-magic-in-C/" itemprop="url">C的宏魔法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-23T11:14:18+08:00">
+                02/23/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="“-”和”-”"><a href="#“-”和”-”" class="headerlink" title="“#”和”##”"></a>“#”和”##”</h2><ul>
+<li><strong>#：String-izing Tokens</strong>，作用是把宏参数转化成以传入的参数名为内容的字符串。通常可以用于debug时打印参数。<br>比如说，如果定义成这样：<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define PRINT_TOKEN(<span class="name">token</span>) NSLog(<span class="name">#token</span> <span class="string">" is %d"</span>, token)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用时，<code>PRINT_TOKEN(1+2);</code>替换之后就会变为<code>NSLog(1+2 &quot; is %d&quot;, token);</code>得到<code>1+2 is 3</code>。</p>
+<p>如果不使用#，就会变成：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#define</span> <span class="selector-tag">PRINT_TOKEN</span>(token) <span class="selector-tag">NSLog</span>(<span class="string">"token"</span> <span class="string">" is %d"</span>, token)</div></pre></td></tr></table></figure></p>
+<p>这里我们期望<code>&quot; &quot;</code>的作用是变量替换，而在实际语言中，双引号有字符串拼接的作用。为了遵守单一职责的原则，#的存在是有意义的。</p>
+<ul>
+<li><strong>##：Pasting Tokens</strong>，在把宏参数拼接到一起、形成一个新的参数时非常有用。比如我们要通过一个变量，给另一个相关名字的变量赋值：</li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#define DECLARE_AND_SET(<span class="built_in">type</span>, varname, <span class="built_in">value</span>) <span class="built_in">type</span> varname = <span class="built_in">value</span>; <span class="built_in">type</span> orig_##varname = varname;</div><div class="line"></div><div class="line">DECLARE_AND_SET( <span class="built_in">int</span>, area, <span class="number">12</span> );</div></pre></td></tr></table></figure>
+<p>在这个例子中，如果不使用“##”，就不能这样一步到位地实现粘贴成 <strong>变量</strong> 的目的。如果宏中的参数是类名，就需要先拼接字符串，再使用<code>NSClassFromString()</code>这样的方法将字符串转换成<code>Class</code>类型。这在实际项目中还是很有用的。</p>
+<h2 id="metamacro-concat-宏"><a href="#metamacro-concat-宏" class="headerlink" title="metamacro_concat_宏"></a><code>metamacro_concat_</code>宏</h2><p>在<code>ReactiveCocoa</code>的代码中看到过这样两个宏定义：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define metamacro_concat(A, B) \</span></div><div class="line">        metamacro_concat_(A, <span class="keyword">B)</span></div><div class="line"><span class="comment">#define metamacro_concat_(A, B) A ## B</span></div></pre></td></tr></table></figure>
+<p><code>metamacro_concat_</code>这个宏其实和直接使用<code>##</code>语法基本等效，那么为什么不直接使用<code>##</code>写到使用它的宏里呢？</p>
+<p>首先来理解下宏处理过程的操作流程图，可以想象成有一个指针，从前到后地查找宏和宏参数：</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/NestedMacroHandling.jpg" alt="处理过程"></p>
+<p>在宏计算的过程中出现多层嵌套时，都是遇到<code>##</code>就立即进行拼接。<code>metamacro_concat_</code>的作用相当于在<code>##</code>外面包了一层，降低了<code>##</code>的在宏处理时的“优先级”。</p>
+<p>因此，同样是计算<code>metamacro_concat(1, metamacro_concat(2, 3))</code>，直接使用<code>##</code>和间接使用的推导过程就截然不同，具体推导如下。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// Test-<span class="number">1</span>：直接使用`##`</div><div class="line">#define metamacro_concat(A,B)     A ## B</div><div class="line"></div><div class="line">metamacro_concat(<span class="number">1</span>, metamacro_concat(<span class="number">2</span>, <span class="number">3</span>))</div><div class="line">// 判断metamacro_concat中是否有#和##，有##，实参替换形参</div><div class="line">=&gt; <span class="number">1</span> ## metamacro_concat(<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">=&gt; <span class="number">1</span>metamacro_concat(<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">// 没有<span class="number">1</span>metamacro_concat的定义，报错。</div><div class="line"></div><div class="line"></div><div class="line">// Test-<span class="number">2</span>：间接使用`##`</div><div class="line">#define metamacro_concat(A,B)   _metamacro_concat(A,B)</div><div class="line">#define _metamacro_concat(A,B)  A ## B</div><div class="line"></div><div class="line">metamacro_concat(<span class="number">1</span>, metamacro_concat(<span class="number">2</span>,<span class="number">3</span>))</div><div class="line">// 判断metamacro_concat中是否有##，没有，替换成_metamacro_concat</div><div class="line">=&gt; _metamacro_concat(<span class="number">1</span>, metamacro_concat(<span class="number">2</span>,<span class="number">3</span>))</div><div class="line">=&gt; _metamacro_concat(<span class="number">1</span>, _metamacro_concat(<span class="number">2</span>,<span class="number">3</span>))</div><div class="line">=&gt; _metamacro_concat(<span class="number">1</span>, <span class="number">2</span> ## <span class="number">3</span>)</div><div class="line">=&gt; _metamacro_concat(<span class="number">1</span>, <span class="number">23</span>)</div><div class="line">=&gt; <span class="number">1</span> ## <span class="number">23</span></div><div class="line">=&gt; <span class="number">123</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref: </strong></p>
+<ul>
+<li><a href="https://onevcat.com/2014/01/black-magic-in-macro/" target="_blank" rel="external">https://onevcat.com/2014/01/black-magic-in-macro/</a></li>
+<li><a href="http://stackoverflow.com/a/3776901/1594792" target="_blank" rel="external">http://stackoverflow.com/a/3776901/1594792</a></li>
+<li><a href="http://www.cprogramming.com/tutorial/cpreprocessor.html" target="_blank" rel="external">http://www.cprogramming.com/tutorial/cpreprocessor.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/02/20/summary-for-attribute/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/20/summary-for-attribute/" itemprop="url">__attribute__小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T15:44:45+08:00">
+                02/20/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-attribute-是什么？"><a href="#1-attribute-是什么？" class="headerlink" title="1.__attribute__是什么？"></a>1.<code>__attribute__</code>是什么？</h3><p><code>__attribute__</code>是Clang提供的、用来在C，C++和Objective-C中修饰代码定义的 <strong>编译指令</strong>。它为声明的代码提供了额外的属性，来帮助编译器优化或者为代码的使用者显示有用的警告信息。</p>
+<h3 id="2-attribute-有什么用？"><a href="#2-attribute-有什么用？" class="headerlink" title="2.__attribute__有什么用？"></a>2.<code>__attribute__</code>有什么用？</h3><p><code>__attribute__</code>命令提供代码运行需要的上下文。提供上下文的重要性怎么强调都不过分。通过详细地给出API如何命令编译器的定义，开发者可以获得显而易见的益处。同样是一束鲜花，是要在情人节送给女朋友还是要用来探望术后的病人，效果是完全不同的。而<code>__attribute__</code>的作用就好像鲜花上附加的一张卡片，上面写的是“送给最爱的某某”还是“愿某某早日康复”是完全由你来决定的。</p>
+<p>正如Mattt在<a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">这里</a>指出的：</p>
+<blockquote>
+<p>当涉及到编译器优化时，上下文就是王道。通过约束你的代码的解释方式，你可以让生成的代码尽可能的高效。不只是为了编译器。下一个看代码的人也会感激（你所提供的）额外的上下文信息。</p>
+</blockquote>
+<h3 id="3-attribute-怎么用？"><a href="#3-attribute-怎么用？" class="headerlink" title="3.__attribute__怎么用？"></a>3.<code>__attribute__</code>怎么用？</h3><p>它的语法是这样的：<code>__attribute__((interrupt(“TYPE&quot;)))</code>。</p>
+<p>每当你有机会来给代码定义（变量，参数，函数，方法，类等等）提供额外的上下文信息时，你都应该使用<code>__attribute__</code>。但除非你知道自己在干什么，否则，不要滥用。因为提供一个错误的上下文比没有提供上下文更糟糕。</p>
+<h3 id="4-attribute-使用举例？"><a href="#4-attribute-使用举例？" class="headerlink" title="4.__attribute__使用举例？"></a>4.<code>__attribute__</code>使用举例？</h3><p><strong>声明一个API在某平台的可用性：<strong>attribute</strong>((availability(…)))：如 NS_AVAILABLE 和 NS_DEPRECATED</strong></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_AVAILABLE(<span class="name">_mac</span>, _ios) CF_AVAILABLE(<span class="name">_mac</span>, _ios)</div><div class="line">#define CF_AVAILABLE(<span class="name">_mac</span>, _ios) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_mac)))</div></pre></td></tr></table></figure>
+<p>在<code>Foundation</code>库的<code>NSString.h</code>中的使用：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>containsString:<span class="params">(NSString *)</span>str NS_AVAILABLE<span class="params">(<span class="number">10</span>_10, <span class="number">8</span>_0)</span>;</div></pre></td></tr></table></figure></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, __VA_ARGS__)</div><div class="line">#define CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_macIntro,deprecated=_macDep,message=<span class="string">""</span> __VA_ARGS__)))</div></pre></td></tr></table></figure>
+<p>同样在<code>Foundation</code>库的<code>NSString.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path <span class="built_in">NS_DEPRECATED</span>(<span class="number">10</span>_0, <span class="number">10</span>_4, <span class="number">2</span>_0, <span class="number">2</span>_0);（用带有encoding/usedEncoding和error参数的方法替代）</div></pre></td></tr></table></figure></p>
+<p><strong>声明一个函数中包含带有指定格式参数的格式化字符串：<strong>attribute</strong>((format(…)))：NS_FORMAT_FUNCTION</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjCRuntime.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FOUNDATION_EXPORT <span class="keyword">void</span> <span class="built_in">NSLog</span>(<span class="built_in">NSString</span> *format, ...) <span class="built_in">NS_FORMAT_FUNCTION</span>(<span class="number">1</span>,<span class="number">2</span>) <span class="built_in">NS_NO_TAIL_CALL</span>;</div><div class="line"><span class="meta">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))</span></div></pre></td></tr></table></figure></p>
+<p>语法说明：<code>__attribute__((format(format_type, format_string_index, first_format_argument_index)))
+format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
+<p><strong>声明被修饰的函数必须在重写的时候调用super的方法：<strong>attribute</strong>((objc_requires_super))：NS_REQUIRES_SUPER</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjcRuntime.h</code>中：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">ifndef NS_REQUIRES_SUPER    // 防止头文件的重复包含和编译。</span></div><div class="line"><span class="meta">#</span><span class="bash"><span class="keyword">if</span> __has_attribute(objc_requires_super)</span></div><div class="line"><span class="meta">#</span><span class="bash">define NS_REQUIRES_SUPER __attribute__((objc_requires_super))</span></div><div class="line"><span class="meta">#</span><span class="bash"><span class="keyword">else</span></span></div><div class="line"><span class="meta">#</span><span class="bash">define NS_REQUIRES_SUPER</span></div><div class="line"><span class="meta">#</span><span class="bash">endif</span></div><div class="line"><span class="meta">#</span><span class="bash">endif</span></div></pre></td></tr></table></figure></p>
+<p>比如在自定义的<code>@interface Student: NSObject</code>中声明了:<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="name">void</span>)foo NS_REQUIRES_SUPER<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>那么在<code>@interface CollegeStudent: Student</code>的实现文件中，像这样写一个空的<code>-foo</code>函数是会报出警告的：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)foo <span class="comment">&#123;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">warning: <span class="function"><span class="keyword">Method</span> <span class="title">possibly</span> <span class="title">missing</span> <span class="title">a</span> [<span class="title">super</span> <span class="title">foo</span>] <span class="title">call</span></span></div></pre></td></tr></table></figure></p>
+<p><strong>其他更多的attribute使用：</strong></p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/Attributes%20in%20Clang%20%E2%80%94%20Clang%203.8%20documentation.png" alt="Attributes in Clange"></p>
+<h3 id="5-小结"><a href="#5-小结" class="headerlink" title="5.小结"></a>5.小结</h3><p>总而言之，当你想给自己写的类、方法、参数添加一些限制条件的时候，<code>__attribute__</code>可以为你提供一种可行的解决方案。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://blog.twitter.com/2014/attribute-directives-in-objective-c" target="_blank" rel="external">https://blog.twitter.com/2014/attribute-directives-in-objective-c</a></li>
+<li><a href="http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html" target="_blank" rel="external">http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html</a></li>
+<li><a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">http://nshipster.com/__attribute__/</a></li>
+<li><a href="http://blog.sunnyxx.com/2016/05/14/clang-attributes/" target="_blank" rel="external">http://blog.sunnyxx.com/2016/05/14/clang-attributes/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/02/17/summary-for-Objective-C-foundation-book/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/17/summary-for-Objective-C-foundation-book/" itemprop="url">Objective-C基础教程（第2版）总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-17T15:50:18+08:00">
+                02/17/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>— <strong>Updated: 170729</strong> —</p>
 <p>软件设计的准则：（SOLID）</p>
 <ul>
 <li>单一职责：Single responsibility</li>
-<li>开放封闭：Open-closed</li></div><p class="readmore"><a href="/2017/02/17/summary-for-Objective-C-foundation-book/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/02/09/essay-travel-and-Objective-C-170209/">0209-旅行与Objective-C</a></h1><div class="post-meta">02/09/17</div><div class="post-content"><p>我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。</p>
+<li>开放封闭：Open-closed</li>
+<li>里氏代换：Liskov substitution</li>
+<li>接口分离：Interface segregation</li>
+<li>依赖倒置：Dependency inversion</li>
+</ul>
+<p>设计模式是内功心法，而所谓23种只是表现形式罢了。</p>
+<hr>
+<ul>
+<li>OOP真正的革命性就是它在调用代码中使用间接（indirect），如使用变量、文件和参数等。“没有什么是通过间接解决不了的问题，如果有，就再加一层。”<blockquote>
+<p>比如黑魔法第二课中提到的<code>#define _CONCAT(A,B)  A ## B</code>的作用。再比如，键值编码（KVC）也是一种间接更改对象状态的方式。</p>
+</blockquote>
+</li>
+<li>过程式编程以函数为中心，面向对象编程以数据为中心。</li>
+<li>类是一种结构，它表示对象的类型；对象是一种结构，它包含值和指向其类的隐藏指针。</li>
+<li>在Objective-C中只要看到@符号，你都可以把它看成是C语言的扩展。如：NSLog(@“this is a log: %@“, log);</li>
+<li>对象是带有代码的C struct。因此，id实际上是一个指针，指向其中的某个结构。</li>
+<li>@interface告诉编译器这个类的对象的数据成员（即对象的C struct应该是什么样子）和它提供的特性。</li>
+<li>Objective-C的中缀符（infix notation）。</li>
+<li>Objective-C中并没有真正意义上的私有方法，也无法通过标记为私有方法而禁止其他代码调用它。这是Objective-C动态本质的副作用。</li>
+</ul>
+<blockquote>
+<p>这里可以和runtime联系起来。因为即便在编译器编译后，代码也可以在运行时改变类所拥有的属性、或是改变方法调用的实现。这给开发者提供了很多便利，也不可避免地带来一些副作用（side effect）。</p>
+</blockquote>
+<ul>
+<li>在Objective-C中每个方法调用都获得了一个名为self的隐藏参数，它是一个指向接收消息的对象的指针。方法使用self参数查找它们要使用的实例变量。eg: self-&gt;fillColor = c;</li>
+<li>由于对象的局部变量特定于该对象的实例，因此称为实例变量，通常简写为ivars。</li>
+<li>Objective-C有个极好的特性，你可以把类当做对象来向类发送消息。</li>
+</ul>
+<blockquote>
+<p><del>这个“极好的特性”，是相对于谁来说的？C？其他语言？？</del><br>应该是指可以有类方法，而不仅是实例方法。</p>
+</blockquote>
+<ul>
+<li>多态使得来自不同类的对象可以定义共享相同名称的方法。动态类型能使程序直到执行时才确定对象所属的类。动态绑定则能使程序直到执行时才确定要对对象调用的实际方法。而id类型是这三者的基础。</li>
+<li>防御式编程。</li>
+<li>Cocoa的方法名称如果以get开头，表明我们提供的是一个指针，而指针所指向的空间则是用来存储该方法生成的数据。如<code>NSValue</code>的<code>getValue:</code>方法。</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSValue</span> *value = [<span class="built_in">NSValue</span> valueWithBytes:&amp;rect objCType:<span class="keyword">@encode</span>(<span class="built_in">CGRect</span>)];</div><div class="line"><span class="built_in">NSMutableArray</span> *arr = [<span class="built_in">NSMutableArray</span> array];</div><div class="line">[arr addObject:value];</div><div class="line"></div><div class="line"><span class="built_in">NSValue</span> *v = arr[<span class="number">0</span>];</div><div class="line">[v getValue:&amp;rect];</div></pre></td></tr></table></figure>
+<ul>
+<li><code>#import</code>时，带尖括号的语句是用来导入系统头文件的，是只读的；而带引号的语句说明导入的是项目本地的头文件，是可编辑的。</li>
+<li>self：<ul>
+<li><code>self</code> is a special variable in Objective-C, inside an instance method this variable refers to the receiver(object) of the message that invoked the method, while in a class method <code>self</code> will indicate which class is calling.</li>
+<li><code>self</code> refers to the actual object that is executing the current method, it is an invisible argument passed automatically by the runtime environment to your instance methods.</li>
+</ul>
+</li>
+<li>对象的初始化过程：来自NSObject的类方法alloc，为该类（对象？）分配一块足够大的内存，以存放该类的全部实例变量，并将其清零；实例方法init用于获得一个对象并使其运行。</li>
+<li>为什么要写成：<code>Car *car = [[Car alloc] init]; 而不是 Car *car = [Car alloc]; [car init];</code>? （关键词：类簇）<ul>
+<li>因为初始化方法返回的对象可能与分配的对象不同。如NSNumber、NSString和NSArray这样的类簇的情况。</li>
+<li>由于init方法可以接受参数，所以该方法的代码能够检查其接受的参数，并断定返回另一个类的对象可能更合适。</li>
+<li>Xcode会检查是否alloc与init是嵌套的，如果不是会给出提示。<code>*** Terminating app due to uncaught exception &#39;NSInvalidArgumentException&#39;, reason: &#39;*** -objCType only defined for abstract class.  Define -[NSPlaceholderNumber objCType]!’</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">NSNumber *<span class="keyword">boo </span>= [[NSNumber alloc] initWithBool:NO]<span class="comment">;</span></div><div class="line">NSNumber *<span class="keyword">boo1 </span>= [NSNumber alloc]<span class="comment">;</span></div><div class="line">NSNumber *<span class="keyword">boo2 </span>= [<span class="keyword">boo1 </span>initWithBool:NO]<span class="comment">;</span></div><div class="line">NSLog(@<span class="string">"boo: %@ \n boo1: %@ \n boo2: %@"</span>,[<span class="keyword">boo </span>class],[<span class="keyword">boo1 </span>class],[<span class="keyword">boo2 </span>class])<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>这段代码打印的的结果是：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">boo: </span>__NSCFBoolean</div><div class="line"><span class="keyword">boo1: </span>NSPlaceholderNumber</div><div class="line"><span class="keyword">boo2: </span>__NSCFBoolean</div></pre></td></tr></table></figure></p>
+<p>可见，仅仅分配内存的对象boo1和初始化方法返回的boo2并不相同。</p>
+<ul>
+<li>通常，接受参数最多的初始化方法最终成为 <strong>指定初始化函数</strong>。</li>
+<li>预编译指令<code>@property</code>可以通知编译器：“这个对象具有这个类型的这个名称的这种属性”，还可以传递一些关于property（如<code>readonly</code>和<code>readwrite</code>）和对象的内存管理（<code>retain</code>，<code>assign</code>或<code>copy</code>）的信息；<code>@synthesize</code>预编译指令可以通知编译器生成访问器方法。</li>
+<li>有的属性列表文件，特别是首选项文件，是以压缩的二进制格式存储的。通过使用plutil命令：<code>plutil -convert xml1 文件名.plist</code>，可以将这些文件转换成人可以理解的字面形式。</li>
+<li>对于KVC，Cocoa会自动装箱和开箱标量值。也就是说，当使用 <code>setValueForKey</code>时，它自动将标量值（int、float和struct）放入<code>NSNumber</code>或<code>NSValue</code>中；当使用<code>-setValueForKey:</code>时，它自动将标量值从这些对象中取出。仅KVC具有这种自动装箱功能，常规方法调用和属性语法不具备该功能。</li>
+<li><p><code>valueForKey:</code>在Objective-C运行时中使用元数据打开对象并进入其中查找需要的信息。在C或C++语言中不能执行这种操作。通过使用KVC，没有相关getter方法也能获取对象值，不需要通过对象指针来直接访问实例变量。</p>
+<blockquote>
+<p>这里体现的就是Objective-C“自省”的特性吧？</p>
+</blockquote>
+</li>
+<li><p>（在console的打印结果中）注意<null>与(null)之间的区别。<null>是一种<code>[NSNull null]</code>对象，而(null)是一个真正的<code>nil</code>值。</null></null></p>
+</li>
+<li><code>NSPredicate</code>字符串中也可以用<code>%K</code>来指定键路径。如<code>predicate = [NSPredicate predicateWithFormat: @&quot;%K beginswith %@&quot;, @&quot;name&quot;, @&quot;B&quot;];</code>。</li>
+<li>谓词机制不进行静类型检查。</li>
+<li>在编写谓词字符串时，尽量使用[cd]修饰符。其中，c表示“不区分大小写（case insensitive）”，d表示“不区分发音符号（diacritic insensitive）”，[cd]表示“既不区分大小写，也不区分发音符号”。如：<code>predicate = [NSPredicate predicateWithFormat: @&quot;name BEGINSWITH[cd] &#39;HERB&#39;&quot;];</code>。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/02/09/essay-travel-and-Objective-C-170209/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/09/essay-travel-and-Objective-C-170209/" itemprop="url">0209-旅行与Objective-C</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-09T13:36:33+08:00">
+                02/09/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。</p>
 <p>我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。</p>
-<p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p></div><p class="readmore"><a href="/2017/02/09/essay-travel-and-Objective-C-170209/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/01/11/barriers-when-using-TesseractOCR/">Some barriers when using TesseractOCR</a></h1><div class="post-meta">01/11/17</div><div class="post-content"><p>1.Install TesseractOCR with CocoaPods.</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">pod</span> <span class="string">'TesseractOCRiOS'</span>, <span class="string">'4.0.0'</span></div></pre></td></tr></table></figure></div><p class="readmore"><a href="/2017/01/11/barriers-when-using-TesseractOCR/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2017/01/10/download-manager/">Some methods for DownloadManager</a></h1><div class="post-meta">01/10/17</div><div class="post-content"><p>随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。</p>
+<p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p>
+<p>这样看来，旅行于我，是平面上扩展视野的疆土，是滋养心尖的养分；而Objective-C于我，是立体上挖掘一门语言的美感，是构建知识树的根基。二者在某种程度上，带给我的是类似的体验。这或许正是居然能够用后者来抚慰前者的原因吧。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/11/barriers-when-using-TesseractOCR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/11/barriers-when-using-TesseractOCR/" itemprop="url">Some barriers when using TesseractOCR</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T11:32:57+08:00">
+                01/11/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.Install TesseractOCR with CocoaPods.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">pod</span> <span class="string">'TesseractOCRiOS'</span>, <span class="string">'4.0.0'</span></div></pre></td></tr></table></figure>
+<p>2.Download tessdata, generally from Github:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/tesseract-ocr/</span>tessdata<span class="regexp">/raw/m</span>aster<span class="regexp">/eng.traineddata</span></div></pre></td></tr></table></figure></p>
+<p>Then move them to the <code>/usr/local/share/tessdata</code> folder.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo mv -v eng.traineddata /usr/<span class="built_in">local</span>/share/tessdata/</span></div></pre></td></tr></table></figure></p>
+<p>However, it crashed saying:</p>
+<blockquote>
+<p>actual_tessdata_num_entries \&lt;= TESSDATA_NUM_ENTRIES:Error:Assert failed:in file ..\ccutil\tessdatamanager.cpp, line 55</p>
+</blockquote>
+<p>and would never work with the FAQ <a href="https://github.com/tesseract-ocr/tesseract/wiki/FAQ#actual_tessdata_num_entries_-tessdata_num_entrieserrorassert-failedin-file-ccutiltessdatamanagercpp-line-55_" target="_blank" rel="external">here</a> by checking out the right version(for me, it’s 4.0.0) of trained data.</p>
+<p>Finally, the issue <a href="https://github.com/gali8/Tesseract-OCR-iOS/issues/299" target="_blank" rel="external">here</a> solved this creepy problem by checking out <a href="https://github.com/tesseract-ocr/tessdata/tree/bf82613055ebc6e63d9e3b438a5c234bfd638c93" target="_blank" rel="external">this version</a> of trained data. This is just such a… boring problem…</p>
+<p>Here’s a little sample for how to use it, and, enjoy yourself. :]<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@<span class="string">"eng"</span>]<span class="comment">;</span></div><div class="line">                                       tesseract.delegate = weakSelf<span class="comment">;</span></div><div class="line">                                       tesseract.charWhitelist = @<span class="string">"@.()&#123;&#125;/\\!*&amp;#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span><span class="comment">;</span></div><div class="line">                                       tesseract.engineMode = G8OCREngineModeTesseractOnly<span class="comment">;</span></div><div class="line">                                       tesseract.pageSegmentationMode = G8PageSegmentationModeAuto<span class="comment">;</span></div><div class="line">                                       tesseract.image = [image g8_blackAndWhite]<span class="comment">;</span></div><div class="line">                                       tesseract.maximumRecognitionTime = <span class="number">2</span>.<span class="number">0</span><span class="comment">;</span></div><div class="line">                                       [tesseract recognize]<span class="comment">;</span></div><div class="line"></div><div class="line">                                       <span class="keyword">dispatch_async(dispatch_get_main_queue(), </span>^&#123;</div><div class="line">                                           weakSelf.codeTextView<span class="meta">.text</span> = [[tesseract recognizedText] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]<span class="comment">;</span></div><div class="line">                                           weakSelf.codeImageView.image = image<span class="comment">;</span></div><div class="line">                                       &#125;)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>Updated at 170119</strong></p>
+<p>When compiled with terminal, bitcode should be disabled in podfile.</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install <span class="built_in">do</span> |<span class="type">installer</span>|</div><div class="line">    <span class="type">installer</span>.pods_project.targets.each <span class="built_in">do</span> |<span class="type">target</span>|</div><div class="line">        <span class="type">target</span>.build_configurations.each <span class="built_in">do</span> |<span class="type">config</span>|</div><div class="line">            <span class="type">config</span>.build_settings['ENABLE_BITCODE'] = 'false'</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios" target="_blank" rel="external">https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/download-manager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/10/download-manager/" itemprop="url">Some methods for DownloadManager</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T11:03:28+08:00">
+                01/10/17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。</p>
 <p>首先定义一下下载管理的范围：</p>
 <ul>
 <li>可以同时下载多个文件；</li>
-<li>对于单个文件而已，可以下载/暂定/恢复下载/取消下载/显示下载进度；</li></div><p class="readmore"><a href="/2017/01/10/download-manager/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<li>对于单个文件而已，可以下载/暂定/恢复下载/取消下载/显示下载进度；</li>
+<li>可以控制同时下载的最大数量。</li>
+</ul>
+<p>接下来，从最早采用的实现方法说起。</p>
+<ol>
+<li>NSOperationQueue</li>
+</ol>
+<ul>
+<li>创建继承自<code>NSOperation</code>的自定义类；</li>
+<li>将下载需要的网络请求（如<code>NSURLSessionDownloadTask</code>）作为其中的一个属性；</li>
+</ul>
+<ol>
+<li>dispatch_queue_create()</li>
+<li>NSURLSession</li>
+</ol>
+<p><strong>核心：All the other APIs -> model -> UI</strong></p>
+<p><strong>这里附上苹果开发者论坛中，一位开发者与苹果开发者的关于<code>NSURLSession</code>的问答（2015年7月）。</strong></p>
+<p>我需要在我的app中上传200张图片，<br>1.我该使用<code>NSURLSessionUploadTask</code>还是其他什么类？<br>答：<code>NSURLSessionUploadTask</code>.<br>2.为了让这些upload保持在background，我该做些什么？<br>答：把所有的upload扔进一个<code>NSURLSession</code>的background session中。<br>3.当app没有在运行的时候，我该做些什么？（没有明确回答）<br>4.针对以上3点，我该在<code>NSURLSession</code>外面包一层<code>NSOperation</code>以便于使用<code>NSOperationQueue</code>，还是说，iOS会有它自己的内部queue来正确处理<code>NSURLSession</code>对象们？<br>答：这个很难说。一般来说，我是<code>NSOperation</code>的死忠粉，但由于background session和app生命周期的交互方式，用<code>NSOperation</code>来解决<code>NSURLSession</code>的background session的问题却有些棘手。<br>具体来说，通常的流程是这样的：</p>
+<p>1.你的app开始一堆后台传输；<br>2.用户把它移到后台；<br>3.系统暂停了你的app；<br>4.传输在后台继续运行；<br>5.系统终止了你的app；<br>6.传输继续在后台运行；<br>7.传输结束；<br>8.系统重新启动你的app。</p>
+<p>如果你使用<code>NSOperation</code>来追踪每个传输，当你在第8步重新启动app时，就需要重新创建那一堆的operation。当然，在第8步是需要重新创建<em>一些东西</em>，只是重新创建<code>NSOperation</code>要比重新创建其他不那么复杂的对象棘手些。</p>
+<p>5.你的意思是说，如果我一次性把200个<code>NSURLSessionUploadTask</code>的实例添加到同一个background session配置的<code>NSURLSession</code>中，iOS会把它们都正确处理好？<br>答：是的。<code>NSURLSession</code>后台下载系统会很乐意处理几百个请求的。它在内部将它们串联起来，所以在任何时候只有少量的请求是在执行中。<br>6.如果是的话，对于task的数量是否有所限制？<br>答：没有硬性规定，但我通常建议不要做的太过分。在我看来，几百个请求是可以接受的，几千个请求就有点勉强，上万的请求就有点2。。我通常建议，如果你不得不处理上千个单独的item，你可以把它们打包起来，然后进行一个可恢复的传输。然而，有一些问题：</p>
+<ul>
+<li>做这种事情需要严谨的服务器端的支持。<ul>
+<li><code>NSURLSession</code>的background session自动处理下载的断点续传。但对于上传并非如此。如果你需要上传的断点续传，你就得涉及到每次的连接数据（这里原文用的是”tears”，不太理解。。）。考虑到这个原因，把上传文件打包成合理大小的整块文件就很有必要，这样上传就会产生一打的进度，即使有可能连接失败，也好过你的app重新恢复上传。</li>
+</ul>
+</li>
+</ul>
+<p><strong>另外，对于如何知道当前并行的下载数，<code>MZDownloadManager</code>的作者也在这个issue下给出了<a href="https://github.com/mzeeshanid/MZDownloadManager/issues/29" target="_blank" rel="external">答案</a>。简而言之，就是通过筛选存储着model的array，得到状态为“下载中”的model的数量。</strong> </p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://forums.developer.apple.com/thread/10239" target="_blank" rel="external">https://forums.developer.apple.com/thread/10239</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

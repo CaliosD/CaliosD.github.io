@@ -1,9 +1,1747 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2016/04/20/how-to-disable-the-UITableView-UICollectionView-selection-highlighting/">How to disable the UITableView-UICollectionView selection highlighting</a></h1><div class="post-meta">04/20/16</div><div class="post-content"><p>Here’s a summary for the UITableView issue <a href="http://stackoverflow.com/a/6305493/1594792" target="_blank" rel="external">here</a> and I added UICollectionView part below in union.</p></div><p class="readmore"><a href="/2016/04/20/how-to-disable-the-UITableView-UICollectionView-selection-highlighting/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/04/20/pitfall-2/">Cell的highlight</a></h1><div class="post-meta">04/20/16</div><div class="post-content"><p>最近踩到一个坑，表现状况如下：</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/5/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/5/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/04/20/how-to-disable-the-UITableView-UICollectionView-selection-highlighting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/20/how-to-disable-the-UITableView-UICollectionView-selection-highlighting/" itemprop="url">How to disable the UITableView-UICollectionView selection highlighting</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-20T18:50:04+08:00">
+                04/20/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Here’s a summary for the UITableView issue <a href="http://stackoverflow.com/a/6305493/1594792" target="_blank" rel="external">here</a> and I added UICollectionView part below in union.</p>
+<hr>
+<p>Depending on your desired logic and/or result, you’ve got nearly 5 different ways to solve it:</p>
+<p>1.To disable the blue highlighting <strong>without changing any other interaction of the (UITableView) cell</strong>:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[cell setSelectionStyle:UITableViewCellSelectionStyleNone]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>PS:</strong></p>
+<p>There’re two points here to mention:</p>
+<ul>
+<li>The <code>tableView:didSelectRowAtIndexPath:</code> delegate is not prevented and you can workaround with “if” statements.</li>
+<li>Since UICollectionView has no <code>selectionStyle:</code> property, you have to handle it with the second way below.</li>
+</ul>
+<p>2.Disable highlighting of UITableView/UICollectionView <strong>without changing any other interaction of the (UITableView) cell</strong><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[tableView setAllowsSelection:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[collectionView setAllowsSelection:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>3.To make a cell “read-only”, you can simply do this:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[cell setUserInteractionEnabled:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>4.To make an entire table “read-only”:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[tableView setUserInteractionEnabled:NO]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>Attention:</strong></p>
+<p>This way will forbid UITableView scroll normally as a scrollview. So, be careful about it.</p>
+<p>5.To determine on-the-fly whether to highlight a cell (which according to this answer implicitly includes selection), you can implement the following <code>UITableViewDelegate</code> protocol method:<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>tableView:<span class="params">(UITableView *)</span>tableView</div><div class="line">   shouldHighlightRowAtIndexPath:<span class="params">(NSIndexPath *)</span>indexPath</div></pre></td></tr></table></figure></p>
+<p>More info from <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UITableViewDelegate_Protocol/index.html#//apple_ref/doc/uid/TP40006942-CH3-SW32" target="_blank" rel="external">iOS Developer Library</a>:</p>
+<blockquote>
+<p>As touch events arrive, the table view highlights rows in anticipation of the user selecting them. As it processes those touch events, the table view calls this method to ask your delegate if a given cell should be highlighted. Your delegate can implement this method and use it to prevent the highlighting of a row when another row is already selected or when other relevant criteria occur.<br>If you do not implement this method, the default return value is YES.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/04/20/pitfall-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/20/pitfall-2/" itemprop="url">Cell的highlight</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-20T15:28:41+08:00">
+                04/20/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近踩到一个坑，表现状况如下：</p>
 <p>UICollectionView的Cell中有一个UIImageView，有选中和未选中两个状态。在某种条件下点击时是不做任何改变的（即保持未选中状态）。</p>
-<p>起初的做法是：<br>将UIImageView的<code>image</code>／<code>hightedImage</code>属性和cell的选中／未选中状态进行绑定，通过UIImageView的<code>setHighlighted:</code>方法来切换选中状态。</p></div><p class="readmore"><a href="/2016/04/20/pitfall-2/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/04/20/bash-commands-in-some-useful-cases/">Bash commands in some useful cases</a></h1><div class="post-meta">04/20/16</div><div class="post-content"><p>1.Rename files in batch<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="keyword">for</span> i <span class="keyword">in</span> *.m; <span class="keyword">do</span> mv <span class="string">"<span class="variable">$i</span>"</span> <span class="string">"Qn<span class="variable">$i</span>"</span>; <span class="keyword">done</span></span></div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/04/20/bash-commands-in-some-useful-cases/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/30/UIImagePickerController-breaks-status-bar-appearance/">UIImagePickerController breaks status bar appearance</a></h1><div class="post-meta">03/30/16</div><div class="post-content"><p>As Rich86man mentioned <a href="http://stackoverflow.com/a/18883563/1594792" target="_blank" rel="external">here</a>, the following is a possible solution.</p></div><p class="readmore"><a href="/2016/03/30/UIImagePickerController-breaks-status-bar-appearance/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/30/UICollectionView-scroll-to-make-section-header-visible/">UICollectionView scroll to make section header visible</a></h1><div class="post-meta">03/30/16</div><div class="post-content"><p>Swift version：Here’s the <a href="https://gist.github.com/genedelisa/ebcc33c38a521ff8a719#file-collectionviewscroll" target="_blank" rel="external">gist</a>.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    Scroll to make the the given section header visible.</div><div class="line">    The function scrollToItemAtIndexPath will scroll to the item and hide the section header.</div><div class="line">    */</div><div class="line">    func scrollToSection(<span class="selector-tag">section</span>:Int)  &#123;</div><div class="line">        <span class="keyword">if</span> let cv = self<span class="selector-class">.collectionView</span> &#123;</div><div class="line">            let indexPath = NSIndexPath(forItem: <span class="number">1</span>, inSection: section)</div><div class="line">            <span class="keyword">if</span> let attributes =  cv.layoutAttributesForSupplementaryElementOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) &#123;</div><div class="line"></div><div class="line">                let topOfHeader = CGPointMake(<span class="number">0</span>, attributes<span class="selector-class">.frame</span><span class="selector-class">.origin</span><span class="selector-class">.y</span> - cv<span class="selector-class">.contentInset</span><span class="selector-class">.top</span>)</div><div class="line">                cv.setContentOffset(topOfHeader, animated:true)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/03/30/UICollectionView-scroll-to-make-section-header-visible/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">【译】浅色UIStatusBar设置不奏效</a></h1><div class="post-meta">03/08/16</div><div class="post-content"><p>当你想用<code>UIStatusBarStyleLightContent</code>给深色的背景设置浅色的状态栏文字时，这里有个常见的陷阱。</p>
+<p>起初的做法是：<br>将UIImageView的<code>image</code>／<code>hightedImage</code>属性和cell的选中／未选中状态进行绑定，通过UIImageView的<code>setHighlighted:</code>方法来切换选中状态。</p>
+<pre><code>// MyController.m
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (conditionAIsSatisfied) {
+        ......
+    }
+}
+
+// MyCollectionViewCell.m
+- (void)updateCellWithSelected:(BOOL)selected
+{
+    [_imgView setHighlighted:selected];
+}
+</code></pre><p>存在的问题是：<br>在UICollectionView的<code>didSelectItemAtIndexPath:</code>方法中，即使不执行if语句中的更新imageView的方法，<code>_imgView</code>也会更新为选中状态的图片。而collectionViewCell中的<code>updateCellWithSelected:</code>也是没有执行的。那么，为什么<code>_imgView</code>的图片会更新呢？<br>类似的，在UITableView中做同样的控制，UITableViewCell中<code>_imgView</code>的图片为什么就不会改变呢？</p>
+<p><code>UICollectionViewDelegate</code>中相关的各个回调方法如下。</p>
+<blockquote>
+<p>// Methods for notification of selection/deselection and highlight/unhighlight events.<br>// The sequence of calls leading to selection from a user touch is:<br>//<br>// (when the touch begins)<br>// 1. -collectionView:shouldHighlightItemAtIndexPath:<br>// 2. -collectionView:didHighlightItemAtIndexPath:<br>//<br>// (when the touch lifts)<br>// 3. -collectionView:shouldSelectItemAtIndexPath: or -collectionView:shouldDeselectItemAtIndexPath:<br>// 4. -collectionView:didSelectItemAtIndexPath: or -collectionView:didDeselectItemAtIndexPath:<br>// 5. -collectionView:didUnhighlightItemAtIndexPath:</p>
+</blockquote>
+<p>UICollectionViewCell并没有像UITableViewCell一样提供类似<code>selectionStyle</code>的属性来直接将选中时的样式设置为<code>UITableViewCellSelectionStyleNone</code>，而是给了开发者更多的灵活性，提供了更多的代理方法。通过查看<code>UICollectionViewDelegate</code>以及在<code>shouldSelectItemAtIndexPath:</code>和<code>didHighlightItemAtIndexPath:</code>等函数中打断点逐个排查，发现cell的highlighted和imageview的highlighted是关联的。当cell被选中时，虽然<code>didSelectItemAtIndexPath:</code>方法并没有执行实质性的代码，但在其之前执行的<code>shouldHighlightItemAtIndexPath:</code>方法默认为<code>YES</code>，使整个cell的状态为highlighted，相应的imageView的状态就是显示highlighted的图片了。</p>
+<p>知道了原因之后，总结了两个解决方案：</p>
+<p>1.添加<code>shouldSelectItemAtIndexPath:</code>方法，在其中增加<code>conditionAIsSatisfied</code>的判断，来对应地返回<code>YES</code>或<code>NO</code>。<br>2.在<code>MyCollectionViewCell</code>中，不再为UIImageView的<code>image</code>／<code>hightedImage</code>设置不同的图片，而是设置为同一个图片。然后在<code>-updateCellWithSelected:</code>中根据<code>selected</code>值来替换选中／未选中的图片。</p>
+<p>对比来看，1的缺点在于，已选中的cell无法取消选中。2的缺点在于，切换图片时会有点突兀。</p>
+<p>综合考量，我最后选择了方案2。</p>
+<hr>
+<p><strong>Update 0420</strong></p>
+<p>但是，上面啰嗦了半天，其实只需要一句代码解决问题：</p>
+<pre><code>collectionView.allowSelection = NO;
+</code></pre><p>来自<a href="http://stackoverflow.com/a/6305493/1594792" title="http://stackoverflow.com/a/6305493/1594792" target="_blank" rel="external">这里</a>。UITableView同理。</p>
+<p>果然是简洁至上。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/04/20/bash-commands-in-some-useful-cases/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/20/bash-commands-in-some-useful-cases/" itemprop="url">Bash commands in some useful cases</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-20T10:46:28+08:00">
+                04/20/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.Rename files in batch<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="keyword">for</span> i <span class="keyword">in</span> *.m; <span class="keyword">do</span> mv <span class="string">"<span class="variable">$i</span>"</span> <span class="string">"Qn<span class="variable">$i</span>"</span>; <span class="keyword">done</span></span></div></pre></td></tr></table></figure></p>
+<p>2.Compress images in batch<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">find</span> ./ -<span class="built_in">name</span> <span class="string">'*.jpg'</span> -<span class="built_in">exec</span> convert -<span class="built_in">resize</span> <span class="number">80</span>%x80% &#123;&#125; &#123;&#125; \;</div></pre></td></tr></table></figure></p>
+<p>3.Refresh launchpad (I used it when failed to find icons in it.)<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Dock/</span>*.db; killall Dock</div></pre></td></tr></table></figure></p>
+<p>4.A tip of showing download things in App Store<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> lsof | grep -i pkg</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/30/UIImagePickerController-breaks-status-bar-appearance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/30/UIImagePickerController-breaks-status-bar-appearance/" itemprop="url">UIImagePickerController breaks status bar appearance</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-30T10:16:45+08:00">
+                03/30/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>As Rich86man mentioned <a href="http://stackoverflow.com/a/18883563/1594792" target="_blank" rel="external">here</a>, the following is a possible solution.</p>
+<blockquote>
+<p>In the view controller who calls the image picker, set yourself as the delegate of the image Picker. (You’re probably already doing this)<br>     UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];<br>     imagePicker.delegate = self;</p>
+<p>Since UIImagePickerController is a type of Navigation controller, you’re also setting yourself as the UINavigationController delegate. Then :<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span><span class="bash"> 	- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated</span></div><div class="line"><span class="meta">&gt;</span><span class="bash"> 	&#123;</span></div><div class="line"><span class="meta">&gt;</span><span class="bash"> 	      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];</span></div><div class="line"><span class="meta">&gt;</span><span class="bash"> 	&#125;</span></div></pre></td></tr></table></figure></p>
+<p>Replace UIStatusBarStyleLightContent with whatever style you are looking for.</p>
+</blockquote>
+<p>However, in my case, I found it would be fine just adding a line of code(only add as you need) in <code>- viewWillAppear:</code> function.<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[<span class="name">UIApplication</span> sharedApplication] setStatusBarHidden:NO]<span class="comment">;</span></div><div class="line">[[<span class="name">UIApplication</span> sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>Each time UIImagePickerController dismissed, <code>- viewWillAppear:</code> would be called and set status bar right.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/30/UICollectionView-scroll-to-make-section-header-visible/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/30/UICollectionView-scroll-to-make-section-header-visible/" itemprop="url">UICollectionView scroll to make section header visible</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-30T10:12:16+08:00">
+                03/30/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Swift version：Here’s the <a href="https://gist.github.com/genedelisa/ebcc33c38a521ff8a719#file-collectionviewscroll" target="_blank" rel="external">gist</a>.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    Scroll to make the the given section header visible.</div><div class="line">    The function scrollToItemAtIndexPath will scroll to the item and hide the section header.</div><div class="line">    */</div><div class="line">    func scrollToSection(<span class="selector-tag">section</span>:Int)  &#123;</div><div class="line">        <span class="keyword">if</span> let cv = self<span class="selector-class">.collectionView</span> &#123;</div><div class="line">            let indexPath = NSIndexPath(forItem: <span class="number">1</span>, inSection: section)</div><div class="line">            <span class="keyword">if</span> let attributes =  cv.layoutAttributesForSupplementaryElementOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) &#123;</div><div class="line"></div><div class="line">                let topOfHeader = CGPointMake(<span class="number">0</span>, attributes<span class="selector-class">.frame</span><span class="selector-class">.origin</span><span class="selector-class">.y</span> - cv<span class="selector-class">.contentInset</span><span class="selector-class">.top</span>)</div><div class="line">                cv.setContentOffset(topOfHeader, animated:true)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Objective-C version: Here’s the <a href="https://gist.github.com/CaliosD/a85ce55e57fe939a9dd62f2c4eb675da" target="_blank" rel="external">gist</a>.<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">scrollToSection:</span>(NSInteger)section</div><div class="line">&#123;</div><div class="line">    NSIndexPath *indexpath = [NSIndexPath <span class="string">indexPathForItem:</span><span class="number">1</span> <span class="string">inSection:</span>section];</div><div class="line">    <span class="keyword">if</span> ([_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath]) &#123;</div><div class="line">        UICollectionViewLayoutAttributes *attributes = [_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath];</div><div class="line">        CGPoint topOfHeader = CGPointMake(<span class="number">0</span>, attributes.frame.origin.y - _questionCV.contentInset.top);</div><div class="line">        [_questionCV <span class="string">setContentOffset:</span>topOfHeader];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong> Ref: </strong></p>
+<ul>
+<li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/08/UIStatusBarStyleLightContent-not-work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/08/UIStatusBarStyleLightContent-not-work/" itemprop="url">【译】浅色UIStatusBar设置不奏效</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-08T13:41:46+08:00">
+                03/08/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当你想用<code>UIStatusBarStyleLightContent</code>给深色的背景设置浅色的状态栏文字时，这里有个常见的陷阱。</p>
 <p>有两件事是你必须做的：</p>
 <ol>
-<li>这是开发者通常都会做的 —— 在Target设置 > General > Status Bar Style > 改成Light。这可以让Info.plist文件添加<code>UIStatusBarStyleLightContent</code>。</li></div><p class="readmore"><a href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">Stop CALayer shadow from affecting subviews</a></h1><div class="post-meta">03/07/16</div><div class="post-content"><p>When your parentView is by any chance transparent, the CALayer shadow set for parentView would affect subviews, just as image below.</p>
-<p><img src="http://i.stack.imgur.com/CZPUY.png" alt=""></p></div><p class="readmore"><a href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">Value of optional type ‘String’ not unwrapped error in Swift</a></h1><div class="post-meta">03/03/16</div><div class="post-content"><p>新开了<code>K08-RandomColorization</code>，刚写了一行代码：</p>
-<pre><code>let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;))</div><p class="readmore"><a href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/03/03/how-to-generate-a-random-number-in-Objective-C/">How to generate a random number in Objective-C ?</a></h1><div class="post-meta">03/03/16</div><div class="post-content"><p>Brief instruction from <a href="http://nshipster.com/random/" target="_blank" rel="external">Mattt in NSHipster</a> as below.</p>
-<h5 id="1-Random-int-between-0-and-N-1"><a href="#1-Random-int-between-0-and-N-1" class="headerlink" title="1.Random int between 0 and N-1"></a>1.Random int between 0 and N-1</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N);</div></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/03/03/how-to-generate-a-random-number-in-Objective-C/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<li>这是开发者通常都会做的 —— 在Target设置 > General > Status Bar Style > 改成Light。这可以让Info.plist文件添加<code>UIStatusBarStyleLightContent</code>。</li>
+<li>这是比较隐晦的一步 —— 在Info.plist文件中，添加<code>View controller-based status bar appearance</code>，并置为<code>NO</code>。</li>
+</ol>
+<hr>
+<p><strong> Ref:</strong></p>
+<ul>
+<li><a href="http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/" target="_blank" rel="external">http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/" itemprop="url">Stop CALayer shadow from affecting subviews</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-07T14:33:21+08:00">
+                03/07/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>When your parentView is by any chance transparent, the CALayer shadow set for parentView would affect subviews, just as image below.</p>
+<p><img src="http://i.stack.imgur.com/CZPUY.png" alt=""></p>
+<p>While after setting background color to white color, it shows as we expected.</p>
+<p><img src="http://i.stack.imgur.com/YFrqh.png" alt=""></p>
+<p><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW18" target="_blank" rel="external">Docs</a> from Apple: </p>
+<blockquote>
+<p>Figure A-7 shows several different versions of the same sample layer with a red shadow applied. The left and middle versions include a background color so the shadow appears only around the border of the layer. However, the version on the right does not include a background color. In this case, the shadow is applied to the layer’s content, border, and sublayers.</p>
+</blockquote>
+<p><img src="http://i.stack.imgur.com/2TGcA.png" alt=""></p>
+<hr>
+<p><strong> Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216" target="_blank" rel="external">http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/" itemprop="url">Value of optional type ‘String’ not unwrapped error in Swift</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-03T15:49:58+08:00">
+                03/03/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>新开了<code>K08-RandomColorization</code>，刚写了一行代码：</p>
+<pre><code>let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;))
+</code></pre><p>然后就报了一个error：<br><em>Value of optional type ‘String’ not unwrapped;did you mean to use ‘!’ or ‘?’?”</em></p>
+<p><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">这里</a>寻得一个不错的答案，翻译及理解如下：</p>
+<p>首先，这行代码使用到了<strong> 可选链式调用（Optional Chaining）</strong> 这个家伙。用人话说，就是<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code> 要么就是一个<code>String</code>，要么就是一个<code>nil</code>。</p>
+<p>但是，显然<code>NSURL</code>的<code>fileURLWithPath:</code>方法不会接受<code>nil</code>，只会接受<code>String</code>类型的参数，所以编译器就把这个error报出来了。（可以做一个实验，直接写<code>let bgMusic = NSURL(fileURLWithPath: nil)</code>，就会发现报<code>Nil is not compatible with expected argument type ‘String’</code>的error。）</p>
+<p>解决办法是强制展开<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code>，即添加一个<code>!</code>：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let bgMusic = NSURL(<span class="name">fileURLWithPath</span>: NSBundle.mainBundle().pathForResource(<span class="string">"Ecstasy"</span>, ofType: <span class="string">"mp3"</span>)!)</div></pre></td></tr></table></figure></p>
+<p>但是，如果所需文件不存在就会导致一个运行时的error，直接挂掉。所以，通常来说最好是用一个可选绑定把它包起来：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="attr">file</span> = NSBundle.mainBundle().pathForResource(<span class="string">"aaa"</span>, ofType: <span class="string">"mp3"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> <span class="attr">bgMusic</span> = NSURL(fileURLWithPath: file)</div><div class="line">    NSLog(bgMusic.absoluteString)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就可以保证<code>fileURLWithPath:</code>只有在文件不为空时才被调用了。完美～</p>
+<hr>
+<p><strong> Ref: </strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">http://stackoverflow.com/a/25663421/1594792</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/03/03/how-to-generate-a-random-number-in-Objective-C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/03/how-to-generate-a-random-number-in-Objective-C/" itemprop="url">How to generate a random number in Objective-C ?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-03T15:48:36+08:00">
+                03/03/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Brief instruction from <a href="http://nshipster.com/random/" target="_blank" rel="external">Mattt in NSHipster</a> as below.</p>
+<h5 id="1-Random-int-between-0-and-N-1"><a href="#1-Random-int-between-0-and-N-1" class="headerlink" title="1.Random int between 0 and N-1"></a>1.Random int between 0 and N-1</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N);</div></pre></td></tr></table></figure>
+<h5 id="2-Random-int-between-1-and-N"><a href="#2-Random-int-between-1-and-N" class="headerlink" title="2.Random int between 1 and N"></a>2.Random int between 1 and N</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N) + 1;</div></pre></td></tr></table></figure>
+<h5 id="3-Random-double-between-0-and-1"><a href="#3-Random-double-between-0-and-1" class="headerlink" title="3.Random double between 0 and 1"></a>3.Random double between 0 and 1</h5><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sra<span class="symbol">nd48</span><span class="comment">(time(0)</span>);</div><div class="line">double r = dra<span class="symbol">nd48</span><span class="comment">()</span>;</div></pre></td></tr></table></figure>
+<p>Accordingly, in Swift, it’s like this.<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let redValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let blueValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let greenValue = CGFloat(<span class="name">drand48</span>())</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong> Ref: </strong></p>
+<ul>
+<li><a href="http://nshipster.com/random/" target="_blank" rel="external">http://nshipster.com/random/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

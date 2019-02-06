@@ -1,8 +1,1888 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Stedfast as thou art."><title>Calios' Eden | Stedfast as thou art.</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Calios' Eden</h1><a id="logo" href="/.">Calios' Eden</a><p class="description">Stedfast as thou art.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2016/02/17/how-to-check-and-update-environment-var-in-Mac/">如何查看和修改Mac中的环境变量</a></h1><div class="post-meta">02/17/16</div><div class="post-content"><h4 id="显示当前的环境变量列表"><a href="#显示当前的环境变量列表" class="headerlink" title="显示当前的环境变量列表"></a>显示当前的环境变量列表</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ printenv</div><div class="line">PATH=<span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/usr/</span>local<span class="regexp">/bin:/</span>usr<span class="regexp">/bin:/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/sbin:/</span>opt<span class="regexp">/X11/</span>bin</div><div class="line">ZSH=<span class="regexp">/Users/</span>calios/.oh-my-zsh</div><div class="line">...</div></pre></td></tr></table></figure></div><p class="readmore"><a href="/2016/02/17/how-to-check-and-update-environment-var-in-Mac/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/15/[SourceCodeRead]-PureLayout/">[SourceCodeRead]-PureLayout</a></h1><div class="post-meta">02/15/16</div><div class="post-content"><p>Here’s part of usage of <a href="https://github.com/PureLayout/PureLayout" title="https://github.com/PureLayout/PureLayout" target="_blank" rel="external">PureLayout</a>. I once ignored some of them for long and complained about the unhandy. Now I have to admit that it’s really a strong framework to use.</p></div><p class="readmore"><a href="/2016/02/15/[SourceCodeRead]-PureLayout/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/02/15/[SourceCodeRead]-SDWebImage-3/">[SourceCodeRead]-SDWebImage-3</a></h1><div class="post-meta">02/15/16</div><div class="post-content"><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160216-0@2x.png" alt="" title="SDWebImage系列"></p>
-<p>沿着上面这个图，一层一层剥到了<code>SDWebImageDownloader</code>的<code>- downloadImageWithURL:options:progress:completed:</code>方法，终于看到了大片的原生代码在向我们招手。。。</p></div><p class="readmore"><a href="/2016/02/15/[SourceCodeRead]-SDWebImage-3/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/31/[SourceCodeRead]-SDWebImage-2/">[SourceCodeRead]-SDWebImage-2</a></h1><div class="post-meta">01/31/16</div><div class="post-content"><p>在我们直接使用的核心函数<code>-sd_setImageWithURL:forState:placeholderImage:options:completed:</code>中，主要起下载作用的方法是位于<code>SDWebImageManager</code>类中 <code>- downloadImageWithURL: options:progress:completed:</code>函数，具体来说，若图片不在cache中，就根据给定的URL来下载图片，否则返回cache中的图片。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Downloads <span class="keyword">the</span> image <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">given</span> URL <span class="keyword">if</span> <span class="keyword">not</span> present <span class="keyword">in</span> cache <span class="keyword">or</span> <span class="literal">return</span> <span class="keyword">the</span> cached <span class="built_in">version</span> otherwise.</div><div class="line"> *</div><div class="line"> * @param url            The URL <span class="keyword">to</span> <span class="keyword">the</span> image</div><div class="line"> * @param options        A mask <span class="keyword">to</span> specify options <span class="keyword">to</span> use <span class="keyword">for</span> this request</div><div class="line"> * @param progressBlock  A block called <span class="keyword">while</span> image <span class="keyword">is</span> downloading</div><div class="line"> * @param completedBlock A block called when operation has been completed.</div><div class="line"> *</div><div class="line"> *   This parameter <span class="keyword">is</span> required.</div><div class="line"> *</div><div class="line"> *   This block has no <span class="literal">return</span> value <span class="keyword">and</span> takes <span class="keyword">the</span> requested UIImage <span class="keyword">as</span> <span class="keyword">first</span> parameter.</div><div class="line"> *   In case <span class="keyword">of</span> <span class="keyword">error</span> <span class="keyword">the</span> image parameter <span class="keyword">is</span> nil <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">second</span> parameter may <span class="keyword">contain</span> an NSError.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">third</span> parameter <span class="keyword">is</span> an `SDImageCacheType` enum indicating <span class="keyword">if</span> <span class="keyword">the</span> image was retrieved <span class="keyword">from</span> <span class="keyword">the</span> <span class="keyword">local</span> cache</div><div class="line"> *   <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> memory cache <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> network.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">last</span> parameter <span class="keyword">is</span> <span class="keyword">set</span> <span class="keyword">to</span> NO when <span class="keyword">the</span> SDWebImageProgressiveDownload option <span class="keyword">is</span> used <span class="keyword">and</span> <span class="keyword">the</span> image <span class="keyword">is</span></div><div class="line"> *   downloading. This block <span class="keyword">is</span> thus called repeatedly <span class="keyword">with</span> a partial image. When image <span class="keyword">is</span> fully downloaded, <span class="keyword">the</span></div><div class="line"> *   block <span class="keyword">is</span> called a <span class="keyword">last</span> <span class="built_in">time</span> <span class="keyword">with</span> <span class="keyword">the</span> full image <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">last</span> parameter <span class="keyword">set</span> <span class="keyword">to</span> YES.</div><div class="line"> *</div><div class="line"> * @<span class="literal">return</span> Returns an NSObject conforming <span class="keyword">to</span> SDWebImageOperation. Should be an instance <span class="keyword">of</span> SDWebImageDownloaderOperation</div><div class="line"> */</div><div class="line">- (<span class="built_in">id</span> &lt;SDWebImageOperation&gt;)downloadImageWithURL:(NSURL *)url</div><div class="line">                                         options:(SDWebImageOptions)options</div><div class="line">                                        progress:(SDWebImageDownloaderProgressBlock)progressBlock</div><div class="line">                                       completed:(SDWebImageCompletionWithFinishedBlock)completedBlock;</div></pre></td></tr></table></figure></p></div><p class="readmore"><a href="/2016/01/31/[SourceCodeRead]-SDWebImage-2/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/28/[SourceCodeRead]-SDWebImage-1/">[SourceCodeRead] SDWebImage-1</a></h1><div class="post-meta">01/28/16</div><div class="post-content"><p><a href="https://github.com/rs/SDWebImage" title="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>作为一个将服务器远程的图片获取到UIImageView上显示的一个第三方类库，于我而言，最为常用的API莫过于<code>-sd_setImageWithURL: placeholderImage:</code>方法。不妨以此入手，拨开它源代码的神秘面纱。</p></div><p class="readmore"><a href="/2016/01/28/[SourceCodeRead]-SDWebImage-1/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/28/essay-soul-in-programming-170127/">0127-所谓技术知识体系</a></h1><div class="post-meta">01/28/16</div><div class="post-content"><blockquote>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/7/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.caliosd.gq/page/7/"/>
+
+
+
+
+
+  <title>Calios' Eden</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71292392-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calios' Eden</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stedfast as thou art.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/17/how-to-check-and-update-environment-var-in-Mac/" itemprop="url">如何查看和修改Mac中的环境变量</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-17T16:45:02+08:00">
+                02/17/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="显示当前的环境变量列表"><a href="#显示当前的环境变量列表" class="headerlink" title="显示当前的环境变量列表"></a>显示当前的环境变量列表</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ printenv</div><div class="line">PATH=<span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/usr/</span>local<span class="regexp">/bin:/</span>usr<span class="regexp">/bin:/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/sbin:/</span>opt<span class="regexp">/X11/</span>bin</div><div class="line">ZSH=<span class="regexp">/Users/</span>calios/.oh-my-zsh</div><div class="line">...</div></pre></td></tr></table></figure>
+<h4 id="查看当前使用的shell"><a href="#查看当前使用的shell" class="headerlink" title="查看当前使用的shell"></a>查看当前使用的shell</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$SHELL</span></span></div><div class="line">    /bin/zsh</div></pre></td></tr></table></figure>
+<p>所以，我现在使用的shell是<em>zsh</em>，而不是默认的<em>bash</em>。那么，是不是应该修改<em>zsh</em>的相应配置文件呢？</p>
+<p>找到<em>zsh</em>配置文件所在路径<code>~/.zshrc</code>并打开（这里指定了Sublime打开，因为有语法支持～）：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">open</span> -<span class="keyword">a</span> Sublime\ Text ~/.zshrc</div></pre></td></tr></table></figure></p>
+<p>发现里面有不少的配置选项，添加上如下一行：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">export</span> <span class="attribute">GOPATH</span>=<span class="string">"<span class="variable">$HOME</span>/Documents/MyWorkspace/GoWorkspace"</span></div></pre></td></tr></table></figure></p>
+<p>保存，退出。</p>
+<h4 id="设置临时环境变量"><a href="#设置临时环境变量" class="headerlink" title="设置临时环境变量"></a>设置临时环境变量</h4><p>值得一提的是，你还可以通过使用bash的<code>export</code>命令设置临时的环境变量，只要当前shell是激活状态，临时环境变量就可以使用。比如，你希望给<code>~/bin/</code>添加一个临时路径，你可以直接跑这行命令：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>export PATH=<span class="variable">$PATH</span><span class="symbol">:~/bin</span></div></pre></td></tr></table></figure></p>
+<p>后面的<code>$PATH</code>意味着在原有值的基础上，拼接上<code>~/bin/</code>，再将新值赋给<code>PATH</code>.</p>
+<p>再强调一遍，只有保存到配置文件中的环境变量才是持久的，否则只是临时环境变量。</p>
+<hr>
+<p><strong>Ref: </strong></p>
+<ul>
+<li><p><a href="http://osxdaily.com/2015/07/28/set-enviornment-variables-mac-os-x/" target="_blank" rel="external">http://osxdaily.com/2015/07/28/set-enviornment-variables-mac-os-x/</a></p>
+</li>
+<li><p><a href="http://hathaway.cc/post/69201163472/how-to-edit-your-path-environment-variables-on-mac" target="_blank" rel="external">http://hathaway.cc/post/69201163472/how-to-edit-your-path-environment-variables-on-mac</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/15/[SourceCodeRead]-PureLayout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/15/[SourceCodeRead]-PureLayout/" itemprop="url">[SourceCodeRead]-PureLayout</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-15T16:59:27+08:00">
+                02/15/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Here’s part of usage of <a href="https://github.com/PureLayout/PureLayout" title="https://github.com/PureLayout/PureLayout" target="_blank" rel="external">PureLayout</a>. I once ignored some of them for long and complained about the unhandy. Now I have to admit that it’s really a strong framework to use.</p>
+<p>1.Working with Arrays of Views<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">NSArray *views = @[self.redView, self.blueView, self.yellowView, self.greenView];</div><div class="line"><span class="comment">// Match the widths of all the views</span></div><div class="line">[views <span class="string">autoMatchViewsDimension:</span>ALDimensionWidth];</div><div class="line"></div><div class="line"><span class="comment">// Pin the red view 20 pt from the top layout guide of the view controller</span></div><div class="line">[self.redView <span class="string">autoPinToTopLayoutGuideOfViewController:</span>self <span class="string">withInset:</span><span class="number">20.0</span>];</div><div class="line"></div><div class="line"><span class="comment">// Loop over the views, attaching the left edge to the previous view's right edge,</span></div><div class="line"><span class="comment">// and the top edge to the previous view's bottom edge</span></div><div class="line">[[views firstObject] <span class="string">autoPinEdgeToSuperviewEdge:</span>ALEdgeLeft];</div><div class="line">UIView *previousView = nil;</div><div class="line"><span class="keyword">for</span> (UIView *view <span class="keyword">in</span> views) &#123;</div><div class="line">	<span class="keyword">if</span> (previousView) &#123;</div><div class="line">	    [view <span class="string">autoPinEdge:</span>ALEdgeLeft <span class="string">toEdge:</span>ALEdgeRight <span class="string">ofView:</span>previousView];</div><div class="line">	    [view <span class="string">autoPinEdge:</span>ALEdgeTop <span class="string">toEdge:</span>ALEdgeBottom <span class="string">ofView:</span>previousView];</div><div class="line">	&#125;</div><div class="line">	previousView = view;</div><div class="line">&#125;</div><div class="line">[[views lastObject] <span class="string">autoPinEdgeToSuperviewEdge:</span>ALEdgeRight];</div></pre></td></tr></table></figure></p>
+<p>2.Cross-Attribute Constraints<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Use a cross-attribute constraint to constrain an ALAxis to an ALEdge.</span></div><div class="line"><span class="comment">// Note that it is safe to cast from a more specific type like ALEdge, ALAxis, etc to the more generic type ALAttribute.</span></div><div class="line"><span class="comment">// As such, the below two lines are functionally identical. Use whichever you prefer.</span></div><div class="line"><span class="comment">// [self.redView autoConstrainAttribute:ALAttributeHorizontal toAttribute:ALAttributeBottom ofView:self.blueView];</span></div><div class="line">[self.redView <span class="string">autoConstrainAttribute:</span>(ALAttribute)ALAxisHorizontal <span class="string">toAttribute:</span>(ALAttribute)ALEdgeBottom <span class="string">ofView:</span>self.blueView]; <span class="comment">// same as the above commented-out line</span></div></pre></td></tr></table></figure></p>
+<p>Here’s an image that helps with understanding.</p>
+<p><img src="http://i4.tietuku.com/ee0da65ffdfc5875.png" alt="" title="http://i4.tietuku.com/ee0da65ffdfc5875.png"></p>
+<p>3.Animating Constraints<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)animateLayoutWithSpringAnimation</div><div class="line">&#123;</div><div class="line">	<span class="comment">// These 2 lines will cause -[updateViewConstraints] to be called again on this view controller, where the constraints will be adjusted to the new state</span></div><div class="line">	[<span class="keyword">self</span>.view setNeedsUpdateConstraints];</div><div class="line">	[<span class="keyword">self</span>.view updateConstraintsIfNeeded];</div><div class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">1.0</span></div><div class="line">			                  delay:<span class="number">0.0</span></div><div class="line">			 usingSpringWithDamping:<span class="number">0.6</span></div><div class="line">			  initialSpringVelocity:<span class="number">0</span></div><div class="line">			                options:<span class="number">0</span></div><div class="line">			             animations:^&#123;</div><div class="line">	                 [<span class="keyword">self</span>.view layoutIfNeeded]; <span class="comment">// this is what actually causes the views to animate to their new layout</span></div><div class="line">	             &#125;</div><div class="line">			             completion:^(<span class="built_in">BOOL</span> finished) &#123;</div><div class="line">		                 <span class="comment">// Run the animation again in the other direction</span></div><div class="line">	                 <span class="keyword">self</span>.isAnimatingToEndState = !<span class="keyword">self</span>.isAnimatingToEndState;</div><div class="line">	                 <span class="keyword">if</span> (<span class="keyword">self</span>.navigationController) &#123; <span class="comment">// this will be nil if this view controller is no longer in the navigation stack (stops animation when this view controller is no longer onscreen)</span></div><div class="line">	                     [<span class="keyword">self</span> animateLayoutWithSpringAnimation];</div><div class="line">	                 &#125;</div><div class="line">       &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.Constraint Identifier(iOS 7.0+)<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="name">NSLayoutConstraint</span> autoSetIdentifier:@<span class="string">"Pin Container View Edges"</span> forConstraints:^&#123;</div><div class="line">	[<span class="name">self.containerView</span> autoPinToTopLayoutGuideOfViewController:self withInset:10.0]<span class="comment">;</span></div><div class="line">	[<span class="name">self.containerView</span> autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(<span class="name">0.0</span>, <span class="number">10.0</span>, <span class="number">10.0</span>, <span class="number">10.0</span>) excludingEdge:ALEdgeTop]<span class="comment">;</span></div><div class="line">&#125;]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>5.Constraints Without Installing<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.horizontalLayoutConstraints = [<span class="built_in">NSLayoutConstraint</span> autoCreateAndInstallConstraints:^&#123;</div><div class="line">	[views autoSetViewsDimension:ALDimensionHeight toSize:<span class="number">40.0</span>];</div><div class="line">	[views autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeHorizontal withFixedSpacing:<span class="number">10.0</span> insetSpacing:<span class="literal">YES</span> matchedSizes:<span class="literal">YES</span>];</div><div class="line">	[<span class="keyword">self</span>.redView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.isShowingHorizontalLayout) &#123;</div><div class="line">    [<span class="keyword">self</span>.verticalLayoutConstraints autoRemoveConstraints];</div><div class="line">    [<span class="keyword">self</span>.horizontalLayoutConstraints autoInstallConstraints];</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    [<span class="keyword">self</span>.horizontalLayoutConstraints autoRemoveConstraints];</div><div class="line">    [<span class="keyword">self</span>.verticalLayoutConstraints autoInstallConstraints];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/15/[SourceCodeRead]-SDWebImage-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/02/15/[SourceCodeRead]-SDWebImage-3/" itemprop="url">[SourceCodeRead]-SDWebImage-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-15T16:51:16+08:00">
+                02/15/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160216-0@2x.png" alt="" title="SDWebImage系列"></p>
+<p>沿着上面这个图，一层一层剥到了<code>SDWebImageDownloader</code>的<code>- downloadImageWithURL:options:progress:completed:</code>方法，终于看到了大片的原生代码在向我们招手。。。</p>
+<p>纵观这个方法，就调用了一下<code>-addProgressCallback:completedBlock:forURL:createCallback:</code>，而这个方法并不复杂，主要展示了一下<code>self.URLCallbacks</code>这个字典的内部组成，在此略去不提。</p>
+<p>还是回来看<code>- downloadImageWithURL:options:progress:completed:</code>。</p>
+<h3 id="［1］Cache-Control"><a href="#［1］Cache-Control" class="headerlink" title="［1］Cache-Control"></a>［1］Cache-Control</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSMutableURLRequest *request = [[NSMutableURLRequest alloc] <span class="string">initWithURL:</span>url <span class="string">cachePolicy:</span>(options &amp; SDWebImageDownloaderUseNSURLCache ? NSURLRequestUseProtocolCachePolicy : NSURLRequestReloadIgnoringLocalCacheData) <span class="string">timeoutInterval:</span>timeoutInterval];</div></pre></td></tr></table></figure>
+<p>基本的<code>NSMutableURLRequest</code>初始化，没什么问题，主要看缓存策略：<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(<span class="name">options</span> &amp; SDWebImageDownloaderUseNSURLCache ? NSURLRequestUseProtocolCachePolicy : NSURLRequestReloadIgnoringLocalCacheData)</div></pre></td></tr></table></figure></p>
+<p>先来简单了解一下Cache-Control：</p>
+<blockquote>
+<p>每个资源都可以通过 Cache-Control HTTP 头来定义自己的缓存策略<br>Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久</p>
+</blockquote>
+<p>更多深入内容可以看<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" title="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="external">这里</a>。</p>
+<ul>
+<li><code>SDWebImageDownloaderUseNSURLCache</code>: 默认情况下，<code>SDWebImage</code>是不使用<code>NSURLCache</code>的，如果使用这个选项，那么就将<code>NSURLCache</code>的默认的缓存策略作为缓存策略，即<code>NSURLRequestUseProtocolCachePolicy</code>。</li>
+<li><code>NSURLRequestUseProtocolCachePolicy</code>: 这个缓存策略是URL请求的默认策略，即在指定的URL请求中使用协议中实现了的缓存逻辑。</li>
+<li><code>NSURLRequestReloadIgnoringLocalCacheData</code>: 指定了某个URL的数据要从原始地址获取，无视已有缓存。</li>
+</ul>
+<p>所以，这里的缓存策略是：如果传入的<code>option</code>是<code>SDWebImageDownloaderUseNSURLCache</code>，就用NRURLCache的默认缓存策略，否则就无视本地缓存，重新获取。</p>
+<h3 id="［2］NSMutableURLRequest的几个属性"><a href="#［2］NSMutableURLRequest的几个属性" class="headerlink" title="［2］NSMutableURLRequest的几个属性"></a>［2］<code>NSMutableURLRequest</code>的几个属性</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">request.<span class="attr">HTTPShouldHandleCookies</span> = (options &amp; SDWebImageDownloaderHandleCookies);</div><div class="line">request.<span class="attr">HTTPShouldUsePipelining</span> = YES;</div><div class="line">request.<span class="attr">allHTTPHeaderFields</span> = wself.HTTPHeaders; // 这里略去了原代码中的<span class="keyword">if</span>判断</div></pre></td></tr></table></figure>
+<ul>
+<li><code>HTTPShouldHandleCookies</code>: 是否对当前请求使用默认cookie。默认为YES。也就是说，默认情况下cookie是由cookie manager存储和发送的。</li>
+<li><code>HTTPShouldUsePipelining</code>: 是否等待前一个请求响应后再发送当前请求。YES是不等，NO是等。（第三个选项是爱等不等。。。XD）</li>
+<li><code>allHTTPHeaderFields</code>: 用设置的NSDictionary（key和value都需为NSString）来替代之前可能存在的所有header字段。</li>
+</ul>
+<p>比如初始化时的<code>HTTPHeaders</code>长这样：<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> SD_WEBP</span></div><div class="line">    <span class="variable">_HTTPHeaders</span> = [@&#123;@<span class="string">"Accept"</span>: @<span class="string">"image/webp,image/*;q=0.8"</span>&#125; mutableCopy];</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">    <span class="variable">_HTTPHeaders</span> = [@&#123;@<span class="string">"Accept"</span>: @<span class="string">"image/*;q=0.8"</span>&#125; mutableCopy];</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure></p>
+<h3 id="［3］将Class作为属性值存储"><a href="#［3］将Class作为属性值存储" class="headerlink" title="［3］将Class作为属性值存储"></a>［3］将Class作为属性值存储</h3><p>一个开发的小技巧：<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 头文件中的声明</div><div class="line">@<span class="keyword">property</span> (assign, nonatomic) <span class="class"><span class="keyword">Class</span> <span class="title">operationClass</span>;</span></div><div class="line">// 初始化指定具体<span class="class"><span class="keyword">class</span></span></div><div class="line">    _operationClass = [SDWebImageDownloaderOperation <span class="class"><span class="keyword">class</span>];</span></div><div class="line">// 使用时调用具体<span class="class"><span class="keyword">class</span>的方法</span></div><div class="line">operation = [[wself.operationClass alloc] initWithRequest:request</div><div class="line">options:options progress:^(NSInteger receivedSize, NSInteger expectedSize) &#123;</div><div class="line">    ...</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
+<h3 id="［4］NSURLCredential"><a href="#［4］NSURLCredential" class="headerlink" title="［4］NSURLCredential"></a>［4］<code>NSURLCredential</code></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (wself.urlCredential) &#123;</div><div class="line">      operation.credential = wself.urlCredential;</div><div class="line"> &#125;</div><div class="line"><span class="keyword">else</span> <span class="keyword">if</span> (wself.username &amp;&amp; wself.password) &#123;</div><div class="line">      operation.credential = [NSURLCredential <span class="string">credentialWithUser:</span>wself.username <span class="string">password:</span>wself.password <span class="string">persistence:</span>NSURLCredentialPersistenceForSession];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里的<code>urlCredential</code>是一个<code>NSURLCredential</code>类的属性。如果这个属性存在就用这个属性，没有的话，就用用户名和密码创建一个仅存储于当前session中的<code>NSURLCredential</code>。</p>
+<p>那么，<code>NSURLCredential</code>是个神马呢？先引用一段MK的讲解来了解下HTTP认证的机理：</p>
+<blockquote>
+<p>当客户端向服务器发起资源请求时，它会发起一个以文件名结尾的GET请求。如果服务器检查到资源是被保护的，就会返回一个header中有WWW-Authenticate的401消息，告知客户端“未被授权”。WWW-Authenticate这个header字段可能有值，由相应机制来决定这个值是“Basic”还是“Digest”。<br>当客户端接收到这个授权挑战（challenge）时，它就要以指定格式将用户授权信息发过去。对于基本的认证，通常是在header的认证字段中放上base64加密过的用户名和密码。对于摘要式认证，就要略复杂一点。客户端在header的认证字段中要放的值也更加高精尖一些。幸运的是，作为Objective-C的开发者们，CoreFoundation类已经把这些都封装好了。</p>
+</blockquote>
+<p>一旦请求的URL需要授权，即服务器返回了含有WWW-Authenticate的header，<code>NSURLConnection</code>的<code>NSURLCredential</code>相关的代理方法<code>-connection:willSendRequestForAuthenticationChallenge:</code>就会被调用。</p>
+<p>全局搜<code>willSendRequestForAuthenticationChallenge</code>，果然在<code>SDWebImageDownloaderOperation.m</code>的末尾找到了一段。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">connection:</span>(NSURLConnection *)connection <span class="string">willSendRequestForAuthenticationChallenge:</span>(NSURLAuthenticationChallenge *)challenge&#123;</div><div class="line">    <span class="keyword">if</span> ([challenge.protectionSpace.authenticationMethod <span class="string">isEqualToString:</span>NSURLAuthenticationMethodServerTrust]) &#123;</div><div class="line">        <span class="comment">// `SDWebImageDownloaderAllowInvalidSSLCertificates`:Enable to allow untrusted SSL certificates.</span></div><div class="line">        <span class="comment">// 不允许使用不可信的SSL证书 －》 只允许使用可信证书</span></div><div class="line">        <span class="keyword">if</span> (!(self.options &amp; SDWebImageDownloaderAllowInvalidSSLCertificates) &amp;&amp;</div><div class="line">            [challenge.sender <span class="string">respondsToSelector:</span><span class="meta">@selector</span>(<span class="string">performDefaultHandlingForAuthenticationChallenge:</span>)]) &#123;</div><div class="line">            <span class="comment">// 让认证挑战的发送者按照系统指定的进行默认操作。</span></div><div class="line">            [challenge.sender <span class="string">performDefaultHandlingForAuthenticationChallenge:</span>challenge];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// 新建一个已经有一次可信任握手的`NSURLCredential`。</span></div><div class="line">            NSURLCredential *credential = [NSURLCredential <span class="string">credentialForTrust:</span>challenge.protectionSpace.serverTrust];</div><div class="line">            <span class="comment">// 让认证挑战的发送者使用新建的这个credential来应答认证挑战。</span></div><div class="line">            [[challenge sender] <span class="string">useCredential:</span>credential <span class="string">forAuthenticationChallenge:</span>challenge];</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span> ([challenge previousFailureCount] == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (self.credential) &#123;</div><div class="line">                [[challenge sender] <span class="string">useCredential:</span>self.credential <span class="string">forAuthenticationChallenge:</span>challenge];</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                [[challenge sender] <span class="string">continueWithoutCredentialForAuthenticationChallenge:</span>challenge];</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            [[challenge sender] <span class="string">continueWithoutCredentialForAuthenticationChallenge:</span>challenge];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在细看代理方法实现前先来了解一下这几个陌生的类：</p>
+<ul>
+<li><code>NSURLAuthenticationChallenge</code>: 这个类是认证挑战类，客户端接受挑战就意味着要提供挑战的凭证（比如用户名、密码等等）。</li>
+<li><code>NSURLCredential</code>: 这个类是代表着认证凭证的一个不可变的对象，它由指定类型的认证信息和可用的存储时间组成。</li>
+</ul>
+<p>是不是有种每个字都认识连起来就晕了的感觉？打个比方理解下～</p>
+<p>当～～～～ 夕阳余晖已散，一个笑面书生要从东城门口入城，守城士兵一枪拦住：“呔！何方人氏，敢夜闯我四方城？有通关文书否？”（401，未被授权，遭到授权挑战，<code>-connection:willSendRequestForAuthenticationChallenge:</code>被调用）书生上前一步，拱手朗声道：“在下皇甫仁和，应城主邀请入城一叙。有城主亲笔书函在此。”说着，从袖中抽出一封信（即认证的凭证<code>NSURLCredential</code>），递了过去（向<code>NSURLAuthenticationChallenge</code>挑战的发送者提供<code>NSURLCredential</code>凭证）。士兵接过信，见确为城主字迹，信中的邀请日期正是当日（该凭证的有效期），且有四方城印一枚附在信尾（认证需要的详细信息），方信了。随机撤了长枪，甩手道：“请！”（认证通过了，可以获取资源了）</p>
+<h3 id="［4］operation的LIFO执行顺序"><a href="#［4］operation的LIFO执行顺序" class="headerlink" title="［4］operation的LIFO执行顺序"></a>［4］operation的LIFO执行顺序</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (wself.executionOrder == SDWebImageDownloaderLIFOExecutionOrder) &#123;</div><div class="line">     <span class="comment">// 将最新添加的operation作为最后一个的operation的依赖，也就是说，要先执行最新添加的operation，再往前依次执行，即实现了“后进先出LIFO”。</span></div><div class="line">     [<span class="meta">wself.lastAddedOperation addDependency:operation</span>];</div><div class="line">     wself.lastAddedOperation = operation;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li>HTTP缓存：<br>  <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="external">https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching</a></li>
+<li>Authenticating with a RESTful service using NSURLCredential：<br>  <a href="http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/" target="_blank" rel="external">http://blog.mugunthkumar.com/articles/iphone-tutorial-authenticating-with-a-restful-service-using-nsurlcredential/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/31/[SourceCodeRead]-SDWebImage-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/31/[SourceCodeRead]-SDWebImage-2/" itemprop="url">[SourceCodeRead]-SDWebImage-2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-31T21:52:56+08:00">
+                01/31/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在我们直接使用的核心函数<code>-sd_setImageWithURL:forState:placeholderImage:options:completed:</code>中，主要起下载作用的方法是位于<code>SDWebImageManager</code>类中 <code>- downloadImageWithURL: options:progress:completed:</code>函数，具体来说，若图片不在cache中，就根据给定的URL来下载图片，否则返回cache中的图片。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Downloads <span class="keyword">the</span> image <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">given</span> URL <span class="keyword">if</span> <span class="keyword">not</span> present <span class="keyword">in</span> cache <span class="keyword">or</span> <span class="literal">return</span> <span class="keyword">the</span> cached <span class="built_in">version</span> otherwise.</div><div class="line"> *</div><div class="line"> * @param url            The URL <span class="keyword">to</span> <span class="keyword">the</span> image</div><div class="line"> * @param options        A mask <span class="keyword">to</span> specify options <span class="keyword">to</span> use <span class="keyword">for</span> this request</div><div class="line"> * @param progressBlock  A block called <span class="keyword">while</span> image <span class="keyword">is</span> downloading</div><div class="line"> * @param completedBlock A block called when operation has been completed.</div><div class="line"> *</div><div class="line"> *   This parameter <span class="keyword">is</span> required.</div><div class="line"> *</div><div class="line"> *   This block has no <span class="literal">return</span> value <span class="keyword">and</span> takes <span class="keyword">the</span> requested UIImage <span class="keyword">as</span> <span class="keyword">first</span> parameter.</div><div class="line"> *   In case <span class="keyword">of</span> <span class="keyword">error</span> <span class="keyword">the</span> image parameter <span class="keyword">is</span> nil <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">second</span> parameter may <span class="keyword">contain</span> an NSError.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">third</span> parameter <span class="keyword">is</span> an `SDImageCacheType` enum indicating <span class="keyword">if</span> <span class="keyword">the</span> image was retrieved <span class="keyword">from</span> <span class="keyword">the</span> <span class="keyword">local</span> cache</div><div class="line"> *   <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> memory cache <span class="keyword">or</span> <span class="keyword">from</span> <span class="keyword">the</span> network.</div><div class="line"> *</div><div class="line"> *   The <span class="keyword">last</span> parameter <span class="keyword">is</span> <span class="keyword">set</span> <span class="keyword">to</span> NO when <span class="keyword">the</span> SDWebImageProgressiveDownload option <span class="keyword">is</span> used <span class="keyword">and</span> <span class="keyword">the</span> image <span class="keyword">is</span></div><div class="line"> *   downloading. This block <span class="keyword">is</span> thus called repeatedly <span class="keyword">with</span> a partial image. When image <span class="keyword">is</span> fully downloaded, <span class="keyword">the</span></div><div class="line"> *   block <span class="keyword">is</span> called a <span class="keyword">last</span> <span class="built_in">time</span> <span class="keyword">with</span> <span class="keyword">the</span> full image <span class="keyword">and</span> <span class="keyword">the</span> <span class="keyword">last</span> parameter <span class="keyword">set</span> <span class="keyword">to</span> YES.</div><div class="line"> *</div><div class="line"> * @<span class="literal">return</span> Returns an NSObject conforming <span class="keyword">to</span> SDWebImageOperation. Should be an instance <span class="keyword">of</span> SDWebImageDownloaderOperation</div><div class="line"> */</div><div class="line">- (<span class="built_in">id</span> &lt;SDWebImageOperation&gt;)downloadImageWithURL:(NSURL *)url</div><div class="line">                                         options:(SDWebImageOptions)options</div><div class="line">                                        progress:(SDWebImageDownloaderProgressBlock)progressBlock</div><div class="line">                                       completed:(SDWebImageCompletionWithFinishedBlock)completedBlock;</div></pre></td></tr></table></figure></p>
+<p>正文走起。</p>
+<h3 id="［1］代码的容错能力"><a href="#［1］代码的容错能力" class="headerlink" title="［1］代码的容错能力"></a>［1］代码的容错能力</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常见的错误是把NSString对象代替NSURL传进来，作为URL。而奇怪的是，Xcode并不会因此给出警告，所以这里给出了容错机制，允许传入NSString。</span></div><div class="line"><span class="keyword">if</span> ([url <span class="string">isKindOfClass:</span>NSString.<span class="keyword">class</span>]) &#123;</div><div class="line">url = [NSURL <span class="string">URLWithString:</span>(NSString *)url];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 避免类似用NSNull来替代NSURL作为参数传入，导致程序崩溃的问题。</span></div><div class="line"><span class="keyword">if</span> (![url <span class="string">isKindOfClass:</span>NSURL.<span class="keyword">class</span>]) &#123;</div><div class="line">url = nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不记得哪个老师说过，说一个function能接受的参数尽可能的“宽”，返回的值要尽可能的“窄”。我理解的是，写对外的代码时，对接收的参数的容错能力（健壮性）要尽可能的强，不要稍有差错就崩溃罢工；而自己代码返回的值要尽可能的精确，如果能返回一个自定义的UITableView，就不要返回UITableView。</p>
+<h3 id="［2］-synchronized"><a href="#［2］-synchronized" class="headerlink" title="［2］@synchronized()"></a>［2］@synchronized()</h3><p>接下来的代码中，这样的小段出现了很多次：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.failedURLs) &#123;</div><div class="line">    isFailedUrl = [<span class="keyword">self</span>.failedURLs <span class="symbol">containsObject:</span>url];</div><div class="line">&#125;</div><div class="line">...</div><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.runningOperations) &#123;</div><div class="line">    [<span class="keyword">self</span>.runningOperations <span class="symbol">removeObject:</span>operation];</div><div class="line">&#125;</div><div class="line">...</div><div class="line"><span class="variable">@synchronized</span> (<span class="keyword">self</span>.failedURLs) &#123;</div><div class="line">    [<span class="keyword">self</span>.failedURLs <span class="symbol">addObject:</span>url];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>除了第一次是判断集合中是否包含某元素外，其余均是对于集合或数组进行元素添加或者元素删除。那么，<code>@synchronized()</code>这家伙是干嘛的呢？</p>
+<p>根据苹果的官方文档：</p>
+<blockquote>
+<p><code>@synchronized()</code>是OC中一种方便地创建互斥锁的方式 —— 它可以防止不同线程在同一时间执行区块中的代码。</p>
+</blockquote>
+<p>也就是说，它主要用在多线程编程中，所以，我们遇到多线程编程时再来深究。这里简单了解即可。</p>
+<h3 id="［3］函数说明"><a href="#［3］函数说明" class="headerlink" title="［3］函数说明"></a>［3］函数说明</h3><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160215-0.png" alt="" title="函数说明"></p>
+<p>看这里的代码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 通过图片的url来获取<span class="keyword">cache</span>中对应的<span class="keyword">key</span>。</div><div class="line">NSString *<span class="keyword">key</span> = [<span class="keyword">self</span> cacheKeyForURL:<span class="keyword">url</span>];</div><div class="line"></div><div class="line">// 如果key对应的图片存在于<span class="keyword">cache</span>中，就通过这个<span class="keyword">key</span>来获取图片。</div><div class="line">operation.cacheOperation = [self.imageCache queryDiskCacheForKey:<span class="keyword">key</span> done:^(UIImage *image, SDImageCacheType cacheType)&#123;</div><div class="line">...</div><div class="line">&#125;];</div></pre></td></tr></table></figure></p>
+<h3 id="［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）"><a href="#［4］磁盘缓存（disk-cache）-和-内存缓存（memory-cache）" class="headerlink" title="［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）"></a>［4］磁盘缓存（disk cache） 和 内存缓存（memory cache）</h3><p><code>-queryDiskCacheForKey:done:</code>的第二个参数是<code>SDWebImageQueryCompletedBlock</code>，这个block中的第二个参数是<code>SDImageCacheType</code>，这个枚举用来标记图片缓存的类型，如磁盘缓存和内存缓存。<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">SDImageCacheType</span>) &#123;</div><div class="line">    /**</div><div class="line">     * 图片已从网络下载，但缓存不可用。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeNone</span>,</div><div class="line">    /**</div><div class="line">     * 图片在磁盘缓存中。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeDisk</span>,</div><div class="line">    /**</div><div class="line">     * 图片在内存缓存中。</div><div class="line">     */</div><div class="line">    <span class="type">SDImageCacheTypeMemory</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>通常一个缓存是由内存缓存和磁盘缓存组成，内存缓存提供容量小但高速的存取功能，磁盘缓存提供大容量但低速的持久化存储。不同类别的缓存有不同的第三方类库支持，<a href="http://blog.ibireme.com/2015/10/26/yycache/" title="http://blog.ibireme.com/2015/10/26/yycache/" target="_blank" rel="external">这里</a>有一篇各种cache类库的性能对比，按需备查。</p>
+<p>我们接着点到<code>SDImageCache.m</code>中去看<code>-queryDiskCacheForKey:done:</code>的实现。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">    - (<span class="built_in">NSOperation</span> *)queryDiskCacheForKey:(<span class="built_in">NSString</span> *)key done:(SDWebImageQueryCompletedBlock)doneBlock &#123;</div><div class="line">    <span class="keyword">if</span> (!doneBlock) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!key) &#123;</div><div class="line">        doneBlock(<span class="literal">nil</span>, SDImageCacheTypeNone);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 基于上述两种缓存的特征，优先在内存缓存中查找图片。</span></div><div class="line">    <span class="built_in">UIImage</span> *image = [<span class="keyword">self</span> imageFromMemoryCacheForKey:key];</div><div class="line">    <span class="keyword">if</span> (image) &#123;</div><div class="line">        doneBlock(image, SDImageCacheTypeMemory);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">NSOperation</span> *operation = [<span class="built_in">NSOperation</span> new];</div><div class="line">    <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</div><div class="line">        <span class="keyword">if</span> (operation.isCancelled) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">            <span class="comment">// 在磁盘缓存中查找图片。</span></div><div class="line">            <span class="built_in">UIImage</span> *diskImage = [<span class="keyword">self</span> diskImageForKey:key];</div><div class="line">            <span class="keyword">if</span> (diskImage &amp;&amp; <span class="keyword">self</span>.shouldCacheImagesInMemory) &#123;</div><div class="line">                <span class="built_in">NSUInteger</span> cost = SDCacheCostForImage(diskImage);</div><div class="line">                [<span class="keyword">self</span>.memCache setObject:diskImage forKey:key cost:cost];</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">                doneBlock(diskImage, SDImageCacheTypeDisk);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> operation;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="［5］-makeObjectsPerformSelector"><a href="#［5］-makeObjectsPerformSelector" class="headerlink" title="［5］-makeObjectsPerformSelector:"></a>［5］<code>-makeObjectsPerformSelector:</code></h3><p>在全局搜索<code>self.runningOperations</code>时，发现了取消全部operation的方法<code>cancelAll</code>。其中的<code>-makeObjectsPerformSelector:</code>引起了我的注意 —— 看起来是个从没见过的高大上的方法诶～（星星眼✨）<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)cancelAll &#123;</div><div class="line">    <span class="keyword">@synchronized</span> (<span class="keyword">self</span>.runningOperations) &#123;</div><div class="line">        <span class="built_in">NSArray</span> *copiedOperations = [<span class="keyword">self</span>.runningOperations <span class="keyword">copy</span>];</div><div class="line">        [copiedOperations makeObjectsPerformSelector:<span class="keyword">@selector</span>(cancel)];</div><div class="line">        [<span class="keyword">self</span>.runningOperations removeObjectsInArray:copiedOperations];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>点进去一瞧，原来是个平时不太用到的<code>NSArray</code>方法：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>makeObjectsPerformSelector:<span class="params">(SEL)</span>aSelector NS_SWIFT_UNAVAILABLE<span class="params">(<span class="string">"Use enumerateObjectsUsingBlock: or a for loop instead"</span>)</span>;</div><div class="line">- <span class="params">(void)</span>makeObjectsPerformSelector:<span class="params">(SEL)</span>aSelector withObject:<span class="params">(nullable id)</span>argument NS_SWIFT_UNAVAILABLE<span class="params">(<span class="string">"Use enumerateObjectsUsingBlock: or a for loop instead"</span>)</span>;</div></pre></td></tr></table></figure></p>
+<p>作用是“<a href="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" title="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/doc/uid/20000137-BABCBHFG" target="_blank" rel="external">给array中的每个对象都发送一个给定的selector标识的消息</a>”，从第一个对象开始，一直到最后一个对象。</p>
+<p>在<code>－cancelAll</code>这个方法中，装着正在运行的operation的数组<code>copiedOperations</code>给每一个operation都发送了一个<code>cancel</code>的消息，并且将数组中的全部元素移除。结束战斗。</p>
+<p>再进一步想，<code>NSArray</code>中有这两个方法，<code>NSSet</code>中应该也有这两个方法。都是让子元素批量调用同一方法的作用，不像for循环那样可以区别对待不同元素，这一点需要注意。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/28/[SourceCodeRead]-SDWebImage-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/28/[SourceCodeRead]-SDWebImage-1/" itemprop="url">[SourceCodeRead] SDWebImage-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-28T21:20:03+08:00">
+                01/28/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/rs/SDWebImage" title="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>作为一个将服务器远程的图片获取到UIImageView上显示的一个第三方类库，于我而言，最为常用的API莫过于<code>-sd_setImageWithURL: placeholderImage:</code>方法。不妨以此入手，拨开它源代码的神秘面纱。</p>
+<hr>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/QQ20160506-0.png" alt="" title="UIImage+WebCache.m片段"></p>
+<p>点入.m文件，发现上图中从上至下的一列方法，都依次指向相邻的下一个方法，不过在上层调用时个别参数置为<code>nil</code>或<code>0</code>。直到<code>-sd_setImageWithURL: placeholderImage:options:progress:completed:</code>这个<strong>核心方法</strong>，方见端倪。<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>sd_setImageWithURL:<span class="params">(NSURL *)</span>url placeholderImage:<span class="params">(UIImage *)</span>placeholder options:<span class="params">(SDWebImageOptions)</span>options progress:<span class="params">(SDWebImageDownloaderProgressBlock)</span>progressBlock completed:<span class="params">(SDWebImageCompletionBlock)</span>completedBlock &#123;</div><div class="line">    [self sd_cancelCurrentImageLoad];</div><div class="line">    objc_setAssociatedObject<span class="params">(self, &amp;imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC)</span>; // [1]</div><div class="line"></div><div class="line">    if <span class="params">(!(options &amp; SDWebImageDelayPlaceholder)</span>) &#123; // [2]</div><div class="line">        dispatch_main_async_safe<span class="params">(^&#123;</span></div><div class="line">            self.image = placeholder;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="［1］objc-setAssociatedObject"><a href="#［1］objc-setAssociatedObject" class="headerlink" title="［1］objc_setAssociatedObject"></a>［1］objc_setAssociatedObject</h3><h4 id="1-这货是什么？"><a href="#1-这货是什么？" class="headerlink" title="1. 这货是什么？"></a>1. 这货是什么？</h4><p>根据苹果的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/ObjCRuntimeRef/#//apple_ref/c/func/objc_setAssociatedObject" title="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/ObjCRuntimeRef/#//apple_ref/c/func/objc_setAssociatedObject" target="_blank" rel="external">官方文档</a>：</p>
+<blockquote>
+<p><code>objc_setAssociatedObject</code>是Objective－C运行时的一个函数，它可以将两个对象关联起来。这个函数需要四个参数：原对象，一个键，一个值，和一个关联策略的常量。其中，键是一个void指针。</p>
+<ul>
+<li>每个关联的键都必须是唯一的。通常的做法是使用一个静态变量。</li>
+<li>关联策略指定了被关联的对象是assigned，retained，copied还是atomic/nonatomic。这个形式和声明property是类似的。可以用常量来指定这种关系。</li>
+</ul>
+</blockquote>
+<h4 id="2-什么场景下会使用？"><a href="#2-什么场景下会使用？" class="headerlink" title="2. 什么场景下会使用？"></a>2. 什么场景下会使用？</h4><p><a href="http://stackoverflow.com/a/16313377/1594792" title="http://stackoverflow.com/a/16313377/1594792" target="_blank" rel="external">abbood</a>将它的使用场景归结为如下几点：</p>
+<p>(1)给类别（category）添加实例变量。</p>
+<p>假设你想给你不能修改的对象（比如说苹果官方提供的对象，UIImage、UILabel神马的。注意：我们这里讨论的是修改对象本身，不包括将其子类化。）的类别中添加个自定义的属性（<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html" title="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html" target="_blank" rel="external">这几乎是Objective-C最大的缺点</a>），比如说，我们想给<code>UIImage</code>添加一个title的属性。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// UIImage-Title.h:</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIImage</span>(<span class="title">Title</span>)</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *title;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// UIImage-Title.m:</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">char</span> titleKey;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIImage</span>(<span class="title">Title</span>)</span></div><div class="line">- (<span class="built_in">NSString</span> *)title</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;titleKey);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setTitle:(<span class="built_in">NSString</span> *)title</div><div class="line">&#123;</div><div class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;titleKey, title, OBJC_ASSOCIATION_COPY);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>(2)动态地给对象添加状态信息，而这个对象的实例变量即便结合KVO也不能达到目的。（有点拗口，慢慢理解。。）</p>
+<p>意思是说，你的对象只有在runtime期间（也就是说，动态地）才能获取状态信息。所以，尽管你可以把状态信息存在实例变量中，但实际上你是要在runtime期间把这个信息和对象绑定起来、并且动态地把它和另一个对象关联，要强调的是<strong>这是一个对象的动态状态</strong>这个事实。</p>
+<p>如下是一个不错的<a href="https://github.com/alexzielenski/ZKRevealingTableViewCell/blob/master/vendor/ZKRevealingTableViewCell.m" title="https://github.com/alexzielenski/ZKRevealingTableViewCell/blob/master/vendor/ZKRevealingTableViewCell.m" target="_blank" rel="external">例子</a>中的一个片段，在这个例子中，关联对象使用了KVO通知，但KVO并不是关联对象的必要条件。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">char</span> BOOLRevealing;</div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)isRevealing</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [(<span class="built_in">NSNumber</span>*)objc_getAssociatedObject(<span class="keyword">self</span>, &amp;BOOLRevealing) boolValue];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)_setRevealing:(<span class="built_in">BOOL</span>)revealing</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> willChangeValueForKey:<span class="string">@"isRevealing"</span>];</div><div class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;BOOLRevealing,</div><div class="line">       [<span class="built_in">NSNumber</span> numberWithBool:revealing], OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">    [<span class="keyword">self</span> didChangeValueForKey:<span class="string">@"isRevealing"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>引一段<em>SDWebImage</em>中的代码，纯正的、不含KVO的长这样子：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setShowActivityIndicatorView:(<span class="built_in">BOOL</span>)show&#123;</div><div class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;TAG_ACTIVITY_SHOW, [<span class="built_in">NSNumber</span> numberWithBool:show], OBJC_ASSOCIATION_RETAIN);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)showActivityIndicatorView&#123;</div><div class="line">    <span class="keyword">return</span> [objc_getAssociatedObject(<span class="keyword">self</span>, &amp;TAG_ACTIVITY_SHOW) boolValue];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中，<code>TAG_ACTIVITY_SHOW</code>的定义如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">char</span> TAG_ACTIVITY_SHOW;</div></pre></td></tr></table></figure></p>
+<h4 id="3-此处作用"><a href="#3-此处作用" class="headerlink" title="3. 此处作用"></a>3. 此处作用</h4><p>所以，这里相当于给UIImageView的category添加了一个<code>imageURLKey</code>的属性，我猜想，是用来表示图片资源的唯一性的key。</p>
+<h3 id="［2］-amp"><a href="#［2］-amp" class="headerlink" title="［2］&amp;"></a>［2］&amp;</h3><h4 id="为什么这里用-amp-而不是-amp-amp-呢？"><a href="#为什么这里用-amp-而不是-amp-amp-呢？" class="headerlink" title="为什么这里用&amp;而不是&amp;&amp;呢？"></a>为什么这里用<code>&amp;</code>而不是<code>&amp;&amp;</code>呢？</h4><p>趁机捡一捡基础知识：</p>
+<p><code>&amp;</code>是按位运算的双目运算符，功能是参与将运算的两个数各自对应的二进位相与。<br>例如：9&amp;5可以写算式：00001001 &amp; 00000101 ＝ 00000001，即 9 &amp; 5 = 1。</p>
+<p><code>&amp;&amp;</code>检查第一个操作数的值，如果为false，就不再处理第二个操作数，直接返回false。</p>
+<p>所以，这里的<code>(options &amp; SDWebImageDelayPlaceholder)</code>，是两个枚举值进行按位运算，而非我们平常写的true/false的布尔判断。</p>
+<p>随手点入枚举值的定义，发现这一堆：<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">typedef <span class="type">NS_OPTIONS</span>(<span class="type">NSUInteger</span>, <span class="type">SDWebImageOptions</span>) &#123;</div><div class="line">    /**</div><div class="line">     * <span class="type">By</span> default, when a <span class="type">URL</span> fail to be downloaded, the <span class="type">URL</span> is blacklisted so the library won't keep trying.</div><div class="line">     * <span class="type">This</span> flag disable this blacklisting.</div><div class="line">     */</div><div class="line">    <span class="type">SDWebImageRetryFailed</span> = 1 &lt;&lt; 0, // [3]</div><div class="line"></div><div class="line">    /**</div><div class="line">     * <span class="type">By</span> default, image downloads are started during <span class="type">UI</span> interactions, this flags disable this feature,</div><div class="line">     * leading to delayed download on <span class="type">UIScrollView</span> deceleration for instance.</div><div class="line">     */</div><div class="line">    <span class="type">SDWebImageLowPriority</span> = 1 &lt;&lt; 1,</div><div class="line"></div><div class="line">    /**</div><div class="line">     * <span class="type">This</span> flag disables on-disk caching</div><div class="line">     */</div><div class="line">    <span class="type">SDWebImageCacheMemoryOnly</span> = 1 &lt;&lt; 2,</div><div class="line">    ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>而其实<code>SDWebImageDelayPlaceholder</code>正是这一群枚举值中的一个。所以猜测，这句代码的意思是说，传入的<code>option</code>为包含<code>SDWebImageDelayPlaceholder</code>时该如何如何……（可为嘛曲曲折折地不直说呢？=_=|||） 但还是没有解决为什么用<code>&amp;</code>而不用<code>&amp;&amp;</code>的问题。仔细一看，这里的枚举并非自己平时使用的<code>NS_ENUM</code>，而是<code>NS_OPTIONS</code>。简而言之，二者本质上是一样的，<code>NS_ENUM</code>是比较通用的情况，而位掩码时用<code>NS_OPTIONS</code>，具体的解释可以看<a href="http://nshipster.com/ns_enum-ns_options/" title="http://nshipster.com/ns_enum-ns_options/" target="_blank" rel="external">Mattt的这篇</a>。</p>
+<p><strong> ———— 20160216更新———— </strong><br>鉴于后期越来越多的位运算出现，过期的薄底子hold不住了。这里举一个例子，更多详细介绍参考<a href="http://www.cnblogs.com/cute/p/3786283.html" title="http://www.cnblogs.com/cute/p/3786283.html" target="_blank" rel="external">这篇</a>。<br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">typedef NS_OPTIONS(NSUInteger, MyOption) &#123;</div><div class="line">    MyOptionNone = <span class="number">0</span>, <span class="comment">//二进制0000,十进制0</span></div><div class="line">    MyOption1 = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,<span class="comment">//0001,1</span></div><div class="line">    MyOption2 = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,<span class="comment">//0010,2</span></div><div class="line">    MyOption3 = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,<span class="comment">//0100,4</span></div><div class="line">    MyOption4 = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,<span class="comment">//1000,8</span></div><div class="line">&#125;;</div><div class="line">##使用:</div><div class="line"><span class="comment">//声明定义枚举变量</span></div><div class="line">MyOption option = MyOption1 | MyOption2;<span class="comment">//0001 | 0010 = 0011,3</span></div><div class="line"></div><div class="line"><span class="comment">//检查是否包含某选型</span></div><div class="line">if ( <span class="keyword">option</span> &amp; MyOption3 )&#123; <span class="comment">//0011 &amp; 0100 = 0000</span></div><div class="line">     <span class="comment">//包含MyOption3</span></div><div class="line">&#125;else&#123;</div><div class="line">     <span class="comment">//不包含MyOption3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//增加选项:</span></div><div class="line"><span class="keyword">option</span> = <span class="keyword">option</span> | MyOption4;<span class="comment">//0011 | 1000 = 1011, 11</span></div><div class="line"><span class="comment">//减少选项</span></div><div class="line"><span class="keyword">option</span> = <span class="keyword">option</span> &amp; (~MyOption4);<span class="comment">//1011 &amp; (~1000) = 1011 &amp; 0111 = 0011, 3</span></div></pre></td></tr></table></figure></p>
+<p>我的理解是，Bitwise <code>AND</code>，即<code>&amp;</code>，相当于两个option取交集；Bitwise <code>OR</code>，即<code>|</code>，相当于两个option取并集。</p>
+<p>关于<code>NS_OPTIONS</code>和<code>NS_ENUM</code>的差别，后来查到的orkoden的<a href="http://stackoverflow.com/a/21384671/1594792" target="_blank" rel="external">回答</a>一语中的😂：</p>
+<blockquote>
+<p>There’s a basic difference between an enum and a bitmask (option). You use an enum to list exclusive states. A bitmask is used when several properties can apply at the same time.</p>
+</blockquote>
+<p><strong> ———— 20160216更新结束———— </strong></p>
+<h3 id="［3］-lt-lt"><a href="#［3］-lt-lt" class="headerlink" title="［3］\&lt;\&lt;"></a>［3］\&lt;\&lt;</h3><p><code>&lt;&lt;</code>为按位左移运算符。具体它<a href="http://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work" title="http://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work" target="_blank" rel="external">是什么以及怎样运算</a>，这里略去不提了。简单举例如下：<br>SDWebImageAvoidAutoSetImage<br>    1 &lt;&lt; 2 即 二进制的100 ＝ 十进制 2的平方<br>    1 &lt;&lt; 3 即 二进制的1000 ＝ 十进制 2的3次方</p>
+<p>所以，<code>1 &lt;&lt; n</code>，即二进制1左位移n位，相当于十进制2的n次方。</p>
+<h3 id="［4］宏定义"><a href="#［4］宏定义" class="headerlink" title="［4］宏定义"></a>［4］宏定义</h3><p><code>dispatch_main_sync_safe</code>和<code>dispatch_main_async_safe</code>是SDWebImage定义的两个宏。若当前是主线程，则执行block；若不是主线程，则在主线程中同步/异步之行block。<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define dispatch_main_sync_safe(block)\</span></div><div class="line">    <span class="keyword">if</span> ([NSThread isMainThread]) &#123;<span class="string">\</span></div><div class="line">        block();<span class="string">\</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;<span class="string">\</span></div><div class="line">        dispatch_sync(dispatch_get_main_queue(), block);<span class="string">\</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="comment">#define dispatch_main_async_safe(block)\</span></div><div class="line">    <span class="keyword">if</span> ([NSThread isMainThread]) &#123;<span class="string">\</span></div><div class="line">        block();<span class="string">\</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;<span class="string">\</span></div><div class="line">        dispatch_async(dispatch_get_main_queue(), block);<span class="string">\</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>每行后面的反斜杠<code>\</code>表示在不影响含义的条件下换行，需注意要在回车之前加反斜杠<code>\</code>。</p>
+<p>再看一个常见的宏定义。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define DLog(<span class="name">fmt</span>, ...)    NSLog( @<span class="string">"&lt;%@:(%d)&gt; %s \n ----- %@"</span>, [[NSString stringWithUTF8String<span class="symbol">:__FILE__</span>] lastPathComponent], __LINE__, __func__, [NSString stringWithFormat:(<span class="name">fmt</span>), ##__VA_ARGS__] )</div></pre></td></tr></table></figure></p>
+<p>这个用于Log的宏定义中，有这样几点需要解释的：</p>
+<ul>
+<li><code>DLog(fmt, ...)</code>的第二个参数<code>...</code>。在宏定义的时候，写为…的参数被叫做可变参数(variadic)，其个数是不限定的。在这里，第一个参数fmt将被单独处理，后面的参数将被作为整体看待。</li>
+<li>通常前后被<code>__</code>包围的都是预定义宏。如这里的<code>__FILE__</code>（当前文件的绝对路径），<code>__LINE__</code>（在文件中的行数），<code>__func__</code>（该宏所在的行所属的函数名）。</li>
+<li><code>##__VA_ARGS__</code>表示的是宏定义中的…中的所有剩余参数。打头的<code>##</code>表示将两个参数连接起来这种运算。</li>
+</ul>
+<h3 id="［5］SDWebImageOptions中几个有趣的枚举值"><a href="#［5］SDWebImageOptions中几个有趣的枚举值" class="headerlink" title="［5］SDWebImageOptions中几个有趣的枚举值"></a>［5］<code>SDWebImageOptions</code>中几个有趣的枚举值</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) &#123;</div><div class="line">    ...</div><div class="line">    /**</div><div class="line">     * By default, placeholder images are loaded <span class="keyword">while</span> <span class="keyword">the</span> image <span class="keyword">is</span> loading. This flag will <span class="built_in">delay</span> <span class="keyword">the</span> loading</div><div class="line">     * <span class="keyword">of</span> <span class="keyword">the</span> placeholder image <span class="keyword">until</span> <span class="keyword">after</span> <span class="keyword">the</span> image has finished loading.</div><div class="line">     */</div><div class="line">    SDWebImageDelayPlaceholder = <span class="number">1</span> &lt;&lt; <span class="number">9</span>,</div><div class="line">    ...</div><div class="line">        /**</div><div class="line">     * By default, image <span class="keyword">is</span> added <span class="keyword">to</span> <span class="keyword">the</span> imageView <span class="keyword">after</span> download. But <span class="keyword">in</span> <span class="keyword">some</span> cases, we want <span class="keyword">to</span></div><div class="line">     * have <span class="keyword">the</span> hand <span class="keyword">before</span> setting <span class="keyword">the</span> image (apply a filter <span class="keyword">or</span> add <span class="keyword">it</span> <span class="keyword">with</span> cross-fade animation <span class="keyword">for</span> instance)</div><div class="line">     * Use this flag <span class="keyword">if</span> you want <span class="keyword">to</span> manually <span class="keyword">set</span> <span class="keyword">the</span> image <span class="keyword">in</span> <span class="keyword">the</span> completion when success</div><div class="line">     */</div><div class="line">    SDWebImageAvoidAutoSetImage = <span class="number">1</span> &lt;&lt; <span class="number">11</span></div></pre></td></tr></table></figure>
+<p>在上面提到的<strong>核心方法</strong>中，有这样几个<code>SDWebImageOptions</code>引起了我的注意。</p>
+<p>一个是<code>SDWebImageDelayPlaceholder</code>。说是默认情况下，placeholder的图片会在网络图片加载的过程中就被加载完毕，这个flag会将placeholder图片等加载延迟到网络图片完成加载之后。所以这里<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">if</span> (!(options &amp; SDWebImageDelayPlaceholder)) &#123; <span class="comment">// [2]</span></div><div class="line">    dispatch_main_async_safe(^&#123;</div><div class="line">        self.<span class="built_in">image</span> = placeholder;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>是说如果使用者传入的<code>options</code>不是<code>SDWebImageDelayPlaceholder</code>，就正常地把placeholder图片赋给当前的<code>imageView</code>。之前第一遍看时没有看懂，原来就是“负负得正”的意思。</p>
+<p>另一个是<code>SDWebImageAvoidAutoSetImage</code>。默认情况下，图片会在下载完毕后<em>自动</em>添加给<code>imageView</code>。但有些时候，比如说我们想在设置图片之前加一些图片处理（加个滤镜或者渐变动画之类的），就需要在下载成功时<em>手动</em>使用这个flag来设置图片了。<strong>以后想实现类似效果就知道该在哪里设置什么参数了。</strong><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="built_in">image</span> &amp;&amp; (options &amp; SDWebImageAvoidAutoSetImage) &amp;&amp; completedBlock)</div><div class="line">&#123;</div><div class="line">        completedBlock(<span class="built_in">image</span>, <span class="built_in">error</span>, cacheType, url);</div><div class="line">        <span class="built_in">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>所以这里判断，如果image不为空，而<code>options</code>表明需要增加图片处理，且加载完成的<code>completeBlock</code>不为空，那么就代入参数，执行<code>completeBlock</code>。</p>
+<h3 id="［6］setNeedsLayout和layoutIfNeeded"><a href="#［6］setNeedsLayout和layoutIfNeeded" class="headerlink" title="［6］setNeedsLayout和layoutIfNeeded"></a>［6］<code>setNeedsLayout</code>和<code>layoutIfNeeded</code></h3><p>接着上面的if判断：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">else</span> <span class="built_in">if</span> (<span class="built_in">image</span>)</div><div class="line">&#123;</div><div class="line">         wself.<span class="built_in">image</span> = <span class="built_in">image</span>;</div><div class="line">         [wself setNeedsLayout];</div><div class="line">&#125;</div><div class="line"><span class="built_in">else</span> &#123;</div><div class="line">          <span class="built_in">if</span> ((options &amp; SDWebImageDelayPlaceholder)) &#123;</div><div class="line">                  wself.<span class="built_in">image</span> = placeholder;</div><div class="line">                  [wself setNeedsLayout];</div><div class="line">          &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>如果后两个条件中至少有一个不满足，那么就直接将image赋给当前的<code>imageView</code>，并调用<code>setNeedsLayout</code>将其标记为需要重新布局；如果image为空，而<code>options</code>表明需要延迟加载placeholder图片，那么就将placeholder图片赋给当前<code>imageView</code>，并将其标记为需要重新布局。</p>
+<p>与<code>setNeedsLayout</code>紧密相关的<code>layoutIfNeeded</code>用于实现布局。比如使用了AutoLayout的<code>UITableViewCell</code>中经常会这样二者连着写：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)layoutSubviews</div><div class="line">&#123;</div><div class="line">    [<span class="meta">super layoutSubviews</span>];</div><div class="line"></div><div class="line">    [<span class="meta">self.contentView setNeedsLayout</span>];</div><div class="line">    [<span class="meta">self.contentView layoutIfNeeded</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>具体iOS绘制UI的原理及步骤，这里算是给自己挖了个坑吧，以后看懂了、研究明白了再慢慢填上。</p>
+<hr>
+<p><strong>Ref：</strong></p>
+<ul>
+<li><p><a href="http://stackoverflow.com/questions/5909412/what-is-objc-setassociatedobject-and-in-what-cases-should-it-be-used/16313377#16313377" target="_blank" rel="external">http://stackoverflow.com/questions/5909412/what-is-objc-setassociatedobject-and-in-what-cases-should-it-be-used/16313377#16313377</a></p>
+</li>
+<li><p>Mattt的真迹：<a href="http://nshipster.com/associated-objects/" target="_blank" rel="external">http://nshipster.com/associated-objects/</a></p>
+</li>
+<li>中文版：<a href="http://nshipster.cn/associated-objects/" target="_blank" rel="external">http://nshipster.cn/associated-objects/</a></li>
+<li>喵神讲解宏定义黑魔法的一篇：<a href="http://onevcat.com/2014/01/black-magic-in-macro/" target="_blank" rel="external">http://onevcat.com/2014/01/black-magic-in-macro/</a></li>
+<li>关于位运算：<a href="http://www.cnblogs.com/cute/p/3786283.html" target="_blank" rel="external">http://www.cnblogs.com/cute/p/3786283.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/28/essay-soul-in-programming-170127/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/28/essay-soul-in-programming-170127/" itemprop="url">0127-所谓技术知识体系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-28T10:46:54+08:00">
+                01/28/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
 <p>武功百诀，以意为先，那才是武功的精骨神髓；招式身法，都不过是皮毛而已。若无精骨，皮毛何在？但若得了武道神髓。再学皮毛便是易如反掌了。 ——《浣花洗剑录》</p>
 </blockquote>
-<p>最近在思考构建技术知识体系的问题，读到这句，忽然福至心灵而有所感。</p></div><p class="readmore"><a href="/2016/01/28/essay-soul-in-programming-170127/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/21/how-not-to-crash-8-infrastructure/">【译】如何避免程序崩溃-8：基本架构</a></h1><div class="post-meta">01/21/16</div><div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure</a></p></div><p class="readmore"><a href="/2016/01/21/how-not-to-crash-8-infrastructure/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/19/commands-in-git/">实用git命令</a></h1><div class="post-meta">01/19/16</div><div class="post-content"><h4 id="状态相关"><a href="#状态相关" class="headerlink" title="状态相关"></a>状态相关</h4><ul>
-<li>撤销 <code>git commit</code> 之前的 <code>git add</code> ：<code>git reset &lt;file&gt;</code></li></div><p class="readmore"><a href="/2016/01/19/commands-in-git/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/2016/01/19/commands-in-LLVM/">LLDB常用命令</a></h1><div class="post-meta">01/19/16</div><div class="post-content"><h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p><strong>po：</strong> 打印出对象的description描述。<br>这里列出几个常用的场景：</p>
+<p>最近在思考构建技术知识体系的问题，读到这句，忽然福至心灵而有所感。</p>
+<p>所谓高大沉重的基础知识，如数据库、计算机网络、操作系统、数据结构之类，无非是相当于武功中的神韵，因为他们不依附于某种语言而存在，如流水，生生不息。而具体的某种语言、某一种具体的领域则是那百家兵器排行榜上的一位，有其锐不可当的部分，也有看似纷繁复杂但又门户大开的部分。</p>
+<p>所谓大学者，无非是在练就我们的基本功，让我们领悟计算机技术的精髓，不至于为语言、技术之众多迷花了眼。可惜，当初的我们身在森林而不知树木，噫吁嚱！</p>
+<p>所以，对于技术知识体系，不妨两条腿走路，一方面，在具体的实践中不断深挖，多问几个为什么，比如研究AFNetworking的源码，就可以顺便追究一下网络传输的原理；另一方面，从基础知识入手，系统地整理一下网络自顶向下的七层结构。如此一来，方能融会贯通。</p>
+<p>曾看慶写过，说构建知识体系就像是看地图，要不断地放大、缩小：放大时，一个小镇都会变得很大，街道、楼房，事无巨细；缩小时，纵观全国、全世界，横向的比较才有意义。如今想来，恍有所悟，终于从接受变成了理解。</p>
+<p>于是，便不再烦躁对于服务器方面的学习该使用哪种语言、哪种技术，因为一通百通，具体的哪一种就没那么重要了。岁月长河中，终是有那一波又一波的语言和技术倒在沙滩上，不变的，是千淘万漉的河底鹅卵，历经冲刷而日渐滑润，熠熠生辉。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/21/how-not-to-crash-8-infrastructure/" itemprop="url">【译】如何避免程序崩溃-8：基本架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-21T13:23:51+08:00">
+                01/21/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure</a></p>
+<hr>
+<p>即使你觉得自己的app是无故障的，你也需要收集崩溃日志 —— 因为没有什么是无故障的：只有<em>已知</em>的崩溃bug是可以避免的。</p>
+<p>有一些做这类事情的服务，我尝试过的还都不错，所以我在这里就不做特别推荐了。</p>
+<p>有几点功能是它应该具备的：</p>
+<ol>
+<li>崩溃日志被收集的过程，不需要用户手动查找它们再发送给你。它应该是自动化的（如果在OS X上，用户可能会收到提示；而在iOS上没人会希望被弹窗）。</li>
+<li>要有给崩溃日志分组的机制，你得到的应该是每一组的汇总，这样你就能知道哪些经常出现，哪些不经常出现。</li>
+<li>要能够给一组问题标记为已解决。</li>
+</ol>
+<p>当然，仅仅收集崩溃日志是远远不够的。你应该定期查看它们。（我每天早上查看崩溃日志。）</p>
+<h4 id="Bug跟踪器"><a href="#Bug跟踪器" class="headerlink" title="Bug跟踪器"></a>Bug跟踪器</h4><p>要有一个。</p>
+<p>对于我私人的项目，我会综合使用Lighthouse，OmniOutliner和纸笔 —— 当然你可以使用任何工具，只要你的崩溃记录归总到你的bug跟踪器里面而不会遗失。</p>
+<p>（Lighthouse是个不错的bug跟踪器。我喜欢用OmniOutliner来标记大的新功能或者完整的app，在那里我可以建立to do的事件树。对于短周期的事情 —— 比如完成一个10步就可以完成的任务 —— 我喜欢用纸笔，因为依赖短期记忆很让人疲倦，而纸笔不会干扰屏幕上的上下文环境。）</p>
+<h4 id="错误和警告"><a href="#错误和警告" class="headerlink" title="错误和警告"></a>错误和警告</h4><p>Xcode默认不会打开足够的错误和警告。我强烈推荐<a href="http://boredzo.org/blog/archives/2009-11-07/warnings" title="http://boredzo.org/blog/archives/2009-11-07/warnings" target="_blank" rel="external">Peter Hosey的集合</a>。</p>
+<p>关键是要移除你代码中的<em>不确定性</em>。</p>
+<p>就像我推荐的，我更进一步：我像对待错误一样对待警告。是的，这就意味着，如果警告存在我甚至不能在本地debug —— 但是这条守则物有所值。它意味着无论何时，只要我的app在运行，就不存在任何警告。</p>
+<h4 id="Instruments"><a href="#Instruments" class="headerlink" title="Instruments"></a>Instruments</h4><p>Instruments非常棒。查看你的app分配了多少的内存是个好主意，同时，查看内存泄漏也是非常重要的。</p>
+<p>如果你的app崩溃了，使用Zombies工具是个好主意。你的问题可能和zombies并没有关系，但是在怀疑的过程中，排除法是很值得使用的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/19/commands-in-git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/19/commands-in-git/" itemprop="url">实用git命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-19T16:27:32+08:00">
+                01/19/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="状态相关"><a href="#状态相关" class="headerlink" title="状态相关"></a>状态相关</h4><ul>
+<li>撤销 <code>git commit</code> 之前的 <code>git add</code> ：<code>git reset &lt;file&gt;</code></li>
+<li>替换本地改动，会使用HEAD中的最新内容替换掉工作目录中的文件，已添加到暂存区及新文件都不会受到影响：<code>git checkout -- &lt;filename&gt;</code></li>
+<li>丢弃本地所有改动和提交，获取服务器最新版本历史，并将本地主分支指向它：<code>git fetch origin</code>, <code>git reset --hard origin/master</code></li>
+</ul>
+<h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><ul>
+<li>查看远程分支：<code>git branch -a</code></li>
+<li>查看本地分支：<code>git branch</code></li>
+<li>创建分支：<code>git branch newBranch</code></li>
+<li>把分支推到远程分支：<code>git push origin newBranch</code></li>
+<li>把远程分支pull下来：<code>git clone --branch develop --single-branch XXurl</code></li>
+<li>切换分支：<code>git checkout newBranch</code></li>
+<li>删除远程分支: <code>git push origin --delete &lt;branchName&gt;</code></li>
+<li>删除本地分支：<code>git branch -D fixVersion</code></li>
+<li>合并改动前，预览差异：<code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></li>
+<li>查看远程信息：<code>git remote show origin</code><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">remote origin</div><div class="line">  Fetch URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  Push  URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  HEAD branch: master</div><div class="line">  Remote branches:</div><div class="line">    lesson1          tracked</div><div class="line">    lesson2          tracked</div><div class="line">    lesson3          tracked</div><div class="line">    lesson4          tracked</div><div class="line">    lesson5          tracked</div><div class="line">    lesson6          tracked</div><div class="line">    master           tracked</div><div class="line">    practise2        tracked</div><div class="line">    practise2_answer tracked</div><div class="line">    practise3        tracked</div><div class="line">    practise3_answer tracked</div><div class="line">  <span class="keyword">Local</span> branches configured <span class="keyword">for</span> <span class="string">'git pull'</span>:</div><div class="line">    master           merges <span class="keyword">with</span> remote master</div><div class="line">    practise2        merges <span class="keyword">with</span> remote practise2</div><div class="line">    practise2_answer merges <span class="keyword">with</span> remote practise2_answer</div><div class="line">  <span class="keyword">Local</span> refs configured <span class="keyword">for</span> <span class="string">'git push'</span>:</div><div class="line">    lesson6          pushes <span class="keyword">to</span> lesson6          (<span class="keyword">local</span> <span class="keyword">out</span> <span class="keyword">of</span> date)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h4><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/git-cheat-sheet.png" alt="git cheat sheet"></p>
+<p>源文件在<a href="http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf" target="_blank" rel="external">这里</a>。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<p><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">http://rogerdudler.github.io/git-guide/index.zh.html</a></p>
+<p><a href="http://stackoverflow.com/questions/348170/undo-git-add-before-commit" target="_blank" rel="external">http://stackoverflow.com/questions/348170/undo-git-add-before-commit</a></p>
+<p><a href="http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit" target="_blank" rel="external">http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/01/19/commands-in-LLVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calios">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calios' Eden">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/19/commands-in-LLVM/" itemprop="url">LLDB常用命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-19T11:28:16+08:00">
+                01/19/16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p><strong>po：</strong> 打印出对象的description描述。<br>这里列出几个常用的场景：</p>
 <ul>
-<li>查看KVO的详细信息：</li></div><p class="readmore"><a href="/2016/01/19/commands-in-LLVM/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/6/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">下一页</a></nav></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://www.caliosd.gq"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/iOS/" style="font-size: 15px;">iOS</a> <a href="/tags/Translation/" style="font-size: 15px;">Translation</a> <a href="/tags/SourceCodeRead/" style="font-size: 15px;">SourceCodeRead</a> <a href="/tags/StillWater/" style="font-size: 15px;">StillWater</a> <a href="/tags/Mac/" style="font-size: 15px;">Mac</a> <a href="/tags/ThoughtInTech/" style="font-size: 15px;">ThoughtInTech</a> <a href="/tags/CaseReview/" style="font-size: 15px;">CaseReview</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/29/memory-management-with-ARC/">iOS的内存管理之ARC部分总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/28/copy/">关于copy的常见问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/issue-of-lazy-loading-property/">Issue of lazy loading property</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/gps-and-related/">GPS and related</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Calios' Eden.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<li>查看KVO的详细信息：</li>
+</ul>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">po <span class="string">[observedObject observationInfo]</span></div></pre></td></tr></table></figure>
+<ul>
+<li>查看AutoLayout布局的view的层级结构，需在<code>layoutSublayersOfLayer:</code>方法中添加断点。详参<a href="http://www.calios.gq/2015/09/10/AutoLayout-debug/" target="_blank" rel="external">这篇</a>。</li>
+</ul>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">po <span class="string">[self _autolayoutTrace]</span></div></pre></td></tr></table></figure>
+<p><strong>e：</strong> 在当前程序环境中，执行任何的表达式，并且可以定义和操作已存在的变量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> e result = []</span></div></pre></td></tr></table></figure>
+<h4 id="控制流快捷命令"><a href="#控制流快捷命令" class="headerlink" title="控制流快捷命令"></a>控制流快捷命令</h4><ul>
+<li><code>n</code>，Step Over</li>
+<li><code>s</code>, Step Into</li>
+<li><code>finish</code>, Step Out</li>
+<li><code>c</code>, 恢复程序执行操作<br><code>thread return</code>：不但可以使当前的函数返回，而且还可以任意修改当前函数的返回值，而不管传进来的参数如何。</li>
+</ul>
+<h4 id="断点创建命令"><a href="#断点创建命令" class="headerlink" title="断点创建命令"></a>断点创建命令</h4><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(lldb) breakpoint <span class="built_in">set</span> -f ViewController.swift -l <span class="number">28</span></div><div class="line">Breakpoint <span class="number">2</span>: <span class="keyword">where</span> = <span class="keyword">Example</span>`<span class="keyword">Example</span>.ViewController.viewDidLoad (<span class="keyword">Example</span>.ViewController)() -&gt; () + <span class="number">478</span> <span class="built_in">at</span> ViewController.swift:<span class="number">29</span>, address= <span class="number">0x000000010f74f61e</span></div></pre></td></tr></table></figure>
+<p>简写：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">b</span> ViewController<span class="selector-class">.swift</span>:<span class="number">28</span></div><div class="line"><span class="selector-tag">b</span> add （add为函数名）</div></pre></td></tr></table></figure></p>
+<h4 id="一点Chisel"><a href="#一点Chisel" class="headerlink" title="一点Chisel"></a>一点Chisel</h4><p>查看命令用法：<code>help [command]</code></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">(lldb) help pviews</div><div class="line">Print <span class="keyword">the</span> recursion description <span class="keyword">of</span> ~&lt;aView&gt;~.</div><div class="line"></div><div class="line">Arguments:</div><div class="line">  ~&lt;aView&gt;~; Type: UIView*/NSView*; The view <span class="built_in">to</span> print <span class="keyword">the</span> description <span class="keyword">of</span>.</div><div class="line"></div><div class="line">Options:</div><div class="line">  <span class="comment">--up/-u ; Print only the hierarchy directly above the view, up to its window.</span></div><div class="line">  <span class="comment">--depth/-d ~&lt;depth&gt;~; Type: int; Print only to a given depth. 0 indicates infinite depth.</span></div><div class="line"></div><div class="line">Syntax: pviews \[<span class="comment">--up] \[--depth=depth] ~&lt;aView&gt;~</span></div><div class="line"></div><div class="line">This <span class="keyword">command</span> <span class="title">is</span> <span class="title">implemented</span> <span class="title">as</span> <span class="title">FBPrintViewHierarchyCommand</span> <span class="title">in</span> /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">Cellar</span>/<span class="title">chisel</span>/<span class="title">1</span><span class="number">.2</span><span class="number">.0</span>/<span class="title">libexec</span>/<span class="title">commands</span>/<span class="title">FBPrintCommands</span>.<span class="title">py</span>.</div><div class="line"></div><div class="line">(LLDB adds <span class="keyword">the</span> next <span class="built_in">line</span>, sorry...)</div></pre></td></tr></table></figure>
+<p>查看view的层级结构的 <em>原生命令</em>：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(lldb) po <span class="comment">[<span class="comment">[<span class="comment">[UIApplication sharedApplication]</span> keyWindow]</span> recursiveDescription]</span></div></pre></td></tr></table></figure>
+<p>Chisel的简化版：<code>pviews</code></p>
+<ul>
+<li>语法为：<code>pviews [--up] [--depth=depth] &lt;aView&gt;</code></li>
+<li>可以添加以下参数：<ul>
+<li>–up/-u：只打印直属于当前view的层级关系。最高层为它的window。</li>
+<li>–depth/-d <depth>：只打印指定层数，0意味着不限制层数。</depth></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="xml">(lldb) pviews</span></div><div class="line"><span class="tag">&lt;<span class="name">UIWindow:</span> <span class="attr">0x7f994423a3a0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">768</span> <span class="attr">1024</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">gestureRecognizers</span> = &lt;<span class="attr">NSArray:</span> <span class="attr">0x7f994423abc0</span>&gt;</span>; layer = <span class="tag">&lt;<span class="name">UIWindowLayer:</span> <span class="attr">0x7f9944239e90</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UILayoutContainerView:</span> <span class="attr">0x7f9943d4a160</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">768</span> <span class="attr">1024</span>); <span class="attr">transform</span> = <span class="string">[0,</span> <span class="attr">-1</span>, <span class="attr">1</span>, <span class="attr">0</span>, <span class="attr">0</span>, <span class="attr">0</span>]; <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943d4a380</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITransitionView:</span> <span class="attr">0x7f9943d4bbc0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">clipsToBounds</span> = <span class="string">YES;</span> <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943d4be00</span>&gt;</span>&gt;</div><div class="line">   |    |    | <span class="tag">&lt;<span class="name">UIViewControllerWrapperView:</span> <span class="attr">0x7f9943cb7b30</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943cb8380</span>&gt;</span>&gt;</div><div class="line">   |    |    |    | <span class="tag">&lt;<span class="name">UILayoutContainerView:</span> <span class="attr">0x7f994412f9c0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">gestureRecognizers</span> = &lt;<span class="attr">NSArray:</span> <span class="attr">0x7f9943c67c30</span>&gt;</span>; layer = <span class="tag">&lt;<span class="name">CALayer:</span> <span class="attr">0x7f994412fba0</span>&gt;</span>&gt;</div><div class="line">   |    |    |    |    | <span class="tag">&lt;<span class="name">UINavigationTransitionView:</span> <span class="attr">0x7f9943c606f0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">clipsToBounds</span> = <span class="string">YES;</span> <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c13890</span>&gt;</span>&gt;</div><div class="line">   |    |    |    |    |    | <span class="tag">&lt;<span class="name">UIViewControllerWrapperView:</span> <span class="attr">0x7f994426d090</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f994426ce70</span>&gt;</span>&gt;</div><div class="line">   |    |    |    |    |    |    | <span class="tag">&lt;<span class="name">UIView:</span> <span class="attr">0x7f994423db60</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f994423dad0</span>&gt;</span>&gt;</div><div class="line">   |    |    |    |    |    |    |    | <span class="tag">&lt;<span class="name">UICollectionView:</span> <span class="attr">0x7f9944838000</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">768</span>); <span class="attr">clipsToBounds</span> = <span class="string">YES;</span> <span class="attr">gestureRecognizers</span> = &lt;<span class="attr">NSArray:</span> <span class="attr">0x7f9944241220</span>&gt;</span>; layer = <span class="tag">&lt;<span class="name">CALayer:</span> <span class="attr">0x7f9944240a30</span>&gt;</span>; contentOffset: <span class="template-variable">&#123;0, -64&#125;</span><span class="xml">&gt; collection view layout: <span class="tag">&lt;<span class="name">UICollectionViewFlowLayout:</span> <span class="attr">0x7f994423fca0</span>&gt;</span></span></div><div class="line">   ... ...</div><div class="line"></div><div class="line">(lldb) pviews --up</div><div class="line"><span class="tag">&lt;<span class="name">UIWindow:</span> <span class="attr">0x7f994423a3a0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">768</span> <span class="attr">1024</span>); <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">gestureRecognizers</span> = &lt;<span class="attr">NSArray:</span> <span class="attr">0x7f994423abc0</span>&gt;</span>; layer = <span class="tag">&lt;<span class="name">UIWindowLayer:</span> <span class="attr">0x7f9944239e90</span>&gt;</span>&gt;</div><div class="line"></div><div class="line">(lldb) pviews --depth=5 0x7f9943d4ad60</div><div class="line"><span class="tag">&lt;<span class="name">UITabBar:</span> <span class="attr">0x7f9943d4ad60</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">712</span>; <span class="attr">1024</span> <span class="attr">56</span>); <span class="attr">autoresize</span> = <span class="string">W+TM;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943d4b1a0</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">_UITabBarBackgroundView:</span> <span class="attr">0x7f994423b920</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">56</span>); <span class="attr">autoresize</span> = <span class="string">W;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f994423bae0</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">_UIBackdropView:</span> <span class="attr">0x7f994423bb00</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">56</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">_UIBackdropViewLayer:</span> <span class="attr">0x7f994423bdd0</span>&gt;</span>&gt;</div><div class="line">   |    |    | <span class="tag">&lt;<span class="name">_UIBackdropEffectView:</span> <span class="attr">0x7f994423c320</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">56</span>); <span class="attr">clipsToBounds</span> = <span class="string">YES;</span> <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CABackdropLayer:</span> <span class="attr">0x7f994423bac0</span>&gt;</span>&gt;</div><div class="line">   |    |    | <span class="tag">&lt;<span class="name">UIView:</span> <span class="attr">0x7f994423c4f0</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">0</span>; <span class="attr">1024</span> <span class="attr">56</span>); <span class="attr">hidden</span> = <span class="string">YES;</span> <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">autoresize</span> = <span class="string">W+H;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f994423c5b0</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UITabBarButton:</span> <span class="attr">0x7f9943c8fd20</span>; <span class="attr">frame</span> = <span class="string">(309</span> <span class="attr">1</span>; <span class="attr">76</span> <span class="attr">55</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c923e0</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarSwappableImageView:</span> <span class="attr">0x7f9943c92900</span>; <span class="attr">frame</span> = <span class="string">(25.5</span> <span class="attr">7</span>; <span class="attr">25</span> <span class="attr">25</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c92b70</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarButtonLabel:</span> <span class="attr">0x7f9943c902f0</span>; <span class="attr">frame</span> = <span class="string">(24</span> <span class="attr">35</span>; <span class="attr">28</span> <span class="attr">17</span>); <span class="attr">text</span> = <span class="string">'首页'</span>; <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c90590</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UITabBarButton:</span> <span class="attr">0x7f9943c9bf20</span>; <span class="attr">frame</span> = <span class="string">(419</span> <span class="attr">1</span>; <span class="attr">76</span> <span class="attr">55</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c9d520</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarSwappableImageView:</span> <span class="attr">0x7f9943c9d910</span>; <span class="attr">frame</span> = <span class="string">(25.5</span> <span class="attr">8</span>; <span class="attr">25</span> <span class="attr">23</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c9d540</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarButtonLabel:</span> <span class="attr">0x7f9943c9c0c0</span>; <span class="attr">frame</span> = <span class="string">(24</span> <span class="attr">35</span>; <span class="attr">28</span> <span class="attr">17</span>); <span class="attr">text</span> = <span class="string">'课程'</span>; <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943c9be40</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UITabBarButton:</span> <span class="attr">0x7f9943ca5450</span>; <span class="attr">frame</span> = <span class="string">(529</span> <span class="attr">1</span>; <span class="attr">76</span> <span class="attr">55</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943ca6a50</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarSwappableImageView:</span> <span class="attr">0x7f9943ca6d40</span>; <span class="attr">frame</span> = <span class="string">(25.5</span> <span class="attr">7</span>; <span class="attr">25</span> <span class="attr">25</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943ca6a70</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarButtonLabel:</span> <span class="attr">0x7f9943ca55f0</span>; <span class="attr">frame</span> = <span class="string">(17</span> <span class="attr">35</span>; <span class="attr">42</span> <span class="attr">17</span>); <span class="attr">text</span> = <span class="string">'讨论区'</span>; <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943ca5370</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UITabBarButton:</span> <span class="attr">0x7f9943caeaa0</span>; <span class="attr">frame</span> = <span class="string">(639</span> <span class="attr">1</span>; <span class="attr">76</span> <span class="attr">55</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943cb0070</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarSwappableImageView:</span> <span class="attr">0x7f9943cb0350</span>; <span class="attr">frame</span> = <span class="string">(26</span> <span class="attr">7.5</span>; <span class="attr">24</span> <span class="attr">24</span>); <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943cb0090</span>&gt;</span>&gt;</div><div class="line">   |    | <span class="tag">&lt;<span class="name">UITabBarButtonLabel:</span> <span class="attr">0x7f9943caec40</span>; <span class="attr">frame</span> = <span class="string">(31</span> <span class="attr">35</span>; <span class="attr">14</span> <span class="attr">17</span>); <span class="attr">text</span> = <span class="string">'我'</span>; <span class="attr">opaque</span> = <span class="string">NO;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f9943cae9a0</span>&gt;</span>&gt;</div><div class="line">   | <span class="tag">&lt;<span class="name">UIImageView:</span> <span class="attr">0x7f994423d490</span>; <span class="attr">frame</span> = <span class="string">(0</span> <span class="attr">-0.5</span>; <span class="attr">1024</span> <span class="attr">0.5</span>); <span class="attr">autoresize</span> = <span class="string">W;</span> <span class="attr">userInteractionEnabled</span> = <span class="string">NO;</span> <span class="attr">layer</span> = &lt;<span class="attr">CALayer:</span> <span class="attr">0x7f994423d590</span>&gt;</span>&gt;</div></pre></td></tr></table></figure>
+<p>刷新显示的原生命令：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(lldb) e (<span class="keyword">void</span>)[CATransaction <span class="built_in">flush</span>]</div></pre></td></tr></table></figure>
+<p>Chisel的简化版：<code>caflush</code></p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><p>与调试器共舞 - LLDB 的华尔兹(objccn.io): <a href="http://objccn.io/issue-19-2/" target="_blank" rel="external">http://objccn.io/issue-19-2/</a></p>
+</li>
+<li><p>LLDB使用篇（上）: <a href="http://www.dreamingwish.com/article/lldb-usage-a.html" target="_blank" rel="external">http://www.dreamingwish.com/article/lldb-usage-a.html</a></p>
+</li>
+<li><p>LLDB篇2教你使用faceBook的chisel来提高调试效率: <a href="http://www.jianshu.com/p/b2371dd4443b#" target="_blank" rel="external">http://www.jianshu.com/p/b2371dd4443b</a></p>
+</li>
+<li><p><a href="http://swiftcafe.io/2015/09/05/lldb-debug/" target="_blank" rel="external">http://swiftcafe.io/2015/09/05/lldb-debug/</a></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Calios</p>
+              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calios</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
