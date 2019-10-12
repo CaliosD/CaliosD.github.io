@@ -2,26 +2,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
 <html class="theme-next gemini use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -38,9 +36,27 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
 
 
 
@@ -48,63 +64,20 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Calios, Calios_1124, CaliosD, Calios' Eden" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Stedfast as thou art.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Calios&#39; Eden">
-<meta property="og:url" content="http://www.caliosd.gq/page/3/index.html">
-<meta property="og:site_name" content="Calios&#39; Eden">
-<meta property="og:description" content="Stedfast as thou art.">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Calios&#39; Eden">
-<meta name="twitter:description" content="Stedfast as thou art.">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"scrollpercent":false,"onmobile":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -116,12 +89,36 @@
 </script>
 
 
+  
 
+
+
+
+  <meta name="description" content="Stedfast as thou art.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calios&#39; Eden">
+<meta property="og:url" content="http://www.caliosd.gq/page/3/index.html">
+<meta property="og:site_name" content="Calios&#39; Eden">
+<meta property="og:description" content="Stedfast as thou art.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calios&#39; Eden">
+<meta name="twitter:description" content="Stedfast as thou art.">
+
+
+
+
+
+  
+  
   <link rel="canonical" href="http://www.caliosd.gq/page/3/"/>
 
 
 
-
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>Calios' Eden</title>
   
@@ -129,18 +126,38 @@
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-71292392-1', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
 
 
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
@@ -157,23 +174,26 @@
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Calios' Eden</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">Stedfast as thou art.</p>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -181,45 +201,60 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+
+    
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+
+    
+
+    <a href="/archives/" rel="section">Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+
+    
+
+    <a href="/about/" rel="section">About</a>
+
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -227,12 +262,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -245,21 +291,23 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/background-fetch/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/background-fetch/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -269,37 +317,65 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/10/background-fetch/" itemprop="url">Background fetch</a></h1>
+                
+                <a href="/2017/01/10/background-fetch/" class="post-title-link" itemprop="url">Background fetch</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T11:00:51+08:00">
-                01/10/17
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 01/10/17 11:00:51" itemprop="dateCreated datePublished" datetime="2017-01-10T11:00:51+08:00">01/10/17</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 16:32:51" itemprop="dateModified" datetime="2018-09-15T16:32:51+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -331,12 +407,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -369,21 +451,23 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/notes-for-block/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/notes-for-block/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -393,37 +477,65 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/10/notes-for-block/" itemprop="url">Block学习笔记</a></h1>
+                
+                <a href="/2017/01/10/notes-for-block/" class="post-title-link" itemprop="url">Block学习笔记</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T10:59:16+08:00">
-                01/10/17
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 01/10/17 10:59:16" itemprop="dateCreated datePublished" datetime="2017-01-10T10:59:16+08:00">01/10/17</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 16:14:48" itemprop="dateModified" datetime="2018-09-15T16:14:48+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -466,12 +578,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -504,21 +622,23 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/at-the-beginning-of-2017/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2017/01/10/at-the-beginning-of-2017/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -528,37 +648,65 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/10/at-the-beginning-of-2017/" itemprop="url">写在2017年初</a></h1>
+                
+                <a href="/2017/01/10/at-the-beginning-of-2017/" class="post-title-link" itemprop="url">写在2017年初</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T10:22:16+08:00">
-                01/10/17
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 01/10/17 10:22:16" itemprop="dateCreated datePublished" datetime="2017-01-10T10:22:16+08:00">01/10/17</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 17:36:33" itemprop="dateModified" datetime="2018-09-15T17:36:33+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -589,12 +737,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -627,21 +781,23 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/28/back-button-in-custom-UINavigationBar/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/28/back-button-in-custom-UINavigationBar/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -651,37 +807,65 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/10/28/back-button-in-custom-UINavigationBar/" itemprop="url">浅析自定义UINavigationBar返回按钮（一）</a></h1>
+                
+                <a href="/2016/10/28/back-button-in-custom-UINavigationBar/" class="post-title-link" itemprop="url">浅析自定义UINavigationBar返回按钮（一）</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-28T17:52:21+08:00">
-                10/28/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 10/28/16 17:52:21" itemprop="dateCreated datePublished" datetime="2016-10-28T17:52:21+08:00">10/28/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 16:32:47" itemprop="dateModified" datetime="2018-09-15T16:32:47+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -751,12 +935,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -789,21 +979,23 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/18/how-to-update-vim-in-Mac/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/10/18/how-to-update-vim-in-Mac/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -813,37 +1005,65 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/10/18/how-to-update-vim-in-Mac/" itemprop="url">如何更新Mac中自带的Vim</a></h1>
+                
+                <a href="/2016/10/18/how-to-update-vim-in-Mac/" class="post-title-link" itemprop="url">如何更新Mac中自带的Vim</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-18T17:07:31+08:00">
-                10/18/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 10/18/16 17:07:31" itemprop="dateCreated datePublished" datetime="2016-10-18T17:07:31+08:00">10/18/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 16:25:22" itemprop="dateModified" datetime="2018-09-15T16:25:22+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -879,12 +1099,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -917,21 +1143,23 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/09/03/differences-among-workspace-project-target-scheme/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/09/03/differences-among-workspace-project-target-scheme/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -941,37 +1169,65 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/09/03/differences-among-workspace-project-target-scheme/" itemprop="url">【译】Workspace & Project & Target & Scheme 的区别</a></h1>
+                
+                <a href="/2016/09/03/differences-among-workspace-project-target-scheme/" class="post-title-link" itemprop="url">【译】Workspace & Project & Target & Scheme 的区别</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-03T10:11:54+08:00">
-                09/03/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 09/03/16 10:11:54" itemprop="dateCreated datePublished" datetime="2016-09-03T10:11:54+08:00">09/03/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 17:39:22" itemprop="dateModified" datetime="2018-09-15T17:39:22+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -1029,12 +1285,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1067,21 +1329,23 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/08/19/summary-for-hr-project/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/08/19/summary-for-hr-project/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -1091,37 +1355,65 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/08/19/summary-for-hr-project/" itemprop="url">某HR项目iOS端总结</a></h1>
+                
+                <a href="/2016/08/19/summary-for-hr-project/" class="post-title-link" itemprop="url">某HR项目iOS端总结</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-19T11:32:54+08:00">
-                08/19/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 08/19/16 11:32:54" itemprop="dateCreated datePublished" datetime="2016-08-19T11:32:54+08:00">08/19/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 17:26:42" itemprop="dateModified" datetime="2018-09-15T17:26:42+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -1295,12 +1587,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1333,21 +1631,23 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/24/commands-in-svn/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/24/commands-in-svn/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -1357,37 +1657,65 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/07/24/commands-in-svn/" itemprop="url">实用svn命令</a></h1>
+                
+                <a href="/2016/07/24/commands-in-svn/" class="post-title-link" itemprop="url">实用svn命令</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-24T16:17:22+08:00">
-                07/24/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 07/24/16 16:17:22" itemprop="dateCreated datePublished" datetime="2016-07-24T16:17:22+08:00">07/24/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 17:05:34" itemprop="dateModified" datetime="2018-09-15T17:05:34+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -1426,12 +1754,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1464,21 +1798,23 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">
+    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Calios"/>
+      <meta itemprop="description" content="Stedfast as thou art."/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden">
+      <meta itemprop="name" content="Calios' Eden"/>
     </span>
 
     
@@ -1488,37 +1824,65 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/" itemprop="url">Set deployment target for CocoaPods’ pod in batches</a></h1>
+                
+                <a href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/" class="post-title-link" itemprop="url">Set deployment target for CocoaPods’ pod in batches</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-07T09:55:23+08:00">
-                07/07/16
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
-
+              <time title="Created: 07/07/16 09:55:23" itemprop="dateCreated datePublished" datetime="2016-07-07T09:55:23+08:00">07/07/16</time>
+            </span>
           
 
           
             
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09/15/18 16:09:15" itemprop="dateModified" datetime="2018-09-15T16:09:15+08:00">09/15/18</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
           
 
           
           
 
+          
+
+          <br/>
           
 
           
@@ -1552,12 +1916,18 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1586,15 +1956,12 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -1610,79 +1977,108 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Calios</p>
-              <p class="site-description motion-element" itemprop="description">Stedfast as thou art.</p>
+              <div class="site-description motion-element" itemprop="description">Stedfast as thou art.</div>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">97</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">tags</span>
+                  <a href="/archives/">
                 
-              </div>
-            
+                    <span class="site-state-item-count">97</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-          </nav>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
 
           
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/caliosd" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.instagram.com/calios_1124" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-globe"></i>Instagram</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/caliosd" title="GitHub &rarr; https://github.com/caliosd" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.instagram.com/calios_1124" title="Instagram &rarr; https://www.instagram.com/calios_1124" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Instagram</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
 
@@ -1690,6 +2086,7 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
     </div>
   </aside>
+  
 
 
         
@@ -1698,17 +2095,19 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Calios</span>
+  <span class="author" itemprop="copyrightHolder">CaliosD</span>
+
+  
 
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.3.7</div>
 
 
 
@@ -1716,12 +2115,13 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
 
 
 
 
         
+
 
 
 
@@ -1742,11 +2142,14 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1760,99 +2163,11 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
 
 
-  
 
 
 
 
 
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -1866,7 +2181,54 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 
 
   
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
 
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
 
 
 
@@ -1878,6 +2240,19 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
