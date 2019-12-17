@@ -1,402 +1,126 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+<meta name="description" content="0523-移动端会议有感"/><meta name="keywords" content="ThoughtInTech, Calios' Eden" /><link rel="alternate" href="/default" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="en">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"/>
-
-<link rel="stylesheet" href="/css/main.css?v=7.2.0"/>
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"scrollpercent":false,"onmobile":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
+    <title>0523-移动端会议有感 - Calios' Eden</title>
+  </head>
 
-  
-
-
-
-
-  <meta name="description" content="1. 技术，最后的终点都是应用。所以，要充分考虑use case例如：考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？ 延伸思考：获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。 结论：不止是测试需要测试案例，设计需要Person">
-<meta name="keywords" content="ThoughtInTech">
-<meta property="og:type" content="article">
-<meta property="og:title" content="0523-移动端会议有感">
-<meta property="og:url" content="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/index.html">
-<meta property="og:site_name" content="Calios&#39; Eden">
-<meta property="og:description" content="1. 技术，最后的终点都是应用。所以，要充分考虑use case例如：考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？ 延伸思考：获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。 结论：不止是测试需要测试案例，设计需要Person">
-<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz/bwj0DnTUVQuIQvnX7vuvibCtVicEGt9jGXV03CW3RRSjAwAzs6jUmEKoIgNBoInCqn6pibl7TwB5x19SejSfEAvUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:updated_time" content="2018-09-15T09:34:38.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="0523-移动端会议有感">
-<meta name="twitter:description" content="1. 技术，最后的终点都是应用。所以，要充分考虑use case例如：考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？ 延伸思考：获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。 结论：不止是测试需要测试案例，设计需要Person">
-<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz/bwj0DnTUVQuIQvnX7vuvibCtVicEGt9jGXV03CW3RRSjAwAzs6jUmEKoIgNBoInCqn6pibl7TwB5x19SejSfEAvUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-
-
-
-
-
-  
-  
-  <link rel="canonical" href="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/"/>
-
-
-
-<script id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>0523-移动端会议有感 | Calios' Eden</title>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .motion-element,
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
-
-  .use-motion .logo,
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Calios' Eden</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-    
-      
-        <p class="site-subtitle">Stedfast as thou art.</p>
-      
-    
-    
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Calios' Eden</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-
-
-<nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
-
-    
-
-    <a href="/" rel="section">Home</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-
-    
-
-    <a href="/archives/" rel="section">Archives</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-
-    
-    
-
-    
-
-    <a href="/about/" rel="section">About</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-
-
-  
-
-
-
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Calios' Eden</a>
 </div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">0523-移动端会议有感
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-24
+        </span></div>
     </header>
 
-    
-
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-            
-
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios"/>
-      <meta itemprop="description" content="Stedfast as thou art."/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">0523-移动端会议有感
-
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 05/24/16 11:26:38" itemprop="dateCreated datePublished" datetime="2016-05-24T11:26:38+08:00">05/24/16</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 09/15/18 17:34:38" itemprop="dateModified" datetime="2018-09-15T17:34:38+08:00">09/15/18</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br/>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="1-技术，最后的终点都是应用。所以，要充分考虑use-case"><a href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case" class="headerlink" title="1. 技术，最后的终点都是应用。所以，要充分考虑use case"></a>1. 技术，最后的终点都是应用。所以，要充分考虑use case</h3><p><strong>例如：</strong>考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case"><span class="toc-text">1. 技术，最后的终点都是应用。所以，要充分考虑use case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-思考一个问题，要尽量全方位地考虑"><span class="toc-text">2. 思考一个问题，要尽量全方位地考虑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-要经常总结，落到文字和图片上"><span class="toc-text">3.要经常总结，落到文字和图片上</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h3 id="1-技术，最后的终点都是应用。所以，要充分考虑use-case"><a href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case" class="headerlink" title="1. 技术，最后的终点都是应用。所以，要充分考虑use case"></a>1. 技术，最后的终点都是应用。所以，要充分考虑use case</h3><p><strong>例如：</strong>考虑iOS端如何实现图文混排的展示问题，在选择使用模板来规范获取到的html时，如果出现文字环绕图片的状况，是否也能完美展示？</p>
 <p><strong>延伸思考：</strong>获取到的html来自哪里－》来自用户－》用户的行为不可控－》输入的图文样式不可控－》所以，调研时选定方案时，需要充分测试各种图文混排的效果。</p>
 <p><strong>结论：</strong>不止是测试需要测试案例，设计需要Persona，开发的技术调研、选择技术方案时也需要充分考虑use case。</p>
 <h3 id="2-思考一个问题，要尽量全方位地考虑"><a href="#2-思考一个问题，要尽量全方位地考虑" class="headerlink" title="2. 思考一个问题，要尽量全方位地考虑"></a>2. 思考一个问题，要尽量全方位地考虑</h3><p><img src="http://mmbiz.qpic.cn/mmbiz/bwj0DnTUVQuIQvnX7vuvibCtVicEGt9jGXV03CW3RRSjAwAzs6jUmEKoIgNBoInCqn6pibl7TwB5x19SejSfEAvUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="" title="思考能力的六大分类"></p>
@@ -410,410 +134,66 @@
 <p>我相信思维这种东西，没有那么多天生的快与慢。快者，如福尔摩斯，也无非是以他自己的方式建造了一座记忆宫殿，而他知晓通往宫殿每个角落的最短路径。慢者，如我等，还需要刻意训练自己的思维能力，让大脑中的灰质细胞不断增加，让神经元更容易地将灰质细胞连接起来，让我们可以更加“融会贯通”。</p>
 <h3 id="3-要经常总结，落到文字和图片上"><a href="#3-要经常总结，落到文字和图片上" class="headerlink" title="3.要经常总结，落到文字和图片上"></a>3.要经常总结，落到文字和图片上</h3><p>这个不用多说了。这也是我写这个博客的初衷之一吧。:)</p>
 
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-        
-          
-        
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://www.caliosd.gq">Calios</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/">http://www.caliosd.gq/2016/05/24/essay-mobile-meeting-160523/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
         <div class="post-tags">
-          
-            <a href="/tags/ThoughtInTech/" rel="tag"># ThoughtInTech</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/05/17/notes-for-TextKit/" rel="next" title="Some notes for TextKit">
-                <i class="fa fa-chevron-left"></i> Some notes for TextKit
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/25/[SourceCodeRead]-CAPSPageMenu/" rel="prev" title="[SourceCodeRead]-CAPSPageMenu">
-                [SourceCodeRead]-CAPSPageMenu <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-  </div>
-
-
-          </div>
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Calios</p>
-              <div class="site-description motion-element" itemprop="description">Stedfast as thou art.</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">97</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">tags</span>
-                  
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/caliosd" title="GitHub &rarr; https://github.com/caliosd" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://www.instagram.com/calios_1124" title="Instagram &rarr; https://www.instagram.com/calios_1124" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Instagram</a>
-                </span>
-              
+            <a href="/tags/ThoughtInTech/">ThoughtInTech</a>
             </div>
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-技术，最后的终点都是应用。所以，要充分考虑use-case"><span class="nav-number">1.</span> <span class="nav-text">1. 技术，最后的终点都是应用。所以，要充分考虑use case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-思考一个问题，要尽量全方位地考虑"><span class="nav-number">2.</span> <span class="nav-text">2. 思考一个问题，要尽量全方位地考虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-要经常总结，落到文字和图片上"><span class="nav-number">3.</span> <span class="nav-text">3.要经常总结，落到文字和图片上</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
         
-      </div>
-    </main>
+        <nav class="post-nav"><a class="prev" href="/2016/05/25/[SourceCodeRead]-CAPSPageMenu/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">[SourceCodeRead]-CAPSPageMenu</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2016/05/17/notes-for-TextKit/">
+        <span class="next-text nav-default">Some notes for TextKit</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-heart"></i>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:calios_1124@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="http://github.com/caliosd" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
   </span>
-  <span class="author" itemprop="copyrightHolder">CaliosD</span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
 
-  
-
-  
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Calios</span>
+  </span>
 </div>
+</footer>
 
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.3.7</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.2.0"></script>
-
-  <script src="/js/motion.js?v=7.2.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/affix.js?v=7.2.0"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.2.0"></script>
-<script src="/js/post-details.js?v=7.2.0"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.2.0"></script>
-
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

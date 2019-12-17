@@ -1,400 +1,126 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+<meta name="description" content="如何查看和修改Mac中的环境变量"/><meta name="keywords" content="Mac, Calios' Eden" /><link rel="alternate" href="/default" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="en">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"/>
-
-<link rel="stylesheet" href="/css/main.css?v=7.2.0"/>
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"scrollpercent":false,"onmobile":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
+    <title>如何查看和修改Mac中的环境变量 - Calios' Eden</title>
+  </head>
 
-  
-
-
-
-
-  <meta name="description" content="显示当前的环境变量列表1234$ printenvPATH=/Library/Frameworks/Python.framework/Versions/3.4/bin:/Users/calios/.cabal/bin:/Applications/ghc-7.8.4.app/Contents/bin:/Library/Frameworks/Python.framework/Versions/3.4/">
-<meta name="keywords" content="Mac">
-<meta property="og:type" content="article">
-<meta property="og:title" content="如何查看和修改Mac中的环境变量">
-<meta property="og:url" content="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/index.html">
-<meta property="og:site_name" content="Calios&#39; Eden">
-<meta property="og:description" content="显示当前的环境变量列表1234$ printenvPATH=/Library/Frameworks/Python.framework/Versions/3.4/bin:/Users/calios/.cabal/bin:/Applications/ghc-7.8.4.app/Contents/bin:/Library/Frameworks/Python.framework/Versions/3.4/">
-<meta property="og:updated_time" content="2018-09-15T08:24:57.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何查看和修改Mac中的环境变量">
-<meta name="twitter:description" content="显示当前的环境变量列表1234$ printenvPATH=/Library/Frameworks/Python.framework/Versions/3.4/bin:/Users/calios/.cabal/bin:/Applications/ghc-7.8.4.app/Contents/bin:/Library/Frameworks/Python.framework/Versions/3.4/">
-
-
-
-
-
-  
-  
-  <link rel="canonical" href="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/"/>
-
-
-
-<script id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>如何查看和修改Mac中的环境变量 | Calios' Eden</title>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .motion-element,
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
-
-  .use-motion .logo,
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Calios' Eden</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-    
-      
-        <p class="site-subtitle">Stedfast as thou art.</p>
-      
-    
-    
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Calios' Eden</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-
-
-<nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
-
-    
-
-    <a href="/" rel="section">Home</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-
-    
-
-    <a href="/archives/" rel="section">Archives</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-
-    
-    
-
-    
-
-    <a href="/about/" rel="section">About</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-
-
-  
-
-
-
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Calios' Eden</a>
 </div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">如何查看和修改Mac中的环境变量
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-02-17
+        </span></div>
     </header>
 
-    
-
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-            
-
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Calios"/>
-      <meta itemprop="description" content="Stedfast as thou art."/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Calios' Eden"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">如何查看和修改Mac中的环境变量
-
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 02/17/16 16:45:02" itemprop="dateCreated datePublished" datetime="2016-02-17T16:45:02+08:00">02/17/16</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 09/15/18 16:24:57" itemprop="dateModified" datetime="2018-09-15T16:24:57+08:00">09/15/18</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br/>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h4 id="显示当前的环境变量列表"><a href="#显示当前的环境变量列表" class="headerlink" title="显示当前的环境变量列表"></a>显示当前的环境变量列表</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ printenv</div><div class="line">PATH=<span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/usr/</span>local<span class="regexp">/bin:/</span>usr<span class="regexp">/bin:/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/sbin:/</span>opt<span class="regexp">/X11/</span>bin</div><div class="line">ZSH=<span class="regexp">/Users/</span>calios/.oh-my-zsh</div><div class="line">...</div></pre></td></tr></table></figure>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#显示当前的环境变量列表"><span class="toc-text">显示当前的环境变量列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看当前使用的shell"><span class="toc-text">查看当前使用的shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置临时环境变量"><span class="toc-text">设置临时环境变量</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="显示当前的环境变量列表"><a href="#显示当前的环境变量列表" class="headerlink" title="显示当前的环境变量列表"></a>显示当前的环境变量列表</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ printenv</div><div class="line">PATH=<span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/Library/</span>Frameworks<span class="regexp">/Python.framework/</span>Versions<span class="regexp">/3.4/</span><span class="string">bin:</span><span class="regexp">/Users/</span>calios<span class="regexp">/.cabal/</span><span class="string">bin:</span><span class="regexp">/Applications/</span>ghc<span class="number">-7.8</span><span class="number">.4</span>.app<span class="regexp">/Contents/</span><span class="string">bin:</span><span class="regexp">/usr/</span>local<span class="regexp">/bin:/</span>usr<span class="regexp">/bin:/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/sbin:/</span>opt<span class="regexp">/X11/</span>bin</div><div class="line">ZSH=<span class="regexp">/Users/</span>calios/.oh-my-zsh</div><div class="line">...</div></pre></td></tr></table></figure>
 <h4 id="查看当前使用的shell"><a href="#查看当前使用的shell" class="headerlink" title="查看当前使用的shell"></a>查看当前使用的shell</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$SHELL</span></span></div><div class="line">    /bin/zsh</div></pre></td></tr></table></figure>
 <p>所以，我现在使用的shell是<em>zsh</em>，而不是默认的<em>bash</em>。那么，是不是应该修改<em>zsh</em>的相应配置文件呢？</p>
 <p>找到<em>zsh</em>配置文件所在路径<code>~/.zshrc</code>并打开（这里指定了Sublime打开，因为有语法支持～）：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">open</span> -<span class="keyword">a</span> Sublime\ Text ~/.zshrc</div></pre></td></tr></table></figure></p>
@@ -412,410 +138,66 @@
 </li>
 </ul>
 
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-        
-          
-        
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://www.caliosd.gq">Calios</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/">http://www.caliosd.gq/2016/02/17/how-to-check-and-update-environment-var-in-Mac/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
         <div class="post-tags">
-          
-            <a href="/tags/Mac/" rel="tag"># Mac</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/02/15/[SourceCodeRead]-PureLayout/" rel="next" title="[SourceCodeRead]-PureLayout">
-                <i class="fa fa-chevron-left"></i> [SourceCodeRead]-PureLayout
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/19/notes-for-multi-thread-programming/" rel="prev" title="iOS开发多线程学习笔记-1">
-                iOS开发多线程学习笔记-1 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-  </div>
-
-
-          </div>
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Calios</p>
-              <div class="site-description motion-element" itemprop="description">Stedfast as thou art.</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">97</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">tags</span>
-                  
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/caliosd" title="GitHub &rarr; https://github.com/caliosd" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://www.instagram.com/calios_1124" title="Instagram &rarr; https://www.instagram.com/calios_1124" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Instagram</a>
-                </span>
-              
+            <a href="/tags/Mac/">Mac</a>
             </div>
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示当前的环境变量列表"><span class="nav-number">1.</span> <span class="nav-text">显示当前的环境变量列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看当前使用的shell"><span class="nav-number">2.</span> <span class="nav-text">查看当前使用的shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置临时环境变量"><span class="nav-number">3.</span> <span class="nav-text">设置临时环境变量</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
         
-      </div>
-    </main>
+        <nav class="post-nav"><a class="prev" href="/2016/02/19/notes-for-multi-thread-programming/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">iOS开发多线程学习笔记-1</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2016/02/15/[SourceCodeRead]-PureLayout/">
+        <span class="next-text nav-default">[SourceCodeRead]-PureLayout</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-heart"></i>
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:calios_1124@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="http://github.com/caliosd" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
   </span>
-  <span class="author" itemprop="copyrightHolder">CaliosD</span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
 
-  
-
-  
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Calios</span>
+  </span>
 </div>
+</footer>
 
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.3.7</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.2.0"></script>
-
-  <script src="/js/motion.js?v=7.2.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/affix.js?v=7.2.0"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
-
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.2.0"></script>
-<script src="/js/post-details.js?v=7.2.0"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.2.0"></script>
-
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>
