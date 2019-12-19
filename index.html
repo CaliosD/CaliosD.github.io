@@ -90,6 +90,32 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2019/12/19/from-proto-to-go/">从 .proto 到 .pb.go</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-19
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>proto buffer在平时开发中使用很多，那么它是如何从 .proto 转化成我们可以直接调用的 .go 文件呢？我们接下来依次拆解这几部分：</p>
+<ol>
+<li>package</li>
+<li>message</li>
+<li>field</li>
+<li>service</li>
+</ol>
+<h2 id="1-package"><a href="#1-package" class="headerlink" title="1. package"></a>1. package</h2><ul>
+<li>如果没有 <code>package</code> 声明，会将文件名作为包名，同理，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
+<li>如果有 <code>package</code> 声明，会将声明的内容作为包名，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
+</ul>
+          <div class="read-more">
+            <a href="/2019/12/19/from-proto-to-go/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">WWDC 2017-412: Auto Layout Techniques in Interface Builder</a>
         </h1>
 
@@ -222,23 +248,6 @@
 </ul>
           <div class="read-more">
             <a href="/2017/04/15/notes-for-regex/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-04-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>CAS（集中式认证服务，Central Authentication Service）登录在后台开发中使用很广泛，它可以允许一个用户访问多个web app，而只需要提供一次凭证（如用户名和密码）。不仅方便用户跨程序使用系统，也实现了认证和web app分类，提高了安全性。</p>
-<p>目前在移动端（本文以iOS为例）涉及到CAS登录的项目主要有两种实现方式：CAS模拟登录和RESTful方式的登录。现总结如下，供以后备查。</p>
-          <div class="read-more">
-            <a href="/2017/04/12/summary-for-CAS-login-in-iOS/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">

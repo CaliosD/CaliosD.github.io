@@ -90,6 +90,26 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">Set deployment target for CocoaPods’ pod in batches</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-07-07
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>When I tried to <code>pod update</code> an old project, it changed all the pods’ deployment target to 8.0. I’ve been tired up with changing it all the time and finally found <a href="http://stackoverflow.com/a/37289688/1594792" title="http://stackoverflow.com/a/37289688/1594792" target="_blank" rel="external">this solution</a>.</p>
+<p>It says:</p>
+<blockquote>
+<p>While some development versions of CocoaPods (as well as pre-1.0 versions) may have propagated the deployment target of the project down to the pods, this is no longer the case in 1.0. To work around this, the current developer recommends using a post-install hook.<br>Here’s a brute force approach to force a hard-coded deployment target for every pod in the generated Pods project. Paste this at the end of your Podfile:<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install <span class="built_in">do</span> |<span class="type">installer</span>|</div><div class="line">  <span class="type">installer</span>.pods_project.targets.each <span class="built_in">do</span> |<span class="type">target</span>|</div><div class="line">    <span class="type">target</span>.build_configurations.each <span class="built_in">do</span> |<span class="type">config</span>|</div><div class="line">      <span class="type">config</span>.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '<span class="number">9.2</span>'</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>Replace <code>9.2</code> with whatever deployment target you would like to use.</p>
+</blockquote>
+<p>It does work in two of my projects and the warnings and errors are silent again. LOL.</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/05/27/notes-for-Charts/">Some notes for Charts</a>
         </h1>
 
@@ -340,61 +360,6 @@
 <p>The table view’s data source implementation of <code>tableView:cellForRowAtIndexPath:</code> should always reset all content when reusing a cell.</p>
 <p><code>indentationLevel</code> property for UITableViewCell</p>
 </blockquote>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/04/26/dynamically-adding-class-methods-with-runtime/">Dynamically adding class methods with runtime</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-04-26
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>Today I learned how to add dynamic instance methods in class like this.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"sing"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherSing, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherSing(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is singing."</span>,((People *)<span class="keyword">self</span>).name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>When I was typing the code myself, I found another similar method: <code>resolveClassMethod:</code>. Maybe I could use it the same way, I thought. So, here’s the first version.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Build and run.</p>
-<p>Boom! It crashed sadly, and an unrecognized selector error at runtime was throwed out.</p>
-<p>Why?</p>
-<p>Digging like a gopher in the Internet(:P), I found Jeff explained <a href="http://iphonedevelopment.blogspot.jp/2008/08/dynamically-adding-class-objects.html" target="_blank" rel="external">here</a> in detail:</p>
-<blockquote>
-<p>Because that code adds a method to the class object, which means you added an instance method to that class. That’s not what you want. What you want is to add a method to your class’ metaclass object instance, which means going to the runtime to get the Class object that represents the class’ metaclass object (say that five times fast!).</p>
-</blockquote>
-<p>So, replace the code above with below would work well.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        Class selfMetaClass = objc_getMetaClass([[<span class="keyword">self</span> className] UTF8String]);</div><div class="line">        class_addMethod(selfMetaClass, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Now, people could rock as they wished. :P</p>
-<p>Wait, what hell was the …  “”v@:”” ?? Seemed odd.</p>
-<p>Well, let’s have another digging(:P).</p>
-<p>Here it is:</p>
-<table>
-<thead>
-<tr>
-<th>type</th>
-<th>meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i/v</td>
-<td>return int/void  </td>
-</tr>
-<tr>
-<td>@</td>
-<td>parameter id(self)</td>
-</tr>
-<tr>
-<td>:</td>
-<td>SEL(_cmd)</td>
-</tr>
-<tr>
-<td>@</td>
-<td>id(str)</td>
-</tr>
-</tbody>
-</table>
-<p>More detail encodings are <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" target="_blank" rel="external">here</a>.</p>
-<p>OK. That’s finally done. See you another topic. :]</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

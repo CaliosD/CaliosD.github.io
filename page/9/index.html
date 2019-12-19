@@ -90,6 +90,25 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/11/25/load-class-from-storyboard-in-code/">通过代码加载storyboard中的class</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-11-25
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>1.在attribute inspector中给要加载的view controller添加identifier；</p>
+<p><img src="http://i12.tietuku.com/b2e09019a0d77401.png" alt=""></p>
+<p>2.添加如下代码：</p>
+<pre><code>UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@&quot;MainStoryboard&quot; bundle:nil];
+DetailViewController *detailViewController = [storyboard instantiateViewControllerWithIdentifier:@&quot;DetailViewController&quot;];
+[self.navigationController pushViewController:detailViewController animated:YES];
+</code></pre>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/11/23/technical-preview/">“技术调研”时我们做些什么？</a>
         </h1>
 
@@ -619,32 +638,6 @@
 <hr>
 <p>译文索引：</p>
 <p><a href="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/" title="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/">#1: KVO与手动绑定</a><br><a href="http://www.caliosd.gq/2015/11/13/how-not-to-crash-2-mutation-exceptions/" title="http://www.caliosd.gq/2015/11/13/how-not-to-crash-2-mutation-exceptions/">#2: 可变对象的异常</a><br><a href="http://www.caliosd.gq/2015/11/16/how-not-to-crash-3-nsnotification/" title="http://www.caliosd.gq/2015/11/16/how-not-to-crash-3-nsnotification/">#3: NSNotification</a><br><a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/" title="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">#4: 线程</a><br><a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-5-threading-part-2/" title="http://www.caliosd.gq/2015/11/26/how-not-to-crash-5-threading-part-2/">#5: 线程2</a><br><a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/" title="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/">#6: 属性和存取器</a><br><a href="http://www.caliosd.gq/2015/12/19/how-not-to-crash-7-dealing-with-nothing/" title="http://www.caliosd.gq/2015/12/19/how-not-to-crash-7-dealing-with-nothing/">#7: 什么都不做</a><br><a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">#8: 基本架构</a><br><a href="http://www.caliosd.gq/2016/02/24/how-not-to-crash-9-mindset/" title="http://www.caliosd.gq/2016/02/24/how-not-to-crash-9-mindset/">#9: 心态</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/09/25/install-MongoDB-in-OS-X/">OS X安装MongoDB</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-09-25
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>在OS X中，使用<a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a>完成各种package的安装工作无疑是很方便的。如下是使用Homebrew安装MongoDB的步骤。</p>
-<h4 id="1-更新Homebrew的package数据库"><a href="#1-更新Homebrew的package数据库" class="headerlink" title="1.更新Homebrew的package数据库"></a>1.更新Homebrew的package数据库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> brew update</span></div></pre></td></tr></table></figure>
-<h4 id="2-安装MongoDB"><a href="#2-安装MongoDB" class="headerlink" title="2.安装MongoDB"></a>2.安装MongoDB</h4><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ brew install mongodb</div><div class="line">==\&gt; Downloading https:<span class="comment">//homebrew.bintray.com/bottles/mongodb-3.0.6.yosemite.bottle.tar.gz</span></div><div class="line">###### \#\#########                                                          <span class="number">23.0</span>%</div><div class="line">curl: (<span class="number">56</span>) SSLRead() return error <span class="number">-9806</span></div><div class="line">Error: Failed to download resource <span class="string">"mongodb"</span></div><div class="line">Download failed: https:<span class="comment">//homebrew.bintray.com/bottles/mongodb-3.0.6.yosemite.bottle.tar.gz</span></div><div class="line">Warning: Bottle installation failed: building <span class="keyword">from</span> source.</div><div class="line">==\&gt; Downloading https:<span class="comment">//fastdl.mongodb.org/src/mongodb-src-r3.0.6.tar.gz</span></div><div class="line">###### \#\################################################################# <span class="number">100.0</span>%</div><div class="line">==\&gt; Cloning https:<span class="comment">//github.com/mongodb/mongo-tools.git</span></div><div class="line">Cloning into <span class="string">'/Library/Caches/Homebrew/mongodb--github.com-mongodb-mongo-tools--git'</span>...</div><div class="line">remote: Counting objects: <span class="number">1180</span>, done.</div><div class="line">remote: Compressing objects: <span class="number">100</span>% (<span class="number">950</span>/<span class="number">950</span>), done.</div><div class="line">remote: Total <span class="number">1180</span> (delta <span class="number">184</span>), reused <span class="number">840</span> (delta <span class="number">136</span>), pack-reused <span class="number">0</span></div><div class="line">Receiving objects: <span class="number">100</span>% (<span class="number">1180</span>/<span class="number">1180</span>), <span class="number">1.86</span> MiB | <span class="number">230.00</span> KiB/s, done.</div><div class="line">Resolving deltas: <span class="number">100</span>% (<span class="number">184</span>/<span class="number">184</span>), done.</div><div class="line">Checking connectivity... done.</div><div class="line">Note: checking out <span class="string">'7588eb887549bd5d2fc7bbc08f7c62d4b29b9d75'</span>.</div></pre></td></tr></table></figure>
-<p>You are in ‘detached HEAD’ state. You can look around, make experimental<br>changes and commit them, and you can discard any commits you make in this<br>state without impacting any branches by performing another checkout.</p>
-<p>If you want to create a new branch to retain commits you create, you may<br>do so (now or later) by using -b with the checkout command again. Example:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">  git checkout -b new\_branch\_name</div><div class="line"></div><div class="line">=<span class="ruby">=&gt; Checking out tag r3.<span class="number">0</span>.<span class="number">6</span></span></div><div class="line">=<span class="ruby">=&gt; ./build.sh</span></div><div class="line">=<span class="ruby">=&gt; /usr/local/opt/scons/bin/scons install --prefix=<span class="regexp">/usr/local</span><span class="regexp">/Cellar/mongodb</span><span class="regexp">/3.0.6 -j8 --osx-version-min=10.10 --cc=</span></span></div><div class="line">=<span class="ruby"><span class="regexp">=&gt; Caveats</span></span></div><div class="line">To have launchd start mongodb at login:</div><div class="line">  ln -sfv /usr/local/opt/mongodb/\*.plist \~/Library/LaunchAgents</div><div class="line">Then to load mongodb now:</div><div class="line">  launchctl load \~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist</div><div class="line">Or, if you don't want/need launchctl, you can just run:</div><div class="line">  mongod --config /usr/local/etc/mongod.conf</div><div class="line">=<span class="ruby"><span class="regexp">=&gt; Summary</span></span></div><div class="line">🍺  /usr/local/Cellar/mongodb/3.0.6: 17 files, 158M, built in 7.2 minutes</div></pre></td></tr></table></figure></p>
-<p>看起来通过Homebrew的bottle来安装失败，于是开始下载源代码来编译，最终安装成功。</p>
-<h4 id="3-启动MongoDB"><a href="#3-启动MongoDB" class="headerlink" title="3.启动MongoDB"></a>3.启动MongoDB</h4><p>按照Terminal中的提示，直接启动MongoDB。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mongod --config /usr/<span class="built_in">local</span>/etc/mongod.conf</span></div></pre></td></tr></table></figure>
-<p>通过Terminal直接连接MongoDB。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mongo</span></div><div class="line">MongoDB shell version: 3.0.6</div><div class="line">connecting to: test</div><div class="line"><span class="meta">&gt;</span><span class="bash"></span></div></pre></td></tr></table></figure>
-<hr>
-<p><strong>Ref:</strong></p>
-<p><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="external">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/</a></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/8/">

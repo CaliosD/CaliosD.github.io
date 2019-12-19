@@ -90,6 +90,56 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/01/10/download-manager/">Some methods for DownloadManager</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-01-10
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。</p>
+<p>首先定义一下下载管理的范围：</p>
+<ul>
+<li>可以同时下载多个文件；</li>
+<li>对于单个文件而已，可以下载/暂定/恢复下载/取消下载/显示下载进度；</li>
+<li>可以控制同时下载的最大数量。</li>
+</ul>
+<p>接下来，从最早采用的实现方法说起。</p>
+<ol>
+<li>NSOperationQueue</li>
+</ol>
+<ul>
+<li>创建继承自<code>NSOperation</code>的自定义类；</li>
+<li>将下载需要的网络请求（如<code>NSURLSessionDownloadTask</code>）作为其中的一个属性；</li>
+</ul>
+<ol>
+<li>dispatch_queue_create()</li>
+<li>NSURLSession</li>
+</ol>
+<p><strong>核心：All the other APIs -> model -> UI</strong></p>
+<p><strong>这里附上苹果开发者论坛中，一位开发者与苹果开发者的关于<code>NSURLSession</code>的问答（2015年7月）。</strong></p>
+<p>我需要在我的app中上传200张图片，<br>1.我该使用<code>NSURLSessionUploadTask</code>还是其他什么类？<br>答：<code>NSURLSessionUploadTask</code>.<br>2.为了让这些upload保持在background，我该做些什么？<br>答：把所有的upload扔进一个<code>NSURLSession</code>的background session中。<br>3.当app没有在运行的时候，我该做些什么？（没有明确回答）<br>4.针对以上3点，我该在<code>NSURLSession</code>外面包一层<code>NSOperation</code>以便于使用<code>NSOperationQueue</code>，还是说，iOS会有它自己的内部queue来正确处理<code>NSURLSession</code>对象们？<br>答：这个很难说。一般来说，我是<code>NSOperation</code>的死忠粉，但由于background session和app生命周期的交互方式，用<code>NSOperation</code>来解决<code>NSURLSession</code>的background session的问题却有些棘手。<br>具体来说，通常的流程是这样的：</p>
+<p>1.你的app开始一堆后台传输；<br>2.用户把它移到后台；<br>3.系统暂停了你的app；<br>4.传输在后台继续运行；<br>5.系统终止了你的app；<br>6.传输继续在后台运行；<br>7.传输结束；<br>8.系统重新启动你的app。</p>
+<p>如果你使用<code>NSOperation</code>来追踪每个传输，当你在第8步重新启动app时，就需要重新创建那一堆的operation。当然，在第8步是需要重新创建<em>一些东西</em>，只是重新创建<code>NSOperation</code>要比重新创建其他不那么复杂的对象棘手些。</p>
+<p>5.你的意思是说，如果我一次性把200个<code>NSURLSessionUploadTask</code>的实例添加到同一个background session配置的<code>NSURLSession</code>中，iOS会把它们都正确处理好？<br>答：是的。<code>NSURLSession</code>后台下载系统会很乐意处理几百个请求的。它在内部将它们串联起来，所以在任何时候只有少量的请求是在执行中。<br>6.如果是的话，对于task的数量是否有所限制？<br>答：没有硬性规定，但我通常建议不要做的太过分。在我看来，几百个请求是可以接受的，几千个请求就有点勉强，上万的请求就有点2。。我通常建议，如果你不得不处理上千个单独的item，你可以把它们打包起来，然后进行一个可恢复的传输。然而，有一些问题：</p>
+<ul>
+<li>做这种事情需要严谨的服务器端的支持。<ul>
+<li><code>NSURLSession</code>的background session自动处理下载的断点续传。但对于上传并非如此。如果你需要上传的断点续传，你就得涉及到每次的连接数据（这里原文用的是”tears”，不太理解。。）。考虑到这个原因，把上传文件打包成合理大小的整块文件就很有必要，这样上传就会产生一打的进度，即使有可能连接失败，也好过你的app重新恢复上传。</li>
+</ul>
+</li>
+</ul>
+<p><strong>另外，对于如何知道当前并行的下载数，<code>MZDownloadManager</code>的作者也在这个issue下给出了<a href="https://github.com/mzeeshanid/MZDownloadManager/issues/29" target="_blank" rel="external">答案</a>。简而言之，就是通过筛选存储着model的array，得到状态为“下载中”的model的数量。</strong> </p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://forums.developer.apple.com/thread/10239" target="_blank" rel="external">https://forums.developer.apple.com/thread/10239</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2017/01/10/background-fetch/">Background fetch</a>
         </h1>
 
@@ -457,26 +507,6 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <p>10.View all historical changes to a file in SVN:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># history_of_file</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Outputs the full history of a given file as a sequence of</span></div><div class="line"><span class="comment"># logentry/diff pairs.  The first revision of the file is emitted as</span></div><div class="line"><span class="comment"># full text since there's not previous version to compare it to.</span></div><div class="line"></div><div class="line"><span class="keyword">function</span> <span class="function"><span class="title">history_of_file</span></span>() &#123;</div><div class="line">    url=<span class="variable">$1</span> <span class="comment"># current url of file</span></div><div class="line">    svn <span class="built_in">log</span> -q <span class="variable">$url</span> | grep -E -e <span class="string">"^r[[:digit:]]+"</span> -o | cut -c2- | sort -n | &#123;</div><div class="line"></div><div class="line"><span class="comment">#       first revision as full text</span></div><div class="line">        <span class="built_in">echo</span></div><div class="line">        <span class="built_in">read</span> r</div><div class="line">        svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        svn cat -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">        <span class="built_in">echo</span></div><div class="line"></div><div class="line"><span class="comment">#       remaining revisions as differences to previous revision</span></div><div class="line">        <span class="keyword">while</span> <span class="built_in">read</span> r</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="built_in">echo</span></div><div class="line">            svn <span class="built_in">log</span> -r<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            svn diff -c<span class="variable">$r</span> <span class="variable">$url</span>@HEAD</div><div class="line">            <span class="built_in">echo</span></div><div class="line">        <span class="keyword">done</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$ history_of_file <span class="variable">$1</span></div></pre></td></tr></table></figure></p>
 <p>11.Add tags for SVN:</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># First of all, the `ios/1.0.39219` directory should already exists. If it doesn't, you can create it using `svn mkdir` like below.</span></div><div class="line"><span class="variable">$ </span>svn mkdir <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span> -m <span class="string">"create tag v1.0 for iOS."</span></div><div class="line"><span class="variable">$ </span>svn copy <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/trunk</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/project</span>A <span class="symbol">http:</span>/<span class="regexp">/path/to</span><span class="regexp">/project/tags</span><span class="regexp">/projectA/mobile</span><span class="regexp">/ios/</span><span class="number">1.0</span>.<span class="number">39219</span>/projectA -m <span class="string">"create v1.0. Before updating all the base url and cas url."</span></div><div class="line"></div><div class="line">Committed revision <span class="number">41000</span>.</div></pre></td></tr></table></figure>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/07/07/set-deployment-target-for-CocoaPods'-pod-in-batches/">Set deployment target for CocoaPods’ pod in batches</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-07-07
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>When I tried to <code>pod update</code> an old project, it changed all the pods’ deployment target to 8.0. I’ve been tired up with changing it all the time and finally found <a href="http://stackoverflow.com/a/37289688/1594792" title="http://stackoverflow.com/a/37289688/1594792" target="_blank" rel="external">this solution</a>.</p>
-<p>It says:</p>
-<blockquote>
-<p>While some development versions of CocoaPods (as well as pre-1.0 versions) may have propagated the deployment target of the project down to the pods, this is no longer the case in 1.0. To work around this, the current developer recommends using a post-install hook.<br>Here’s a brute force approach to force a hard-coded deployment target for every pod in the generated Pods project. Paste this at the end of your Podfile:<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install <span class="built_in">do</span> |<span class="type">installer</span>|</div><div class="line">  <span class="type">installer</span>.pods_project.targets.each <span class="built_in">do</span> |<span class="type">target</span>|</div><div class="line">    <span class="type">target</span>.build_configurations.each <span class="built_in">do</span> |<span class="type">config</span>|</div><div class="line">      <span class="type">config</span>.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '<span class="number">9.2</span>'</div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>Replace <code>9.2</code> with whatever deployment target you would like to use.</p>
-</blockquote>
-<p>It does work in two of my projects and the warnings and errors are silent again. LOL.</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/2/">

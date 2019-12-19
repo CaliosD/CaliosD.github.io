@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="从 .proto 到 .pb.go"/><meta name="keywords" content="protobuf, Calios' Eden" /><link rel="alternate" href="/default" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://www.caliosd.gq/2019/12/19/from-proto-to-go/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>从 .proto 到 .pb.go - Calios' Eden</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Calios' Eden</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Calios' Eden</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">从 .proto 到 .pb.go
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-19
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-package"><span class="toc-text">1. package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-message"><span class="toc-text">2. message</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-预定义-message"><span class="toc-text">2.1 预定义 message</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-field"><span class="toc-text">3. field</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-map"><span class="toc-text">3.1 map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-oneof"><span class="toc-text">3.2 oneof</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-“XXX-”-field"><span class="toc-text">3.3 “XXX_” field</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Service"><span class="toc-text">4. Service</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>proto buffer在平时开发中使用很多，那么它是如何从 .proto 转化成我们可以直接调用的 .go 文件呢？我们接下来依次拆解这几部分：</p>
+<ol>
+<li>package</li>
+<li>message</li>
+<li>field</li>
+<li>service</li>
+</ol>
+<h2 id="1-package"><a href="#1-package" class="headerlink" title="1. package"></a>1. package</h2><ul>
+<li>如果没有 <code>package</code> 声明，会将文件名作为包名，同理，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
+<li>如果有 <code>package</code> 声明，会将声明的内容作为包名，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> <span class="title">dev.snow_plus (.proto)   =&gt;   <span class="keyword">package</span> dev_snow_plus (.go)</span></div></pre></td></tr></table></figure>
+<ul>
+<li>如果想覆盖掉默认生成的包名，可以增加 <code>go_package</code> 的设置；</li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">option go_package = <span class="string">"member"</span><span class="comment">;</span></div></pre></td></tr></table></figure>
+<h2 id="2-message"><a href="#2-message" class="headerlink" title="2. message"></a>2. message</h2><p>golang 并不会显式地声明一个 struct 实现了某个 interface，它用的是 “duck typing” 的方式。所以，只要 struct 实现了 interface 的所有方法，就可以把它当做 interface 用。</p>
+<p>对于 proto 中的 <code>message</code> 也是这样，假设我们有一个简单的 <code>message</code>：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloRequest</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>proto buffer的编译器会生成一个名为 <code>HelloRequest</code> 的 struct，同时为这个 struct 实现 <code>Message</code> 接口中的所有方法。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">type Message<span class="built_in"> interface </span>&#123;</div><div class="line">    Reset()</div><div class="line">    String() string</div><div class="line">    ProtoMessage()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>生成的 struct：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> HelloRequest <span class="keyword">struct</span> &#123;</div><div class="line">	XXX_NoUnkeyedLiteral <span class="keyword">struct</span>&#123;&#125; <span class="string">`json:"-"`</span></div><div class="line">	XXX_unrecognized     []<span class="keyword">byte</span>   <span class="string">`json:"-"`</span></div><div class="line">	XXX_sizecache        <span class="keyword">int32</span>    <span class="string">`json:"-"`</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 将proto的状态重置为默认值</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *HelloRequest)</span> <span class="title">Reset</span><span class="params">()</span></span>         &#123; *m = HelloRequest&#123;&#125; &#125;</div><div class="line"><span class="comment">// proto的字符串展示</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *HelloRequest)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123; <span class="keyword">return</span> proto.CompactTextString(m) &#125;</div><div class="line"><span class="comment">// 用做tag，保证其他人不会碰巧实现了 Message 接口</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*HelloRequest)</span> <span class="title">ProtoMessage</span><span class="params">()</span></span>    &#123;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2-1-预定义-message"><a href="#2-1-预定义-message" class="headerlink" title="2.1 预定义 message"></a>2.1 预定义 message</h3><p>protobuf 自带了一些预定义的 <code>message</code>，被称为“well-known types（WKTs）”，比如常用的 timestamp、empty等等。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import <span class="string">"google/protobuf/timestamp.proto"</span>;</div><div class="line">import <span class="string">"google/protobuf/empty.proto"</span>;</div><div class="line"><span class="built_in"></span></div><div class="line">service Demo &#123;</div><div class="line">    rpc Hello (HelloRequest) returns (google.protobuf.Empty) &#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">message HelloRequest &#123;</div><div class="line">    string name = 1;</div><div class="line">    string greeting = 2;</div><div class="line">    google.protobuf.Timestamp last_modified = 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>生成的 .pb.go 文件：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import (</div><div class="line">    empty <span class="string">"github.com/golang/protobuf/ptypes/empty"</span></div><div class="line">	timestamp <span class="string">"github.com/golang/protobuf/ptypes/timestamp"</span></div><div class="line">)</div><div class="line"><span class="built_in">..</span>.<span class="built_in"></span></div><div class="line">type HelloRequest struct &#123;</div><div class="line">	Name                 string               `protobuf:<span class="string">"bytes,1,opt,name=name,proto3"</span> json:<span class="string">"name,omitempty"</span>`</div><div class="line">	Greeting             string               `protobuf:<span class="string">"bytes,2,opt,name=greeting,proto3"</span> json:<span class="string">"greeting,omitempty"</span>`</div><div class="line">	LastModified         *timestamp.Timestamp `protobuf:<span class="string">"bytes,3,opt,name=last_modified,json=lastModified,proto3"</span> json:<span class="string">"last_modified,omitempty"</span>`</div><div class="line">&#125;</div><div class="line"><span class="built_in">..</span>.<span class="built_in"></span></div><div class="line">type DemoClient<span class="built_in"> interface </span>&#123;</div><div class="line">	Hello(ctx context.Context, <span class="keyword">in</span> *HelloRequest, opts <span class="built_in">..</span>.grpc.CallOption) (<span class="number">*e</span>mpty.Empty, error)</div><div class="line">&#125;</div><div class="line"><span class="built_in">..</span>.<span class="built_in"></span></div><div class="line">type DemoServer<span class="built_in"> interface </span>&#123;</div><div class="line">	Hello(context.Context, *HelloRequest) (<span class="number">*e</span>mpty.Empty, error)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-field"><a href="#3-field" class="headerlink" title="3. field"></a>3. field</h2><h3 id="3-1-map"><a href="#3-1-map" class="headerlink" title="3.1 map"></a>3.1 map</h3><p>.proto：<br><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">message</span> <span class="title">Info</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">message</span> <span class="title">RegisLoginResp</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    map&lt;<span class="built_in">string</span>, Info&gt; extra = <span class="number">4</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>生成的 .pb.go：<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> <span class="type">RegisLoginResp</span> struct &#123;</div><div class="line">	...</div><div class="line">	<span class="type">Extra</span>   map[string]*<span class="type">Info</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-2-oneof"><a href="#3-2-oneof" class="headerlink" title="3.2 oneof"></a>3.2 oneof</h3><p>oneof 类型的 field 目前项目中比较少用到，但看起来很有用。<br>proto buffer的编译器会生成一个类型为 <code>isMessageName_MyField</code> 的接口类型的 field，同时为 oneof 中的每个 field 生成一个 struct，并实现 <code>isMessageName_MyField</code> 接口。<br>比如下面这个例子：</p>
+<p>.proto:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">message<span class="built_in"> Profile </span>&#123;</div><div class="line">    oneof avatar &#123;</div><div class="line">        string image_url = 1;</div><div class="line">        bytes image_data = 2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>.pb.go:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> Profile <span class="keyword">struct</span> &#123;</div><div class="line">	<span class="comment">// Types that are valid to be assigned to Avatar:</span></div><div class="line">	<span class="comment">//	*Profile_ImageUrl</span></div><div class="line">	<span class="comment">//	*Profile_ImageData</span></div><div class="line">	Avatar               isProfile_Avatar <span class="string">`protobuf_oneof:"avatar"`</span>	</div><div class="line">&#125;</div><div class="line"><span class="keyword">type</span> isProfile_Avatar <span class="keyword">interface</span> &#123;</div><div class="line">	isProfile_Avatar()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> Profile_ImageUrl <span class="keyword">struct</span> &#123;</div><div class="line">	ImageUrl <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> Profile_ImageData <span class="keyword">struct</span> &#123;</div><div class="line">	ImageData []<span class="keyword">byte</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*Profile_ImageUrl)</span> <span class="title">isProfile_Avatar</span><span class="params">()</span></span> &#123;&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*Profile_ImageData)</span> <span class="title">isProfile_Avatar</span><span class="params">()</span></span> &#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>在真正使用的时候可以这样设置 field：<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">p1 := <span class="variable">&amp;account</span>.Profile&#123;</div><div class="line"><span class="symbol">  Avatar:</span> <span class="variable">&amp;account</span>.Profile_ImageUrl&#123;<span class="string">"http://example.com/image.png"</span>&#125;,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// imageData is []byte</span></div><div class="line">imageData := getImageData()</div><div class="line">p2 := <span class="variable">&amp;account</span>.Profile&#123;</div><div class="line"><span class="symbol">  Avatar:</span> <span class="variable">&amp;account</span>.Profile_ImageData&#123;imageData&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>同样，在获取的时候可以用 type switch 来处理不同类型的 message：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span> <span class="string">x :</span>= m.Avatar.(type) &#123;</div><div class="line"><span class="keyword">case</span> *account.<span class="string">Profile_ImageUrl:</span></div><div class="line">        <span class="comment">// Load profile image based on URL</span></div><div class="line">        <span class="comment">// using x.ImageUrl</span></div><div class="line"><span class="keyword">case</span> *account.<span class="string">Profile_ImageData:</span></div><div class="line">        <span class="comment">// Load profile image based on bytes</span></div><div class="line">        <span class="comment">// using x.ImageData</span></div><div class="line"><span class="keyword">case</span> <span class="string">nil:</span></div><div class="line">        <span class="comment">// The field is not set.</span></div><div class="line"><span class="string">default:</span></div><div class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">"Profile.Avatar has unexpected type %T"</span>, x)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-3-“XXX-”-field"><a href="#3-3-“XXX-”-field" class="headerlink" title="3.3 “XXX_” field"></a>3.3 “XXX_” field</h3><p>生成的.pb.go文件中，struct 中的 “XXX<em>” 类型的字段用来存放未知的字段。比如当 proto 的客户端和服务端使用的 proto 版本不同时，proto 解码时可能在序列化的数据中有多余的字段，这些字段会被存放在 “XXX</em>” 中去，以备向后兼容。</p>
+<p>在 protobuf 的 repo 下，有提出 <a href="https://github.com/golang/protobuf/issues/276" target="_blank" rel="external">issue</a> 要求不再生成 “XXX_” 的字段，可能会在下个版本中实现。<br>如果实在不喜欢这些多余字段，可以使用 <a href="https://github.com/gogo/protobuf" target="_blank" rel="external">gogo/protobuf</a> 来代替官方的实现。</p>
+<h2 id="4-Service"><a href="#4-Service" class="headerlink" title="4. Service"></a>4. Service</h2><p>protobuf 的 go 的代码生成器默认并不会生成 service 相关的内容，只有指定了使用 gRPC 的插件，才会生成。如下，后者会生成 client 和 server 端的 stub，前者并不会。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protoc -I/usr/local/include -I. \</div><div class="line">    -<span class="ruby">I$(GOPATH)/src/ \</span></div><div class="line">    -<span class="ruby">-go_out=. demo.proto</span></div></pre></td></tr></table></figure>
+<p>vs<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protoc -I/usr/local/include -I. \</div><div class="line">    -<span class="ruby">I$(GOPATH)/src/ \</span></div><div class="line">    -<span class="ruby">-go_out=plugins=grpc,paths=<span class="symbol">source_relative:</span>. demo.proto</span></div></pre></td></tr></table></figure></p>
+<p>这里补充一下 <code>protoc</code> 的用法：</p>
+<ul>
+<li><code>-IPath，--proto_path=PATH</code>：指定搜索import文件的路径，按照给定的顺序查找，如果没有指定，会默认搜索当前工作目录。</li>
+<li><code>--xxx_out</code>：生成相应语言文件的路径。</li>
+</ul>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://www.caliosd.gq">Calios</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://www.caliosd.gq/2019/12/19/from-proto-to-go/">http://www.caliosd.gq/2019/12/19/from-proto-to-go/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/protobuf/">protobuf</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2017/10/26/WWDC-2017-412-Auto-Layout-Techniques-in-IB/">
+        <span class="next-text nav-default">WWDC 2017-412: Auto Layout Techniques in Interface Builder</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:calios_1124@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="http://github.com/caliosd" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Calios</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

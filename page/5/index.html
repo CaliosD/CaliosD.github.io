@@ -90,6 +90,61 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/04/26/dynamically-adding-class-methods-with-runtime/">Dynamically adding class methods with runtime</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-04-26
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>Today I learned how to add dynamic instance methods in class like this.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"sing"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherSing, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherSing(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is singing."</span>,((People *)<span class="keyword">self</span>).name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>When I was typing the code myself, I found another similar method: <code>resolveClassMethod:</code>. Maybe I could use it the same way, I thought. So, here’s the first version.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        class_addMethod(<span class="keyword">self</span>, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Build and run.</p>
+<p>Boom! It crashed sadly, and an unrecognized selector error at runtime was throwed out.</p>
+<p>Why?</p>
+<p>Digging like a gopher in the Internet(:P), I found Jeff explained <a href="http://iphonedevelopment.blogspot.jp/2008/08/dynamically-adding-class-objects.html" target="_blank" rel="external">here</a> in detail:</p>
+<blockquote>
+<p>Because that code adds a method to the class object, which means you added an instance method to that class. That’s not what you want. What you want is to add a method to your class’ metaclass object instance, which means going to the runtime to get the Class object that represents the class’ metaclass object (say that five times fast!).</p>
+</blockquote>
+<p>So, replace the code above with below would work well.<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">BOOL</span>)resolveClassMethod:(SEL)sel</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"dance"</span>]) &#123;</div><div class="line">        Class selfMetaClass = objc_getMetaClass([[<span class="keyword">self</span> className] UTF8String]);</div><div class="line">        class_addMethod(selfMetaClass, sel, (IMP)otherDance, <span class="string">"v@:"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> otherDance(<span class="keyword">id</span> <span class="keyword">self</span>, SEL cmd)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Dancing! Let's rock!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Now, people could rock as they wished. :P</p>
+<p>Wait, what hell was the …  “”v@:”” ?? Seemed odd.</p>
+<p>Well, let’s have another digging(:P).</p>
+<p>Here it is:</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i/v</td>
+<td>return int/void  </td>
+</tr>
+<tr>
+<td>@</td>
+<td>parameter id(self)</td>
+</tr>
+<tr>
+<td>:</td>
+<td>SEL(_cmd)</td>
+</tr>
+<tr>
+<td>@</td>
+<td>id(str)</td>
+</tr>
+</tbody>
+</table>
+<p>More detail encodings are <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" target="_blank" rel="external">here</a>.</p>
+<p>OK. That’s finally done. See you another topic. :]</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/04/20/how-to-disable-the-UITableView-UICollectionView-selection-highlighting/">How to disable the UITableView-UICollectionView selection highlighting</a>
         </h1>
 
@@ -300,29 +355,6 @@
 <p><strong> Ref: </strong></p>
 <ul>
 <li><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">http://stackoverflow.com/a/25663421/1594792</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/03/how-to-generate-a-random-number-in-Objective-C/">How to generate a random number in Objective-C ?</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-03
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>Brief instruction from <a href="http://nshipster.com/random/" target="_blank" rel="external">Mattt in NSHipster</a> as below.</p>
-<h5 id="1-Random-int-between-0-and-N-1"><a href="#1-Random-int-between-0-and-N-1" class="headerlink" title="1.Random int between 0 and N-1"></a>1.Random int between 0 and N-1</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N);</div></pre></td></tr></table></figure>
-<h5 id="2-Random-int-between-1-and-N"><a href="#2-Random-int-between-1-and-N" class="headerlink" title="2.Random int between 1 and N"></a>2.Random int between 1 and N</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSUInteger r</span> = arc4random_uniform(N) + 1;</div></pre></td></tr></table></figure>
-<h5 id="3-Random-double-between-0-and-1"><a href="#3-Random-double-between-0-and-1" class="headerlink" title="3.Random double between 0 and 1"></a>3.Random double between 0 and 1</h5><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sra<span class="symbol">nd48</span><span class="comment">(time(0)</span>);</div><div class="line">double r = dra<span class="symbol">nd48</span><span class="comment">()</span>;</div></pre></td></tr></table></figure>
-<p>Accordingly, in Swift, it’s like this.<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let redValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let blueValue = CGFloat(<span class="name">drand48</span>())</div><div class="line">let greenValue = CGFloat(<span class="name">drand48</span>())</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong> Ref: </strong></p>
-<ul>
-<li><a href="http://nshipster.com/random/" target="_blank" rel="external">http://nshipster.com/random/</a></li>
 </ul>
 
         </div></article>
