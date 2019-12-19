@@ -111,11 +111,11 @@
 <li>field</li>
 <li>service</li>
 </ol>
+<a id="more"></a>
 <h2 id="1-package"><a href="#1-package" class="headerlink" title="1. package"></a>1. package</h2><ul>
 <li>如果没有 <code>package</code> 声明，会将文件名作为包名，同理，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
 <li>如果有 <code>package</code> 声明，会将声明的内容作为包名，其中 <code>.</code> 会被替换成 <code>_</code>；</li>
 </ul>
-<a id="more"></a>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> <span class="title">dev.snow_plus (.proto)   =&gt;   <span class="keyword">package</span> dev_snow_plus (.go)</span></div></pre></td></tr></table></figure>
 <ul>
 <li>如果想覆盖掉默认生成的包名，可以增加 <code>go_package</code> 的设置；</li>
