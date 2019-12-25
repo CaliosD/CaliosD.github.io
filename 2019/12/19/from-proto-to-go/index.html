@@ -173,14 +173,8 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// server.go</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *Handler)</span> <span class="title">HelloClientStream</span><span class="params">(stream demopb.Demo_HelloClientStreamServer)</span> <span class="title">error</span></span> &#123;</div><div class="line">	<span class="keyword">for</span> &#123;</div><div class="line">		greeting, err := stream.Recv()  <span class="comment">// 依次接收</span></div><div class="line">		<span class="keyword">if</span> err == io.EOF &#123;  <span class="comment">// 直到数据末尾</span></div><div class="line">			<span class="keyword">return</span> stream.SendAndClose(&amp;demopb.HelloResponse&#123;</div><div class="line">				Name:     <span class="string">"End"</span>,</div><div class="line">				Greeting: <span class="string">"bye~!"</span>,</div><div class="line">			&#125;)</div><div class="line">		&#125;</div><div class="line">		log.Infof(<span class="string">"HelloClientStream: recv: %+v"</span>, greeting)</div><div class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">			<span class="keyword">return</span> err</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="4-4-Bidirectional-streaming-service"><a href="#4-4-Bidirectional-streaming-service" class="headerlink" title="4.4 Bidirectional streaming service"></a>4.4 Bidirectional streaming service</h3><p>顾名思义，客户端和服务端发送的都是流数据，服务端接收流数据的同时，也返回给客户端流数据。</p>
 <h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>上面我们提到的，只是使用 gRPC 中的一小段过程，即：从 .proto 定义生成我们所需要的 go 语言实现。<br>当我们将这一部分 zoom out，去观察数据如何在客户端按照 IDL 进行编码和压缩，而后又如何传输到客户端，最终又如何由客户端依照 IDL 反向解码成原始数据，就会发现，上面提到的一切，实在只是冰山一角。<br>而这完整的流程，将会是另一篇文章的主线（又在给自己挖坑┓( ´∀` )┏）。希望我能尽快将新的一篇展现给你，一起走另一段奇妙的旅程。</p>
-<p><br><br><br><br><br><br><br></p>
+<p><br><br><br></p>
 <p>Calios<br><br><br>2019.12.21</p>
-<hr>
-<p><br><br>以上完整 demo：</p>
-<ul>
-<li>gRPC 实现：<a href="https://code.snowplus.cn/grpc-server/demo" target="_blank" rel="external">https://code.snowplus.cn/grpc-server/demo</a></li>
-<li>pb 定义：<a href="https://code.snowplus.cn/pb/demo" target="_blank" rel="external">https://code.snowplus.cn/pb/demo</a></li>
-</ul>
 
       </div>
       <div class="post-copyright">
