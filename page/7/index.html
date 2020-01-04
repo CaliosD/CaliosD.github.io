@@ -91,6 +91,24 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/02/22/reverse-NSArray/">如何翻转NSArray</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-02-22
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>其实<code>NSArray</code>中提供了现成的<code>-reverseObjectEnumerator</code>方法。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSArray *startArray = @[@<span class="string">"1"</span>,@<span class="string">"2"</span>,@<span class="string">"3"</span>,@<span class="string">"4"</span>]<span class="comment">;</span></div><div class="line">NSArray* reversedArray = [[startArray reverseObjectEnumerator] allObjects]<span class="comment">;</span></div><div class="line">NSLog(@<span class="string">"---- %@"</span>,reversedArray)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>控制台打印出来的信息如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">2016-02-22</span> <span class="selector-tag">14</span><span class="selector-pseudo">:13</span><span class="selector-pseudo">:23.539</span> <span class="selector-tag">Demo</span><span class="selector-attr">[1158:258529]</span> <span class="selector-tag">----</span> (</div><div class="line">    <span class="number">4</span>,</div><div class="line">    <span class="number">3</span>,</div><div class="line">    <span class="number">2</span>,</div><div class="line">    <span class="number">1</span></div><div class="line">)</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Ref: </strong></p>
+<p><a href="http://stackoverflow.com/a/586529/1594792" target="_blank" rel="external">http://stackoverflow.com/a/586529/1594792</a></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/02/19/notes-for-multi-thread-programming/">iOS开发多线程学习笔记-1</a>
         </h1>
 
@@ -505,44 +523,6 @@
 <p>就像我推荐的，我更进一步：我像对待错误一样对待警告。是的，这就意味着，如果警告存在我甚至不能在本地debug —— 但是这条守则物有所值。它意味着无论何时，只要我的app在运行，就不存在任何警告。</p>
 <h4 id="Instruments"><a href="#Instruments" class="headerlink" title="Instruments"></a>Instruments</h4><p>Instruments非常棒。查看你的app分配了多少的内存是个好主意，同时，查看内存泄漏也是非常重要的。</p>
 <p>如果你的app崩溃了，使用Zombies工具是个好主意。你的问题可能和zombies并没有关系，但是在怀疑的过程中，排除法是很值得使用的。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/01/19/commands-in-git/">实用git命令</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-01-19
-        </span></div>
-    </header>
-
-    <div class="post-content"><h4 id="状态相关"><a href="#状态相关" class="headerlink" title="状态相关"></a>状态相关</h4><ul>
-<li>撤销 <code>git commit</code> 之前的 <code>git add</code> ：<code>git reset &lt;file&gt;</code></li>
-<li>替换本地改动，会使用HEAD中的最新内容替换掉工作目录中的文件，已添加到暂存区及新文件都不会受到影响：<code>git checkout -- &lt;filename&gt;</code></li>
-<li>丢弃本地所有改动和提交，获取服务器最新版本历史，并将本地主分支指向它：<code>git fetch origin</code>, <code>git reset --hard origin/master</code></li>
-</ul>
-<h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><ul>
-<li>查看远程分支：<code>git branch -a</code></li>
-<li>查看本地分支：<code>git branch</code></li>
-<li>创建分支：<code>git branch newBranch</code></li>
-<li>把分支推到远程分支：<code>git push origin newBranch</code></li>
-<li>把远程分支pull下来：<code>git clone --branch develop --single-branch XXurl</code></li>
-<li>切换分支：<code>git checkout newBranch</code></li>
-<li>删除远程分支: <code>git push origin --delete &lt;branchName&gt;</code></li>
-<li>删除本地分支：<code>git branch -D fixVersion</code></li>
-<li>合并改动前，预览差异：<code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></li>
-<li>查看远程信息：<code>git remote show origin</code><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">remote origin</div><div class="line">  Fetch URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  Push  URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  HEAD branch: master</div><div class="line">  Remote branches:</div><div class="line">    lesson1          tracked</div><div class="line">    lesson2          tracked</div><div class="line">    lesson3          tracked</div><div class="line">    lesson4          tracked</div><div class="line">    lesson5          tracked</div><div class="line">    lesson6          tracked</div><div class="line">    master           tracked</div><div class="line">    practise2        tracked</div><div class="line">    practise2_answer tracked</div><div class="line">    practise3        tracked</div><div class="line">    practise3_answer tracked</div><div class="line">  <span class="keyword">Local</span> branches configured <span class="keyword">for</span> <span class="string">'git pull'</span>:</div><div class="line">    master           merges <span class="keyword">with</span> remote master</div><div class="line">    practise2        merges <span class="keyword">with</span> remote practise2</div><div class="line">    practise2_answer merges <span class="keyword">with</span> remote practise2_answer</div><div class="line">  <span class="keyword">Local</span> refs configured <span class="keyword">for</span> <span class="string">'git push'</span>:</div><div class="line">    lesson6          pushes <span class="keyword">to</span> lesson6          (<span class="keyword">local</span> <span class="keyword">out</span> <span class="keyword">of</span> date)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h4><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/git-cheat-sheet.png" alt="git cheat sheet"></p>
-<p>源文件在<a href="http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf" target="_blank" rel="external">这里</a>。</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<p><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">http://rogerdudler.github.io/git-guide/index.zh.html</a></p>
-<p><a href="http://stackoverflow.com/questions/348170/undo-git-add-before-commit" target="_blank" rel="external">http://stackoverflow.com/questions/348170/undo-git-add-before-commit</a></p>
-<p><a href="http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit" target="_blank" rel="external">http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit</a></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/6/">
