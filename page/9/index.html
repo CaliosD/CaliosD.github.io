@@ -90,6 +90,47 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/11/26/how-not-to-crash-5-threading-part-2/">【译】如何避免程序崩溃-5：线程（二）</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-11-26
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2" target="_blank" rel="external">http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2</a></p>
+<hr>
+<p>我<a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">上一篇关于线程</a>的文章留下来一个开放的问题：在主线程以外的代码是如何交流的，又如何 —— 安全地 —— 返回主线程。</p>
+<p>哪个对象创造后台任务，哪个对象就处理相应的结果。这是硬性规定。</p>
+<blockquote>
+<p>译者注：谁污染，谁治理。这个原则适用于ARC，也适用于多线程。</p>
+</blockquote>
+<p>通常创建任务的对象都是持续在整个app生命周期中的。一个例子可能是图片缓存，缓存可能会在app的生命周期中被清空，但是缓存对象是一直存在的。</p>
+<p>另一个例子：比如说Vesper有一个VSAccount对象。<em>一直</em> 都只有一个VSAccount对象。用户可能有也可能没有服务器的账号。他们可以选择使用哪个服务器的账号。但是只有唯一的VSAccount对象持续于整个app的生命周期。</p>
+<p>(<strong>注意</strong>：显然，一个管理多个账户的应用会做一些不同的处理。但是Vesper最多管理一个服务器账户，所以这样做还不错。在Vesper的例子中，多个账户会遵守<strong>YAGNI</strong>规则。)</p>
+<blockquote>
+<p>译者注：YAGNI，即You Ain’t Gonna Need It，适可为止原则，指的是只需要将应用程序必需的功能包含进来，而不要试图添加任何其他你认为可能需要的功能。</p>
+</blockquote>
+<p>VSAccount对象负责向服务器发送http请求，处理返回的结果。它会在后台队列中把JSON转化成中间对象。</p>
+<p>它通过NSData-to-process和一个回调block来调用JSON处理器。当处理器结束的时候，它会在主线程调用block：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (callback) &#123;</div><div class="line">  dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">	  callback(parsedObjects)</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这对于我来说是一个如此常用的模式 —— 在主线程上调用需要一个参数的block —— 以至于我为它写了一个通用方法。JSON处理器的确就是做了这样的事情：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BSCallBlockWithParameter(<span class="name">callback</span>, parsedObjects)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><code>BSCallBlockWithParameter</code>长这个样子：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (!callback)</div><div class="line">  return<span class="comment">;</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">dispatch_async(dispatch_get_main_queue(), </span>^&#123;</div><div class="line">  callback(parsedObjects)<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>我一直用这个。非常方便。</p>
+<h4 id="使用这种方法的关键"><a href="#使用这种方法的关键" class="headerlink" title="使用这种方法的关键"></a>使用这种方法的关键</h4><p>我从来都不想担心创建后台任务的对象会不翼而飞，所以我只通过延续在app整个生命周期的对象创建后台任务。</p>
+<p>你肯定也不想面临任务完成并回调之前、创建后台任务的对象不翼而飞的状况（或者部分或彻底分崩离析）。这是个潜在的复杂问题，我甚至不想去考虑它。（对于初学者而言，我<em>讨厌</em><code>weak-self</code>满天飞。）</p>
+<p>这也正是你在写不会崩溃的代码时需要具备的心态：事情一旦是复杂的，那么它就是易出错的。想办法让它异常简单。</p>
+<p>（你可能会举出复杂的例子，并且证明它的正确性 —— 但是以后你会不会有所质疑、觉得这样的代码需要验证？如果你稍有偏差它是不是就会挂掉？如果其他人使用它呢？）</p>
+<p>所以，我用简单的办法解决问题：使用不会被释放的对象。</p>
+<p>但是有一个需要谨记及避免的事：回调block可以安全地调用类方法和C语言函数。如果实例消失的话，实例方法就是不安全的 —— 但是类方法和C语言函数理论上是可以安全调用的。</p>
+<p>我不经常使用这个知识点，但是我会不断的发现它的确有用。要么谨慎点使用它，要么干脆不用。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/11/25/load-class-from-storyboard-in-code/">通过代码加载storyboard中的class</a>
         </h1>
 
@@ -622,24 +663,6 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 </ul>
 
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/11/12/how-not-to-crash-0-catalog/">【译】如何避免程序崩溃-0：目录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-11-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文索引：</p>
-<p><a href="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" title="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" target="_blank" rel="external">#1: KVO与手动绑定</a><br><a href="http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions" title="http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions" target="_blank" rel="external">#2: 可变对象的异常</a><br><a href="http://inessential.com/2015/05/21/how_not_to_crash_3_nsnotification" title="http://inessential.com/2015/05/21/how_not_to_crash_3_nsnotification" target="_blank" rel="external">#3: NSNotification</a><br><a href="http://inessential.com/2015/05/22/how_not_to_crash_4_threading" title="http://inessential.com/2015/05/22/how_not_to_crash_4_threading" target="_blank" rel="external">#4: 线程</a><br><a href="http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2" title="http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2" target="_blank" rel="external">#5: 线程2</a><br><a href="http://inessential.com/2015/05/27/how_not_to_crash_6_properties_and_acce" title="http://inessential.com/2015/05/27/how_not_to_crash_6_properties_and_acce" target="_blank" rel="external">#6: 属性和存取器</a><br><a href="http://inessential.com/2015/05/29/how_not_to_crash_7_dealing_with_nothin" title="http://inessential.com/2015/05/29/how_not_to_crash_7_dealing_with_nothin" target="_blank" rel="external">#7: 什么都不做</a><br><a href="http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure" title="http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure" target="_blank" rel="external">#8: 基本架构</a><br><a href="http://inessential.com/2015/06/10/how_not_to_crash_9_mindset" title="http://inessential.com/2015/06/10/how_not_to_crash_9_mindset" target="_blank" rel="external">#9: 心态</a></p>
-<hr>
-<p>译文索引：</p>
-<p><a href="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/" title="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/">#1: KVO与手动绑定</a><br><a href="http://www.caliosd.gq/2015/11/13/how-not-to-crash-2-mutation-exceptions/" title="http://www.caliosd.gq/2015/11/13/how-not-to-crash-2-mutation-exceptions/">#2: 可变对象的异常</a><br><a href="http://www.caliosd.gq/2015/11/16/how-not-to-crash-3-nsnotification/" title="http://www.caliosd.gq/2015/11/16/how-not-to-crash-3-nsnotification/">#3: NSNotification</a><br><a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/" title="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">#4: 线程</a><br><a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-5-threading-part-2/" title="http://www.caliosd.gq/2015/11/26/how-not-to-crash-5-threading-part-2/">#5: 线程2</a><br><a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/" title="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/">#6: 属性和存取器</a><br><a href="http://www.caliosd.gq/2015/12/19/how-not-to-crash-7-dealing-with-nothing/" title="http://www.caliosd.gq/2015/12/19/how-not-to-crash-7-dealing-with-nothing/">#7: 什么都不做</a><br><a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">#8: 基本架构</a><br><a href="http://www.caliosd.gq/2016/02/24/how-not-to-crash-9-mindset/" title="http://www.caliosd.gq/2016/02/24/how-not-to-crash-9-mindset/">#9: 心态</a></p>
-
-        </div></article>
       <nav class="pagination"><a class="prev" href="/page/8/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
@@ -664,7 +687,7 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Calios</span>
