@@ -90,33 +90,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">Value of optional type ‘String’ not unwrapped error in Swift</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-03
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>新开了<code>K08-RandomColorization</code>，刚写了一行代码：</p>
-<pre><code>let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;))
-</code></pre><p>然后就报了一个error：<br><em>Value of optional type ‘String’ not unwrapped;did you mean to use ‘!’ or ‘?’?”</em></p>
-<p><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">这里</a>寻得一个不错的答案，翻译及理解如下：</p>
-<p>首先，这行代码使用到了<strong> 可选链式调用（Optional Chaining）</strong> 这个家伙。用人话说，就是<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code> 要么就是一个<code>String</code>，要么就是一个<code>nil</code>。</p>
-<p>但是，显然<code>NSURL</code>的<code>fileURLWithPath:</code>方法不会接受<code>nil</code>，只会接受<code>String</code>类型的参数，所以编译器就把这个error报出来了。（可以做一个实验，直接写<code>let bgMusic = NSURL(fileURLWithPath: nil)</code>，就会发现报<code>Nil is not compatible with expected argument type ‘String’</code>的error。）</p>
-<p>解决办法是强制展开<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code>，即添加一个<code>!</code>：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let bgMusic = NSURL(<span class="name">fileURLWithPath</span>: NSBundle.mainBundle().pathForResource(<span class="string">"Ecstasy"</span>, ofType: <span class="string">"mp3"</span>)!)</div></pre></td></tr></table></figure></p>
-<p>但是，如果所需文件不存在就会导致一个运行时的error，直接挂掉。所以，通常来说最好是用一个可选绑定把它包起来：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="attr">file</span> = NSBundle.mainBundle().pathForResource(<span class="string">"aaa"</span>, ofType: <span class="string">"mp3"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> <span class="attr">bgMusic</span> = NSURL(fileURLWithPath: file)</div><div class="line">    NSLog(bgMusic.absoluteString)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样就可以保证<code>fileURLWithPath:</code>只有在文件不为空时才被调用了。完美～</p>
-<hr>
-<p><strong> Ref: </strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">http://stackoverflow.com/a/25663421/1594792</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/03/03/how-to-generate-a-random-number-in-Objective-C/">How to generate a random number in Objective-C ?</a>
         </h1>
 
@@ -356,6 +329,24 @@
 <p>更进一步说，质量是一种近乎精神上的奖励。它是一种为重于自我的事情奉献的行为，既自私又无私。</p>
 <p>自私，是因为为了质量奋斗的过程让你日渐成长。而无私，是因为更好的代码、更好的软件对其他人更有益。</p>
 <p>当其他人对你的软件有所要求，首要的就是如果他们启动了它，它是否能<em>保持着</em>启动的状态。任何不能对此问题足够重视的程序员 —— 或是那些总是将崩溃粉饰成生活常态的人 —— 我们可以优先充分地享受其中的巨大乐趣，而这些人无法体会。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/02/22/reverse-NSArray/">如何翻转NSArray</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-02-22
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>其实<code>NSArray</code>中提供了现成的<code>-reverseObjectEnumerator</code>方法。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSArray *startArray = @[@<span class="string">"1"</span>,@<span class="string">"2"</span>,@<span class="string">"3"</span>,@<span class="string">"4"</span>]<span class="comment">;</span></div><div class="line">NSArray* reversedArray = [[startArray reverseObjectEnumerator] allObjects]<span class="comment">;</span></div><div class="line">NSLog(@<span class="string">"---- %@"</span>,reversedArray)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>控制台打印出来的信息如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">2016-02-22</span> <span class="selector-tag">14</span><span class="selector-pseudo">:13</span><span class="selector-pseudo">:23.539</span> <span class="selector-tag">Demo</span><span class="selector-attr">[1158:258529]</span> <span class="selector-tag">----</span> (</div><div class="line">    <span class="number">4</span>,</div><div class="line">    <span class="number">3</span>,</div><div class="line">    <span class="number">2</span>,</div><div class="line">    <span class="number">1</span></div><div class="line">)</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Ref: </strong></p>
+<p><a href="http://stackoverflow.com/a/586529/1594792" target="_blank" rel="external">http://stackoverflow.com/a/586529/1594792</a></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/5/">

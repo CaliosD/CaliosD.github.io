@@ -90,44 +90,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/01/19/commands-in-git/">实用git命令</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-01-19
-        </span></div>
-    </header>
-
-    <div class="post-content"><h4 id="状态相关"><a href="#状态相关" class="headerlink" title="状态相关"></a>状态相关</h4><ul>
-<li>撤销 <code>git commit</code> 之前的 <code>git add</code> ：<code>git reset &lt;file&gt;</code></li>
-<li>替换本地改动，会使用HEAD中的最新内容替换掉工作目录中的文件，已添加到暂存区及新文件都不会受到影响：<code>git checkout -- &lt;filename&gt;</code></li>
-<li>丢弃本地所有改动和提交，获取服务器最新版本历史，并将本地主分支指向它：<code>git fetch origin</code>, <code>git reset --hard origin/master</code></li>
-</ul>
-<h4 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h4><ul>
-<li>查看远程分支：<code>git branch -a</code></li>
-<li>查看本地分支：<code>git branch</code></li>
-<li>创建分支：<code>git branch newBranch</code></li>
-<li>把分支推到远程分支：<code>git push origin newBranch</code></li>
-<li>把远程分支pull下来：<code>git clone --branch develop --single-branch XXurl</code></li>
-<li>切换分支：<code>git checkout newBranch</code></li>
-<li>删除远程分支: <code>git push origin --delete &lt;branchName&gt;</code></li>
-<li>删除本地分支：<code>git branch -D fixVersion</code></li>
-<li>合并改动前，预览差异：<code>git diff &lt;source_branch&gt; &lt;target_branch&gt;</code></li>
-<li>查看远程信息：<code>git remote show origin</code><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">remote origin</div><div class="line">  Fetch URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  Push  URL: https:<span class="comment">//github.com/WilliamZang/reactivecocoa_practise.git</span></div><div class="line">  HEAD branch: master</div><div class="line">  Remote branches:</div><div class="line">    lesson1          tracked</div><div class="line">    lesson2          tracked</div><div class="line">    lesson3          tracked</div><div class="line">    lesson4          tracked</div><div class="line">    lesson5          tracked</div><div class="line">    lesson6          tracked</div><div class="line">    master           tracked</div><div class="line">    practise2        tracked</div><div class="line">    practise2_answer tracked</div><div class="line">    practise3        tracked</div><div class="line">    practise3_answer tracked</div><div class="line">  <span class="keyword">Local</span> branches configured <span class="keyword">for</span> <span class="string">'git pull'</span>:</div><div class="line">    master           merges <span class="keyword">with</span> remote master</div><div class="line">    practise2        merges <span class="keyword">with</span> remote practise2</div><div class="line">    practise2_answer merges <span class="keyword">with</span> remote practise2_answer</div><div class="line">  <span class="keyword">Local</span> refs configured <span class="keyword">for</span> <span class="string">'git push'</span>:</div><div class="line">    lesson6          pushes <span class="keyword">to</span> lesson6          (<span class="keyword">local</span> <span class="keyword">out</span> <span class="keyword">of</span> date)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="Cheatsheet"><a href="#Cheatsheet" class="headerlink" title="Cheatsheet"></a>Cheatsheet</h4><p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/git-cheat-sheet.png" alt="git cheat sheet"></p>
-<p>源文件在<a href="http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf" target="_blank" rel="external">这里</a>。</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<p><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">http://rogerdudler.github.io/git-guide/index.zh.html</a></p>
-<p><a href="http://stackoverflow.com/questions/348170/undo-git-add-before-commit" target="_blank" rel="external">http://stackoverflow.com/questions/348170/undo-git-add-before-commit</a></p>
-<p><a href="http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit" target="_blank" rel="external">http://stackoverflow.com/questions/927358/how-do-you-undo-the-last-commit</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/01/19/commands-in-LLVM/">LLDB常用命令</a>
         </h1>
 
@@ -464,6 +426,47 @@
 <figure class="highlight puppet"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">define</span> <span class="section">CRASHING_BUG</span> unsafe_unretained</div></pre></td></tr></table></figure>
 <p>顾名思义，它叫做<em>不安全</em>。</p>
 <p>不要带着剪刀跑。嘿 —— 甚至不要碰那些剪刀。剪刀有毒。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/11/26/how-not-to-crash-5-threading-part-2/">【译】如何避免程序崩溃-5：线程（二）</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-11-26
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2" target="_blank" rel="external">http://inessential.com/2015/05/26/how_not_to_crash_5_threading_part_2</a></p>
+<hr>
+<p>我<a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">上一篇关于线程</a>的文章留下来一个开放的问题：在主线程以外的代码是如何交流的，又如何 —— 安全地 —— 返回主线程。</p>
+<p>哪个对象创造后台任务，哪个对象就处理相应的结果。这是硬性规定。</p>
+<blockquote>
+<p>译者注：谁污染，谁治理。这个原则适用于ARC，也适用于多线程。</p>
+</blockquote>
+<p>通常创建任务的对象都是持续在整个app生命周期中的。一个例子可能是图片缓存，缓存可能会在app的生命周期中被清空，但是缓存对象是一直存在的。</p>
+<p>另一个例子：比如说Vesper有一个VSAccount对象。<em>一直</em> 都只有一个VSAccount对象。用户可能有也可能没有服务器的账号。他们可以选择使用哪个服务器的账号。但是只有唯一的VSAccount对象持续于整个app的生命周期。</p>
+<p>(<strong>注意</strong>：显然，一个管理多个账户的应用会做一些不同的处理。但是Vesper最多管理一个服务器账户，所以这样做还不错。在Vesper的例子中，多个账户会遵守<strong>YAGNI</strong>规则。)</p>
+<blockquote>
+<p>译者注：YAGNI，即You Ain’t Gonna Need It，适可为止原则，指的是只需要将应用程序必需的功能包含进来，而不要试图添加任何其他你认为可能需要的功能。</p>
+</blockquote>
+<p>VSAccount对象负责向服务器发送http请求，处理返回的结果。它会在后台队列中把JSON转化成中间对象。</p>
+<p>它通过NSData-to-process和一个回调block来调用JSON处理器。当处理器结束的时候，它会在主线程调用block：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (callback) &#123;</div><div class="line">  dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">	  callback(parsedObjects)</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这对于我来说是一个如此常用的模式 —— 在主线程上调用需要一个参数的block —— 以至于我为它写了一个通用方法。JSON处理器的确就是做了这样的事情：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BSCallBlockWithParameter(<span class="name">callback</span>, parsedObjects)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><code>BSCallBlockWithParameter</code>长这个样子：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (!callback)</div><div class="line">  return<span class="comment">;</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">dispatch_async(dispatch_get_main_queue(), </span>^&#123;</div><div class="line">  callback(parsedObjects)<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>我一直用这个。非常方便。</p>
+<h4 id="使用这种方法的关键"><a href="#使用这种方法的关键" class="headerlink" title="使用这种方法的关键"></a>使用这种方法的关键</h4><p>我从来都不想担心创建后台任务的对象会不翼而飞，所以我只通过延续在app整个生命周期的对象创建后台任务。</p>
+<p>你肯定也不想面临任务完成并回调之前、创建后台任务的对象不翼而飞的状况（或者部分或彻底分崩离析）。这是个潜在的复杂问题，我甚至不想去考虑它。（对于初学者而言，我<em>讨厌</em><code>weak-self</code>满天飞。）</p>
+<p>这也正是你在写不会崩溃的代码时需要具备的心态：事情一旦是复杂的，那么它就是易出错的。想办法让它异常简单。</p>
+<p>（你可能会举出复杂的例子，并且证明它的正确性 —— 但是以后你会不会有所质疑、觉得这样的代码需要验证？如果你稍有偏差它是不是就会挂掉？如果其他人使用它呢？）</p>
+<p>所以，我用简单的办法解决问题：使用不会被释放的对象。</p>
+<p>但是有一个需要谨记及避免的事：回调block可以安全地调用类方法和C语言函数。如果实例消失的话，实例方法就是不安全的 —— 但是类方法和C语言函数理论上是可以安全调用的。</p>
+<p>我不经常使用这个知识点，但是我会不断的发现它的确有用。要么谨慎点使用它，要么干脆不用。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/7/">
