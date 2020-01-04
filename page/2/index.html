@@ -91,24 +91,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-04-15
-        </span></div>
-    </header>
-
-    <div class="post-content"><h3 id="Some-definitions-before-we-start"><a href="#Some-definitions-before-we-start" class="headerlink" title="Some definitions before we start:"></a>Some definitions before we start:</h3><ul>
-<li><strong>literal</strong>: A <strong>literal</strong> is any character we use in a search or matching expression, for example, to find <strong>ind</strong> in w <strong>ind</strong> ows the <strong>ind</strong> is a <strong>literal</strong> string - each character plays a part in the search, it is <strong>literally</strong> the string we want to find.</li>
-</ul>
-          <div class="read-more">
-            <a href="/2017/04/15/notes-for-regex/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2017/04/12/summary-for-CAS-login-in-iOS/">CAS登录之iOS端总结</a>
         </h1>
 
@@ -380,6 +362,38 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
 <p>我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。</p>
 <p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p>
 <p>这样看来，旅行于我，是平面上扩展视野的疆土，是滋养心尖的养分；而Objective-C于我，是立体上挖掘一门语言的美感，是构建知识树的根基。二者在某种程度上，带给我的是类似的体验。这或许正是居然能够用后者来抚慰前者的原因吧。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/01/11/barriers-when-using-TesseractOCR/">Some barriers when using TesseractOCR</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-01-11
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>1.Install TesseractOCR with CocoaPods.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">pod</span> <span class="string">'TesseractOCRiOS'</span>, <span class="string">'4.0.0'</span></div></pre></td></tr></table></figure>
+<p>2.Download tessdata, generally from Github:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/tesseract-ocr/</span>tessdata<span class="regexp">/raw/m</span>aster<span class="regexp">/eng.traineddata</span></div></pre></td></tr></table></figure></p>
+<p>Then move them to the <code>/usr/local/share/tessdata</code> folder.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo mv -v eng.traineddata /usr/<span class="built_in">local</span>/share/tessdata/</span></div></pre></td></tr></table></figure></p>
+<p>However, it crashed saying:</p>
+<blockquote>
+<p>actual_tessdata_num_entries \&lt;= TESSDATA_NUM_ENTRIES:Error:Assert failed:in file ..\ccutil\tessdatamanager.cpp, line 55</p>
+</blockquote>
+<p>and would never work with the FAQ <a href="https://github.com/tesseract-ocr/tesseract/wiki/FAQ#actual_tessdata_num_entries_-tessdata_num_entrieserrorassert-failedin-file-ccutiltessdatamanagercpp-line-55_" target="_blank" rel="external">here</a> by checking out the right version(for me, it’s 4.0.0) of trained data.</p>
+<p>Finally, the issue <a href="https://github.com/gali8/Tesseract-OCR-iOS/issues/299" target="_blank" rel="external">here</a> solved this creepy problem by checking out <a href="https://github.com/tesseract-ocr/tessdata/tree/bf82613055ebc6e63d9e3b438a5c234bfd638c93" target="_blank" rel="external">this version</a> of trained data. This is just such a… boring problem…</p>
+<p>Here’s a little sample for how to use it, and, enjoy yourself. :]<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@<span class="string">"eng"</span>]<span class="comment">;</span></div><div class="line">                                       tesseract.delegate = weakSelf<span class="comment">;</span></div><div class="line">                                       tesseract.charWhitelist = @<span class="string">"@.()&#123;&#125;/\\!*&amp;#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span><span class="comment">;</span></div><div class="line">                                       tesseract.engineMode = G8OCREngineModeTesseractOnly<span class="comment">;</span></div><div class="line">                                       tesseract.pageSegmentationMode = G8PageSegmentationModeAuto<span class="comment">;</span></div><div class="line">                                       tesseract.image = [image g8_blackAndWhite]<span class="comment">;</span></div><div class="line">                                       tesseract.maximumRecognitionTime = <span class="number">2</span>.<span class="number">0</span><span class="comment">;</span></div><div class="line">                                       [tesseract recognize]<span class="comment">;</span></div><div class="line"></div><div class="line">                                       <span class="keyword">dispatch_async(dispatch_get_main_queue(), </span>^&#123;</div><div class="line">                                           weakSelf.codeTextView<span class="meta">.text</span> = [[tesseract recognizedText] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]<span class="comment">;</span></div><div class="line">                                           weakSelf.codeImageView.image = image<span class="comment">;</span></div><div class="line">                                       &#125;)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p><strong>Updated at 170119</strong></p>
+<p>When compiled with terminal, bitcode should be disabled in podfile.</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">post_install <span class="built_in">do</span> |<span class="type">installer</span>|</div><div class="line">    <span class="type">installer</span>.pods_project.targets.each <span class="built_in">do</span> |<span class="type">target</span>|</div><div class="line">        <span class="type">target</span>.build_configurations.each <span class="built_in">do</span> |<span class="type">config</span>|</div><div class="line">            <span class="type">config</span>.build_settings['ENABLE_BITCODE'] = 'false'</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios" target="_blank" rel="external">https://www.raywenderlich.com/93276/implementing-tesseract-ocr-ios</a></li>
+</ul>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/">
