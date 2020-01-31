@@ -107,6 +107,7 @@
     </div>
   </div><div class="post-content"><p>在我的印象中，正经而严肃认真地看“面向对象”这个概念，有这么几次：第一次，是大学时老师上课讲的，Car和Taxi，Animal和Dog、Cat，Teacher和Student，如此如此；第二次，是在臧成威老师的 iOS 黑魔法课中，学习如何用 C 语言实现面向对象的各种特性；第三次，应该就是最近，在学习设计模式中遇到最形而上之、又被最广泛使用的编程思想——面向对象。这一次，就从我写后端以来最常用的语言 Go 入手，研究一下它是如何体现面向对象思想、日常开发中又是如何使用 Go 进行面向对象编程的吧。</p>
 <h2 id="使用-Go-如何实现面向对象编程？"><a href="#使用-Go-如何实现面向对象编程？" class="headerlink" title="使用 Go 如何实现面向对象编程？"></a>使用 Go 如何实现面向对象编程？</h2><p>首先，第一个问题是：“Go 是一门面向对象的语言吗？”</p>
+<a id="more"></a>
 <p>好吧，这的确属于常见问题，以至于<a href="https://golang.org/doc/faq#Is_Go_an_object-oriented_language" target="_blank" rel="external">官网的 FAQ 中直接回答了</a>它：</p>
 <blockquote>
 <p>是，也不是。尽管 Go 拥有类型和方法，也允许面向对象风格的编程，但它没有类型的继承。Go 中，“接口”这个概念提供了一种不同的方式，我们认为它更加简单易用，在某种意义上也更通用。当然，也可以通过将某类型嵌入到另一种类型中来实现尽管类似、但并不等同的“子类”。此外，Go 的方法比 C++ 或 Java 更加通用：它们可以为任何类型的数据定义，即使是像 integer 这种内置的、无法拆分的类型。它们并不局限与 struct。<br>还有，Go 中不存在类型的继承，使得它的“对象”比 C++ 或 Java 这些语言都要轻量。</p>
@@ -172,8 +173,8 @@
             <a href="/tags/Golang/">Golang</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/2020/01/26/design-pattern/">
-        <span class="next-text nav-default">design-pattern</span>
+        <nav class="post-nav"><a class="next" href="/2019/12/19/from-proto-to-go/">
+        <span class="next-text nav-default">从 .proto 到 .pb.go</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

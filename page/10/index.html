@@ -91,97 +91,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/11/13/how-not-to-crash-2-mutation-exceptions/">【译】如何避免程序崩溃-2：可变对象的异常</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-11-13
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions" target="_blank" rel="external">http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions</a></p>
-<hr>
-<p>你从某处获取到一个集合并枚举它 —— 然后当你在改变这个集合的时候报错，因为它正在进行枚举。应用崩溃了。</p>
-<p>你可以通过一个小技巧避免这种悲伤的命运：不要对可变的集合进行枚举操作。</p>
-<h4 id="异议"><a href="#异议" class="headerlink" title="异议"></a>异议</h4><p>你可能持有某种合理的观点，说<em>真正</em>的答案是不要在对集合进行枚举的时候对可变的集合进行改变。你应该对于自己的应用有足够的了解，以便能够写出安全地对可变集合进行枚举的代码。</p>
-<p>是的，你应该如此。你绝对应该如此。</p>
-<p>然而：编写远离崩溃的代码就是在于消除疑点。就在于能够将错误的几率最小化，将未来的（由你或其他人带来的）改变引入崩溃的可能性最小化。</p>
-<h4 id="可变集合不应该成为公有接口的一部分"><a href="#可变集合不应该成为公有接口的一部分" class="headerlink" title="可变集合不应该成为公有接口的一部分"></a>可变集合不应该成为公有接口的一部分</h4><p>一个对象拥有一个可变集合作为公有属性，这件事本来就应该尽量避免 —— 或者最好不要发生。可变集合应该被控制在对象内部。</p>
-<p>（更进一步地说，公有的集合应该为只读。当然事实也并非总是如此。）</p>
-<p>现在，它整体上可能是有一个公有集合，在内部又有一个可变的集合。想象一个跟踪operation的对象。它可能公有方法这么写：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>(nonatomic, readonly) NSArray *<span class="keyword">operations</span>;</div></pre></td></tr></table></figure></p>
-<p>内部私有方法这么写：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSMutableArray</span> *mutableOperations;</div><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>.mutableOperations;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这是完全合情合理的代码：因为mutableOperations是一个NSMutableArray，它又同时是一个NSArray。（我多年来都这么写。我对自己说：”Hey，我是个过来人了。我能<em>应付的了</em>。“但是我没有意识到的是，成熟的开发者是为了减少出错的可能而写代码。）</p>
-<h4 id="被指定为不可变的属性应该名副其实"><a href="#被指定为不可变的属性应该名副其实" class="headerlink" title="被指定为不可变的属性应该名副其实"></a>被指定为不可变的属性应该名副其实</h4><p>在上面的例子中，你声明<code>operations</code>是一个在任何时候都可以安全枚举的数组。另一个人 —— 或者就是你自己 —— 在六个月之后看这段代码时，完全不会意识到你正在获取的可变数组，并<em>不能</em>足够安全地进行枚举。</p>
-<p>这就是实现名副其实的解决方案：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> [<span class="keyword">self</span>.mutableOperations <span class="keyword">copy</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>（如果为了表达得更清晰，把属性声明为copy也不会有影响，但是我承认我不经常这么做。让API的使用者完全清晰地知道正在发生什么应该是有好处的。）</p>
-<p>你可能会翻回去引用性能或者内存使用的问题或者二者皆有 —— 而我必须承认：我是一个性能的推崇者，我会在Instruments上花费超乎常理的时间，仅为了能够让代码快速运行、没有不合理的内存消耗。我从来没有发现这么做有任何问题。如果你的应用出现性能或者内存消耗的问题，可能是其他问题导致的，而不是这些copy。（尽管你可以考虑使用<code>@autoreleasepool</code>来让这些copy不留存那么长时间。）</p>
-<p>copy一下吧。</p>
-<h4 id="彩蛋：不要相信他们的谎言"><a href="#彩蛋：不要相信他们的谎言" class="headerlink" title="彩蛋：不要相信他们的谎言"></a>彩蛋：不要相信他们的谎言</h4><p>我最近解决了一个在枚举NSTextStorage layoutManager时可变量的问题：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *layoutManagers;</div></pre></td></tr></table></figure></p>
-<p><em>显然</em> 枚举是安全的。它是一个NSArray，它声明自己是个copy。漂亮。枚举走起。</p>
-<p>但是，它骗我。在调试器里，我发现它是一个NSMutableArray（__NSArrayM）—— 而且它根本就不是一个copy。它是NSTextStorage的名为<code>_layoutManagers</code>的实例变量，这个变量被声明为一个NSMutableArray。</p>
-<p>而在我的枚举的block代码里面，触发了layoutManagers的改变，然后应用就崩溃了。</p>
-<p>答案是：对layoutManagers的副本进行枚举。问题就解决了。</p>
-<p>常言道：如果你从别人的代码中获取一个集合，对副本进行枚举总没坏处，防患于未然嘛。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/">【译】如何避免程序崩溃-1：KVO与手动绑定</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-11-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" title="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" target="_blank" rel="external">http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind</a></p>
-<hr>
-<p>我最近在修复系统崩溃的bug —— 但是，与写如何修复bug相比，我想，写写如何在最初就避免创造崩溃的bug会更有意思一些。</p>
-<p>在第一部分，我会谈谈KVO，手动绑定，引用循环和无效方法。</p>
-<h4 id="绑定意味着永远不会失联"><a href="#绑定意味着永远不会失联" class="headerlink" title="绑定意味着永远不会失联"></a>绑定意味着永远不会失联</h4><p>iOS开发者没有这个，但是Mac开发者的小伙伴们有：我们可以把一个属性绑定在另一个属性上。我们可以实现这点，即当x.foo更新的时候，y.foo也随之更新。</p>
-<p>NSKeyValueBinding.h在AppKit中。我们来看下<code>bind:toObject:withKeyPath:options:</code>.</p>
-<p>假设有一个有着title属性的button。每当controller的title更新的时候，这个title属性也应该随之更新。我们假设controller拥有这个button。你可以这样写代码：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> NSString kTitleKey = @<span class="string">"title"</span>;</div><div class="line">[self.button <span class="string">bind:</span>kTitleKey <span class="string">toObject:</span>self <span class="string">withKeyPath:</span>kTitleKey <span class="string">options:</span>nil];</div></pre></td></tr></table></figure></p>
-<p>非常方便，而且很有效。</p>
-<p>同时，你也离崩溃不远了。</p>
-<p>问题在于：这个绑定引用了<code>toObject</code>。这就意味着这个button有效地引用了controller。如果controller又引用它的button（它本该如此），那么就造成了引用循环。二者都不会成为僵尸，但是都会被废弃。</p>
-<p>一种崩溃的方式 —— 这也是真实场景 —— 是如果这个被废弃的controller监听着一个通知（我们称之为BSNotification），并且当接收到BSNotification的时候<em>做了点事</em>，当它<em>做这点事</em>的时候它就会崩溃，因为它在理论上已经失效，而它不知道该怎么处理这种情况。</p>
-<h4 id="KVO意味着必须每次都把每件事做到完全正确"><a href="#KVO意味着必须每次都把每件事做到完全正确" class="headerlink" title="KVO意味着必须每次都把每件事做到完全正确"></a>KVO意味着必须每次都把每件事做到完全正确</h4><p>让我们加上第三个对象，一个model。我们<em>真正</em>想要的是这样的流程：<br>modelObject.title的更新，会使controller.title更新，而controller.title的更新，会使button.title更新。</p>
-<p>这次我们来用KVO。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSString</span> *)title &#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>.modelObject.title;</div><div class="line">&#125;</div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPaths​ForValues​AffectingTitle &#123;</div><div class="line">  <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObject:​<span class="string">@"modelObject.title"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>好了 —— 现在我们有了完整的流程。当modelObject.title改变的时候，会影响controller.title，同时button.title也随之更新为正确的值。</p>
-<p>非常方便，而且很有效。</p>
-<p>当然，它会崩溃，在modelObject被释放的时候（因为modelObject的实例在它还是一个观察者的时候被释放了）。</p>
-<p>如果反过来，controller引用modelObject（它可能应该如此），然后你就有了一个被废弃的第三个对象，它永远不会被释放，是个随着时间变化不断增长变大的讨厌家伙。</p>
-<h4 id="一个并不那么漂亮的解决办法"><a href="#一个并不那么漂亮的解决办法" class="headerlink" title="一个并不那么漂亮的解决办法"></a>一个并不那么漂亮的解决办法</h4><p>controller可以有一个类似于<code>invalidate</code>这样名字的函数，用来打破引用循环。一旦打破，<code>dealloc</code>方法就会因为controller、它的button和它的model对象而被调用。</p>
-<p>你可以这么写代码，以便在你知道你用完了controller的时候调用：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)invalidate &#123;</div><div class="line">  [<span class="keyword">self</span>.button unbind:kTitleKey];</div><div class="line">  <span class="keyword">self</span>.modelObject = <span class="literal">nil</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这就是这个解决办法不那么漂亮的地方：</p>
-<p>引用计数是非常棒的解决方案 —— 它能保证在<code>dealloc</code>被调用的时候，没有哪个对象拥有对于这个即将释放的对象的强引用。这就使得<code>dealloc</code>成为一个移除观察者及其他类似需要移除的不错地点。</p>
-<p>但是如果你使用了类似invalidate的函数，你就是在试图自己来接手引用计数这件事。你<em>不得不</em>调用invalidate，又不得不在<em>合适的</em>时候调用。你能对每一个拥有invalidate函数的对象做出永久的保证么？如果出现一些改变，不只有一个对象引用了controller，你该怎么办？谁来调用invalidate？什么时候调用？</p>
-<p>那是一大堆额外需要考虑的工作，而编程的目的之一就是使错误尽可能的减少。依赖invalidate会使错误出现的可能<em>大大增加</em>。</p>
-<h4 id="一个更好的解决办法"><a href="#一个更好的解决办法" class="headerlink" title="一个更好的解决办法"></a>一个更好的解决办法</h4><p>让我们回归到我们试图解决的问题上来：</p>
-<p>modelObject.title的更新，会使controller.title更新，而controller.title的更新，会使button.title更新。</p>
-<p>简而言之：controller知道modelObject和button，但是后两者之间并不知道彼此的存在，也不知道controller的存在。这就是我们怎么避开invalidate函数来解决问题。</p>
-<p>在controller中，灭掉自定义getter。灭掉<code>keyPathsForValuesAffectingTitle</code>.灭掉<code>bind: toObject: withKeyPath: options:</code>的使用。</p>
-<p>取而代之的是，创建自定义的setter —— 因为，无论如何，setter在改变的时候总是会被调用，所有需要解决的问题就是广播title属性的更新。<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-(void)setTitle:(NSString *)<span class="built_in">title</span> &#123;</div><div class="line">  _<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">  self.button.<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>问题解决了一半：当controller.title改变时，button.title也随之改变。</p>
-<p>我们不能对modelObject做同样的事情，因为它不知道controller的存在。所以反过来，让controller来观察modelObject.title。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self.modelObject <span class="string">addObserver:</span>self <span class="string">forKeyPath:</span> kTitleKey <span class="string">options:</span><span class="number">0</span> <span class="string">context:</span> kTitleContext];</div></pre></td></tr></table></figure></p>
-<p>然后在KVO的观察函数里，监测kTitleContext，然后让<code>self.title = self.modelObject.title</code>。这会调用controller的<code>setTitle:</code>函数 —— 而该函数会更新button.title。</p>
-<p>这个解决办法就不会存在引用循环的问题。还有一点移除的工作要做，但你可以在controller的<code>dealloc</code>函数中用一行代码了结：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_modelObject <span class="string">removeObserver:</span> self <span class="string">forKeyPath:</span>kTitleKey <span class="string">context:</span> kTitleContext];</div></pre></td></tr></table></figure></p>
-<h4 id="总结与建议"><a href="#总结与建议" class="headerlink" title="总结与建议"></a>总结与建议</h4><p>我们提出的解决方案避免了引用循环，不必时刻记得要调用invalidate函数，也不用担心调用的时机是否正确。这是更安全的代码。</p>
-<p>更棒的是，它用了更少的代码，而且足够简洁。</p>
-<p>一些建议：</p>
-<ul>
-<li>不要在任何场景中使用<code>bind: toObject: withKeyPath: options:</code>(iOS的小伙伴们：你们应该高兴自己没有这样的选择。也可以把它当做可能它之所以为Mac开发而非iOS的原因之一)。</li>
-<li>当你广播数据更新时，用自定义的setter，而不是自定义getter（毕竟是在<em>setter</em>中更新的数据）。</li>
-<li>避免invalidate这样的函数，尽量让引用计数做它自己的事情 —— 因为如果<em>你</em>是那个跟踪计数的角色，你多半会出错。（我发现我不是总能够避免invalidate这样的函数，但是可能性总是比你想的要多那么一点）</li>
-<li>在思考你的应用中发生了什么时，任何形式的观察死锁都会带来困难：在任何时候它有足够理由出现时，都最好是准确的。一旦你有了足够多的这种藤蔓般无处不在的观察模式，你就建造了一个不见天日的丛林，对它的每一点改变都会让你如履薄冰。</li>
-<li>理论上，绑定和KVO是为了解耦而生的，而实际上这种耦合就是那么紧密 —— 在某种程度上，如果没有更紧密的话 —— 更难debug，更难矫正。通常情况下，最好把观察模式明确写清（不要写成<code>keyPathsForValuesAffectingXyz</code>这种），避免在keyPath中出现”.”字符。</li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/11/12/how-not-to-crash-0-catalog/">【译】如何避免程序崩溃-0：目录</a>
         </h1>
 
@@ -479,6 +388,54 @@
 <p><strong>Ref:</strong></p>
 <p><a href="http://stackoverflow.com/questions/2765024/how-to-set-the-title-of-uibutton-as-left-alignment" target="_blank" rel="external">http://stackoverflow.com/questions/2765024/how-to-set-the-title-of-uibutton-as-left-alignment</a></p>
 <p><a href="http://stackoverflow.com/questions/5062405/uinavigationcontroller-hiding-back-button-on-one-view-hides-it-for-all-views" target="_blank" rel="external">http://stackoverflow.com/questions/5062405/uinavigationcontroller-hiding-back-button-on-one-view-hides-it-for-all-views</a></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/09/12/UISearchBar/">UISearchBar二三事</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-09-12
+        </span></div>
+    </header>
+
+    <div class="post-content"><h4 id="1-如何修改Cancel按钮的Title"><a href="#1-如何修改Cancel按钮的Title" class="headerlink" title="1.如何修改Cancel按钮的Title"></a>1.如何修改Cancel按钮的Title</h4><p><strong>注意</strong>：使用iOS8 SDK，本次 UISearchBar适用于iOS7(+)版本，如果想要适配iOS6，则需要对应适配iOS6.</p>
+<ul>
+<li>iOS7+: <code>for(id cc in [searchBar.subviews[0] subviews]){}</code></li>
+<li>iOS7-: <code>for(id cc in [searchBar subviews]){}</code></li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)<span class="string">searchBarTextDidBeginEditing:</span>(UISearchBar *)searchBar</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(id cc <span class="keyword">in</span> [searchBar.subviews[<span class="number">0</span>] subviews])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>([cc <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]])</span></div><div class="line">        &#123;</div><div class="line">            UIButton *btn = (UIButton *)cc;</div><div class="line">            [btn <span class="string">setTitle:</span>[AppLanguageProcess <span class="string">getLanguageWithKey:</span>@<span class="string">"TEXT_CANCEL"</span>]  <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">            [btn <span class="string">setTitleColor:</span>[UIColor whiteColor] <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"><a href="#2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮" class="headerlink" title="2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"></a>2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮</h4><p>由于某些原因，iOS中添加到NavigationBar上的UISearchBar不显示Cancel按钮。同样的情况也发生在将UISearchBar设置为navigationItem的titleView时。<br>你可以通过在UISearchBar外面包一层view来规避这个问题。如下是我将它放在titleView时的解决办法：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UISearchBar *searchBar = [UISearchBar new]<span class="comment">;</span></div><div class="line">searchBar.<span class="keyword">showsCancelButton </span>= YES<span class="comment">;</span></div><div class="line">[searchBar sizeToFit]<span class="comment">;</span></div><div class="line">UIView *<span class="keyword">barWrapper </span>= [[UIView alloc]initWithFrame:searchBar.<span class="keyword">bounds];</span></div><div class="line">[<span class="keyword">barWrapper </span><span class="keyword">addSubview:searchBar];</span></div><div class="line">self.navigationItem.titleView = <span class="keyword">barWrapper;</span></div></pre></td></tr></table></figure></p>
+<h4 id="3-如何将背景设置为clearColor"><a href="#3-如何将背景设置为clearColor" class="headerlink" title="3.如何将背景设置为clearColor"></a>3.如何将背景设置为clearColor</h4><p>Here’s a future-proof way:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="name">searchBar</span> setBackgroundImage:\[<span class="name">UIImage</span> new]]<span class="comment">;</span></div><div class="line">[<span class="name">searchBar</span> setTranslucent:YES]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h4 id="4-如何在“搜索”按钮点击后“取消”按钮依然可点"><a href="#4-如何在“搜索”按钮点击后“取消”按钮依然可点" class="headerlink" title="4.如何在“搜索”按钮点击后“取消”按钮依然可点"></a>4.如何在“搜索”按钮点击后“取消”按钮依然可点</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (id view <span class="keyword">in</span> [[_searchBar.subviews lastObject] subviews]) &#123;</div><div class="line">    <span class="keyword">if</span> ([view <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">         [view <span class="string">setEnabled:</span>YES];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid=280249" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid=280249</a><br><a href="http://stackoverflow.com/questions/18986407/ios7-when-uisearchbar-added-in-uinavigationbar-not-showing-cancel-button" target="_blank" rel="external">iOS7 when UIsearchbar added in UINavigationBar not showing cancel button</a><br><a href="http://stackoverflow.com/a/12598711/1594792" target="_blank" rel="external">UISearchBar clear background color or set background image</a><br><a href="http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1" target="_blank" rel="external">http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1</a></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/09/11/view-debugging/">View Debugging</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-09-11
+        </span></div>
+    </header>
+
+    <div class="post-content"><ul>
+<li>将联机调试的设备截屏：Debug -> View Debugging -> Take Screenshot of **iPhone。</li>
+</ul>
+<ul>
+<li><p>查看view的层级结构：Debug -> View Debugging -> Capture View Hierarchy. 特别是当某个view不显示或位置不正常时，用它可以很清楚的看到是被哪个view遮挡。</p>
+</li>
+<li><p>调试时显示view的尺寸和frame：Debug -> View Debugging -> Show View Frames/Show Alignment Rectangles。</p>
+</li>
+</ul>
+<p>以上，均可在 Xcode -> Preferences -> Key Bindings -> Debug Menu 中设置快捷键。<br><img src="http://i12.tietuku.com/a137140412ce894c.png" alt=""></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/9/">

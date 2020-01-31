@@ -91,54 +91,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/09/12/UISearchBar/">UISearchBar二三事</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-09-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><h4 id="1-如何修改Cancel按钮的Title"><a href="#1-如何修改Cancel按钮的Title" class="headerlink" title="1.如何修改Cancel按钮的Title"></a>1.如何修改Cancel按钮的Title</h4><p><strong>注意</strong>：使用iOS8 SDK，本次 UISearchBar适用于iOS7(+)版本，如果想要适配iOS6，则需要对应适配iOS6.</p>
-<ul>
-<li>iOS7+: <code>for(id cc in [searchBar.subviews[0] subviews]){}</code></li>
-<li>iOS7-: <code>for(id cc in [searchBar subviews]){}</code></li>
-</ul>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)<span class="string">searchBarTextDidBeginEditing:</span>(UISearchBar *)searchBar</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(id cc <span class="keyword">in</span> [searchBar.subviews[<span class="number">0</span>] subviews])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>([cc <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]])</span></div><div class="line">        &#123;</div><div class="line">            UIButton *btn = (UIButton *)cc;</div><div class="line">            [btn <span class="string">setTitle:</span>[AppLanguageProcess <span class="string">getLanguageWithKey:</span>@<span class="string">"TEXT_CANCEL"</span>]  <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">            [btn <span class="string">setTitleColor:</span>[UIColor whiteColor] <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"><a href="#2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮" class="headerlink" title="2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"></a>2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮</h4><p>由于某些原因，iOS中添加到NavigationBar上的UISearchBar不显示Cancel按钮。同样的情况也发生在将UISearchBar设置为navigationItem的titleView时。<br>你可以通过在UISearchBar外面包一层view来规避这个问题。如下是我将它放在titleView时的解决办法：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UISearchBar *searchBar = [UISearchBar new]<span class="comment">;</span></div><div class="line">searchBar.<span class="keyword">showsCancelButton </span>= YES<span class="comment">;</span></div><div class="line">[searchBar sizeToFit]<span class="comment">;</span></div><div class="line">UIView *<span class="keyword">barWrapper </span>= [[UIView alloc]initWithFrame:searchBar.<span class="keyword">bounds];</span></div><div class="line">[<span class="keyword">barWrapper </span><span class="keyword">addSubview:searchBar];</span></div><div class="line">self.navigationItem.titleView = <span class="keyword">barWrapper;</span></div></pre></td></tr></table></figure></p>
-<h4 id="3-如何将背景设置为clearColor"><a href="#3-如何将背景设置为clearColor" class="headerlink" title="3.如何将背景设置为clearColor"></a>3.如何将背景设置为clearColor</h4><p>Here’s a future-proof way:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="name">searchBar</span> setBackgroundImage:\[<span class="name">UIImage</span> new]]<span class="comment">;</span></div><div class="line">[<span class="name">searchBar</span> setTranslucent:YES]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
-<h4 id="4-如何在“搜索”按钮点击后“取消”按钮依然可点"><a href="#4-如何在“搜索”按钮点击后“取消”按钮依然可点" class="headerlink" title="4.如何在“搜索”按钮点击后“取消”按钮依然可点"></a>4.如何在“搜索”按钮点击后“取消”按钮依然可点</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (id view <span class="keyword">in</span> [[_searchBar.subviews lastObject] subviews]) &#123;</div><div class="line">    <span class="keyword">if</span> ([view <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">         [view <span class="string">setEnabled:</span>YES];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p><strong>Ref:</strong></p>
-<p><a href="http://www.cocoachina.com/bbs/read.php?tid=280249" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid=280249</a><br><a href="http://stackoverflow.com/questions/18986407/ios7-when-uisearchbar-added-in-uinavigationbar-not-showing-cancel-button" target="_blank" rel="external">iOS7 when UIsearchbar added in UINavigationBar not showing cancel button</a><br><a href="http://stackoverflow.com/a/12598711/1594792" target="_blank" rel="external">UISearchBar clear background color or set background image</a><br><a href="http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1" target="_blank" rel="external">http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/09/11/view-debugging/">View Debugging</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-09-11
-        </span></div>
-    </header>
-
-    <div class="post-content"><ul>
-<li>将联机调试的设备截屏：Debug -> View Debugging -> Take Screenshot of **iPhone。</li>
-</ul>
-<ul>
-<li><p>查看view的层级结构：Debug -> View Debugging -> Capture View Hierarchy. 特别是当某个view不显示或位置不正常时，用它可以很清楚的看到是被哪个view遮挡。</p>
-</li>
-<li><p>调试时显示view的尺寸和frame：Debug -> View Debugging -> Show View Frames/Show Alignment Rectangles。</p>
-</li>
-</ul>
-<p>以上，均可在 Xcode -> Preferences -> Key Bindings -> Debug Menu 中设置快捷键。<br><img src="http://i12.tietuku.com/a137140412ce894c.png" alt=""></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/09/10/autoLayout-debug/">AutoLayout debug</a>
         </h1>
 
@@ -351,13 +303,122 @@
 </ul>
 
         </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/07/09/NSLocalNotification/">NSLocalNotification</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-07-09
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>创建一个本地通知通常分为以下几个步骤：</p>
+<p>1.创建<code>UILocalNotification</code>。 </p>
+<p>2.设置处理通知的时间<code>fireDate</code>。 </p>
+<p>3.配置通知的内容：通知主体、通知声音、图标数字等。 </p>
+<p>4.配置通知传递的自定义数据参数<code>userInfo</code>（这一步可选）。 </p>
+<p>5.调用通知，可以使用<code>scheduleLocalNotification:</code> 按计划调度一个通知，也可以使用<code>presentLocalNotificationNow</code> 立即调用通知。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/07/05/what-about-now/">What About Now?</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-07-05
+        </span></div>
+    </header>
+
+    <div class="post-content"><p><strong>First, create a post：</strong><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">WhereHexoInstalled calios$ hexo <span class="keyword">new</span> ForgetIt</div><div class="line">[INFO] Created: ~<span class="regexp">/WhereHexoInstalled/</span><span class="keyword">source</span><span class="regexp">/_posts/</span>forgetIt.md</div></pre></td></tr></table></figure></p>
+<p><strong>Open it:</strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WhereHexoInstalled calios<span class="variable">$ </span>open ~<span class="regexp">/WhereHexoInstalled/source</span><span class="regexp">/_posts/</span>What-About-Now.md</div></pre></td></tr></table></figure>
+<p><strong>Then, try block quote:</strong></p>
+<pre><code>&gt; Every interaction is both precious and an opportunity to delight.
+&gt;
+&gt; *Seth Godin ——*  [Welcome to Island Marketing]
+</code></pre><blockquote>
+<p>Every interaction is both precious and an opportunity to delight.</p>
+<p><em>Seth Godin ——</em>  <a href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html" target="_blank" rel="external">Welcome to Island Marketing</a></p>
+</blockquote>
+<p><strong>And then, try code block:</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBarButtonItem</span> *search = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithBarButtonSystemItem:<span class="built_in">UIBarButtonSystemItemSearch</span> target:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(searchItemPressed)];</div><div class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = search;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBarButtonItem</span> *search = [[<span class="built_in">UIBarButtonItem</span> alloc] initWithBarButtonSystemItem:<span class="built_in">UIBarButtonSystemItemSearch</span> target:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(searchItemPressed)];</div><div class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = search;</div></pre></td></tr></table></figure>
+<p><strong>Now, link:</strong></p>
+<pre><code>Here&apos;s [Github](http://github.com/).
+</code></pre><p>Here’s <a href="https://github.com/" target="_blank" rel="external">Github</a>.</p>
+<p><strong>Finally, image.</strong></p>
+<pre><code>![img](http://img-storage.qiniudn.com/15-8-5/58389499.jpg)
+</code></pre><p><img src="http://img-storage.qiniudn.com/15-8-5/58389499.jpg" alt="Here&#39;s an image"></p>
+<hr>
+<p><strong> Here’s a temp end. And enjoy yourself. XD </strong></p>
+<p>Calios<br>5th, July</p>
+<hr>
+<p><strong>Update Nov 20th, 2015.</strong></p>
+<p>I’ll list part of other syntax here to save.</p>
+<p><strong>Table</strong></p>
+<pre><code>| Title1 | Title2
+| ---- | ----
+|   Column1       |   Row1
+|   Column2       |   Row2
+</code></pre><p>It shows like this.</p>
+<table>
+<thead>
+<tr>
+<th>Title1</th>
+<th>Title2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Column1</td>
+<td>Row1  </td>
+</tr>
+<tr>
+<td>Column1</td>
+<td>Row2</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Update Apr 20th, 2016.</strong></p>
+<p>How to add code block in item list?</p>
+<blockquote>
+<ul>
+<li>undo add a file before commit:</li>
+</ul>
+<!-- language: bash -->
+<p>  $ svn revert –recursive folder_name</p>
+</blockquote>
+<p>As mentioned <a href="http://meta.stackexchange.com/questions/3122/formatting-sandbox/3431#3431" target="_blank" rel="external">here</a>:</p>
+<blockquote>
+<p>On the start of a line, specify a language inline using <code>&lt;!-- language: lang --&gt;</code> hints, and indent the code 4 spaces as usual.</p>
+</blockquote>
+<p>Like this.</p>
+<pre><code>- undo add a file before commit:
+</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- language: bash --&gt;</span></div><div class="line">    $ svn revert --recursive folder\_name</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><em> Issues I occured in the blog and Refs:</em></strong></p>
+<ul>
+<li><a href="http://meta.stackexchange.com/questions/55437/how-can-the-backtick-character-be-included-in-code" target="_blank" rel="external">How can the backtick character ` be included in code?</a></li>
+<li>How to add image for online blog?<ul>
+<li>I tried to upload image <a href="http://yotuku.cn/" target="_blank" rel="external">here</a> and of course you can choose any “Cloud” you like. :P</li>
+</ul>
+</li>
+<li>How to increase the speed for downloading from Github?<ul>
+<li>Import the public repository of Github to some domestic code track website, and then download it from the domestic code. I tried <a href="http://www.coding.net" target="_blank" rel="external">coding.net</a> and it may be useful for others.</li>
+</ul>
+</li>
+<li>Formatting sandbox: <a href="http://meta.stackexchange.com/questions/3122/formatting-sandbox/3431#3431" target="_blank" rel="external">http://meta.stackexchange.com/questions/3122/formatting-sandbox/3431#3431</a></li>
+</ul>
+
+        </div></article>
       <nav class="pagination"><a class="prev" href="/page/10/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
-      </a>
-    <a class="next" href="/page/12/">
-        <span class="next-text">Next</span>
-        <i class="iconfont icon-right"></i>
       </a>
     </nav></section></div></div>
       </main>

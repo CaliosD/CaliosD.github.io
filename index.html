@@ -102,146 +102,9 @@
 
     <div class="post-content"><p>在我的印象中，正经而严肃认真地看“面向对象”这个概念，有这么几次：第一次，是大学时老师上课讲的，Car和Taxi，Animal和Dog、Cat，Teacher和Student，如此如此；第二次，是在臧成威老师的 iOS 黑魔法课中，学习如何用 C 语言实现面向对象的各种特性；第三次，应该就是最近，在学习设计模式中遇到最形而上之、又被最广泛使用的编程思想——面向对象。这一次，就从我写后端以来最常用的语言 Go 入手，研究一下它是如何体现面向对象思想、日常开发中又是如何使用 Go 进行面向对象编程的吧。</p>
 <h2 id="使用-Go-如何实现面向对象编程？"><a href="#使用-Go-如何实现面向对象编程？" class="headerlink" title="使用 Go 如何实现面向对象编程？"></a>使用 Go 如何实现面向对象编程？</h2><p>首先，第一个问题是：“Go 是一门面向对象的语言吗？”</p>
-<p>好吧，这的确属于常见问题，以至于<a href="https://golang.org/doc/faq#Is_Go_an_object-oriented_language" target="_blank" rel="external">官网的 FAQ 中直接回答了</a>它：</p>
-<blockquote>
-<p>是，也不是。尽管 Go 拥有类型和方法，也允许面向对象风格的编程，但它没有类型的继承。Go 中，“接口”这个概念提供了一种不同的方式，我们认为它更加简单易用，在某种意义上也更通用。当然，也可以通过将某类型嵌入到另一种类型中来实现尽管类似、但并不等同的“子类”。此外，Go 的方法比 C++ 或 Java 更加通用：它们可以为任何类型的数据定义，即使是像 integer 这种内置的、无法拆分的类型。它们并不局限与 struct。<br>还有，Go 中不存在类型的继承，使得它的“对象”比 C++ 或 Java 这些语言都要轻量。</p>
-</blockquote>
-<p>面向对象编程中有两个非常重要而基础的概念：类（class）和对象（object）。在 Go 中，没有类（class）的概念，可以使用结构体（struct）来实现类似的功能。当然，面向对象语言并不是能否实现面向对象编程的充要条件。接下来，我们就来看一下 Go 是如何实现面向对象编程的三/四大特性吧。</p>
-<h3 id="0-抽象"><a href="#0-抽象" class="headerlink" title="0.抽象"></a>0.抽象</h3><p>将“抽象”作为 0，实在是因为它是一个非常通用的设计思想，并没有很强的“特异性”，也并不需要编程语言提供特殊的语法机制来支持，甚至使用“函数”就足矣，因此有时并不被看做面向对象编程的特性之一。所以，这里就不再赘述。</p>
-<h3 id="1-封装"><a href="#1-封装" class="headerlink" title="1.封装"></a>1.封装</h3><p>封装，简而言之，就是将内部信息隐藏起来，对外提供可控制的数据访问。它主要是为了保护内部数据不被随意修改，同时仅暴露有限必要的接口，保障代码的可维护性和易用性。通常来说，各编程语言本身都会提供权限访问控制的语法来支持。比如，Java中的 private、protected、public 关键字，Swift 中的 private、public、fileprivate 关键字等等。</p>
-<p>Go 中没有提供类似语法层面的关键字。在我看来，封装一方面可以通过划分包（package）来实现，通过命名是否大写来决定是否可以被包外访问，这一规则适用于 type、interface、struct 或是 function。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">type Foo struct &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func (f Foo) Foo1() &#123;</div><div class="line">    fmt.Println(&quot;Foo1() here&quot;)</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func (f Foo) Foo2() &#123;</div><div class="line">    fmt.Println(&quot;Foo2() here&quot;)</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func (f Foo) foo3() &#123;</div><div class="line">    fmt.Println(&quot;foo3() here&quot;)</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func NewFoo() *Foo &#123;</div><div class="line">    return &amp;Foo&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如上代码所示，<code>Foo</code> 的创建方法 <code>NewFoo()</code> 和 <code>Foo1()</code>、<code>Foo2()</code> 方法都可以被包外使用，而 <code>foo3()</code> 只能在包内使用：</p>
-<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line"><span class="keyword">import</span> "../foo"</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">	<span class="attribute">f</span> := foo<span class="variable">.NewFoo</span>()</div><div class="line">	f<span class="variable">.Foo</span>1()</div><div class="line">	f<span class="variable">.Foo</span>2()</div><div class="line">//	f<span class="variable">.foo</span>3() &lt;- f<span class="variable">.foo</span>3 undefined (cannot refer to unexported field or method foo<span class="variable">.Foo</span><span class="variable">.foo</span>3)go</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>另一方面，如果不希望将 <code>Foo</code> 类型暴露出来，可以通过 <code>interface</code> 来隐藏：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">type Fooer interface &#123;</div><div class="line">  Foo1()</div><div class="line">  Foo2()</div><div class="line">&#125;</div><div class="line"> </div><div class="line">type foo struct &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func (f foo) Foo1() &#123;</div><div class="line">    fmt.Println(&quot;Foo1() here&quot;)</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func (f foo) Foo2() &#123;</div><div class="line">    fmt.Println(&quot;Foo2() here&quot;)</div><div class="line">&#125;</div><div class="line"> </div><div class="line">func NewFoo() Fooer &#123;</div><div class="line">    return &amp;foo&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="2-继承"><a href="#2-继承" class="headerlink" title="2.继承"></a>2.继承</h3><p>众所周知（努力不去想道长说这四个字时的语气神态=_=），在面向对象编程中，继承用来表示类之间的 is-a 关系，用来解决代码的复用性问题，通常也需要编程语言提供特殊的语法机制来支持。常见的有单继承和多继承两种模式，而多继承最常见的就是“钻石问题（diamond problem）”（D 继承自 B 和 C，而 B 和 C 又都继承自 A，继承链形成了钻石的形状）。</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   A</div><div class="line"> /   <span class="string">\</span></div><div class="line">B     C</div><div class="line"> <span class="string">\</span>   /</div><div class="line">   D</div></pre></td></tr></table></figure>
-<p>不同编程语言对此解决方案各不相同：有的语言默认分别遵循各自的继承关系，因此 D 中实际上包含两个独立的 A 对象，如 C++；有的语言设定精巧的规则来处理，如 Python；而像 Objective-C、Swift、Java等语言，只允许继承自单一的基类，就不会有 diamond problem 了。</p>
-<p>而 Go，采取了完全不同的方式。在 Go 中，没有通常意义的“类型的继承”，而是使用了 struct 的嵌套（embed）来实现类似的继承和多继承，同时在编译期检查 diamond problem 并报错。如下例所示，<code>SubFooB</code> 和 <code>SubFooC</code> 两个 struct 都嵌套了 <code>Foo</code>，而 <code>MiniFooD</code> 又同时嵌套了 <code>SubFooB</code> 和 <code>SubFooC</code>，这样就形成了一颗“钻石”：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> SubFooB <span class="keyword">struct</span> &#123;</div><div class="line">	Foo</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSubFooB</span><span class="params">()</span> *<span class="title">SubFooB</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> &amp;SubFooB&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s SubFooB)</span> <span class="title">Foo2</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(<span class="string">"Foo2() of B here"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s SubFooB)</span> <span class="title">Foo3</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(<span class="string">"Foo3() of B here"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> SubFooC <span class="keyword">struct</span> &#123;</div><div class="line">	Foo</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSubFooC</span><span class="params">()</span> *<span class="title">SubFooC</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> &amp;SubFooC&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s SubFooC)</span> <span class="title">Foo4</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(<span class="string">"Foo4() of C here"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> MiniFooD <span class="keyword">struct</span> &#123;</div><div class="line">	SubFooB</div><div class="line">	SubFooC</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMiniFooD</span><span class="params">()</span> *<span class="title">MiniFooD</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> &amp;MiniFooD&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此时，如果调用 <code>MiniFooD</code> 的 <code>Foo1()</code> 方法，编译器会直接报错：“ambiguous selector mf.Foo1”，可以通过在 <code>MiniFooD</code> 中分别定义 <code>SubFooB</code> 和 <code>SubFooC</code> 类型的变量来明确指定调用的是谁的 <code>Foo1()</code> 方法。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"../foo"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	sf := foo.NewSubFooB()</div><div class="line">	sf.Foo1()   <span class="comment">// Foo1() here</span></div><div class="line">	sf.Foo2()   <span class="comment">// &lt;- Foo2() of B here &lt;- 类似继承 + 方法重写</span></div><div class="line">	sf.Foo3()   <span class="comment">// Foo3() of B here</span></div><div class="line"></div><div class="line">    mf := foo.NewMiniFooD()</div><div class="line">	<span class="comment">// mf.Foo1()   // ambiguous selector mf.Foo1</span></div><div class="line">	mf.Foo2()</div><div class="line">	mf.Foo3()</div><div class="line">	mf.Foo4()   <span class="comment">// Foo4() of C here</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-多态"><a href="#3-多态" class="headerlink" title="3.多态"></a>3.多态</h3><p>多态是面向对象编程的最后一个特性，通常是通过子类替换父类、在实际的代码运行过程中调用子类的方法来实现的。编程语言同样提供了不同的语法机制来支持，常见的有继承 + 方法重写、接口类和 duck typing。</p>
-<p>实际上，对于继承 + 方法重写，我们在上面的例子中已经遇见过了，即 <code>sf.Foo2()</code> 这一句调用，<code>SubFooB</code> 重写了 <code>Foo</code> 的 <code>Foo2()</code> 方法，这里不再赘述。</p>
-<p>在 Go 中，除了 struct，最常见的莫过于 interface 了。对于一个 interface，任何实现了该 interface 声明全部方法的 struct 的对象，都可以当做该 interface 类型的变量使用。</p>
-<p>来看一个 Go 里很常见的 interface：<code>io.Writer</code>。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">type Writer<span class="built_in"> interface </span>&#123;</div><div class="line">	Write(p []byte) (n int, err error)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个接口只定义了一个 <code>Write</code> 函数，它可以将 <code>len(p)</code> 个字节从 <code>p</code> 写入数据流中，并返回写入的字节数和失败的错误信息。</p>
-<p>我们接下来看它的一个使用场景：<code>func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error) {}</code> 函数。</p>
-<p>从函数定义中可以看到，它接收一个 <code>io.Writer</code> 类型的参数作为入参。具体使用如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"bufio"</span></div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"os"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="comment">/*** polymorphic cases ***/</span></div><div class="line"></div><div class="line">    <span class="comment">// 1.os.Stdout as io.Writer</span></div><div class="line">	<span class="keyword">const</span> name, age = <span class="string">"Kim"</span>, <span class="number">22</span></div><div class="line">	n, err := fmt.Fprintf(os.Stdout, <span class="string">"%s is %d years old.\n"</span>, name, age)</div><div class="line"></div><div class="line">	<span class="comment">// The n and err return values from Fprintf are</span></div><div class="line">	<span class="comment">// those returned by the underlying io.Writer.</span></div><div class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">		fmt.Fprintf(os.Stderr, <span class="string">"Fprintf: %v\n"</span>, err)</div><div class="line">	&#125;</div><div class="line">	fmt.Printf(<span class="string">"%d bytes written.\n"</span>, n)</div><div class="line"></div><div class="line">    <span class="comment">// 2.bufio.Writer as io.Writer</span></div><div class="line">	w := bufio.NewWriter(os.Stdout)</div><div class="line">	fmt.Fprint(w, <span class="string">"Hello, "</span>)</div><div class="line">	fmt.Fprint(w, <span class="string">"world!"</span>)</div><div class="line">	w.Flush() <span class="comment">// Don't forget to flush!</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看到，我们既可以传入类型为 <code>os.File</code> 的 <code>os.Stdout</code>，也可以传入类型为 <code>bufio.Writer</code> 的 <code>w</code>，原因就是这两者都实现了接口定义的 <code>Write</code> 方法。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// os/file.go</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *File)</span> <span class="title">Write</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span> &#123;</div><div class="line">	......</div><div class="line">	<span class="keyword">return</span> n, err</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// bufio/bufio.go</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *Writer)</span> <span class="title">Write</span><span class="params">(p []<span class="keyword">byte</span>)</span> <span class="params">(nn <span class="keyword">int</span>, err error)</span></span> &#123;</div><div class="line">	......</div><div class="line">	<span class="keyword">return</span> nn, <span class="literal">nil</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>由此就实现了 duck typing：只要看起来像鸭子、叫起来像鸭子、走路也像鸭子，就是个鸭子。同样，只要 struct 实现了 interface 中定义的全部方法，就可以作为这个 interface 类型来使用，并不需要其他编程语言中类似“implements”的声明。这也就 Go 中多态的实现方式。</p>
-<p><strong>这里需要注意的一点是</strong>，具体类型实现方法的定义必须和 interface 中的函数定义的<strong>完全一致</strong>，包括函数名、参数类型和返回值类型。</p>
-<p>比如这个例子：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">type Equaler<span class="built_in"> interface </span>&#123;</div><div class="line">    Equal(Equaler) bool</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里定义了一个用来比较自身和另一个值是否相等的 interface，并且定义了一个类型 <code>T</code>：<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">type</span> <span class="built_in">T</span> <span class="built_in">int</span></div><div class="line">func (<span class="built_in">t</span> <span class="built_in">T</span>) Equal(u <span class="built_in">T</span>) bool &#123; return <span class="built_in">t</span> == u &#125; // does <span class="built_in">not</span> satisfy Equaler</div></pre></td></tr></table></figure></p>
-<p>上面的写法并不能算是实现了 <code>Equaler</code>，<code>T.Equal</code> 的参数类型是 <code>T</code>，并不是 interface 中定义的 <code>Equaler</code>。Go 并不会像其他编程语言一样自动做类型转换，需要开发者手动去转换，如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> T2 <span class="keyword">int</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T2)</span> <span class="title">Equal</span><span class="params">(u Equaler)</span> <span class="title">bool</span></span> &#123; <span class="keyword">return</span> t == u.(T2) &#125;  <span class="comment">// satisfies Equaler</span></div></pre></td></tr></table></figure>
-<p>这使得 Go 实现 interface 的规则十分简单：即函数的名字和签名是否和 interface 中定义的完全一致？</p>
-<p>interface 使得 Go 的代码编写有了更好的扩展性和复用性，也使得我们可以更方便地实现面向对象“多态”这个特性，也使得很多设计模式、设计原则和编程技巧得以实现。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一种编程语言都有它的使命和魅力，如同每一种编程思想都有它的模式和章法。但我们都知道，面向对象编程是广泛使用的一种编程范式，但不是唯一的一种。当我们从日常的业务代码中抬起头来，追寻到可以快速改善编码质量的编码规范，寻觅到隐藏其中的代码重构的线索，遵循着经典的设计原则一步步前行，最终领悟到其中最根本的设计思想时，我们才能够说：“对于编写高质量的代码这件事，我心里有底了”。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://golang.org/doc/faq" target="_blank" rel="external">https://golang.org/doc/faq</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem</a></li>
-<li><a href="https://code.tutsplus.com/tutorials/lets-go-object-oriented-programming-in-golang--cms-26540" target="_blank" rel="external">https://code.tutsplus.com/tutorials/lets-go-object-oriented-programming-in-golang–cms-26540</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2020/01/26/design-pattern/">design-pattern</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-01-26
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>最终目的：写出高质量的代码。</p>
-<h2 id="1-如何评判代码质量的好坏？"><a href="#1-如何评判代码质量的好坏？" class="headerlink" title="1. 如何评判代码质量的好坏？"></a>1. 如何评判代码质量的好坏？</h2><p>代码质量的评价有很强的主观性，无法一概而论。以下是一些常用的评价标准：</p>
-<ul>
-<li><p>可维护性（maintainability）：在不破坏原有代码设计、不引入新的 bug 的情况下，能够快速地修改或者添加代码。</p>
-</li>
-<li><p>可读性（readability）</p>
-</li>
-</ul>
-<blockquote>
-<p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.<br>                                               – Martin Fowler</p>
-</blockquote>
-<ul>
-<li>可扩展性（extensibility）</li>
-</ul>
-<p>是否可以在不修改或少量修改原有代码的情况下，通过扩展的方式添加新的功能代码？<br>“对修改关闭，对扩展开放”设计原则。</p>
-<ul>
-<li><p>灵活性（flexibility）</p>
-</li>
-<li><p>简洁性（simplicity）</p>
-</li>
-</ul>
-<p>KISS原则：“Keep It Simple，Stupid”<br>思从深而行从简，真正的高手能云淡风轻地用最简单的方法解决最复杂的问题。这也是一个编程老手跟编程新手的本质区别之一。</p>
-<ul>
-<li>可复用性（reusability）</li>
-</ul>
-<p>DRY原则：“Don’t Repeat Yourself”</p>
-<ul>
-<li>可测试性（testability）</li>
-</ul>
-<p><img src="../images/dp-roadmap.png" alt="roadmap"></p>
-<p>回想起《小强升职记：时间管理故事书》中的提到，我们的工作和人生都可以划分成六个高度来检视：原则（五万英尺）、愿景（四万英尺）、目标（三万英尺）、责任范围（两万英尺）、任务（一万英尺）、下一步行动（跑道）；而对应“如何编写高质量的代码”这件事，自上而下、从抽象到具体实现也可以分成这样几个部分：设计思想（面向对象 vs 面向过程）、设计原则、设计模式、编码规范和重构技巧。这两者，实在是有异曲同工之妙。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2020/01/09/go-modules/">go的版本控制</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-01-09
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="1-引子：Software-engineering-vs-programming"><a href="#1-引子：Software-engineering-vs-programming" class="headerlink" title="1. 引子：Software engineering vs programming"></a>1. 引子：Software engineering vs programming</h2><p><img src="../images/programming-vs-software-engineering.png" alt="../images/programming-vs-software-engineering.png"><br><em>(截图来自：<a href="https://www.youtube.com/watch?v=F8nrpe0XWRg&amp;list=PLq2Nv-Sh8EbbIjQgDzapOFeVfv5bGOoPE&amp;index=3&amp;t=0s" target="_blank" rel="external">Go with Versions</a>)</em></p>
-<p>什么是programming？拿到一个需求，写代码，解决问题，结束，这是programming；<br>什么是software engineering？随着时间的推移，后面接手的工程师是否能够准确地阅读代码、原有代码是否更容易扩展新功能、是否具有良好的可测试性以至于方便重构、是否有良好的版本控制，这是software engineering。</p>
-<p>举个例子，我们都知道在 go 中引用第三方的库要用go import，那么对比一下这两种写法：</p>
-<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"uuid"</span></div><div class="line">vs</div><div class="line"><span class="keyword">import</span> <span class="string">"github.com/pborman/uuid"</span></div></pre></td></tr></table></figure>
-<p>对于之后的开发工程师而言，看到前者，并不知道 uuid 来自哪儿，但是后者就清晰地表现了这一点。<br>Golang 的很多设计都遵循了这个原则，即让开发更简单容易，而不是更让人困惑、更复杂。</p>
-<h2 id="2-go版本控制的原则"><a href="#2-go版本控制的原则" class="headerlink" title="2. go版本控制的原则"></a>2. go版本控制的原则</h2><ul>
-<li>兼容性（Compatibility）</li>
-<li>可重复性（Repeatability）</li>
-<li>合作（Cooperation）</li>
-</ul>
-<p>包管理工具，支持包的下载、编译和链接依赖</p>
-<h2 id="3-go-mod的关键点"><a href="#3-go-mod的关键点" class="headerlink" title="3. go mod的关键点"></a>3. go mod的关键点</h2><ul>
-<li>版本控制：semver</li>
-<li>包的唯一标识</li>
-<li>导出，引入，更新</li>
-</ul>
-<p>包管理管理的本质是依赖管理。</p>
-<ul>
-<li>go的版本管理遵循哪些原则：兼容性原则，可重复性原则，合作性。具体解释？</li>
-<li>作为发布方，从上到下的流程：</li>
-<li>怎么保证这次用的和上次用的是一样的版本？使用同一个tag；</li>
-<li>怎么让别人知道自己是谁？在go.mod中module 声明；</li>
-<li>如果A依赖B和C，而B依赖v1版本的D，C依赖v2版本的D，该怎样避免菱形的依赖链呢？import中加入依赖的版本号，major version为0或1的在import中可以省略，例如我们使用的ginc和packr/v2</li>
-<li>如何获取依赖的包？go get，-u获取最新版本，先去找tag，没有tag找最新的commit，还可以go get xxxx@develop或者go get xxxx@x.y.z，获取指定分支或tag的版本</li>
-</ul>
-<p>举例：</p>
-<ul>
-<li>iOS：CocoaPods（中心化）、Carthage（去中心化）、Swift Package Manager（亲儿子）</li>
-<li>macOS：Homebrew</li>
-<li>JavaScript：npm</li>
-</ul>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="external">https://github.com/golang/go/wiki/Modules</a></li>
-<li><a href="https://deepsource.io/blog/go-modules" target="_blank" rel="external">https://deepsource.io/blog/go-modules</a></li>
-<li><a href="https://semver.org/" target="_blank" rel="external">https://semver.org/</a></li>
-<li><a href="https://swift.org/package-manager/" target="_blank" rel="external">https://swift.org/package-manager/</a></li>
-</ul>
-
+          <div class="read-more">
+            <a href="/2020/01/30/oop-in-golang/" class="read-more-link">Read more..</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
@@ -348,6 +211,40 @@
     <div class="post-content"><h3 id="1-KVO"><a href="#1-KVO" class="headerlink" title="1.KVO"></a>1.KVO</h3><h4 id="1-1-属性依赖的机制"><a href="#1-1-属性依赖的机制" class="headerlink" title="1.1 属性依赖的机制"></a>1.1 属性依赖的机制</h4><p>在objc.io讲解KVC和KVO的一篇<a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">文章</a>中，举了一个体现属性依赖机制的例子，例子的逻辑结构如下图。完整代码见<a href="https://github.com/objcio/issue-7-lab-color-space-explorer" target="_blank" rel="external">github</a>。</p>
           <div class="read-more">
             <a href="/2017/05/12/kvo-kvc-missing-points/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/04/23/essay-meituan-salon-170422/">0422-美团沙龙面基</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-04-23
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>一个兴起参加了美团周末的技术沙龙，技术上的收获不敢说有多少，感想倒是有一些。</p>
+<h3 id="所谓长见识，无非是“走出去”和“走进来”"><a href="#所谓长见识，无非是“走出去”和“走进来”" class="headerlink" title="所谓长见识，无非是“走出去”和“走进来”"></a>所谓长见识，无非是“走出去”和“走进来”</h3><p>做小app做惯了，难免井底观天，不知移动开发的深浅了。只有当面向用户量数以万计、十万、百万的app时，一些宏观的问题才会浮出水面。比如说系统模块化的分割，比如说代码的多端复用，比如说性能监控方案。往大了说，这应该是应用系统普遍会遇到的问题，而不仅仅是移动端；往小了说，一个简单的app，如果想从这些方面进行优化，也是需要费一些心思的。</p>
+<p>这大概，是我第一次切身地意识到，在大厂工作，是站在巨人的肩膀上这件事吧。虽说用户量高的app不一定是大厂，但大厂的用户量一定不少。</p>
+<h3 id="所谓社交，无非是踏出自己的舒适区"><a href="#所谓社交，无非是踏出自己的舒适区" class="headerlink" title="所谓社交，无非是踏出自己的舒适区"></a>所谓社交，无非是踏出自己的舒适区</h3><p>第一次与黑魔法的同学们线下见面，虽然之前有一点小害羞，但见到之后也就没感觉了。互相交流一下对于某个话题的看法，更多的是听他们聊某个自己不甚熟悉的点。终于有一种同伴的感觉。这是对于一直独处的我弥足珍贵的。</p>
+<p>想起之前在摄影群，自己也是通过思维导图打开一点局面的，这次也是。可能，这是可以从自己身上深入挖掘的一个点吧。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-04-19
+        </span></div>
+    </header>
+
+    <div class="post-content"><h3 id="1-基础概要"><a href="#1-基础概要" class="headerlink" title="1.基础概要"></a>1.基础概要</h3><p><strong>应用层</strong>，主要解决如何包装数据：HTTP、FTP、Telnet等。其中，HTTP连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。所以是<strong>短连接</strong>。相对而言，socket连接是<strong>长连接</strong>，两端一旦建立连接将不会主动断掉。但由于各种环境因素可能会断开，所以当一个socket连接中没有数据传输时，为了维持连接需要发送<strong>心跳消息</strong>。<br><strong>传输层</strong>，主要解决数据如何在网络中传输：TCP协议。<br><strong>网络层</strong>，主要解决数据如何在网络中传输：IP协议。</p>
+          <div class="read-more">
+            <a href="/2017/04/19/first-shot-in-WebSocket/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">

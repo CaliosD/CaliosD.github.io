@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="go的版本控制"/><meta name="keywords" content=", Calios' Eden" /><link rel="alternate" href="/atom.xml" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://www.caliosd.gq/draft/go-modules.html"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>go的版本控制 - Calios' Eden</title>
+  <link rel="alternate" href="/atom.xml" title="Calios' Eden" type="application/atom+xml">
+</head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Calios' Eden</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Calios' Eden</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <div class="post-content">
+      <h2 id="1-引子：Software-engineering-vs-programming"><a href="#1-引子：Software-engineering-vs-programming" class="headerlink" title="1. 引子：Software engineering vs programming"></a>1. 引子：Software engineering vs programming</h2><p><img src="../images/programming-vs-software-engineering.png" alt="../images/programming-vs-software-engineering.png"><br><em>(截图来自：<a href="https://www.youtube.com/watch?v=F8nrpe0XWRg&amp;list=PLq2Nv-Sh8EbbIjQgDzapOFeVfv5bGOoPE&amp;index=3&amp;t=0s" target="_blank" rel="external">Go with Versions</a>)</em></p>
+<p>什么是programming？拿到一个需求，写代码，解决问题，结束，这是programming；<br>什么是software engineering？随着时间的推移，后面接手的工程师是否能够准确地阅读代码、原有代码是否更容易扩展新功能、是否具有良好的可测试性以至于方便重构、是否有良好的版本控制，这是software engineering。</p>
+<p>举个例子，我们都知道在 go 中引用第三方的库要用go import，那么对比一下这两种写法：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"uuid"</span></div><div class="line">vs</div><div class="line"><span class="keyword">import</span> <span class="string">"github.com/pborman/uuid"</span></div></pre></td></tr></table></figure>
+<p>对于之后的开发工程师而言，看到前者，并不知道 uuid 来自哪儿，但是后者就清晰地表现了这一点。<br>Golang 的很多设计都遵循了这个原则，即让开发更简单容易，而不是更让人困惑、更复杂。</p>
+<h2 id="2-go版本控制的原则"><a href="#2-go版本控制的原则" class="headerlink" title="2. go版本控制的原则"></a>2. go版本控制的原则</h2><ul>
+<li>兼容性（Compatibility）</li>
+<li>可重复性（Repeatability）</li>
+<li>合作（Cooperation）</li>
+</ul>
+<p>包管理工具，支持包的下载、编译和链接依赖</p>
+<h2 id="3-go-mod的关键点"><a href="#3-go-mod的关键点" class="headerlink" title="3. go mod的关键点"></a>3. go mod的关键点</h2><ul>
+<li>版本控制：semver</li>
+<li>包的唯一标识</li>
+<li>导出，引入，更新</li>
+</ul>
+<p>包管理管理的本质是依赖管理。</p>
+<ul>
+<li>go的版本管理遵循哪些原则：兼容性原则，可重复性原则，合作性。具体解释？</li>
+<li>作为发布方，从上到下的流程：</li>
+<li>怎么保证这次用的和上次用的是一样的版本？使用同一个tag；</li>
+<li>怎么让别人知道自己是谁？在go.mod中module 声明；</li>
+<li>如果A依赖B和C，而B依赖v1版本的D，C依赖v2版本的D，该怎样避免菱形的依赖链呢？import中加入依赖的版本号，major version为0或1的在import中可以省略，例如我们使用的ginc和packr/v2</li>
+<li>如何获取依赖的包？go get，-u获取最新版本，先去找tag，没有tag找最新的commit，还可以go get xxxx@develop或者go get xxxx@x.y.z，获取指定分支或tag的版本</li>
+</ul>
+<p>举例：</p>
+<ul>
+<li>iOS：CocoaPods（中心化）、Carthage（去中心化）、Swift Package Manager（亲儿子）</li>
+<li>macOS：Homebrew</li>
+<li>JavaScript：npm</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="external">https://github.com/golang/go/wiki/Modules</a></li>
+<li><a href="https://deepsource.io/blog/go-modules" target="_blank" rel="external">https://deepsource.io/blog/go-modules</a></li>
+<li><a href="https://semver.org/" target="_blank" rel="external">https://semver.org/</a></li>
+<li><a href="https://swift.org/package-manager/" target="_blank" rel="external">https://swift.org/package-manager/</a></li>
+</ul>
+
+    </div>
+  </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:calios_1124@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="http://github.com/caliosd" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Calios</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

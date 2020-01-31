@@ -91,210 +91,6 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/09/03/differences-among-workspace-project-target-scheme/">【译】Workspace & Project & Target & Scheme 的区别</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-09-03
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>来自<a href="http://stackoverflow.com/users/916299/james-webster" title="http://stackoverflow.com/users/916299/james-webster" target="_blank" rel="external">James Webster</a>的回答：</p>
-<ul>
-<li><strong>Workspace:</strong> 包含一个或多个<code>project</code>，这些<code>project</code>通常是相互关联的。</li>
-<li><strong>Project:</strong> 包括代码和资源等等。（你会熟悉这些的。）</li>
-<li><strong>Target:</strong> 每个<code>project</code>都有一个或多个<code>target</code>。<ul>
-<li>每个target都定义了该<code>project</code>的 build setting列表。</li>
-<li>每个target还定义了在build时需要引用或使用的类、资源、自定义脚本的列表。</li>
-<li>Target通常用于同一个project的不同发布版本。<ul>
-<li>比如，我的项目有两个target，一个通用构建和一个官方构建，其中后者包含额外测试功能，可能还包含几种背景音乐轨道，还有一个切换轨道的按钮。</li>
-<li>你应该已经习惯于向默认的target中添加类和资源了。</li>
-<li>你可以挑选哪些类／资源被添加到哪个target中。<ul>
-<li>在我的例子中，我有一个叫“DebugHandler”的类要添加到官方构建中。</li>
-</ul>
-</li>
-<li>如果你添加测试，就需要添加一个新的target了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Scheme: </strong> Scheme定义了当你按下“Build”，“Test”，“Profile”的时候会发生什么。<ul>
-<li>通常情况下，每个target包括至少一个scheme。</li>
-<li>你可以为你的target自动创建scheme，方法是在 Scheme > Manage Schemes，点“Autocreate Schemes Now”。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/a/20637892/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20637892/1594792</a></li>
-<li><a href="http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/" target="_blank" rel="external">http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/08/19/summary-for-hr-project/">某HR项目iOS端总结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-08-19
-        </span></div>
-    </header>
-
-    <div class="post-content"><h3 id="1-产品设计"><a href="#1-产品设计" class="headerlink" title="1.产品设计"></a>1.产品设计</h3><ul>
-<li>及时更新RP图。</li>
-<li>对于iOS和Android差异化不大的页面，可以使用一套RP图。</li>
-<li>保证对页面逻辑的详细说明。</li>
-<li>对于特殊状态（如筛选、搜索等）的说明／图解要清晰。</li>
-</ul>
-<h3 id="2-接口文档部分"><a href="#2-接口文档部分" class="headerlink" title="2.接口文档部分"></a>2.接口文档部分</h3><h5 id="2-1-文档编写的注意事项："><a href="#2-1-文档编写的注意事项：" class="headerlink" title="2.1 文档编写的注意事项："></a>2.1 文档编写的注意事项：</h5><ul>
-<li>对于所有接口都通用的参数或JSON数据格式，可以添加公共设置的部分，集中说明。 </li>
-<li>请求数据的参数，要说明哪些是必须的，哪些是可选的，可选的默认值是什么。 </li>
-<li>说清请求数据的方式是GET还是POST。 </li>
-<li>命名要清晰，对于<strong>名词</strong>命名的参数，区分清楚<code>xxId</code>和<code>xxTitle</code>，而不是<code>xx</code>。 </li>
-<li>标记类型、状态类型的文字，与其移动端和服务器各自手动维护一组枚举值，不如传输<strong>文字本身</strong>。 </li>
-<li>请求参数和返回参数中，特殊类型的数据要说明。如日期的格式是<code>yyyy-MM-dd</code>、<code>yyyy/MM/dd</code>还是<code>yyyy.MM</code>。 </li>
-<li>无需将userId/username传给服务器时，坚决不传，避免服务器端对于userId/username的误用。</li>
-<li>可以将“凡是以<code>xxId</code>命名的字段一定为表的主键”这样的规则写在文档开始的公共说明中。</li>
-<li>明确可选参数对应值为空时，是传“key:”” ”还是直接不传参数的key。</li>
-<li>文档中要有详实的例子，还要注意按照接口调用的时序组织文档。</li>
-</ul>
-<h5 id="2-2-工作流程："><a href="#2-2-工作流程：" class="headerlink" title="2.2 工作流程："></a>2.2 工作流程：</h5><ul>
-<li>现在的流程：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端开发 》移动端接口设计</strong> 》pc端接口开发 </li>
-</ul>
-<ul>
-<li><p>可优化为：<br>  pc端数据库设计与开发 》移动端产品设计 》<strong>移动端接口设计 》移动端开发</strong> 》pc端接口开发 </p>
-</li>
-<li><p>优化后的好处：</p>
-<ul>
-<li>避免移动端Model构建时，逐个比对字段名称的问题。</li>
-<li>减少pc端依照“移动端写的接口文档”各种修改字段名的问题。</li>
-<li>面向接口进行代码设计，可以在项目初期就对各功能模块有整体认识。</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-3-编写工具："><a href="#2-3-编写工具：" class="headerlink" title="2.3 编写工具："></a>2.3 编写工具：</h5><ul>
-<li><p>现在的工具：<br>  word + SVN(?)</p>
-</li>
-<li><p>存在的问题：</p>
-<ul>
-<li>各种和文档相关的样式、乱码、排版的问题。</li>
-<li>无法即时调试，需自行粘贴到postman去测试。</li>
-</ul>
-</li>
-<li><p>可优化为：<br>  － swagger：<a href="http://editor.swagger.io/#/" target="_blank" rel="external">http://editor.swagger.io/#/</a><br>  － RAP（from Alibaba）： </p>
-<ul>
-<li>Github：<a href="https://github.com/thx/RAP" target="_blank" rel="external">https://github.com/thx/RAP </a><ul>
-<li>说明：<a href="http://div.io/topic/642" target="_blank" rel="external">http://div.io/topic/642</a> </li>
-<li>例子：<a href="http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446" target="_blank" rel="external">http://rap.taobao.org/workspace/myWorkspace.do?projectId=5359#37446</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-4-接口设计要考虑的问题（供参考）："><a href="#2-4-接口设计要考虑的问题（供参考）：" class="headerlink" title="2.4 接口设计要考虑的问题（供参考）："></a>2.4 接口设计要考虑的问题（供参考）：</h5><ul>
-<li><a href="http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html" target="_blank" rel="external">http://ismartstudio.com/mobile-app-server-side-api-should-be-designed-to-take-into-account-problems.html </a></li>
-<li><a href="https://segmentfault.com/q/1010000002523945" title="https://segmentfault.com/q/1010000002523945" target="_blank" rel="external">https://segmentfault.com/q/1010000002523945</a> </li>
-</ul>
-<h3 id="3-移动端开发"><a href="#3-移动端开发" class="headerlink" title="3.移动端开发"></a>3.移动端开发</h3><h5 id="3-1-BugList分析"><a href="#3-1-BugList分析" class="headerlink" title="3.1 BugList分析"></a>3.1 BugList分析</h5><p>BugList（iOS端）汇总图表及明细<br>（见<code>XX HR iOS端BugList汇总及明细.xlsx</code>）</p>
-<p>Bug数量最多的类型前三类（单位：个）：</p>
-<ul>
-<li>逻辑缺失（23）</li>
-<li>和pc端对接问题（19）</li>
-<li>未与RP图对照（14）</li>
-</ul>
-<p>逐个分析一下：</p>
-<h5 id="3-1-1-逻辑缺失"><a href="#3-1-1-逻辑缺失" class="headerlink" title="3.1.1 逻辑缺失"></a>3.1.1 逻辑缺失</h5><p>共计23个逻辑缺失的Bug中，比较突出的问题有：</p>
-<ul>
-<li>数据更新后没有自动刷新的问题（6个）  </li>
-<li>页面或数据状态的保存或传递问题（5个）；</li>
-<li>网络请求时，可选参数key为空的处理（2个）。</li>
-</ul>
-<p><strong>解决建议</strong></p>
-<ul>
-<li>对于数据有可能更新的列表，要添加自动刷新功能；</li>
-<li>请求数据时，可以不传的参数key需要单独处理。</li>
-</ul>
-<h5 id="3-1-2-和pc端对接问题"><a href="#3-1-2-和pc端对接问题" class="headerlink" title="3.1.2 和pc端对接问题"></a>3.1.2 和pc端对接问题</h5><p>和pc端对接的相关Bug中，问题主要集中在：</p>
-<ul>
-<li>移动端使用字段错误，导致展示错误信息（6个）；</li>
-<li>不同接口的<code>BaseURL</code>不相同（后期已统一）（3个）；</li>
-<li>移动端使用的校验方式与pc端不一致（3个）；</li>
-<li>空值的传输和处理（3个）：当某字段的值为空时，需传给服务器key和空值。</li>
-</ul>
-<p><strong>解决建议</strong></p>
-<ul>
-<li>增强对接口文档的统一理解；</li>
-<li>pc端和移动端可以在各自的接口开发时约定好：<ul>
-<li>所有接口的<code>BaseURL</code>；</li>
-<li>除了<code>status=1</code>和<code>status=-1</code>的状态外，其他可能存在<code>status=0</code>的接口。</li>
-</ul>
-</li>
-</ul>
-<h5 id="3-1-3-未与RP图对照"><a href="#3-1-3-未与RP图对照" class="headerlink" title="3.1.3 未与RP图对照"></a>3.1.3 未与RP图对照</h5><p>主要由于在RP图不断更新的过程中，未能及时变更相应流程、操作和用户友好性的细节。这一部分的bug，是应该在自测中消除掉的。</p>
-<h5 id="3-2-代码分析"><a href="#3-2-代码分析" class="headerlink" title="3.2 代码分析"></a>3.2 代码分析</h5><h5 id="3-2-1-代码行数统计"><a href="#3-2-1-代码行数统计" class="headerlink" title="3.2.1 代码行数统计"></a>3.2.1 代码行数统计</h5><table>
-<thead>
-<tr>
-<th>文件夹</th>
-<th>代码行数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Classes</td>
-<td>21357</td>
-</tr>
-<tr>
-<td>Utility</td>
-<td>2941</td>
-</tr>
-<tr>
-<td>Constant</td>
-<td>1498</td>
-</tr>
-<tr>
-<td>AppDelegate</td>
-<td>201</td>
-</tr>
-<tr>
-<td>Categories</td>
-<td>1758</td>
-</tr>
-<tr>
-<td><strong>Sum</strong></td>
-<td><strong>27755</strong></td>
-</tr>
-</tbody>
-</table>
-<h5 id="3-2-2-公共类的封装"><a href="#3-2-2-公共类的封装" class="headerlink" title="3.2.2 公共类的封装"></a>3.2.2 公共类的封装</h5><ul>
-<li><code>BaseFundamentalViewController</code>中封装了空数据的处理、网络请求等通用功能，项目中几乎所有controller都继承自该类。</li>
-<li><code>BaseViewController</code>继承自<code>BaseFundamentalViewController</code>。主要封装了与TableView相关的功能，如上拉加载、添加／清除筛选条件等。没有特殊需求的普通列表的展示，只需要不到50行代码。</li>
-<li><code>BaseWebViewController</code>继承自<code>BaseFundamentalViewController</code>。主要用于全屏的webview模板展示。</li>
-</ul>
-<h5 id="3-2-3-代码复用"><a href="#3-2-3-代码复用" class="headerlink" title="3.2.3 代码复用"></a>3.2.3 代码复用</h5><ul>
-<li>以后可能用到的功能模块：<ul>
-<li><code>Base</code>系列；</li>
-<li>下载管理（<em>待完善</em>）；</li>
-<li>WebView模板展示（GRMustache）；</li>
-<li>表格展示（GridView）；</li>
-<li>Charts展示（Charts）；</li>
-<li>图片浏览及选择（支持多选，MWPhotoBrowser）；</li>
-<li>表单的展示及填写（XLForm）；</li>
-<li>年月选择器。</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-美工-amp-测试"><a href="#4-美工-amp-测试" class="headerlink" title="4.美工 &amp; 测试"></a>4.美工 &amp; 测试</h3><ul>
-<li>对于移动端的切图可以逐渐模板化，如某些固定尺寸、固定的需求（如：Android的图片设计时有效内容尽量居中，便于自行剪裁）等。</li>
-<li>时间允许的条件下，同类型bug可以设置关联bug，方便开发人员统一修复。</li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/07/24/commands-in-svn/">实用svn命令</a>
         </h1>
 
@@ -531,6 +327,47 @@
 <li><a href="https://github.com/syntaxhighlighter/syntaxhighlighter" target="_blank" rel="external">https://github.com/syntaxhighlighter/syntaxhighlighter</a></li>
 <li>开源中国iOS版本源码：<a href="http://git.oschina.net/oschina/iphone-app/tree/master" target="_blank" rel="external">http://git.oschina.net/oschina/iphone-app/tree/master</a></li>
 </ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">How to check if UITextField/UITextView is empty?</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-10
+        </span></div>
+    </header>
+
+    <div class="post-content"><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>In short, have a look at this image.</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
+<p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/04/UITableView／UICollectionView-with-empty-data/">UITableView／UICollectionView with empty data</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-04
+        </span></div>
+    </header>
+
+    <div class="post-content"><h5 id="Use-case"><a href="#Use-case" class="headerlink" title="Use case"></a>Use case</h5><p>－ Empty data in <code>UITableView／UICollectionView</code><br>－ No network connection<br>－ Network connection failure<br>－ Loading data</p>
+<h5 id="What-does-it-look-like-before"><a href="#What-does-it-look-like-before" class="headerlink" title="What does it look like before?"></a>What does it look like before?</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// BaseViewController.h</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view;</div><div class="line">- (<span class="keyword">void</span>)hideBlankView;</div><div class="line"></div><div class="line"><span class="comment">// BaseViewController.m</span></div><div class="line"><span class="meta">#pragma mark - Blank</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_blankView) &#123;</div><div class="line">        <span class="built_in">CGFloat</span> x = view.frame.origin.x;</div><div class="line">        <span class="built_in">CGFloat</span> width = view.frame.size.width;</div><div class="line">        <span class="built_in">CGFloat</span> height = view.frame.size.height;</div><div class="line">        _blankView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>( x + (width - <span class="number">175</span>)/<span class="number">2.</span>f, height/<span class="number">3.</span>f, <span class="number">175</span>, <span class="number">200</span>)];</div><div class="line">        _blankView.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</div><div class="line"><span class="comment">//        [self.view insertSubview:_blankView aboveSubview:view];</span></div><div class="line">        [<span class="keyword">self</span>.view addSubview:_blankView];</div><div class="line"></div><div class="line">        <span class="built_in">UIImageView</span> *blankImgView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"blank_content"</span>]];</div><div class="line">        blankImgView.frame = <span class="built_in">CGRectMake</span>(<span class="number">25</span>, <span class="number">0</span>, <span class="number">125</span>, <span class="number">150</span>);</div><div class="line">        [_blankView addSubview:blankImgView];</div><div class="line"></div><div class="line">        _attentionLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="built_in">CGRectGetMaxY</span>(blankImgView.frame) + kTVCVCellInset_X, <span class="number">175</span>, kMediumFontSize + <span class="number">2</span>)];</div><div class="line">        _attentionLabel.numberOfLines = <span class="number">0</span>;</div><div class="line">        _attentionLabel.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">        _attentionLabel.textColor = kLightGrayColor;</div><div class="line">        _attentionLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:kMediumFontSize];</div><div class="line">        [_blankView addSubview:_attentionLabel];</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:_blankView];</div><div class="line">    _attentionLabel.text = attention;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hideBlankView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_blankView != <span class="literal">nil</span>) &#123;</div><div class="line">        [_blankView removeFromSuperview];</div><div class="line">        _blankView  = <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And call these methods anywhere and choose the right <em>view</em> like this:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="literal">self</span> showBlankViewWithString:kNetworkFailureKey <span class="keyword">for</span>View:<span class="literal">self</span>.view];</div></pre></td></tr></table></figure></p>
+<p>or write <em>if-else</em> everywhere like this:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">if</span> (tmpArray.count &lt;= <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">YES</span>;</div><div class="line">    [<span class="keyword">self</span> showBlankViewWithString:<span class="string">@"No Data"</span> forView:<span class="keyword">self</span>.view];</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span>&#123;</div><div class="line">    [<span class="keyword">self</span> hideBlankView];</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">NO</span>;</div><div class="line">	......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="What-does-it-look-like-now"><a href="#What-does-it-look-like-now" class="headerlink" title="What does it look like now?"></a>What does it look like now?</h5><p>Get your data as usual and just call:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_EmptyData]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NetworkError]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NoNetwork]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>And all the annoying issues is done!</p>
+<p>The only thing you need to do is inheriting from<code>BaseEmptyViewController</code> and set <code>needsEmptyDataHandling</code> to be <code>YES</code>.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// YourViewController.h</span></div><div class="line"><span class="variable">@interface</span> <span class="attribute">YourViewController </span>: BaseEmptyViewController</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="comment">// YourViewController.m</span></div><div class="line">	self.needsEmptyDataHandling = YES;</div></pre></td></tr></table></figure></p>
+<p>For more details, please check <a href="https://github.com/CaliosD/CDEmptyDataSet" target="_blank" rel="external">this</a>.</p>
+<h5 id="References"><a href="#References" class="headerlink" title="References"></a>References</h5><p>－ <a href="http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html" target="_blank" rel="external">http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html</a><br>－ <a href="https://github.com/dzenbot/DZNEmptyDataSet" target="_blank" rel="external">https://github.com/dzenbot/DZNEmptyDataSet</a><br>－ <a href="http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview" target="_blank" rel="external">http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview</a></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">
