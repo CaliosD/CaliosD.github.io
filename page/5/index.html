@@ -91,6 +91,65 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">How to check if UITextField/UITextView is empty?</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-10
+        </span></div>
+    </header>
+
+    <div class="post-content"><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>In short, have a look at this image.</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
+<p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/04/UITableView／UICollectionView-with-empty-data/">UITableView／UICollectionView with empty data</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-04
+        </span></div>
+    </header>
+
+    <div class="post-content"><h5 id="Use-case"><a href="#Use-case" class="headerlink" title="Use case"></a>Use case</h5><p>－ Empty data in <code>UITableView／UICollectionView</code><br>－ No network connection<br>－ Network connection failure<br>－ Loading data</p>
+<h5 id="What-does-it-look-like-before"><a href="#What-does-it-look-like-before" class="headerlink" title="What does it look like before?"></a>What does it look like before?</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// BaseViewController.h</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view;</div><div class="line">- (<span class="keyword">void</span>)hideBlankView;</div><div class="line"></div><div class="line"><span class="comment">// BaseViewController.m</span></div><div class="line"><span class="meta">#pragma mark - Blank</span></div><div class="line">- (<span class="keyword">void</span>)showBlankViewWithString:(<span class="built_in">NSString</span> *)attention forView:(<span class="built_in">UIView</span> *)view</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_blankView) &#123;</div><div class="line">        <span class="built_in">CGFloat</span> x = view.frame.origin.x;</div><div class="line">        <span class="built_in">CGFloat</span> width = view.frame.size.width;</div><div class="line">        <span class="built_in">CGFloat</span> height = view.frame.size.height;</div><div class="line">        _blankView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>( x + (width - <span class="number">175</span>)/<span class="number">2.</span>f, height/<span class="number">3.</span>f, <span class="number">175</span>, <span class="number">200</span>)];</div><div class="line">        _blankView.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</div><div class="line"><span class="comment">//        [self.view insertSubview:_blankView aboveSubview:view];</span></div><div class="line">        [<span class="keyword">self</span>.view addSubview:_blankView];</div><div class="line"></div><div class="line">        <span class="built_in">UIImageView</span> *blankImgView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"blank_content"</span>]];</div><div class="line">        blankImgView.frame = <span class="built_in">CGRectMake</span>(<span class="number">25</span>, <span class="number">0</span>, <span class="number">125</span>, <span class="number">150</span>);</div><div class="line">        [_blankView addSubview:blankImgView];</div><div class="line"></div><div class="line">        _attentionLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="built_in">CGRectGetMaxY</span>(blankImgView.frame) + kTVCVCellInset_X, <span class="number">175</span>, kMediumFontSize + <span class="number">2</span>)];</div><div class="line">        _attentionLabel.numberOfLines = <span class="number">0</span>;</div><div class="line">        _attentionLabel.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">        _attentionLabel.textColor = kLightGrayColor;</div><div class="line">        _attentionLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:kMediumFontSize];</div><div class="line">        [_blankView addSubview:_attentionLabel];</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:_blankView];</div><div class="line">    _attentionLabel.text = attention;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)hideBlankView</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (_blankView != <span class="literal">nil</span>) &#123;</div><div class="line">        [_blankView removeFromSuperview];</div><div class="line">        _blankView  = <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And call these methods anywhere and choose the right <em>view</em> like this:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="literal">self</span> showBlankViewWithString:kNetworkFailureKey <span class="keyword">for</span>View:<span class="literal">self</span>.view];</div></pre></td></tr></table></figure></p>
+<p>or write <em>if-else</em> everywhere like this:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">if</span> (tmpArray.count &lt;= <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">YES</span>;</div><div class="line">    [<span class="keyword">self</span> showBlankViewWithString:<span class="string">@"No Data"</span> forView:<span class="keyword">self</span>.view];</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span>&#123;</div><div class="line">    [<span class="keyword">self</span> hideBlankView];</div><div class="line">    <span class="keyword">self</span>.tableView.hidden = <span class="literal">NO</span>;</div><div class="line">	......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="What-does-it-look-like-now"><a href="#What-does-it-look-like-now" class="headerlink" title="What does it look like now?"></a>What does it look like now?</h5><p>Get your data as usual and just call:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_EmptyData]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NetworkError]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self reloadListData:EmptyType_NoNetwork]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>And all the annoying issues is done!</p>
+<p>The only thing you need to do is inheriting from<code>BaseEmptyViewController</code> and set <code>needsEmptyDataHandling</code> to be <code>YES</code>.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// YourViewController.h</span></div><div class="line"><span class="variable">@interface</span> <span class="attribute">YourViewController </span>: BaseEmptyViewController</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="comment">// YourViewController.m</span></div><div class="line">	self.needsEmptyDataHandling = YES;</div></pre></td></tr></table></figure></p>
+<p>For more details, please check <a href="https://github.com/CaliosD/CDEmptyDataSet" target="_blank" rel="external">this</a>.</p>
+<h5 id="References"><a href="#References" class="headerlink" title="References"></a>References</h5><p>－ <a href="http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html" target="_blank" rel="external">http://blog.yangmeyer.de/ios-dev/2013/05/11/best-practice-handling-empty-table-views.html</a><br>－ <a href="https://github.com/dzenbot/DZNEmptyDataSet" target="_blank" rel="external">https://github.com/dzenbot/DZNEmptyDataSet</a><br>－ <a href="http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview" target="_blank" rel="external">http://stackoverflow.com/questions/7547934/animated-reloaddata-on-uitableview</a></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/04/notes-in-table-view-programming-guide-for-iOS/">Some notes in `Table View Programming Guide for iOS`</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-04
+        </span></div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>If you want to change the background color of a cell, do so in the <code>tableView:willDisplayCell:forRowAtIndexPath:</code> method of your table view delegate.</p>
+<p>The table view’s data source implementation of <code>tableView:cellForRowAtIndexPath:</code> should always reset all content when reusing a cell.</p>
+<p><code>indentationLevel</code> property for UITableViewCell</p>
+</blockquote>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/04/26/dynamically-adding-class-methods-with-runtime/">Dynamically adding class methods with runtime</a>
         </h1>
 
@@ -278,84 +337,6 @@
 <p><strong> Ref: </strong></p>
 <ul>
 <li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">【译】浅色UIStatusBar设置不奏效</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-08
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>当你想用<code>UIStatusBarStyleLightContent</code>给深色的背景设置浅色的状态栏文字时，这里有个常见的陷阱。</p>
-<p>有两件事是你必须做的：</p>
-<ol>
-<li>这是开发者通常都会做的 —— 在Target设置 > General > Status Bar Style > 改成Light。这可以让Info.plist文件添加<code>UIStatusBarStyleLightContent</code>。</li>
-<li>这是比较隐晦的一步 —— 在Info.plist文件中，添加<code>View controller-based status bar appearance</code>，并置为<code>NO</code>。</li>
-</ol>
-<hr>
-<p><strong> Ref:</strong></p>
-<ul>
-<li><a href="http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/" target="_blank" rel="external">http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">Stop CALayer shadow from affecting subviews</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-07
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>When your parentView is by any chance transparent, the CALayer shadow set for parentView would affect subviews, just as image below.</p>
-<p><img src="http://i.stack.imgur.com/CZPUY.png" alt=""></p>
-<p>While after setting background color to white color, it shows as we expected.</p>
-<p><img src="http://i.stack.imgur.com/YFrqh.png" alt=""></p>
-<p><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW18" target="_blank" rel="external">Docs</a> from Apple: </p>
-<blockquote>
-<p>Figure A-7 shows several different versions of the same sample layer with a red shadow applied. The left and middle versions include a background color so the shadow appears only around the border of the layer. However, the version on the right does not include a background color. In this case, the shadow is applied to the layer’s content, border, and sublayers.</p>
-</blockquote>
-<p><img src="http://i.stack.imgur.com/2TGcA.png" alt=""></p>
-<hr>
-<p><strong> Ref:</strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216" target="_blank" rel="external">http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">Value of optional type ‘String’ not unwrapped error in Swift</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-03
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>新开了<code>K08-RandomColorization</code>，刚写了一行代码：</p>
-<pre><code>let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;))
-</code></pre><p>然后就报了一个error：<br><em>Value of optional type ‘String’ not unwrapped;did you mean to use ‘!’ or ‘?’?”</em></p>
-<p><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">这里</a>寻得一个不错的答案，翻译及理解如下：</p>
-<p>首先，这行代码使用到了<strong> 可选链式调用（Optional Chaining）</strong> 这个家伙。用人话说，就是<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code> 要么就是一个<code>String</code>，要么就是一个<code>nil</code>。</p>
-<p>但是，显然<code>NSURL</code>的<code>fileURLWithPath:</code>方法不会接受<code>nil</code>，只会接受<code>String</code>类型的参数，所以编译器就把这个error报出来了。（可以做一个实验，直接写<code>let bgMusic = NSURL(fileURLWithPath: nil)</code>，就会发现报<code>Nil is not compatible with expected argument type ‘String’</code>的error。）</p>
-<p>解决办法是强制展开<code>NSBundle.mainBundle().pathForResource(&quot;Ecstasy&quot;, ofType: &quot;mp3&quot;)</code>，即添加一个<code>!</code>：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let bgMusic = NSURL(<span class="name">fileURLWithPath</span>: NSBundle.mainBundle().pathForResource(<span class="string">"Ecstasy"</span>, ofType: <span class="string">"mp3"</span>)!)</div></pre></td></tr></table></figure></p>
-<p>但是，如果所需文件不存在就会导致一个运行时的error，直接挂掉。所以，通常来说最好是用一个可选绑定把它包起来：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="attr">file</span> = NSBundle.mainBundle().pathForResource(<span class="string">"aaa"</span>, ofType: <span class="string">"mp3"</span>) &#123;</div><div class="line">    <span class="keyword">let</span> <span class="attr">bgMusic</span> = NSURL(fileURLWithPath: file)</div><div class="line">    NSLog(bgMusic.absoluteString)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样就可以保证<code>fileURLWithPath:</code>只有在文件不为空时才被调用了。完美～</p>
-<hr>
-<p><strong> Ref: </strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/a/25663421/1594792" target="_blank" rel="external">http://stackoverflow.com/a/25663421/1594792</a></li>
 </ul>
 
         </div></article>
