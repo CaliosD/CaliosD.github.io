@@ -107,6 +107,22 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/04/19/first-shot-in-WebSocket/">WebSocket初探</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-04-19
+        </span></div>
+    </header>
+
+    <div class="post-content"><h3 id="1-基础概要"><a href="#1-基础概要" class="headerlink" title="1.基础概要"></a>1.基础概要</h3><p><strong>应用层</strong>，主要解决如何包装数据：HTTP、FTP、Telnet等。其中，HTTP连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。所以是<strong>短连接</strong>。相对而言，socket连接是<strong>长连接</strong>，两端一旦建立连接将不会主动断掉。但由于各种环境因素可能会断开，所以当一个socket连接中没有数据传输时，为了维持连接需要发送<strong>心跳消息</strong>。<br><strong>传输层</strong>，主要解决数据如何在网络中传输：TCP协议。<br><strong>网络层</strong>，主要解决数据如何在网络中传输：IP协议。</p>
+          <div class="read-more">
+            <a href="/2017/04/19/first-shot-in-WebSocket/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2017/04/15/notes-for-regex/">Regex Notes</a>
         </h1>
 
@@ -379,23 +395,6 @@ format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
 <li>谓词机制不进行静类型检查。</li>
 <li>在编写谓词字符串时，尽量使用[cd]修饰符。其中，c表示“不区分大小写（case insensitive）”，d表示“不区分发音符号（diacritic insensitive）”，[cd]表示“既不区分大小写，也不区分发音符号”。如：<code>predicate = [NSPredicate predicateWithFormat: @&quot;name BEGINSWITH[cd] &#39;HERB&#39;&quot;];</code>。</li>
 </ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2017/02/09/essay-travel-and-Objective-C-170209/">0209-旅行与Objective-C</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-02-09
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>我居然在24小时之内将自己蠢蠢欲动极其想去旅行的心平抚了下来。也是有点小佩服自己。</p>
-<p>我想，旅行可以带给我的，是一个未知的世界。我为之欣喜并享受其中的，正是对未知的探索。</p>
-<p>而同样，这两天来，在潜意识中，黑魔法的课程也在引导我一步步去回归当初学习Objective-C的初心，重新审视这门被我用了近五年、却依旧深感知之甚少的语言。</p>
-<p>这样看来，旅行于我，是平面上扩展视野的疆土，是滋养心尖的养分；而Objective-C于我，是立体上挖掘一门语言的美感，是构建知识树的根基。二者在某种程度上，带给我的是类似的体验。这或许正是居然能够用后者来抚慰前者的原因吧。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/">

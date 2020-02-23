@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="go的版本号管理"/><meta name="keywords" content=", Calios' Eden" /><link rel="alternate" href="/atom.xml" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="http://www.caliosd.gq/draft/go-versioning.html"/>
+<meta name="description" content="go的版本管理"/><meta name="keywords" content="Golang, Calios' Eden" /><link rel="alternate" href="/atom.xml" title="Calios' Eden"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://www.caliosd.gq/2020/02/23/go-versioning/"/>
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
@@ -45,7 +45,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title>go的版本号管理 - Calios' Eden</title>
+    <title>go的版本管理 - Calios' Eden</title>
   <link rel="alternate" href="/atom.xml" title="Calios' Eden" type="application/atom+xml">
 </head>
 
@@ -106,8 +106,23 @@
       <main id="main" class="main">
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
-    <div class="post-content">
-      <h2 id="Semantic-Versioning-2-0-0"><a href="#Semantic-Versioning-2-0-0" class="headerlink" title="Semantic Versioning 2.0.0"></a>Semantic Versioning 2.0.0</h2><p>在软件管理的版本控制中，存在一个可怕的领域，名为<del>“手冢领域”</del>“依赖地狱”，为了解决这个问题，<a href="https://tom.preston-werner.com/" target="_blank" rel="external">Tom Preston-Werner</a> 提出了一组简单的规则来明确版本号应该如何指定和增加，这个系统就叫做 <a href="https://semver.org/" target="_blank" rel="external">“Semantic Versioning”</a>。</p>
+    <header class="post-header">
+      <h1 class="post-title">go的版本管理
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-23
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Semantic-Versioning-2-0-0"><span class="toc-text">Semantic Versioning 2.0.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vX-Y-Z-中的-X"><span class="toc-text">vX.Y.Z 中的 X</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vX-Y-Z-中的-Y和Z"><span class="toc-text">vX.Y.Z 中的 Y和Z</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MVS-解决了什么痛点"><span class="toc-text">MVS 解决了什么痛点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVS-是如何解决的"><span class="toc-text">MVS 是如何解决的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ref"><span class="toc-text">Ref</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="Semantic-Versioning-2-0-0"><a href="#Semantic-Versioning-2-0-0" class="headerlink" title="Semantic Versioning 2.0.0"></a>Semantic Versioning 2.0.0</h2><p>在软件管理的版本控制中，存在一个可怕的领域，名为<del>“手冢领域”</del>“依赖地狱”，为了解决这个问题，<a href="https://tom.preston-werner.com/" target="_blank" rel="external">Tom Preston-Werner</a> 提出了一组简单的规则来明确版本号应该如何指定和增加，这个系统就叫做 <a href="https://semver.org/" target="_blank" rel="external">“Semantic Versioning”</a>。</p>
+<a id="more"></a>
 <p>日常开发中，我们的版本号管理通常都遵循该规则，即使用 Major.Minor.Patch 这样 X.Y.Z 格式的，它意味着我们需要：</p>
 <ul>
 <li>当我们对 API 做出不兼容的改动时，增大Major；</li>
@@ -137,21 +152,69 @@
 <p>回到上面 ABCD 的问题，我们可以在 module B 使用 D 时：<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/someone/D"</span></div></pre></td></tr></table></figure></p>
 <p>在 module C 使用 D 时：<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/someone/D/v2"</span></div></pre></td></tr></table></figure></p>
 <p>相当于 B 和 C 依赖了两个不同的 module，就不存在依赖版本矛盾的问题了。</p>
-<h2 id="vX-Y-Z-中的-Y和Z"><a href="#vX-Y-Z-中的-Y和Z" class="headerlink" title="vX.Y.Z 中的 Y和Z"></a>vX.Y.Z 中的 <strong>Y和Z</strong></h2><p>换一个场景，假设当前开发的 module 依赖于module A 和 B，二者又各自依赖 module D 的 v1.0.0 和 v1.1.1 版本，那么 go 最终会选择哪个版本呢？</p>
-<p>最小版本选择算法（Minimal Version Selection，MVS）用来选择在一次build中使用的所有 module 的版本。对于一次 build 中的每一个module，MVS选择的算法总是在 require 列表中选择语义上版本最高的一个版本。</p>
-<p>因此对于上面的场景，MVS就会选择D v1.1.1来使用，即使之后出现了D v1.2.0，也依旧会选择D v1.1.1版本。<br>同样，如果当前开发 module 再依赖于 module C，而 C 又依赖于 D 的 v1.3.2 版本，那么 MVS 会选择最新的 v1.3.2 版本。</p>
-<p>查看已有的 D 的各种版本：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">go</span> <span class="keyword">list</span> -<span class="keyword">m</span> -versions github.<span class="keyword">com</span>/someone/D</div></pre></td></tr></table></figure></p>
+<h2 id="vX-Y-Z-中的-Y和Z"><a href="#vX-Y-Z-中的-Y和Z" class="headerlink" title="vX.Y.Z 中的 Y和Z"></a>vX.Y.Z 中的 <strong>Y和Z</strong></h2><p>假设一个场景，当前开发的 module 只依赖于module A，而 A 依赖 module D 的 v1.0.0，而此时 D 的最新版本是 v1.4.2，go 会如何选择呢？选择 D 的 v1.0.0版本。<br><img src="../images/mvsA.png" alt="mvsA"></p>
+<p>如果此时，当前开发的 module 增加了对于 module B的依赖，而 B 又依赖 module D 的 v1.1.1 版本，那么 go 最终会选择哪个版本呢？选择 D 的 v1.1.1版本。<br><img src="../images/mvsB.png" alt="mvsB"></p>
+<p>如果此时，当前开发的 module 增加了对于 module C的依赖，而 C 又依赖 module D 的 v1.3.2 版本，那么 go 最终会选择哪个版本呢？选择 D 的 v1.3.2版本。<br><img src="../images/mvsC.png" alt="mvsC"></p>
+<p>可以看出，go 每次build会选择依赖的 module 列表中，能够同时满足所有条件的最小版本（而不是最新版本），这也就是最小版本选择算法（Minimal Version Selection，MVS）。</p>
+<p>PS：可以通过如下命令查看已有的 D 的各种版本：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">go</span> <span class="keyword">list</span> -<span class="keyword">m</span> -versions github.<span class="keyword">com</span>/someone/D</div></pre></td></tr></table></figure></p>
+<h3 id="MVS-解决了什么痛点"><a href="#MVS-解决了什么痛点" class="headerlink" title="MVS 解决了什么痛点"></a>MVS 解决了什么痛点</h3><p>很多其他的依赖管理工具，比如说 NPM，都倾向于默认安装最新版本的依赖。这样可能带来的问题是，如果刚好最新的版本引入了一个 bug，那么就可以能一觉醒来，发现昨天还好好的项目开始鸡飞狗跳了┓( ´∀` )┏。这里有一篇<a href="https://about.sourcegraph.com/blog/the-pain-that-minimal-version-selection-solves" target="_blank" rel="external">sourcegraph的博客</a>记录了他们的痛苦经历。简而言之，NPM的做法，是基于这样的假设：</p>
 <ul>
-<li>如何获取依赖的包？go get，-u获取最新版本，先去找tag，没有tag找最新的commit，还可以go get xxxx@develop或者go get xxxx@x.y.z，获取指定分支或tag的版本</li>
+<li>所有人都是不会犯错的；</li>
+<li>所有人都理解并且遵循Semantic Versioning；</li>
+<li>全网尽快普及最新版本要比个人项目的稳定性重要。</li>
 </ul>
-<h3 id="MVS-解决了什么痛点"><a href="#MVS-解决了什么痛点" class="headerlink" title="MVS 解决了什么痛点"></a>MVS 解决了什么痛点</h3><h3 id="是如何解决的"><a href="#是如何解决的" class="headerlink" title="是如何解决的"></a>是如何解决的</h3><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<p>而实际上，刚好相反：所有人都会犯大大小小的错；不是所有人都清楚地了解Semantic Versioning；对于项目的开发者而言，保证项目的稳定性要比将依赖包更新到最新版本重要得多。</p>
+<p>相比之下，go 的 MVS 就要友好得多，它会尽量保证最终使用的 module 版本贴近包作者开发所用的依赖关系，也就是所谓的“高保真”。</p>
+<h3 id="MVS-是如何解决的"><a href="#MVS-是如何解决的" class="headerlink" title="MVS 是如何解决的"></a>MVS 是如何解决的</h3><p>对于构建列表的常见操作包括：</p>
+<ul>
+<li>构建当前build的依赖列表</li>
+<li>更新所有 module 到最新版本</li>
+<li>更新某个 module 到指定新版本</li>
+<li>回退某个 module 到指定旧版本</li>
+</ul>
+<p>版本选择问题就是给出这4个操作的定义和算法实现。</p>
+<p>MVS 假定每个模块都声明了自己依赖其他模块的最低版本列表（存在于 go.mod 文件中）。假设模块都遵循上面提到的“兼容性原则”，即任何有相同 import path 的包新版本应该和旧版本一样工作，所以依赖需求只需要给出最低版本，而不是最高版本或是不兼容的更改版本的列表。</p>
+<p>基于以上假设，MVS 给出了上面4个操作的定义：</p>
+<ul>
+<li>构建当前build的依赖列表：使用目标本身的列表开始，逐渐追加每个依赖的构建列表。如果某个 module 在列表中出现了多次，就选择最新的一个版本。直观的图来看一眼，具体可以直接通过递归或者图遍历来实现。</li>
+<li>更新所有 module 到最新版本：构造构建列表，但要读取每个依赖，就好像它请求了最新的module版本一样。</li>
+<li>更新某个 module 到指定新版本：构造未升级的构建列表，然后添加新模块的构建列表，如果某个module出现多次，只保留最新版本。</li>
+<li>回退某个 module 到指定旧版本：回退每个顶级需求的依赖版本，直到该需求的构建列表不再引用降级module的较新版本。</li>
+</ul>
+<p>更加详细的讲解见<a href="https://research.swtch.com/vgo-mvs" target="_blank" rel="external">go 版本系列文章之 MVS</a>。<br>具体的代码实现可以查看 <a href="https://github.com/golang/vgo/tree/master/vendor/cmd/go/internal/mvs" target="_blank" rel="external">vgo 的源码</a>。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="external">https://github.com/golang/go/wiki/Modules</a></li>
 <li><a href="https://deepsource.io/blog/go-modules" target="_blank" rel="external">https://deepsource.io/blog/go-modules</a></li>
 <li><a href="https://semver.org/" target="_blank" rel="external">https://semver.org/</a></li>
+<li><a href="https://research.swtch.com/vgo-mvs" target="_blank" rel="external">https://research.swtch.com/vgo-mvs</a></li>
 </ul>
 
-    </div>
-  </article></div><div class="comments" id="comments"><div id="disqus_thread">
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://www.caliosd.gq">Calios</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://www.caliosd.gq/2020/02/23/go-versioning/">http://www.caliosd.gq/2020/02/23/go-versioning/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Golang/">Golang</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2020/01/30/oop-in-golang/">
+        <span class="next-text nav-default">Go 的面向对象编程</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
@@ -186,9 +249,9 @@
       </div>
     </div><script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://www.caliosd.gq/draft/go-versioning.html';
-        this.page.identifier = 'draft/go-versioning.html';
-        this.page.title = 'go的版本号管理';
+        this.page.url = 'http://www.caliosd.gq/2020/02/23/go-versioning/';
+        this.page.identifier = '2020/02/23/go-versioning/';
+        this.page.title = 'go的版本管理';
     };
     (function() {
     var d = document, s = d.createElement('script');

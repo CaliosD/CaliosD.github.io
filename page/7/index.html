@@ -107,6 +107,39 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/02/24/how-not-to-crash-9-mindset/">【译】如何避免程序崩溃-9：心态</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-02-24
+        </span></div>
+    </header>
+
+    <div class="post-content"><p><strong>题外话：</strong></p>
+<p>距离<a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">上一篇</a>已经一个月了，终于抽出一点时间来把最后一篇完结。噫吁嚱！</p>
+<p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_9_mindset" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_9_mindset</a></p>
+<hr>
+<p>你知道吗？老话说得好，“不要写像你一样聪明的代码，因为需要比你<em> 更聪明</em> 的人来debug。”</p>
+<p>我过去一直认为这意味着我应该写有我80%聪明的代码。留一点用来debug。</p>
+<p>但随着时间推移，我开始觉得我应该写有我10%聪明的代码。我开始相信，真正的聪明是让代码足够简洁明了、以至于看起来毫无特征。</p>
+<p>这就是为什么我恪守这样的规则：<a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">除非做可以完全独立的事情，否则一切事情都放在主线程上做</a>；<a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/">尽量避免使用unsafe_unretained</a>等等。</p>
+<p>这意味着我不会因为成为一个代码魔术手而获得额外的加分。我不会把兔子从帽子里拖出来，当然也不会去走钢丝。我甚至都不会去<em>看</em>钢丝。</p>
+<p>如果需要，我会去做困难的事情，但是即使是困难的事情，最终的目的也是尽我所能地写出简洁而可读性很高的代码。如果最后代码看起来很简单 —— 给人印象不深，甚至好像一个初中生都能写出来 —— 那说明代码<em>不错</em>。</p>
+<p>往小了说，这意味着函数都很短小，较少使用嵌套。往大了说，架构和命名除非迫不得已，否则不会被迭代，就好像它没有做什么考虑一样，因为都已经足够明显了。</p>
+<p>这意味着不会过度抽象。精确意味着显而易见。但也意味着不会太过概化 —— 的确有时候两三件事其实是同一件事，这时它们可以在不影响可维护性的前提下概括起来。（当然，有时候不能这么做。）</p>
+<p>我避免紧连接和庞大的架构 —— 除非是最优方案的确是让x知道y。</p>
+<p>我坚持学习，让自己日渐成长。</p>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>编程和绘画、写作、建筑、谱曲的区别在于，它没有完结的产品。是的，有发布的版本，但是没有结束，只有放弃。</p>
+<p>代码存在于时间中，可能也会经手很多人 —— 你深知不知道会有多久或者会有谁。你永远不该忘了这一点。</p>
+<h4 id="披肩，面具"><a href="#披肩，面具" class="headerlink" title="披肩，面具"></a>披肩，面具</h4><p>在我年轻的时候，我想成为一个代码魔术手 —— 或者说，真正的<em>英雄</em>。但我逐渐认识到，<em>软件的实际质量要比我期望别人怎么看我重要得多</em>。</p>
+<p>更进一步说，质量是一种近乎精神上的奖励。它是一种为重于自我的事情奉献的行为，既自私又无私。</p>
+<p>自私，是因为为了质量奋斗的过程让你日渐成长。而无私，是因为更好的代码、更好的软件对其他人更有益。</p>
+<p>当其他人对你的软件有所要求，首要的就是如果他们启动了它，它是否能<em>保持着</em>启动的状态。任何不能对此问题足够重视的程序员 —— 或是那些总是将崩溃粉饰成生活常态的人 —— 我们可以优先充分地享受其中的巨大乐趣，而这些人无法体会。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/02/22/reverse-NSArray/">如何翻转NSArray</a>
         </h1>
 
@@ -507,38 +540,6 @@
 <p>所以，对于技术知识体系，不妨两条腿走路，一方面，在具体的实践中不断深挖，多问几个为什么，比如研究AFNetworking的源码，就可以顺便追究一下网络传输的原理；另一方面，从基础知识入手，系统地整理一下网络自顶向下的七层结构。如此一来，方能融会贯通。</p>
 <p>曾看慶写过，说构建知识体系就像是看地图，要不断地放大、缩小：放大时，一个小镇都会变得很大，街道、楼房，事无巨细；缩小时，纵观全国、全世界，横向的比较才有意义。如今想来，恍有所悟，终于从接受变成了理解。</p>
 <p>于是，便不再烦躁对于服务器方面的学习该使用哪种语言、哪种技术，因为一通百通，具体的哪一种就没那么重要了。岁月长河中，终是有那一波又一波的语言和技术倒在沙滩上，不变的，是千淘万漉的河底鹅卵，历经冲刷而日渐滑润，熠熠生辉。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/01/21/how-not-to-crash-8-infrastructure/">【译】如何避免程序崩溃-8：基本架构</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-01-21
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_8_infrastructure</a></p>
-<hr>
-<p>即使你觉得自己的app是无故障的，你也需要收集崩溃日志 —— 因为没有什么是无故障的：只有<em>已知</em>的崩溃bug是可以避免的。</p>
-<p>有一些做这类事情的服务，我尝试过的还都不错，所以我在这里就不做特别推荐了。</p>
-<p>有几点功能是它应该具备的：</p>
-<ol>
-<li>崩溃日志被收集的过程，不需要用户手动查找它们再发送给你。它应该是自动化的（如果在OS X上，用户可能会收到提示；而在iOS上没人会希望被弹窗）。</li>
-<li>要有给崩溃日志分组的机制，你得到的应该是每一组的汇总，这样你就能知道哪些经常出现，哪些不经常出现。</li>
-<li>要能够给一组问题标记为已解决。</li>
-</ol>
-<p>当然，仅仅收集崩溃日志是远远不够的。你应该定期查看它们。（我每天早上查看崩溃日志。）</p>
-<h4 id="Bug跟踪器"><a href="#Bug跟踪器" class="headerlink" title="Bug跟踪器"></a>Bug跟踪器</h4><p>要有一个。</p>
-<p>对于我私人的项目，我会综合使用Lighthouse，OmniOutliner和纸笔 —— 当然你可以使用任何工具，只要你的崩溃记录归总到你的bug跟踪器里面而不会遗失。</p>
-<p>（Lighthouse是个不错的bug跟踪器。我喜欢用OmniOutliner来标记大的新功能或者完整的app，在那里我可以建立to do的事件树。对于短周期的事情 —— 比如完成一个10步就可以完成的任务 —— 我喜欢用纸笔，因为依赖短期记忆很让人疲倦，而纸笔不会干扰屏幕上的上下文环境。）</p>
-<h4 id="错误和警告"><a href="#错误和警告" class="headerlink" title="错误和警告"></a>错误和警告</h4><p>Xcode默认不会打开足够的错误和警告。我强烈推荐<a href="http://boredzo.org/blog/archives/2009-11-07/warnings" title="http://boredzo.org/blog/archives/2009-11-07/warnings" target="_blank" rel="external">Peter Hosey的集合</a>。</p>
-<p>关键是要移除你代码中的<em>不确定性</em>。</p>
-<p>就像我推荐的，我更进一步：我像对待错误一样对待警告。是的，这就意味着，如果警告存在我甚至不能在本地debug —— 但是这条守则物有所值。它意味着无论何时，只要我的app在运行，就不存在任何警告。</p>
-<h4 id="Instruments"><a href="#Instruments" class="headerlink" title="Instruments"></a>Instruments</h4><p>Instruments非常棒。查看你的app分配了多少的内存是个好主意，同时，查看内存泄漏也是非常重要的。</p>
-<p>如果你的app崩溃了，使用Zombies工具是个好主意。你的问题可能和zombies并没有关系，但是在怀疑的过程中，排除法是很值得使用的。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/6/">

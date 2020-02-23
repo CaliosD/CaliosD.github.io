@@ -107,6 +107,53 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/11/26/how-not-to-crash-6-properties-and-accessories/">【译】如何避免程序崩溃-6：属性和存取器</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-11-26
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/27/how_not_to_crash_6_properties_and_acce" target="_blank" rel="external">http://inessential.com/2015/05/27/how_not_to_crash_6_properties_and_acce</a></p>
+<hr>
+<p>这个东西让我有点发怵：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> (void)someRandomMethod &#123;</span></div><div class="line">  some stuff…</div><div class="line">  _thing = otherThing;</div><div class="line">  other stuff…</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可以证明这是正确的。你使用ARC，所以属性retain和release的计数会自动增减。又没有人在观察<code>_thing</code>。</p>
+<p>好吧。它是合法的，也是管用的。</p>
+<p>假设你发现那个thing应该是可观察的。所以每处设置thing的值，你都会添加调用的方法：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">[self willChangeValueForKey:kThingKey]</span><span class="comment">;</span></div><div class="line"><span class="attr">_thing</span> = otherThing;</div><div class="line"><span class="section">[self didChangeValueForKey:kThingKey]</span><span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>也是合法的，也管用。</p>
+<p>即将出现的问题是：以后，比如明天，或者六个月之后，你或者其他人给thing写了个自定义的setter —— 可能是因为你需要在设置thing的时候添加类似<code>self.needsDisplay = YES</code>这样的东西 —— 然后你就出现了一个bug，无论何时thing的改变都不会让view重新绘制。</p>
+<p>或者更糟糕：可能未来的自定义setter打破了一个观察者，并在thing改变的时候添加一个新的。由于你是直接设置_thing的，观察模式不会正确的保留，然后你就崩溃了。</p>
+<p>答案是遵循一个简单的规则：<strong>在set或get属性的时候，使用存取器。</strong></p>
+<p>换句话说，这么写：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">－ (<span class="literal">void</span>)someRandomMethod &#123;</div><div class="line">  some stuff…</div><div class="line">  <span class="built_in">self</span>.thing = otherThing;</div><div class="line">  other stuff…</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>不管你是否自定义setter，这么写都管用。当你设置thing的时候，就不用这也担心那也管了。</p>
+<p>（这里是一个编程规则的简单测试：如果你遵循它就不会犯错，但是<em>不</em>遵循它就<em>可能</em>犯错，那你最好还是遵循它。）</p>
+<p>（不要担心使用存取器引起的性能问题。我是一个性能推崇者，而我从未发现这样会引起问题。如果你的app出现了性能问题，剖析一下，找到真正的原因。）</p>
+<h4 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h4><p>有四个地方你 <em>不</em> 应该使用存取器：<strong>init方法，dealloc，自定义的getter和自定义getter。</strong> 这样可以避免副作用。</p>
+<p>如果你 <em>需要</em> <strong>副作用</strong> —— 比如说，在dealloc中移除观察者 —— 就是那些通常放在setter中的部分，可以把它放在单独的方法里，然后从setter和dealloc中调用它。（也要考虑到在init和dealloc之外添加和移除观察者可能意味着你的代码需要重构。）</p>
+<blockquote>
+<p>译者注：函数副作用指当调用函数时，除了返回函数值之外，还对主调用函数产生附加的影响。例如修改全局变量（函数外的变量）或修改参数。</p>
+</blockquote>
+<h4 id="自动合成"><a href="#自动合成" class="headerlink" title="自动合成"></a>自动合成</h4><p>千万不要创建实例变量。而要声明属性。</p>
+<p>属性会自动合成实例变量。只有当Xcode告诉你你需要的时候再用<code>@synthesize</code>。</p>
+<h4 id="使用ARC"><a href="#使用ARC" class="headerlink" title="使用ARC"></a>使用ARC</h4><p>如果你有非ARC的代码，把它更新到ARC吧。手动管理内存是极易犯错的。即使是有多年经验的人也会一次次的犯错，而错误会导致崩溃（或者好一点，导致内存泄漏或内存被遗弃）。</p>
+<p>通常情况下，我并不主张对于运行良好的代码进行编辑 —— 但是如果你有需要维护的代码，那就帮自己也帮同伴一个忙，把它转化成ARC吧。（随着时间推移，每个人都会在手动内存管理的路上越走越糟。而成为这样的英雄也不会有任何加分。）</p>
+<p>（可能使用ARC会让你陷入性能问题，特别是当你在处理loop中的大量对象时。记得使用自动释放池。别轻易下断言：用分析器说话。）</p>
+<p>（同时：ARC转换器可能不会总是如你所愿。如果你使用它的话，检查它改变的地方。记住每次转化一个文件。Target可以允许ARC和非ARC同时存在。）</p>
+<h4 id="不要用-这个"><a href="#不要用-这个" class="headerlink" title="不要用 -> 这个"></a>不要用 -> 这个</h4><p>这个曾让我神经崩溃：thing->property。别这么干。</p>
+<h4 id="dealloc"><a href="#dealloc" class="headerlink" title="dealloc"></a>dealloc</h4><p>如果你不需要dealloc（由于使用ARC），那就不要写它。没必要在dealloc中把属性设置为nil。</p>
+<p>delegate是个明显的特例：把delegate置为空。</p>
+<h4 id="使用weak"><a href="#使用weak" class="headerlink" title="使用weak"></a>使用weak</h4><p>Weak太棒了。比如，delegate就应该是weak。</p>
+<p>父类应该持有它们的子类，但是子类应该持有它们父类的弱引用（如果存在引用的话）。设置weak会让你避开那些<a href="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/" title="http://www.caliosd.gq/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/">用来解除循环引用的invalidate方法</a>。</p>
+<p>无论在任何情况下都不要使用unsafe_unretained。那是个陷阱。你可能也会这么写：</p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">define</span> <span class="section">CRASHING_BUG</span> unsafe_unretained</div></pre></td></tr></table></figure>
+<p>顾名思义，它叫做<em>不安全</em>。</p>
+<p>不要带着剪刀跑。嘿 —— 甚至不要碰那些剪刀。剪刀有毒。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/11/26/how-not-to-crash-5-threading-part-2/">【译】如何避免程序崩溃-5：线程（二）</a>
         </h1>
 
@@ -623,61 +670,6 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <p>而在我的枚举的block代码里面，触发了layoutManagers的改变，然后应用就崩溃了。</p>
 <p>答案是：对layoutManagers的副本进行枚举。问题就解决了。</p>
 <p>常言道：如果你从别人的代码中获取一个集合，对副本进行枚举总没坏处，防患于未然嘛。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/11/12/how-not-to-crash-1-kvo-and-manual-bind/">【译】如何避免程序崩溃-1：KVO与手动绑定</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-11-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" title="http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind" target="_blank" rel="external">http://inessential.com/2015/05/14/how_not_to_crash_1_kvo_and_manual_bind</a></p>
-<hr>
-<p>我最近在修复系统崩溃的bug —— 但是，与写如何修复bug相比，我想，写写如何在最初就避免创造崩溃的bug会更有意思一些。</p>
-<p>在第一部分，我会谈谈KVO，手动绑定，引用循环和无效方法。</p>
-<h4 id="绑定意味着永远不会失联"><a href="#绑定意味着永远不会失联" class="headerlink" title="绑定意味着永远不会失联"></a>绑定意味着永远不会失联</h4><p>iOS开发者没有这个，但是Mac开发者的小伙伴们有：我们可以把一个属性绑定在另一个属性上。我们可以实现这点，即当x.foo更新的时候，y.foo也随之更新。</p>
-<p>NSKeyValueBinding.h在AppKit中。我们来看下<code>bind:toObject:withKeyPath:options:</code>.</p>
-<p>假设有一个有着title属性的button。每当controller的title更新的时候，这个title属性也应该随之更新。我们假设controller拥有这个button。你可以这样写代码：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> NSString kTitleKey = @<span class="string">"title"</span>;</div><div class="line">[self.button <span class="string">bind:</span>kTitleKey <span class="string">toObject:</span>self <span class="string">withKeyPath:</span>kTitleKey <span class="string">options:</span>nil];</div></pre></td></tr></table></figure></p>
-<p>非常方便，而且很有效。</p>
-<p>同时，你也离崩溃不远了。</p>
-<p>问题在于：这个绑定引用了<code>toObject</code>。这就意味着这个button有效地引用了controller。如果controller又引用它的button（它本该如此），那么就造成了引用循环。二者都不会成为僵尸，但是都会被废弃。</p>
-<p>一种崩溃的方式 —— 这也是真实场景 —— 是如果这个被废弃的controller监听着一个通知（我们称之为BSNotification），并且当接收到BSNotification的时候<em>做了点事</em>，当它<em>做这点事</em>的时候它就会崩溃，因为它在理论上已经失效，而它不知道该怎么处理这种情况。</p>
-<h4 id="KVO意味着必须每次都把每件事做到完全正确"><a href="#KVO意味着必须每次都把每件事做到完全正确" class="headerlink" title="KVO意味着必须每次都把每件事做到完全正确"></a>KVO意味着必须每次都把每件事做到完全正确</h4><p>让我们加上第三个对象，一个model。我们<em>真正</em>想要的是这样的流程：<br>modelObject.title的更新，会使controller.title更新，而controller.title的更新，会使button.title更新。</p>
-<p>这次我们来用KVO。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSString</span> *)title &#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>.modelObject.title;</div><div class="line">&#125;</div><div class="line">+ (<span class="built_in">NSSet</span> *)keyPaths​ForValues​AffectingTitle &#123;</div><div class="line">  <span class="keyword">return</span> [<span class="built_in">NSSet</span> setWithObject:​<span class="string">@"modelObject.title"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>好了 —— 现在我们有了完整的流程。当modelObject.title改变的时候，会影响controller.title，同时button.title也随之更新为正确的值。</p>
-<p>非常方便，而且很有效。</p>
-<p>当然，它会崩溃，在modelObject被释放的时候（因为modelObject的实例在它还是一个观察者的时候被释放了）。</p>
-<p>如果反过来，controller引用modelObject（它可能应该如此），然后你就有了一个被废弃的第三个对象，它永远不会被释放，是个随着时间变化不断增长变大的讨厌家伙。</p>
-<h4 id="一个并不那么漂亮的解决办法"><a href="#一个并不那么漂亮的解决办法" class="headerlink" title="一个并不那么漂亮的解决办法"></a>一个并不那么漂亮的解决办法</h4><p>controller可以有一个类似于<code>invalidate</code>这样名字的函数，用来打破引用循环。一旦打破，<code>dealloc</code>方法就会因为controller、它的button和它的model对象而被调用。</p>
-<p>你可以这么写代码，以便在你知道你用完了controller的时候调用：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)invalidate &#123;</div><div class="line">  [<span class="keyword">self</span>.button unbind:kTitleKey];</div><div class="line">  <span class="keyword">self</span>.modelObject = <span class="literal">nil</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这就是这个解决办法不那么漂亮的地方：</p>
-<p>引用计数是非常棒的解决方案 —— 它能保证在<code>dealloc</code>被调用的时候，没有哪个对象拥有对于这个即将释放的对象的强引用。这就使得<code>dealloc</code>成为一个移除观察者及其他类似需要移除的不错地点。</p>
-<p>但是如果你使用了类似invalidate的函数，你就是在试图自己来接手引用计数这件事。你<em>不得不</em>调用invalidate，又不得不在<em>合适的</em>时候调用。你能对每一个拥有invalidate函数的对象做出永久的保证么？如果出现一些改变，不只有一个对象引用了controller，你该怎么办？谁来调用invalidate？什么时候调用？</p>
-<p>那是一大堆额外需要考虑的工作，而编程的目的之一就是使错误尽可能的减少。依赖invalidate会使错误出现的可能<em>大大增加</em>。</p>
-<h4 id="一个更好的解决办法"><a href="#一个更好的解决办法" class="headerlink" title="一个更好的解决办法"></a>一个更好的解决办法</h4><p>让我们回归到我们试图解决的问题上来：</p>
-<p>modelObject.title的更新，会使controller.title更新，而controller.title的更新，会使button.title更新。</p>
-<p>简而言之：controller知道modelObject和button，但是后两者之间并不知道彼此的存在，也不知道controller的存在。这就是我们怎么避开invalidate函数来解决问题。</p>
-<p>在controller中，灭掉自定义getter。灭掉<code>keyPathsForValuesAffectingTitle</code>.灭掉<code>bind: toObject: withKeyPath: options:</code>的使用。</p>
-<p>取而代之的是，创建自定义的setter —— 因为，无论如何，setter在改变的时候总是会被调用，所有需要解决的问题就是广播title属性的更新。<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-(void)setTitle:(NSString *)<span class="built_in">title</span> &#123;</div><div class="line">  _<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">  self.button.<span class="built_in">title</span> = <span class="built_in">title</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>问题解决了一半：当controller.title改变时，button.title也随之改变。</p>
-<p>我们不能对modelObject做同样的事情，因为它不知道controller的存在。所以反过来，让controller来观察modelObject.title。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self.modelObject <span class="string">addObserver:</span>self <span class="string">forKeyPath:</span> kTitleKey <span class="string">options:</span><span class="number">0</span> <span class="string">context:</span> kTitleContext];</div></pre></td></tr></table></figure></p>
-<p>然后在KVO的观察函数里，监测kTitleContext，然后让<code>self.title = self.modelObject.title</code>。这会调用controller的<code>setTitle:</code>函数 —— 而该函数会更新button.title。</p>
-<p>这个解决办法就不会存在引用循环的问题。还有一点移除的工作要做，但你可以在controller的<code>dealloc</code>函数中用一行代码了结：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_modelObject <span class="string">removeObserver:</span> self <span class="string">forKeyPath:</span>kTitleKey <span class="string">context:</span> kTitleContext];</div></pre></td></tr></table></figure></p>
-<h4 id="总结与建议"><a href="#总结与建议" class="headerlink" title="总结与建议"></a>总结与建议</h4><p>我们提出的解决方案避免了引用循环，不必时刻记得要调用invalidate函数，也不用担心调用的时机是否正确。这是更安全的代码。</p>
-<p>更棒的是，它用了更少的代码，而且足够简洁。</p>
-<p>一些建议：</p>
-<ul>
-<li>不要在任何场景中使用<code>bind: toObject: withKeyPath: options:</code>(iOS的小伙伴们：你们应该高兴自己没有这样的选择。也可以把它当做可能它之所以为Mac开发而非iOS的原因之一)。</li>
-<li>当你广播数据更新时，用自定义的setter，而不是自定义getter（毕竟是在<em>setter</em>中更新的数据）。</li>
-<li>避免invalidate这样的函数，尽量让引用计数做它自己的事情 —— 因为如果<em>你</em>是那个跟踪计数的角色，你多半会出错。（我发现我不是总能够避免invalidate这样的函数，但是可能性总是比你想的要多那么一点）</li>
-<li>在思考你的应用中发生了什么时，任何形式的观察死锁都会带来困难：在任何时候它有足够理由出现时，都最好是准确的。一旦你有了足够多的这种藤蔓般无处不在的观察模式，你就建造了一个不见天日的丛林，对它的每一点改变都会让你如履薄冰。</li>
-<li>理论上，绑定和KVO是为了解耦而生的，而实际上这种耦合就是那么紧密 —— 在某种程度上，如果没有更紧密的话 —— 更难debug，更难矫正。通常情况下，最好把观察模式明确写清（不要写成<code>keyPathsForValuesAffectingXyz</code>这种），避免在keyPath中出现”.”字符。</li>
-</ul>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/8/">

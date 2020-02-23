@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.caliosd.gq/"/>
-  <updated>2020-02-03T01:07:11.813Z</updated>
+  <updated>2020-02-23T11:36:57.239Z</updated>
   <id>http://www.caliosd.gq/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>go的版本管理</title>
+    <link href="http://www.caliosd.gq/2020/02/23/go-versioning/"/>
+    <id>http://www.caliosd.gq/2020/02/23/go-versioning/</id>
+    <published>2020-02-23T02:06:45.000Z</published>
+    <updated>2020-02-23T11:36:57.239Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Semantic-Versioning-2-0-0"><a href="#Semantic-Versioning-2-0-0" class="headerlink" title="Semantic Versioning 2.0.0"></a>Semantic Versioning 2.0.0</h2><p>在软件管理的版本控制中，存在一个可怕的领域，名为<del>“手冢领域”</del>“依赖地狱”，为了解决这个问题，<a href="https://tom.preston-werner.com/" target="_blank" rel="external">Tom Preston-Werner</a> 提出了一组简单的规则来明确版本号应该如何指定和增加，这个系统就叫做 <a href="https://semver.org/" target="_blank" rel="external">“Semantic Versioning”</a>。</p><a id="more"></a><p>日常开发中，我们的版本号管理通常都遵循该规则，即使用 Major.Minor.Patch 这样 X.Y.Z 格式的，它意味着我们需要：</p><ul><li>当我们对 API 做出不兼容的改动时，增大Major；</li><li>当我们增加了向后兼容的新功能时，增大Minor；</li><li>当我们向后兼容地修复了问题时，增大Patch。</li></ul><p>为了表示这是一个版本号，<a href="https://semver.org/#is-v123-a-semantic-version" target="_blank" rel="external">通常在前面加上一个 “v”</a>，即 “vX.Y.Z”。在 go 中也同样遵循这样的规则，接下来我们具体来看 go 中都是怎样进行版本号管理的。</p><p>简而言之，总结为两点：</p><ul><li>不兼容版本通过 import 不同的 path 来区分；</li><li>兼容的版本遵循“最小版本选择”原则。</li></ul><h2 id="vX-Y-Z-中的-X"><a href="#vX-Y-Z-中的-X" class="headerlink" title="vX.Y.Z 中的 X"></a>vX.Y.Z 中的 <strong>X</strong></h2><p>假设 module A 依赖于 module B 和 C，同时 B 依赖于 module D 的 v1.2.3 版本，而 C 依赖于 D 的 v2.3.4 版本，由于 v2.x.x 不是向后兼容的，所以如果 A 使用 D 的 v2.x.x 版本可能会出错，而如果使用 D 的 v1.x.x 版本可能会导致不能满足 C 的需求。对于这种问题，go 提出了要遵循兼容性原则：</p><blockquote><p>Go 的兼容性原则：如果一个老的package和一个新的package有相同的import路径，那么新的package必须向后兼容老的package。</p></blockquote><p>换句话说，如果 import 使用的 path 相同，就要保证新的版本兼容老的版本；否则，就通过在 import 的 path 中添加版本号的方式来区分两个不兼容的版本。v0、v1不需要添加版本号。</p><p>我们通过两个 go 的常用库的使用来对比一下：</p><ul><li><p>当使用 <a href="https://github.com/gin-gonic/gin/tags" target="_blank" rel="external">gin</a> 时，并不需要在path中添加版本号（当前最新版本v1.5.0）。</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/gin-gonic/gin"</span></div></pre></td></tr></table></figure></li><li><p>当使用 <a href="https://github.com/gobuffalo/packr/tags" target="_blank" rel="external">packr</a> 时，如果想使用新版本，需要在path中添加 v2，来保证使用的是 v2 版本。</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/gobuffalo/packr/v2"</span></div></pre></td></tr></table></figure></li></ul><p>回到上面 ABCD 的问题，我们可以在 module B 使用 D 时：<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/someone/D"</span></div></pre></td></tr></table></figure></p><p>在 module C 使用 D 时：<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"github.com/someone/D/v2"</span></div></pre></td></tr></table></figure></p><p>相当于 B 和 C 依赖了两个不同的 module，就不存在依赖版本矛盾的问题了。</p><h2 id="vX-Y-Z-中的-Y和Z"><a href="#vX-Y-Z-中的-Y和Z" class="headerlink" title="vX.Y.Z 中的 Y和Z"></a>vX.Y.Z 中的 <strong>Y和Z</strong></h2><p>假设一个场景，当前开发的 module 只依赖于module A，而 A 依赖 module D 的 v1.0.0，而此时 D 的最新版本是 v1.4.2，go 会如何选择呢？选择 D 的 v1.0.0版本。<br><img src="../images/mvsA.png" alt="mvsA"></p><p>如果此时，当前开发的 module 增加了对于 module B的依赖，而 B 又依赖 module D 的 v1.1.1 版本，那么 go 最终会选择哪个版本呢？选择 D 的 v1.1.1版本。<br><img src="../images/mvsB.png" alt="mvsB"></p><p>如果此时，当前开发的 module 增加了对于 module C的依赖，而 C 又依赖 module D 的 v1.3.2 版本，那么 go 最终会选择哪个版本呢？选择 D 的 v1.3.2版本。<br><img src="../images/mvsC.png" alt="mvsC"></p><p>可以看出，go 每次build会选择依赖的 module 列表中，能够同时满足所有条件的最小版本（而不是最新版本），这也就是最小版本选择算法（Minimal Version Selection，MVS）。</p><p>PS：可以通过如下命令查看已有的 D 的各种版本：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">go</span> <span class="keyword">list</span> -<span class="keyword">m</span> -versions github.<span class="keyword">com</span>/someone/D</div></pre></td></tr></table></figure></p><h3 id="MVS-解决了什么痛点"><a href="#MVS-解决了什么痛点" class="headerlink" title="MVS 解决了什么痛点"></a>MVS 解决了什么痛点</h3><p>很多其他的依赖管理工具，比如说 NPM，都倾向于默认安装最新版本的依赖。这样可能带来的问题是，如果刚好最新的版本引入了一个 bug，那么就可以能一觉醒来，发现昨天还好好的项目开始鸡飞狗跳了┓( ´∀` )┏。这里有一篇<a href="https://about.sourcegraph.com/blog/the-pain-that-minimal-version-selection-solves" target="_blank" rel="external">sourcegraph的博客</a>记录了他们的痛苦经历。简而言之，NPM的做法，是基于这样的假设：</p><ul><li>所有人都是不会犯错的；</li><li>所有人都理解并且遵循Semantic Versioning；</li><li>全网尽快普及最新版本要比个人项目的稳定性重要。</li></ul><p>而实际上，刚好相反：所有人都会犯大大小小的错；不是所有人都清楚地了解Semantic Versioning；对于项目的开发者而言，保证项目的稳定性要比将依赖包更新到最新版本重要得多。</p><p>相比之下，go 的 MVS 就要友好得多，它会尽量保证最终使用的 module 版本贴近包作者开发所用的依赖关系，也就是所谓的“高保真”。</p><h3 id="MVS-是如何解决的"><a href="#MVS-是如何解决的" class="headerlink" title="MVS 是如何解决的"></a>MVS 是如何解决的</h3><p>对于构建列表的常见操作包括：</p><ul><li>构建当前build的依赖列表</li><li>更新所有 module 到最新版本</li><li>更新某个 module 到指定新版本</li><li>回退某个 module 到指定旧版本</li></ul><p>版本选择问题就是给出这4个操作的定义和算法实现。</p><p>MVS 假定每个模块都声明了自己依赖其他模块的最低版本列表（存在于 go.mod 文件中）。假设模块都遵循上面提到的“兼容性原则”，即任何有相同 import path 的包新版本应该和旧版本一样工作，所以依赖需求只需要给出最低版本，而不是最高版本或是不兼容的更改版本的列表。</p><p>基于以上假设，MVS 给出了上面4个操作的定义：</p><ul><li>构建当前build的依赖列表：使用目标本身的列表开始，逐渐追加每个依赖的构建列表。如果某个 module 在列表中出现了多次，就选择最新的一个版本。直观的图来看一眼，具体可以直接通过递归或者图遍历来实现。</li><li>更新所有 module 到最新版本：构造构建列表，但要读取每个依赖，就好像它请求了最新的module版本一样。</li><li>更新某个 module 到指定新版本：构造未升级的构建列表，然后添加新模块的构建列表，如果某个module出现多次，只保留最新版本。</li><li>回退某个 module 到指定旧版本：回退每个顶级需求的依赖版本，直到该需求的构建列表不再引用降级module的较新版本。</li></ul><p>更加详细的讲解见<a href="https://research.swtch.com/vgo-mvs" target="_blank" rel="external">go 版本系列文章之 MVS</a>。<br>具体的代码实现可以查看 <a href="https://github.com/golang/vgo/tree/master/vendor/cmd/go/internal/mvs" target="_blank" rel="external">vgo 的源码</a>。</p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="external">https://github.com/golang/go/wiki/Modules</a></li><li><a href="https://deepsource.io/blog/go-modules" target="_blank" rel="external">https://deepsource.io/blog/go-modules</a></li><li><a href="https://semver.org/" target="_blank" rel="external">https://semver.org/</a></li><li><a href="https://research.swtch.com/vgo-mvs" target="_blank" rel="external">https://research.swtch.com/vgo-mvs</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Semantic-Versioning-2-0-0&quot;&gt;&lt;a href=&quot;#Semantic-Versioning-2-0-0&quot; class=&quot;headerlink&quot; title=&quot;Semantic Versioning 2.0.0&quot;&gt;&lt;/a&gt;Semantic Versioning 2.0.0&lt;/h2&gt;&lt;p&gt;在软件管理的版本控制中，存在一个可怕的领域，名为&lt;del&gt;“手冢领域”&lt;/del&gt;“依赖地狱”，为了解决这个问题，&lt;a href=&quot;https://tom.preston-werner.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tom Preston-Werner&lt;/a&gt; 提出了一组简单的规则来明确版本号应该如何指定和增加，这个系统就叫做 &lt;a href=&quot;https://semver.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;“Semantic Versioning”&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Golang" scheme="http://www.caliosd.gq/tags/Golang/"/>
+    
+  </entry>
   
   <entry>
     <title>Go 的面向对象编程</title>
@@ -458,34 +479,6 @@
       
         &lt;p&gt;1.Install TesseractOCR with CocoaPods.&lt;/p&gt;
 &lt;figure class=&quot;highlight nginx&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/
-      
-    
-    </summary>
-    
-    
-    
-      <category term="iOS" scheme="http://www.caliosd.gq/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Some methods for DownloadManager</title>
-    <link href="http://www.caliosd.gq/2017/01/10/download-manager/"/>
-    <id>http://www.caliosd.gq/2017/01/10/download-manager/</id>
-    <published>2017-01-10T03:03:28.000Z</published>
-    <updated>2018-09-15T08:23:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。</p><p>首先定义一下下载管理的范围：</p><ul><li>可以同时下载多个文件；</li><li>对于单个文件而已，可以下载/暂定/恢复下载/取消下载/显示下载进度；</li><li>可以控制同时下载的最大数量。</li></ul><p>接下来，从最早采用的实现方法说起。</p><ol><li>NSOperationQueue</li></ol><ul><li>创建继承自<code>NSOperation</code>的自定义类；</li><li>将下载需要的网络请求（如<code>NSURLSessionDownloadTask</code>）作为其中的一个属性；</li></ul><ol><li>dispatch_queue_create()</li><li>NSURLSession</li></ol><p><strong>核心：All the other APIs -> model -> UI</strong></p><p><strong>这里附上苹果开发者论坛中，一位开发者与苹果开发者的关于<code>NSURLSession</code>的问答（2015年7月）。</strong></p><p>我需要在我的app中上传200张图片，<br>1.我该使用<code>NSURLSessionUploadTask</code>还是其他什么类？<br>答：<code>NSURLSessionUploadTask</code>.<br>2.为了让这些upload保持在background，我该做些什么？<br>答：把所有的upload扔进一个<code>NSURLSession</code>的background session中。<br>3.当app没有在运行的时候，我该做些什么？（没有明确回答）<br>4.针对以上3点，我该在<code>NSURLSession</code>外面包一层<code>NSOperation</code>以便于使用<code>NSOperationQueue</code>，还是说，iOS会有它自己的内部queue来正确处理<code>NSURLSession</code>对象们？<br>答：这个很难说。一般来说，我是<code>NSOperation</code>的死忠粉，但由于background session和app生命周期的交互方式，用<code>NSOperation</code>来解决<code>NSURLSession</code>的background session的问题却有些棘手。<br>具体来说，通常的流程是这样的：</p><p>1.你的app开始一堆后台传输；<br>2.用户把它移到后台；<br>3.系统暂停了你的app；<br>4.传输在后台继续运行；<br>5.系统终止了你的app；<br>6.传输继续在后台运行；<br>7.传输结束；<br>8.系统重新启动你的app。</p><p>如果你使用<code>NSOperation</code>来追踪每个传输，当你在第8步重新启动app时，就需要重新创建那一堆的operation。当然，在第8步是需要重新创建<em>一些东西</em>，只是重新创建<code>NSOperation</code>要比重新创建其他不那么复杂的对象棘手些。</p><p>5.你的意思是说，如果我一次性把200个<code>NSURLSessionUploadTask</code>的实例添加到同一个background session配置的<code>NSURLSession</code>中，iOS会把它们都正确处理好？<br>答：是的。<code>NSURLSession</code>后台下载系统会很乐意处理几百个请求的。它在内部将它们串联起来，所以在任何时候只有少量的请求是在执行中。<br>6.如果是的话，对于task的数量是否有所限制？<br>答：没有硬性规定，但我通常建议不要做的太过分。在我看来，几百个请求是可以接受的，几千个请求就有点勉强，上万的请求就有点2。。我通常建议，如果你不得不处理上千个单独的item，你可以把它们打包起来，然后进行一个可恢复的传输。然而，有一些问题：</p><ul><li>做这种事情需要严谨的服务器端的支持。<ul><li><code>NSURLSession</code>的background session自动处理下载的断点续传。但对于上传并非如此。如果你需要上传的断点续传，你就得涉及到每次的连接数据（这里原文用的是”tears”，不太理解。。）。考虑到这个原因，把上传文件打包成合理大小的整块文件就很有必要，这样上传就会产生一打的进度，即使有可能连接失败，也好过你的app重新恢复上传。</li></ul></li></ul><p><strong>另外，对于如何知道当前并行的下载数，<code>MZDownloadManager</code>的作者也在这个issue下给出了<a href="https://github.com/mzeeshanid/MZDownloadManager/issues/29" target="_blank" rel="external">答案</a>。简而言之，就是通过筛选存储着model的array，得到状态为“下载中”的model的数量。</strong> </p><hr><p><strong>Ref:</strong></p><ul><li><a href="https://forums.developer.apple.com/thread/10239" target="_blank" rel="external">https://forums.developer.apple.com/thread/10239</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;随着苹果提供API的不断完善，实现下载管理的方法也发生了一些变化。从使用更方便的第三方库，到完全可以用自带API实现毫无压力。且将各种方法记录于此，权当备查。&lt;/p&gt;
-&lt;p&gt;首先定义一下下载管理的范围：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;可以同时下载多个文件；&lt;/li&gt;
-&lt;li&gt;对
       
     
     </summary>

@@ -107,6 +107,33 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">Stop CALayer shadow from affecting subviews</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-03-07
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>When your parentView is by any chance transparent, the CALayer shadow set for parentView would affect subviews, just as image below.</p>
+<p><img src="http://i.stack.imgur.com/CZPUY.png" alt=""></p>
+<p>While after setting background color to white color, it shows as we expected.</p>
+<p><img src="http://i.stack.imgur.com/YFrqh.png" alt=""></p>
+<p><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW18" target="_blank" rel="external">Docs</a> from Apple: </p>
+<blockquote>
+<p>Figure A-7 shows several different versions of the same sample layer with a red shadow applied. The left and middle versions include a background color so the shadow appears only around the border of the layer. However, the version on the right does not include a background color. In this case, the shadow is applied to the layer’s content, border, and sublayers.</p>
+</blockquote>
+<p><img src="http://i.stack.imgur.com/2TGcA.png" alt=""></p>
+<hr>
+<p><strong> Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216" target="_blank" rel="external">http://stackoverflow.com/questions/31312087/objectivec-set-shadow-to-parent-view/31313216#31313216</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/03/03/value-of-optional-type-‘String’-not-unwrapped-error-in-Swift/">Value of optional type ‘String’ not unwrapped error in Swift</a>
         </h1>
 
@@ -340,39 +367,6 @@
 <p>contextInfo：可选的参数，保存了一个指向context数据的指针，它将传递给回调方法。</p>
 <p>例如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.png"</span>];</div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(img, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure></p>
 <p>回调方法长这样：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">image</span>:(UIImage *)<span class="keyword">image</span></div><div class="line">    didFinishSavingWithError:(NSError *)<span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>:(void *)<span class="keyword">contextInfo</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// Was there an error?</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">error</span> != NULL)</div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show error message...</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  <span class="comment">// No errors</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show message image successfully saved</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/02/24/how-not-to-crash-9-mindset/">【译】如何避免程序崩溃-9：心态</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-02-24
-        </span></div>
-    </header>
-
-    <div class="post-content"><p><strong>题外话：</strong></p>
-<p>距离<a href="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/" title="http://www.caliosd.gq/2016/01/21/how-not-to-crash-8-infrastructure/">上一篇</a>已经一个月了，终于抽出一点时间来把最后一篇完结。噫吁嚱！</p>
-<p>原文链接：<a href="http://inessential.com/2015/06/10/how_not_to_crash_9_mindset" target="_blank" rel="external">http://inessential.com/2015/06/10/how_not_to_crash_9_mindset</a></p>
-<hr>
-<p>你知道吗？老话说得好，“不要写像你一样聪明的代码，因为需要比你<em> 更聪明</em> 的人来debug。”</p>
-<p>我过去一直认为这意味着我应该写有我80%聪明的代码。留一点用来debug。</p>
-<p>但随着时间推移，我开始觉得我应该写有我10%聪明的代码。我开始相信，真正的聪明是让代码足够简洁明了、以至于看起来毫无特征。</p>
-<p>这就是为什么我恪守这样的规则：<a href="http://www.caliosd.gq/2015/11/19/how-not-to-crash-4-threading/">除非做可以完全独立的事情，否则一切事情都放在主线程上做</a>；<a href="http://www.caliosd.gq/2015/11/26/how-not-to-crash-6-properties-and-accessories/">尽量避免使用unsafe_unretained</a>等等。</p>
-<p>这意味着我不会因为成为一个代码魔术手而获得额外的加分。我不会把兔子从帽子里拖出来，当然也不会去走钢丝。我甚至都不会去<em>看</em>钢丝。</p>
-<p>如果需要，我会去做困难的事情，但是即使是困难的事情，最终的目的也是尽我所能地写出简洁而可读性很高的代码。如果最后代码看起来很简单 —— 给人印象不深，甚至好像一个初中生都能写出来 —— 那说明代码<em>不错</em>。</p>
-<p>往小了说，这意味着函数都很短小，较少使用嵌套。往大了说，架构和命名除非迫不得已，否则不会被迭代，就好像它没有做什么考虑一样，因为都已经足够明显了。</p>
-<p>这意味着不会过度抽象。精确意味着显而易见。但也意味着不会太过概化 —— 的确有时候两三件事其实是同一件事，这时它们可以在不影响可维护性的前提下概括起来。（当然，有时候不能这么做。）</p>
-<p>我避免紧连接和庞大的架构 —— 除非是最优方案的确是让x知道y。</p>
-<p>我坚持学习，让自己日渐成长。</p>
-<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>编程和绘画、写作、建筑、谱曲的区别在于，它没有完结的产品。是的，有发布的版本，但是没有结束，只有放弃。</p>
-<p>代码存在于时间中，可能也会经手很多人 —— 你深知不知道会有多久或者会有谁。你永远不该忘了这一点。</p>
-<h4 id="披肩，面具"><a href="#披肩，面具" class="headerlink" title="披肩，面具"></a>披肩，面具</h4><p>在我年轻的时候，我想成为一个代码魔术手 —— 或者说，真正的<em>英雄</em>。但我逐渐认识到，<em>软件的实际质量要比我期望别人怎么看我重要得多</em>。</p>
-<p>更进一步说，质量是一种近乎精神上的奖励。它是一种为重于自我的事情奉献的行为，既自私又无私。</p>
-<p>自私，是因为为了质量奋斗的过程让你日渐成长。而无私，是因为更好的代码、更好的软件对其他人更有益。</p>
-<p>当其他人对你的软件有所要求，首要的就是如果他们启动了它，它是否能<em>保持着</em>启动的状态。任何不能对此问题足够重视的程序员 —— 或是那些总是将崩溃粉饰成生活常态的人 —— 我们可以优先充分地享受其中的巨大乐趣，而这些人无法体会。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/5/">
