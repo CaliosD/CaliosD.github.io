@@ -107,6 +107,30 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">【译】浅色UIStatusBar设置不奏效</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-03-08
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>当你想用<code>UIStatusBarStyleLightContent</code>给深色的背景设置浅色的状态栏文字时，这里有个常见的陷阱。</p>
+<p>有两件事是你必须做的：</p>
+<ol>
+<li>这是开发者通常都会做的 —— 在Target设置 > General > Status Bar Style > 改成Light。这可以让Info.plist文件添加<code>UIStatusBarStyleLightContent</code>。</li>
+<li>这是比较隐晦的一步 —— 在Info.plist文件中，添加<code>View controller-based status bar appearance</code>，并置为<code>NO</code>。</li>
+</ol>
+<hr>
+<p><strong> Ref:</strong></p>
+<ul>
+<li><a href="http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/" target="_blank" rel="external">http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/03/07/stop-CALayer-shadow-from-affecting-subviews/">Stop CALayer shadow from affecting subviews</a>
         </h1>
 
@@ -349,24 +373,6 @@
 <li><a href="http://blog.csdn.net/cuixiping/article/details/7848369" target="_blank" rel="external">http://blog.csdn.net/cuixiping/article/details/7848369</a></li>
 <li><a href="http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work" target="_blank" rel="external">http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work</a></li>
 </ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/02/25/UIImageWriteToSavedPhotosAlbum/">UIImageWriteToSavedPhotosAlbum保存图片到系统相册</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-02-25
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>你可以使用如下方法来将指定图片添加到用户的相册。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">UIImageWriteToSavedPhotosAlbum</span> (</div><div class="line">                        <span class="built_in">UIImage</span> *image,</div><div class="line">                        <span class="keyword">id</span> completionTarget,</div><div class="line">                        SEL completionSelector,</div><div class="line">                    <span class="keyword">void</span> *contextInfo</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>image：要写入相册的图片；<br>completionTarget：可选项，保存完成后，回调方法所在的对象；<br>completionSelector：要调用的<code>completionTarget</code>的回调方法。这个可选方法应该遵从如下格式：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(void)                <span class="keyword">image</span>: (UIImage *) <span class="keyword">image</span></div><div class="line">    didFinishSavingWithError: (NSError *) <span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>: (void *) <span class="keyword">contextInfo</span>;</div></pre></td></tr></table></figure></p>
-<p>contextInfo：可选的参数，保存了一个指向context数据的指针，它将传递给回调方法。</p>
-<p>例如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.png"</span>];</div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(img, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure></p>
-<p>回调方法长这样：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">image</span>:(UIImage *)<span class="keyword">image</span></div><div class="line">    didFinishSavingWithError:(NSError *)<span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>:(void *)<span class="keyword">contextInfo</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// Was there an error?</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">error</span> != NULL)</div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show error message...</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  <span class="comment">// No errors</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show message image successfully saved</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/5/">

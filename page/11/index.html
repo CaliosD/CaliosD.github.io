@@ -107,6 +107,31 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/09/12/UISearchBar/">UISearchBar二三事</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-09-12
+        </span></div>
+    </header>
+
+    <div class="post-content"><h4 id="1-如何修改Cancel按钮的Title"><a href="#1-如何修改Cancel按钮的Title" class="headerlink" title="1.如何修改Cancel按钮的Title"></a>1.如何修改Cancel按钮的Title</h4><p><strong>注意</strong>：使用iOS8 SDK，本次 UISearchBar适用于iOS7(+)版本，如果想要适配iOS6，则需要对应适配iOS6.</p>
+<ul>
+<li>iOS7+: <code>for(id cc in [searchBar.subviews[0] subviews]){}</code></li>
+<li>iOS7-: <code>for(id cc in [searchBar subviews]){}</code></li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)<span class="string">searchBarTextDidBeginEditing:</span>(UISearchBar *)searchBar</div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(id cc <span class="keyword">in</span> [searchBar.subviews[<span class="number">0</span>] subviews])</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>([cc <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]])</span></div><div class="line">        &#123;</div><div class="line">            UIButton *btn = (UIButton *)cc;</div><div class="line">            [btn <span class="string">setTitle:</span>[AppLanguageProcess <span class="string">getLanguageWithKey:</span>@<span class="string">"TEXT_CANCEL"</span>]  <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">            [btn <span class="string">setTitleColor:</span>[UIColor whiteColor] <span class="string">forState:</span>UIControlStateNormal];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"><a href="#2-iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮" class="headerlink" title="2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮"></a>2.iOS7中添加到NavigationBar上的UISearchBar不显示Cancel按钮</h4><p>由于某些原因，iOS中添加到NavigationBar上的UISearchBar不显示Cancel按钮。同样的情况也发生在将UISearchBar设置为navigationItem的titleView时。<br>你可以通过在UISearchBar外面包一层view来规避这个问题。如下是我将它放在titleView时的解决办法：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UISearchBar *searchBar = [UISearchBar new]<span class="comment">;</span></div><div class="line">searchBar.<span class="keyword">showsCancelButton </span>= YES<span class="comment">;</span></div><div class="line">[searchBar sizeToFit]<span class="comment">;</span></div><div class="line">UIView *<span class="keyword">barWrapper </span>= [[UIView alloc]initWithFrame:searchBar.<span class="keyword">bounds];</span></div><div class="line">[<span class="keyword">barWrapper </span><span class="keyword">addSubview:searchBar];</span></div><div class="line">self.navigationItem.titleView = <span class="keyword">barWrapper;</span></div></pre></td></tr></table></figure></p>
+<h4 id="3-如何将背景设置为clearColor"><a href="#3-如何将背景设置为clearColor" class="headerlink" title="3.如何将背景设置为clearColor"></a>3.如何将背景设置为clearColor</h4><p>Here’s a future-proof way:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="name">searchBar</span> setBackgroundImage:\[<span class="name">UIImage</span> new]]<span class="comment">;</span></div><div class="line">[<span class="name">searchBar</span> setTranslucent:YES]<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h4 id="4-如何在“搜索”按钮点击后“取消”按钮依然可点"><a href="#4-如何在“搜索”按钮点击后“取消”按钮依然可点" class="headerlink" title="4.如何在“搜索”按钮点击后“取消”按钮依然可点"></a>4.如何在“搜索”按钮点击后“取消”按钮依然可点</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (id view <span class="keyword">in</span> [[_searchBar.subviews lastObject] subviews]) &#123;</div><div class="line">    <span class="keyword">if</span> ([view <span class="string">isKindOfClass:</span>[UIButton <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">         [view <span class="string">setEnabled:</span>YES];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Ref:</strong></p>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid=280249" target="_blank" rel="external">http://www.cocoachina.com/bbs/read.php?tid=280249</a><br><a href="http://stackoverflow.com/questions/18986407/ios7-when-uisearchbar-added-in-uinavigationbar-not-showing-cancel-button" target="_blank" rel="external">iOS7 when UIsearchbar added in UINavigationBar not showing cancel button</a><br><a href="http://stackoverflow.com/a/12598711/1594792" target="_blank" rel="external">UISearchBar clear background color or set background image</a><br><a href="http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1" target="_blank" rel="external">http://stackoverflow.com/questions/22499379/uitextfield-from-uisearchbar-in-ios-7-1</a></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/09/11/view-debugging/">View Debugging</a>
         </h1>
 
@@ -340,25 +365,6 @@
 <li><a href="https://github.com/JagCesar/iOS-blur" target="_blank" rel="external">JCRBlurView</a></li>
 <li><a href="https://github.com/lukabernardi/LBBlurredImage" target="_blank" rel="external">LBBlurredImage</a>: LBBlurredImage is an UIImageView category that permit to set an image and make this blurred.</li>
 </ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/07/09/NSLocalNotification/">NSLocalNotification</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-07-09
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>创建一个本地通知通常分为以下几个步骤：</p>
-<p>1.创建<code>UILocalNotification</code>。 </p>
-<p>2.设置处理通知的时间<code>fireDate</code>。 </p>
-<p>3.配置通知的内容：通知主体、通知声音、图标数字等。 </p>
-<p>4.配置通知传递的自定义数据参数<code>userInfo</code>（这一步可选）。 </p>
-<p>5.调用通知，可以使用<code>scheduleLocalNotification:</code> 按计划调度一个通知，也可以使用<code>presentLocalNotificationNow</code> 立即调用通知。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/10/">

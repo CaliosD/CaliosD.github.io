@@ -107,6 +107,24 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/02/25/UIImageWriteToSavedPhotosAlbum/">UIImageWriteToSavedPhotosAlbum保存图片到系统相册</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-02-25
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>你可以使用如下方法来将指定图片添加到用户的相册。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">UIImageWriteToSavedPhotosAlbum</span> (</div><div class="line">                        <span class="built_in">UIImage</span> *image,</div><div class="line">                        <span class="keyword">id</span> completionTarget,</div><div class="line">                        SEL completionSelector,</div><div class="line">                    <span class="keyword">void</span> *contextInfo</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>image：要写入相册的图片；<br>completionTarget：可选项，保存完成后，回调方法所在的对象；<br>completionSelector：要调用的<code>completionTarget</code>的回调方法。这个可选方法应该遵从如下格式：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-(void)                <span class="keyword">image</span>: (UIImage *) <span class="keyword">image</span></div><div class="line">    didFinishSavingWithError: (NSError *) <span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>: (void *) <span class="keyword">contextInfo</span>;</div></pre></td></tr></table></figure></p>
+<p>contextInfo：可选的参数，保存了一个指向context数据的指针，它将传递给回调方法。</p>
+<p>例如：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"test.png"</span>];</div><div class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(img, <span class="keyword">self</span>, <span class="keyword">@selector</span>(image:didFinishSavingWithError:contextInfo:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure></p>
+<p>回调方法长这样：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">image</span>:(UIImage *)<span class="keyword">image</span></div><div class="line">    didFinishSavingWithError:(NSError *)<span class="keyword">error</span></div><div class="line">                 <span class="keyword">contextInfo</span>:(void *)<span class="keyword">contextInfo</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// Was there an error?</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">error</span> != NULL)</div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show error message...</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  <span class="comment">// No errors</span></div><div class="line">    &#123;</div><div class="line">      <span class="comment">// Show message image successfully saved</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/02/24/how-not-to-crash-9-mindset/">【译】如何避免程序崩溃-9：心态</a>
         </h1>
 
@@ -518,28 +536,6 @@
 <li>喵神讲解宏定义黑魔法的一篇：<a href="http://onevcat.com/2014/01/black-magic-in-macro/" target="_blank" rel="external">http://onevcat.com/2014/01/black-magic-in-macro/</a></li>
 <li>关于位运算：<a href="http://www.cnblogs.com/cute/p/3786283.html" target="_blank" rel="external">http://www.cnblogs.com/cute/p/3786283.html</a></li>
 </ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/01/28/essay-soul-in-programming-170127/">0127-所谓技术知识体系</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-01-28
-        </span></div>
-    </header>
-
-    <div class="post-content"><blockquote>
-<p>武功百诀，以意为先，那才是武功的精骨神髓；招式身法，都不过是皮毛而已。若无精骨，皮毛何在？但若得了武道神髓。再学皮毛便是易如反掌了。 ——《浣花洗剑录》</p>
-</blockquote>
-<p>最近在思考构建技术知识体系的问题，读到这句，忽然福至心灵而有所感。</p>
-<p>所谓高大沉重的基础知识，如数据库、计算机网络、操作系统、数据结构之类，无非是相当于武功中的神韵，因为他们不依附于某种语言而存在，如流水，生生不息。而具体的某种语言、某一种具体的领域则是那百家兵器排行榜上的一位，有其锐不可当的部分，也有看似纷繁复杂但又门户大开的部分。</p>
-<p>所谓大学者，无非是在练就我们的基本功，让我们领悟计算机技术的精髓，不至于为语言、技术之众多迷花了眼。可惜，当初的我们身在森林而不知树木，噫吁嚱！</p>
-<p>所以，对于技术知识体系，不妨两条腿走路，一方面，在具体的实践中不断深挖，多问几个为什么，比如研究AFNetworking的源码，就可以顺便追究一下网络传输的原理；另一方面，从基础知识入手，系统地整理一下网络自顶向下的七层结构。如此一来，方能融会贯通。</p>
-<p>曾看慶写过，说构建知识体系就像是看地图，要不断地放大、缩小：放大时，一个小镇都会变得很大，街道、楼房，事无巨细；缩小时，纵观全国、全世界，横向的比较才有意义。如今想来，恍有所悟，终于从接受变成了理解。</p>
-<p>于是，便不再烦躁对于服务器方面的学习该使用哪种语言、哪种技术，因为一通百通，具体的哪一种就没那么重要了。岁月长河中，终是有那一波又一波的语言和技术倒在沙滩上，不变的，是千淘万漉的河底鹅卵，历经冲刷而日渐滑润，熠熠生辉。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/6/">

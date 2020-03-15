@@ -19,7 +19,15 @@
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-<script id="baidu_push">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-71292392-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-71292392-1');
+</script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -60,6 +68,9 @@
       </a><a href="/archives/">
         <li class="mobile-menu-item">Archives
           </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
       </a><a href="/about/">
         <li class="mobile-menu-item">About
           </li>
@@ -78,6 +89,11 @@
       <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
             Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
             </a>
         </li>
       <li class="menu-item">

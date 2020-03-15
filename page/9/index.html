@@ -107,6 +107,45 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/12/01/auto-compile-and-package/">项目自动编译及打包</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-12-01
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>每到项目提测之后，就需要几乎天天打包ipa上传到ftp上去，大体步骤如下：<br>1.在Xcode中将代码编译打包为ipa，并重命名为***-currentDateTime.ipa；<br>2.打开FileZilla，连接到服务器上的ftp；<br>3.下载已有的plist文件到本地，更改其中的小版本号；<br>4.删除ftp上已有的***_test.ipa文件和***_test.plst文件；<br>5.将本地打包好的***_test.ipa文件和更改后的plist文件上传；<br>6.关闭FileZilla。</p>
+<p>好麻烦。。。</p>
+<p>简直是浪费时间。所以，为什么不写段代码替我做这些无聊的事呢？至少可以每天留出品尝一杯咖啡的时间。</p>
+<p>Let’s move.</p>
+<hr>
+<h4 id="编译Build"><a href="#编译Build" class="headerlink" title="编译Build"></a>编译Build</h4><p>Xcode提供了命令行build的命令，即xcodebuild。可以通过<code>man xcodebuild</code>查看该命令的所有详细说明，也可以用<code>xcodebuild -usage</code>查看所有的可用参数。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -workspace YourProject.xcworkspace -scheme YourProject -configuration <span class="string">"Release"</span> -destination generic/<span class="attribute">platform</span>=iOS #build <span class="attribute">BUILD_DIR</span>=<span class="string">"<span class="variable">$BUILD_DIR</span>"</span> <span class="attribute">BUILD_ROOT</span>=<span class="string">"<span class="variable">$BUILD_ROOT</span>"</span></div></pre></td></tr></table></figure></p>
+<p>这里特别说明下<code>-destination</code>这个参数。如果要指定运行在某一个已连接设备，需要使用<code>iOS</code>选项。它支持<code>id</code>和<code>name</code>两个key，二者任取其一。<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">"platform=iOS,name=Gio's iPhone"</span> \</span></div><div class="line">  clean test</div><div class="line"></div><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">'platform=iOS,id=YOUR_PHONE_UUID'</span> \</span></div><div class="line">  clean test</div></pre></td></tr></table></figure></p>
+<p>同理，运行在模拟器中也是类似。更多详情见<a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">这里</a>。由于我的使用场景通常是用企业账号来打包上传、供测试使用，所以这里使用的是<code>-destination generic/platform=iOS</code>，并不指定某一确切设备。</p>
+<h4 id="打包成ipa"><a href="#打包成ipa" class="headerlink" title="打包成ipa"></a>打包成ipa</h4><p>上一步build后生成了YourProject.app文件，可以用xcrun来将其打包成ipa。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"<span class="variable">$APP_PATH</span>"</span> -o <span class="string">"<span class="variable">$IPA_PATH</span>"</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里补充一个小的知识点：.app和.ipa的差别：<br>.app是应用程序包。它包括可执行文件、Info.plist文件、图标、launch图片和一些其他应用程序资源。应用程序包是最终安装在设备上的部分。<br>.ipa是对.app应用程序包和一些只是为了供iTunes使用的文件（比如iTunesArtwork）的归档。</p>
+</blockquote>
+<p>另外，这里有一个需要注意的地方，xcrun需要<strong>绝对路径</strong>，相对路径是不管用的，会报类似这样的错：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun fails with <span class="keyword">zip</span> I/O <span class="keyword">error</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory <span class="keyword">zip</span> <span class="keyword">error</span>:…</div></pre></td></tr></table></figure></p>
+<p>你可以用<code>$pwd/YourProject</code>来获取。</p>
+<h4 id="重命名ipa"><a href="#重命名ipa" class="headerlink" title="重命名ipa"></a>重命名ipa</h4><p>如果每次打包的ipa都是同样的名字，估计你很快就会分不清哪个版本是哪个版本，所以将ipa重命名添加上打包时间不失为一个不错的选择。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BUILD_DATETIME=<span class="string">"$(date +%Y%m%d%H%M%S)"</span></div><div class="line">mv $IPA_PATH <span class="string">"$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIME.ipa"</span></div></pre></td></tr></table></figure></p>
+<p>到此为止，需要上传到ftp的ipa已经准备好了。详细代码在<a href="https://github.com/CaliosD/xcode_tool/blob/master/build_n_package.sh" target="_blank" rel="external">这里</a>：。接下来的一篇，就要开始上传啦～</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">Xcodebuild Destination Cheatsheet</a></li>
+<li><a href="http://stackoverflow.com/questions/2949916/what-is-different-betwen-ipa-and-app-format-in-using-iphone" target="_blank" rel="external">what is different betwen .ipa and .app format in using iphone?</a></li>
+<li><a href="http://stackoverflow.com/questions/25415333/xcrun-fails-with-zip-i-o-error-no-such-file-or-directory-zip-error" target="_blank" rel="external">xcrun fails with zip I/O error: No such file or directory zip error</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/16/apply-daily-build-in-ios-project/" target="_blank" rel="external">给iOS工程增加Daily Build</a></li>
+<li><a href="http://stackoverflow.com/questions/20551566/display-current-date-and-time-without-punctuation" target="_blank" rel="external">Display current date and time without punctuation</a></li>
+<li><a href="http://objccn.io/issue-17-2/" target="_blank" rel="external">代码签名探析</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/11/26/how-not-to-crash-6-properties-and-accessories/">【译】如何避免程序崩溃-6：属性和存取器</a>
         </h1>
 
@@ -634,42 +673,6 @@ DetailViewController *detailViewController = [storyboard instantiateViewControll
 <h4 id="避免addObserverForName"><a href="#避免addObserverForName" class="headerlink" title="避免addObserverForName"></a>避免addObserverForName</h4><p>有些人喜欢<code>-[NSNotificationCenter addObserverForName: object: queue: usingBlock:]</code>。这感觉很时髦，因为是基于block的，而我们都喜欢block。（我确信）</p>
 <p>但是这是个糟糕的主意。你可能本可以保留自己写的处理通知的方法，但是你也让你的整理工作更加糟糕，因为现在你就额外多了一个对象需要照看，又需要稍后调用<code>removeObserver</code>。这就意味着没有批量取消注册；它意味着你要回去做审核的工作，这就意味着你又多了一件事情要保障。</p>
 <p>基于block的版本意味着你可以让注册和处理通知一起保留 —— 但是这么做的话，在整理工作和潜在崩溃方面的代价实在是太大了。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/11/13/how-not-to-crash-2-mutation-exceptions/">【译】如何避免程序崩溃-2：可变对象的异常</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-11-13
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>原文链接：<a href="http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions" target="_blank" rel="external">http://inessential.com/2015/05/16/how_not_to_crash_2_mutation_exceptions</a></p>
-<hr>
-<p>你从某处获取到一个集合并枚举它 —— 然后当你在改变这个集合的时候报错，因为它正在进行枚举。应用崩溃了。</p>
-<p>你可以通过一个小技巧避免这种悲伤的命运：不要对可变的集合进行枚举操作。</p>
-<h4 id="异议"><a href="#异议" class="headerlink" title="异议"></a>异议</h4><p>你可能持有某种合理的观点，说<em>真正</em>的答案是不要在对集合进行枚举的时候对可变的集合进行改变。你应该对于自己的应用有足够的了解，以便能够写出安全地对可变集合进行枚举的代码。</p>
-<p>是的，你应该如此。你绝对应该如此。</p>
-<p>然而：编写远离崩溃的代码就是在于消除疑点。就在于能够将错误的几率最小化，将未来的（由你或其他人带来的）改变引入崩溃的可能性最小化。</p>
-<h4 id="可变集合不应该成为公有接口的一部分"><a href="#可变集合不应该成为公有接口的一部分" class="headerlink" title="可变集合不应该成为公有接口的一部分"></a>可变集合不应该成为公有接口的一部分</h4><p>一个对象拥有一个可变集合作为公有属性，这件事本来就应该尽量避免 —— 或者最好不要发生。可变集合应该被控制在对象内部。</p>
-<p>（更进一步地说，公有的集合应该为只读。当然事实也并非总是如此。）</p>
-<p>现在，它整体上可能是有一个公有集合，在内部又有一个可变的集合。想象一个跟踪operation的对象。它可能公有方法这么写：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>(nonatomic, readonly) NSArray *<span class="keyword">operations</span>;</div></pre></td></tr></table></figure></p>
-<p>内部私有方法这么写：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSMutableArray</span> *mutableOperations;</div><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">self</span>.mutableOperations;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这是完全合情合理的代码：因为mutableOperations是一个NSMutableArray，它又同时是一个NSArray。（我多年来都这么写。我对自己说：”Hey，我是个过来人了。我能<em>应付的了</em>。“但是我没有意识到的是，成熟的开发者是为了减少出错的可能而写代码。）</p>
-<h4 id="被指定为不可变的属性应该名副其实"><a href="#被指定为不可变的属性应该名副其实" class="headerlink" title="被指定为不可变的属性应该名副其实"></a>被指定为不可变的属性应该名副其实</h4><p>在上面的例子中，你声明<code>operations</code>是一个在任何时候都可以安全枚举的数组。另一个人 —— 或者就是你自己 —— 在六个月之后看这段代码时，完全不会意识到你正在获取的可变数组，并<em>不能</em>足够安全地进行枚举。</p>
-<p>这就是实现名副其实的解决方案：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)operations &#123;</div><div class="line">  <span class="keyword">return</span> [<span class="keyword">self</span>.mutableOperations <span class="keyword">copy</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>（如果为了表达得更清晰，把属性声明为copy也不会有影响，但是我承认我不经常这么做。让API的使用者完全清晰地知道正在发生什么应该是有好处的。）</p>
-<p>你可能会翻回去引用性能或者内存使用的问题或者二者皆有 —— 而我必须承认：我是一个性能的推崇者，我会在Instruments上花费超乎常理的时间，仅为了能够让代码快速运行、没有不合理的内存消耗。我从来没有发现这么做有任何问题。如果你的应用出现性能或者内存消耗的问题，可能是其他问题导致的，而不是这些copy。（尽管你可以考虑使用<code>@autoreleasepool</code>来让这些copy不留存那么长时间。）</p>
-<p>copy一下吧。</p>
-<h4 id="彩蛋：不要相信他们的谎言"><a href="#彩蛋：不要相信他们的谎言" class="headerlink" title="彩蛋：不要相信他们的谎言"></a>彩蛋：不要相信他们的谎言</h4><p>我最近解决了一个在枚举NSTextStorage layoutManager时可变量的问题：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span> *layoutManagers;</div></pre></td></tr></table></figure></p>
-<p><em>显然</em> 枚举是安全的。它是一个NSArray，它声明自己是个copy。漂亮。枚举走起。</p>
-<p>但是，它骗我。在调试器里，我发现它是一个NSMutableArray（__NSArrayM）—— 而且它根本就不是一个copy。它是NSTextStorage的名为<code>_layoutManagers</code>的实例变量，这个变量被声明为一个NSMutableArray。</p>
-<p>而在我的枚举的block代码里面，触发了layoutManagers的改变，然后应用就崩溃了。</p>
-<p>答案是：对layoutManagers的副本进行枚举。问题就解决了。</p>
-<p>常言道：如果你从别人的代码中获取一个集合，对副本进行枚举总没坏处，防患于未然嘛。</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/8/">

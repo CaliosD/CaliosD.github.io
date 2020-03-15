@@ -107,6 +107,28 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/01/28/essay-soul-in-programming-170127/">0127-所谓技术知识体系</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-01-28
+        </span></div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>武功百诀，以意为先，那才是武功的精骨神髓；招式身法，都不过是皮毛而已。若无精骨，皮毛何在？但若得了武道神髓。再学皮毛便是易如反掌了。 ——《浣花洗剑录》</p>
+</blockquote>
+<p>最近在思考构建技术知识体系的问题，读到这句，忽然福至心灵而有所感。</p>
+<p>所谓高大沉重的基础知识，如数据库、计算机网络、操作系统、数据结构之类，无非是相当于武功中的神韵，因为他们不依附于某种语言而存在，如流水，生生不息。而具体的某种语言、某一种具体的领域则是那百家兵器排行榜上的一位，有其锐不可当的部分，也有看似纷繁复杂但又门户大开的部分。</p>
+<p>所谓大学者，无非是在练就我们的基本功，让我们领悟计算机技术的精髓，不至于为语言、技术之众多迷花了眼。可惜，当初的我们身在森林而不知树木，噫吁嚱！</p>
+<p>所以，对于技术知识体系，不妨两条腿走路，一方面，在具体的实践中不断深挖，多问几个为什么，比如研究AFNetworking的源码，就可以顺便追究一下网络传输的原理；另一方面，从基础知识入手，系统地整理一下网络自顶向下的七层结构。如此一来，方能融会贯通。</p>
+<p>曾看慶写过，说构建知识体系就像是看地图，要不断地放大、缩小：放大时，一个小镇都会变得很大，街道、楼房，事无巨细；缩小时，纵观全国、全世界，横向的比较才有意义。如今想来，恍有所悟，终于从接受变成了理解。</p>
+<p>于是，便不再烦躁对于服务器方面的学习该使用哪种语言、哪种技术，因为一通百通，具体的哪一种就没那么重要了。岁月长河中，终是有那一波又一波的语言和技术倒在沙滩上，不变的，是千淘万漉的河底鹅卵，历经冲刷而日渐滑润，熠熠生辉。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/01/21/how-not-to-crash-8-infrastructure/">【译】如何避免程序崩溃-8：基本架构</a>
         </h1>
 
@@ -427,45 +449,6 @@
 <hr>
 <p><strong>Ref:</strong></p>
 <p><a href="https://developer.apple.com/library/mac/recipes/xcode_help-project_editor/RenamingaProject/RenamingaProject.html" target="_blank" rel="external">https://developer.apple.com/library/mac/recipes/xcode_help-project_editor/RenamingaProject/RenamingaProject.html</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2015/12/01/auto-compile-and-package/">项目自动编译及打包</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2015-12-01
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>每到项目提测之后，就需要几乎天天打包ipa上传到ftp上去，大体步骤如下：<br>1.在Xcode中将代码编译打包为ipa，并重命名为***-currentDateTime.ipa；<br>2.打开FileZilla，连接到服务器上的ftp；<br>3.下载已有的plist文件到本地，更改其中的小版本号；<br>4.删除ftp上已有的***_test.ipa文件和***_test.plst文件；<br>5.将本地打包好的***_test.ipa文件和更改后的plist文件上传；<br>6.关闭FileZilla。</p>
-<p>好麻烦。。。</p>
-<p>简直是浪费时间。所以，为什么不写段代码替我做这些无聊的事呢？至少可以每天留出品尝一杯咖啡的时间。</p>
-<p>Let’s move.</p>
-<hr>
-<h4 id="编译Build"><a href="#编译Build" class="headerlink" title="编译Build"></a>编译Build</h4><p>Xcode提供了命令行build的命令，即xcodebuild。可以通过<code>man xcodebuild</code>查看该命令的所有详细说明，也可以用<code>xcodebuild -usage</code>查看所有的可用参数。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -workspace YourProject.xcworkspace -scheme YourProject -configuration <span class="string">"Release"</span> -destination generic/<span class="attribute">platform</span>=iOS #build <span class="attribute">BUILD_DIR</span>=<span class="string">"<span class="variable">$BUILD_DIR</span>"</span> <span class="attribute">BUILD_ROOT</span>=<span class="string">"<span class="variable">$BUILD_ROOT</span>"</span></div></pre></td></tr></table></figure></p>
-<p>这里特别说明下<code>-destination</code>这个参数。如果要指定运行在某一个已连接设备，需要使用<code>iOS</code>选项。它支持<code>id</code>和<code>name</code>两个key，二者任取其一。<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">"platform=iOS,name=Gio's iPhone"</span> \</span></div><div class="line">  clean test</div><div class="line"></div><div class="line">xcodebuild \</div><div class="line">  -<span class="ruby">workspace YourProject.xcworkspace \</span></div><div class="line">  -<span class="ruby">scheme MyApp \</span></div><div class="line">  -<span class="ruby">destination <span class="string">'platform=iOS,id=YOUR_PHONE_UUID'</span> \</span></div><div class="line">  clean test</div></pre></td></tr></table></figure></p>
-<p>同理，运行在模拟器中也是类似。更多详情见<a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">这里</a>。由于我的使用场景通常是用企业账号来打包上传、供测试使用，所以这里使用的是<code>-destination generic/platform=iOS</code>，并不指定某一确切设备。</p>
-<h4 id="打包成ipa"><a href="#打包成ipa" class="headerlink" title="打包成ipa"></a>打包成ipa</h4><p>上一步build后生成了YourProject.app文件，可以用xcrun来将其打包成ipa。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"<span class="variable">$APP_PATH</span>"</span> -o <span class="string">"<span class="variable">$IPA_PATH</span>"</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>这里补充一个小的知识点：.app和.ipa的差别：<br>.app是应用程序包。它包括可执行文件、Info.plist文件、图标、launch图片和一些其他应用程序资源。应用程序包是最终安装在设备上的部分。<br>.ipa是对.app应用程序包和一些只是为了供iTunes使用的文件（比如iTunesArtwork）的归档。</p>
-</blockquote>
-<p>另外，这里有一个需要注意的地方，xcrun需要<strong>绝对路径</strong>，相对路径是不管用的，会报类似这样的错：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun fails with <span class="keyword">zip</span> I/O <span class="keyword">error</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory <span class="keyword">zip</span> <span class="keyword">error</span>:…</div></pre></td></tr></table></figure></p>
-<p>你可以用<code>$pwd/YourProject</code>来获取。</p>
-<h4 id="重命名ipa"><a href="#重命名ipa" class="headerlink" title="重命名ipa"></a>重命名ipa</h4><p>如果每次打包的ipa都是同样的名字，估计你很快就会分不清哪个版本是哪个版本，所以将ipa重命名添加上打包时间不失为一个不错的选择。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">BUILD_DATETIME=<span class="string">"$(date +%Y%m%d%H%M%S)"</span></div><div class="line">mv $IPA_PATH <span class="string">"$BUILD_DIR/$BUILD_CONFIG-iphoneos/$TARGET_NAME-$BUILD_DATETIME.ipa"</span></div></pre></td></tr></table></figure></p>
-<p>到此为止，需要上传到ftp的ipa已经准备好了。详细代码在<a href="https://github.com/CaliosD/xcode_tool/blob/master/build_n_package.sh" target="_blank" rel="external">这里</a>：。接下来的一篇，就要开始上传啦～</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="http://www.mokacoding.com/blog/xcodebuild-destination-options/" target="_blank" rel="external">Xcodebuild Destination Cheatsheet</a></li>
-<li><a href="http://stackoverflow.com/questions/2949916/what-is-different-betwen-ipa-and-app-format-in-using-iphone" target="_blank" rel="external">what is different betwen .ipa and .app format in using iphone?</a></li>
-<li><a href="http://stackoverflow.com/questions/25415333/xcrun-fails-with-zip-i-o-error-no-such-file-or-directory-zip-error" target="_blank" rel="external">xcrun fails with zip I/O error: No such file or directory zip error</a></li>
-<li><a href="http://blog.devtang.com/blog/2012/02/16/apply-daily-build-in-ios-project/" target="_blank" rel="external">给iOS工程增加Daily Build</a></li>
-<li><a href="http://stackoverflow.com/questions/20551566/display-current-date-and-time-without-punctuation" target="_blank" rel="external">Display current date and time without punctuation</a></li>
-<li><a href="http://objccn.io/issue-17-2/" target="_blank" rel="external">代码签名探析</a></li>
-</ul>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/7/">

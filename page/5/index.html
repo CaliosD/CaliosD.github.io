@@ -107,6 +107,23 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">How to check if UITextField/UITextView is empty?</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-05-10
+        </span></div>
+    </header>
+
+    <div class="post-content"><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>In short, have a look at this image.</p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
+<p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/05/04/UITableView／UICollectionView-with-empty-data/">UITableView／UICollectionView with empty data</a>
         </h1>
 
@@ -336,30 +353,6 @@
 <p><strong> Ref: </strong></p>
 <ul>
 <li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">【译】浅色UIStatusBar设置不奏效</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-03-08
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>当你想用<code>UIStatusBarStyleLightContent</code>给深色的背景设置浅色的状态栏文字时，这里有个常见的陷阱。</p>
-<p>有两件事是你必须做的：</p>
-<ol>
-<li>这是开发者通常都会做的 —— 在Target设置 > General > Status Bar Style > 改成Light。这可以让Info.plist文件添加<code>UIStatusBarStyleLightContent</code>。</li>
-<li>这是比较隐晦的一步 —— 在Info.plist文件中，添加<code>View controller-based status bar appearance</code>，并置为<code>NO</code>。</li>
-</ol>
-<hr>
-<p><strong> Ref:</strong></p>
-<ul>
-<li><a href="http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/" target="_blank" rel="external">http://samwize.com/2015/01/13/uistatusbar-with-light-content-style-not-working-pitfall/</a></li>
 </ul>
 
         </div></article>

@@ -107,6 +107,25 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/07/09/NSLocalNotification/">NSLocalNotification</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-07-09
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>创建一个本地通知通常分为以下几个步骤：</p>
+<p>1.创建<code>UILocalNotification</code>。 </p>
+<p>2.设置处理通知的时间<code>fireDate</code>。 </p>
+<p>3.配置通知的内容：通知主体、通知声音、图标数字等。 </p>
+<p>4.配置通知传递的自定义数据参数<code>userInfo</code>（这一步可选）。 </p>
+<p>5.调用通知，可以使用<code>scheduleLocalNotification:</code> 按计划调度一个通知，也可以使用<code>presentLocalNotificationNow</code> 立即调用通知。</p>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/07/05/what-about-now/">What About Now?</a>
         </h1>
 

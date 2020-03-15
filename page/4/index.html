@@ -107,6 +107,50 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/09/03/differences-among-workspace-project-target-scheme/">【译】Workspace & Project & Target & Scheme 的区别</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-09-03
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>来自<a href="http://stackoverflow.com/users/916299/james-webster" title="http://stackoverflow.com/users/916299/james-webster" target="_blank" rel="external">James Webster</a>的回答：</p>
+<ul>
+<li><strong>Workspace:</strong> 包含一个或多个<code>project</code>，这些<code>project</code>通常是相互关联的。</li>
+<li><strong>Project:</strong> 包括代码和资源等等。（你会熟悉这些的。）</li>
+<li><strong>Target:</strong> 每个<code>project</code>都有一个或多个<code>target</code>。<ul>
+<li>每个target都定义了该<code>project</code>的 build setting列表。</li>
+<li>每个target还定义了在build时需要引用或使用的类、资源、自定义脚本的列表。</li>
+<li>Target通常用于同一个project的不同发布版本。<ul>
+<li>比如，我的项目有两个target，一个通用构建和一个官方构建，其中后者包含额外测试功能，可能还包含几种背景音乐轨道，还有一个切换轨道的按钮。</li>
+<li>你应该已经习惯于向默认的target中添加类和资源了。</li>
+<li>你可以挑选哪些类／资源被添加到哪个target中。<ul>
+<li>在我的例子中，我有一个叫“DebugHandler”的类要添加到官方构建中。</li>
+</ul>
+</li>
+<li>如果你添加测试，就需要添加一个新的target了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Scheme: </strong> Scheme定义了当你按下“Build”，“Test”，“Profile”的时候会发生什么。<ul>
+<li>通常情况下，每个target包括至少一个scheme。</li>
+<li>你可以为你的target自动创建scheme，方法是在 Scheme > Manage Schemes，点“Autocreate Schemes Now”。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="http://stackoverflow.com/a/20637892/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20637892/1594792</a></li>
+<li><a href="http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/" target="_blank" rel="external">http://www.teratotech.com/blog/xcode-7-steps-to-easily-switch-between-multiple-environments/</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/08/19/summary-for-hr-project/">某HR项目iOS端总结</a>
         </h1>
 
@@ -503,23 +547,6 @@
 <li><a href="https://github.com/syntaxhighlighter/syntaxhighlighter" target="_blank" rel="external">https://github.com/syntaxhighlighter/syntaxhighlighter</a></li>
 <li>开源中国iOS版本源码：<a href="http://git.oschina.net/oschina/iphone-app/tree/master" target="_blank" rel="external">http://git.oschina.net/oschina/iphone-app/tree/master</a></li>
 </ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/05/10/how-to-check-if-UITextField-UITextView-is-empty/">How to check if UITextField/UITextView is empty?</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-05-10
-        </span></div>
-    </header>
-
-    <div class="post-content"><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//============================================================</span></div><div class="line"><span class="comment">// Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,</span></div><div class="line"><span class="comment">// which will be made available whenever a conforming responder becomes first responder.</span></div><div class="line"></div><div class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIKeyInput</span> &lt;<span class="title">UITextInputTraits</span>&gt;</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)hasText;</div><div class="line">- (<span class="keyword">void</span>)insertText:(<span class="built_in">NSString</span> *)text;</div><div class="line">- (<span class="keyword">void</span>)deleteBackward;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UITextInput</span> &lt;<span class="title">UIKeyInput</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> : <span class="title">UIControl</span> &lt;<span class="title">UITextInput</span>, <span class="title">NSCoding</span>&gt;</span></div><div class="line"></div><div class="line"><span class="built_in">NS_CLASS_AVAILABLE_IOS</span>(<span class="number">2</span>_0) <span class="class"><span class="keyword">@interface</span> <span class="title">UITextView</span> : <span class="title">UIScrollView</span> &lt;<span class="title">UITextInput</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>In short, have a look at this image.</p>
-<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/How%20to%20check%20if%20UITextField:UITextView%20is%20empty@2x.png" alt=""></p>
-<p>So, just call <code>[yourTextField hasText]</code> or <code>[yourTextView hasText]</code> and everything is done!</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">
