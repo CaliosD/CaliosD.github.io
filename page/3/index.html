@@ -107,6 +107,51 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2017/02/20/summary-for-attribute/">__attribute__小结</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-02-20
+        </span></div>
+    </header>
+
+    <div class="post-content"><h3 id="1-attribute-是什么？"><a href="#1-attribute-是什么？" class="headerlink" title="1.__attribute__是什么？"></a>1.<code>__attribute__</code>是什么？</h3><p><code>__attribute__</code>是Clang提供的、用来在C，C++和Objective-C中修饰代码定义的 <strong>编译指令</strong>。它为声明的代码提供了额外的属性，来帮助编译器优化或者为代码的使用者显示有用的警告信息。</p>
+<h3 id="2-attribute-有什么用？"><a href="#2-attribute-有什么用？" class="headerlink" title="2.__attribute__有什么用？"></a>2.<code>__attribute__</code>有什么用？</h3><p><code>__attribute__</code>命令提供代码运行需要的上下文。提供上下文的重要性怎么强调都不过分。通过详细地给出API如何命令编译器的定义，开发者可以获得显而易见的益处。同样是一束鲜花，是要在情人节送给女朋友还是要用来探望术后的病人，效果是完全不同的。而<code>__attribute__</code>的作用就好像鲜花上附加的一张卡片，上面写的是“送给最爱的某某”还是“愿某某早日康复”是完全由你来决定的。</p>
+<p>正如Mattt在<a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">这里</a>指出的：</p>
+<blockquote>
+<p>当涉及到编译器优化时，上下文就是王道。通过约束你的代码的解释方式，你可以让生成的代码尽可能的高效。不只是为了编译器。下一个看代码的人也会感激（你所提供的）额外的上下文信息。</p>
+</blockquote>
+<h3 id="3-attribute-怎么用？"><a href="#3-attribute-怎么用？" class="headerlink" title="3.__attribute__怎么用？"></a>3.<code>__attribute__</code>怎么用？</h3><p>它的语法是这样的：<code>__attribute__((interrupt(“TYPE&quot;)))</code>。</p>
+<p>每当你有机会来给代码定义（变量，参数，函数，方法，类等等）提供额外的上下文信息时，你都应该使用<code>__attribute__</code>。但除非你知道自己在干什么，否则，不要滥用。因为提供一个错误的上下文比没有提供上下文更糟糕。</p>
+<h3 id="4-attribute-使用举例？"><a href="#4-attribute-使用举例？" class="headerlink" title="4.__attribute__使用举例？"></a>4.<code>__attribute__</code>使用举例？</h3><p><strong>声明一个API在某平台的可用性：<strong>attribute</strong>((availability(…)))：如 NS_AVAILABLE 和 NS_DEPRECATED</strong></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_AVAILABLE(<span class="name">_mac</span>, _ios) CF_AVAILABLE(<span class="name">_mac</span>, _ios)</div><div class="line">#define CF_AVAILABLE(<span class="name">_mac</span>, _ios) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_mac)))</div></pre></td></tr></table></figure>
+<p>在<code>Foundation</code>库的<code>NSString.h</code>中的使用：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>containsString:<span class="params">(NSString *)</span>str NS_AVAILABLE<span class="params">(<span class="number">10</span>_10, <span class="number">8</span>_0)</span>;</div></pre></td></tr></table></figure></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define NS_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, __VA_ARGS__)</div><div class="line">#define CF_DEPRECATED(<span class="name">_macIntro</span>, _macDep, _iosIntro, _iosDep, ...) __attribute__((<span class="name">availability</span>(<span class="name">macosx</span>,introduced=_macIntro,deprecated=_macDep,message=<span class="string">""</span> __VA_ARGS__)))</div></pre></td></tr></table></figure>
+<p>同样在<code>Foundation</code>库的<code>NSString.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>)initWithContentsOfFile:(<span class="built_in">NSString</span> *)path <span class="built_in">NS_DEPRECATED</span>(<span class="number">10</span>_0, <span class="number">10</span>_4, <span class="number">2</span>_0, <span class="number">2</span>_0);（用带有encoding/usedEncoding和error参数的方法替代）</div></pre></td></tr></table></figure></p>
+<p><strong>声明一个函数中包含带有指定格式参数的格式化字符串：<strong>attribute</strong>((format(…)))：NS_FORMAT_FUNCTION</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjCRuntime.h</code>中：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FOUNDATION_EXPORT <span class="keyword">void</span> <span class="built_in">NSLog</span>(<span class="built_in">NSString</span> *format, ...) <span class="built_in">NS_FORMAT_FUNCTION</span>(<span class="number">1</span>,<span class="number">2</span>) <span class="built_in">NS_NO_TAIL_CALL</span>;</div><div class="line"><span class="meta">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))</span></div></pre></td></tr></table></figure></p>
+<p>语法说明：<code>__attribute__((format(format_type, format_string_index, first_format_argument_index)))
+format_type: one of printf, scant, strftime, strfmon or __NSString__</code></p>
+<p><strong>声明被修饰的函数必须在重写的时候调用super的方法：<strong>attribute</strong>((objc_requires_super))：NS_REQUIRES_SUPER</strong></p>
+<p>在<code>Foundation</code>库的<code>NSObjcRuntime.h</code>中：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">ifndef NS_REQUIRES_SUPER    // 防止头文件的重复包含和编译。</span></div><div class="line"><span class="meta">#</span><span class="bash"><span class="keyword">if</span> __has_attribute(objc_requires_super)</span></div><div class="line"><span class="meta">#</span><span class="bash">define NS_REQUIRES_SUPER __attribute__((objc_requires_super))</span></div><div class="line"><span class="meta">#</span><span class="bash"><span class="keyword">else</span></span></div><div class="line"><span class="meta">#</span><span class="bash">define NS_REQUIRES_SUPER</span></div><div class="line"><span class="meta">#</span><span class="bash">endif</span></div><div class="line"><span class="meta">#</span><span class="bash">endif</span></div></pre></td></tr></table></figure></p>
+<p>比如在自定义的<code>@interface Student: NSObject</code>中声明了:<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="name">void</span>)foo NS_REQUIRES_SUPER<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>那么在<code>@interface CollegeStudent: Student</code>的实现文件中，像这样写一个空的<code>-foo</code>函数是会报出警告的：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)foo <span class="comment">&#123;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">warning: <span class="function"><span class="keyword">Method</span> <span class="title">possibly</span> <span class="title">missing</span> <span class="title">a</span> [<span class="title">super</span> <span class="title">foo</span>] <span class="title">call</span></span></div></pre></td></tr></table></figure></p>
+<p><strong>其他更多的attribute使用：</strong></p>
+<p><img src="http://7xkwcv.com1.z0.glb.clouddn.com/Attributes%20in%20Clang%20%E2%80%94%20Clang%203.8%20documentation.png" alt="Attributes in Clange"></p>
+<h3 id="5-小结"><a href="#5-小结" class="headerlink" title="5.小结"></a>5.小结</h3><p>总而言之，当你想给自己写的类、方法、参数添加一些限制条件的时候，<code>__attribute__</code>可以为你提供一种可行的解决方案。</p>
+<hr>
+<p><strong>Ref:</strong></p>
+<ul>
+<li><a href="https://blog.twitter.com/2014/attribute-directives-in-objective-c" target="_blank" rel="external">https://blog.twitter.com/2014/attribute-directives-in-objective-c</a></li>
+<li><a href="http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html" target="_blank" rel="external">http://releases.llvm.org/3.8.0/tools/clang/docs/AttributeReference.html</a></li>
+<li><a href="http://nshipster.com/__attribute__/" target="_blank" rel="external">http://nshipster.com/__attribute__/</a></li>
+<li><a href="http://blog.sunnyxx.com/2016/05/14/clang-attributes/" target="_blank" rel="external">http://blog.sunnyxx.com/2016/05/14/clang-attributes/</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2017/02/17/summary-for-Objective-C-foundation-book/">Objective-C基础教程（第2版）总结</a>
         </h1>
 
@@ -409,28 +454,6 @@ UIImage *img = [UIImage imageNamed:@&quot;itm_back&quot;];
 <li><a href="https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc" target="_blank" rel="external">https://developer.apple.com/reference/uikit/uibarbuttonitem?language=objc</a></li>
 <li><a href="http://stackoverflow.com/a/20986544/1594792" target="_blank" rel="external">http://stackoverflow.com/a/20986544/1594792</a></li>
 <li><a href="http://stackoverflow.com/a/29937730/1594792" target="_blank" rel="external">http://stackoverflow.com/a/29937730/1594792</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/10/18/how-to-update-vim-in-Mac/">如何更新Mac中自带的Vim</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-10-18
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>前几天翻卖桃君的公众号，温故了一下Vim 8.0的种种我目前也用不上的特性，竟是兴奋了一会儿，接着就开始考虑怎么把本机的Vim升级成8.0了。</p>
-<p>根据SOF上的一个回答，步骤如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Create the directories you need</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo mkdir -p /opt/<span class="built_in">local</span>/bin</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Download, compile, and install the latest Vim</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ~</span></div><div class="line"><span class="meta">$</span><span class="bash"> hg <span class="built_in">clone</span> https://bitbucket.org/vim-mirror/vim or git <span class="built_in">clone</span> https://github.com/vim/vim.git</span></div><div class="line"><span class="meta">$</span><span class="bash"></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> vim</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./configure --prefix=/opt/<span class="built_in">local</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> make</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Add the binary to your path, ahead of /usr/bin</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'PATH=/opt/local/bin:$PATH'</span> &gt;&gt; ~/.bash_profile</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="comment"># Reload bash_profile so the changes take effect in this window</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></div></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong></p>
-<p><code>/usr/bin</code>路径下的文件，除非有明确的理由，否则不要改动。一旦操作失误，无法回退。所以，谨慎为妙。</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li><a href="http://stackoverflow.com/a/7211910/1594792" target="_blank" rel="external">http://stackoverflow.com/a/7211910/1594792</a></li>
 </ul>
 
         </div></article>

@@ -107,6 +107,22 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2020/03/22/issue-reflect-200322/">记一次线上故障处理及思考</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-03-22
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>下午正在翻看刚刚读过的一本书，业务群里报了个线上的问题，紧急修复了之后测试、部署上线。<br>乍一看，出现问题的点在一个长达 171 行的方法中，出错的原因是在对一个 map 变量操作之前没有正确赋值。但仔细看来，这段代码已经开始有些坏味道了。<br>核心的问题是：<strong>逻辑复杂，方法过长</strong>。</p>
+          <div class="read-more">
+            <a href="/2020/03/22/issue-reflect-200322/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2020/03/15/go-reflect/">Go 的反射</a>
         </h1>
 
@@ -249,22 +265,6 @@
 <p>Then…bang! It threw out errors in bulk, yelling “Use of undeclared identifier ‘_imageView’”. What the hell have I done!</p>
           <div class="read-more">
             <a href="/2017/05/30/issue-of-lazy-loading-property/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2017/05/12/kvo-kvc-missing-points/">KVO & KVC 知识点小结</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-12
-        </span></div>
-    </header>
-
-    <div class="post-content"><h3 id="1-KVO"><a href="#1-KVO" class="headerlink" title="1.KVO"></a>1.KVO</h3><h4 id="1-1-属性依赖的机制"><a href="#1-1-属性依赖的机制" class="headerlink" title="1.1 属性依赖的机制"></a>1.1 属性依赖的机制</h4><p>在objc.io讲解KVC和KVO的一篇<a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="external">文章</a>中，举了一个体现属性依赖机制的例子，例子的逻辑结构如下图。完整代码见<a href="https://github.com/objcio/issue-7-lab-color-space-explorer" target="_blank" rel="external">github</a>。</p>
-          <div class="read-more">
-            <a href="/2017/05/12/kvo-kvc-missing-points/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">

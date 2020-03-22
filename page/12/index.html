@@ -107,6 +107,35 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2015/07/29/blur-view-in-iOS/">iOS中的毛玻璃效果</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015-07-29
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>先来看苹果的官方文档：</p>
+<blockquote>
+<p>Tab bars are translucent by default on iOS 7. Additionally, there is a system blur applied to all tab bars. This allows your content to show through underneath the bar.</p>
+<p>Navigation bars are translucent by default in iOS 7. Additionally, there is a system blur applied to all navigation bars. This allows your content to show through underneath the bar.</p>
+</blockquote>
+<p>简而言之，iOS7及以后，TabBar和NavigationBar都有自带的毛玻璃效果。所以，作为deployment target为7.0的项目，之前是在折腾神马？o(╯□╰)o</p>
+<p>因此，今后项目中，对于TabBar&amp;NavigationBar毛玻璃效果，当deployment target >= 7.0时无需特殊处理，天下无事。</p>
+<p><br></p>
+<hr>
+<p><strong>Related:</strong><br>一些提供毛玻璃效果的Framework：</p>
+<ul>
+<li><a href="https://github.com/nicklockwood/FXBlurView" target="_blank" rel="external">FXBlurView</a>: UIView subclass that replicates the iOS 7 realtime background blur effect, but works on iOS 5 and above.</li>
+<li><a href="https://github.com/romaonthego/REFrostedViewController" target="_blank" rel="external">REFrostedViewController</a>: iOS 7/8 style blurred view controller that appears on top of your view controller.</li>
+<li><a href="https://github.com/JagCesar/iOS-blur" target="_blank" rel="external">JCRBlurView</a></li>
+<li><a href="https://github.com/lukabernardi/LBBlurredImage" target="_blank" rel="external">LBBlurredImage</a>: LBBlurredImage is an UIImageView category that permit to set an image and make this blurred.</li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2015/07/09/NSLocalNotification/">NSLocalNotification</a>
         </h1>
 

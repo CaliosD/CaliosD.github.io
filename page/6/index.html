@@ -107,6 +107,26 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2016/03/30/UICollectionView-scroll-to-make-section-header-visible/">UICollectionView scroll to make section header visible</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-03-30
+        </span></div>
+    </header>
+
+    <div class="post-content"><p>Swift version：Here’s the <a href="https://gist.github.com/genedelisa/ebcc33c38a521ff8a719#file-collectionviewscroll" target="_blank" rel="external">gist</a>.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    Scroll to make the the given section header visible.</div><div class="line">    The function scrollToItemAtIndexPath will scroll to the item and hide the section header.</div><div class="line">    */</div><div class="line">    func scrollToSection(<span class="selector-tag">section</span>:Int)  &#123;</div><div class="line">        <span class="keyword">if</span> let cv = self<span class="selector-class">.collectionView</span> &#123;</div><div class="line">            let indexPath = NSIndexPath(forItem: <span class="number">1</span>, inSection: section)</div><div class="line">            <span class="keyword">if</span> let attributes =  cv.layoutAttributesForSupplementaryElementOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) &#123;</div><div class="line"></div><div class="line">                let topOfHeader = CGPointMake(<span class="number">0</span>, attributes<span class="selector-class">.frame</span><span class="selector-class">.origin</span><span class="selector-class">.y</span> - cv<span class="selector-class">.contentInset</span><span class="selector-class">.top</span>)</div><div class="line">                cv.setContentOffset(topOfHeader, animated:true)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Objective-C version: Here’s the <a href="https://gist.github.com/CaliosD/a85ce55e57fe939a9dd62f2c4eb675da" target="_blank" rel="external">gist</a>.<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">scrollToSection:</span>(NSInteger)section</div><div class="line">&#123;</div><div class="line">    NSIndexPath *indexpath = [NSIndexPath <span class="string">indexPathForItem:</span><span class="number">1</span> <span class="string">inSection:</span>section];</div><div class="line">    <span class="keyword">if</span> ([_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath]) &#123;</div><div class="line">        UICollectionViewLayoutAttributes *attributes = [_questionCV <span class="string">layoutAttributesForSupplementaryElementOfKind:</span>UICollectionElementKindSectionHeader <span class="string">atIndexPath:</span>indexpath];</div><div class="line">        CGPoint topOfHeader = CGPointMake(<span class="number">0</span>, attributes.frame.origin.y - _questionCV.contentInset.top);</div><div class="line">        [_questionCV <span class="string">setContentOffset:</span>topOfHeader];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong> Ref: </strong></p>
+<ul>
+<li><a href="http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/" target="_blank" rel="external">http://www.rockhoppertech.com/blog/scroll-to-uicollectionview-header/</a></li>
+</ul>
+
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2016/03/08/UIStatusBarStyleLightContent-not-work/">【译】浅色UIStatusBar设置不奏效</a>
         </h1>
 
@@ -329,49 +349,6 @@
 <li>调用栈：<a href="http://blog.chinaunix.net/uid-20760757-id-1872359.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-20760757-id-1872359.html</a></li>
 <li>RunLoop源代码：<a href="http://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c" target="_blank" rel="external">http://opensource.apple.com/source/CF/CF-855.17/CFRunLoop.c</a></li>
 <li><a href="http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/" target="_blank" rel="external">http://blog.cnbluebox.com/blog/2014/07/01/cocoashen-ru-xue-xi-nsoperationqueuehe-nsoperationyuan-li-he-shi-yong/</a></li>
-</ul>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2016/02/29/points-in-CoreAnimation/">CoreAnimation的几个知识点</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-02-29
-        </span></div>
-    </header>
-
-    <div class="post-content"><ul>
-<li><strong>矢量图 vs 位图（栅格图）</strong></li>
-</ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/VectorGraphicsExample.jpg" alt="（a）原始矢量图；（b）矢量图放大8倍；（c）位图放大8倍。位图的放大质量较差，但是矢量图可以不降低质量地无限放大。" title="矢量图和位图显示效果对比"></p>
-<p><strong>矢量图（vector）</strong>，也叫向量图，是通过多个对象组合生成的，对于其中每一个对象的记录方式都是以数学函数来实现的，缩放不失真。常用的矢量绘制软件有Adobe Illustrator、Freehand、Flash等。<br><strong>位图（bitmap）</strong>，也叫栅格图、像素图，即最小单位由像素构成的图，可操作对象是像素，可以改变图像的饱和度、明度和色相，缩放会失真。常用的位图绘制软件有Adobe Photoshop等。</p>
-<ul>
-<li>对于<code>position</code>和<code>anchorPoint</code>关系的理解<blockquote>
-<p>Point-based coordinates are used when specifying values that map directly to screen coordinates or must be specified relative to another layer, such as for the layer’s position property. Unit coordinates are used when the value should not be tied to screen coordinates because it is relative to some other value. For example, the layer’s anchorPoint property specifies a point relative to the bounds of the layer itself, which can change. (<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15" target="_blank" rel="external">Core Animation Programming Guide</a>)</p>
-</blockquote>
-</li>
-</ul>
-<p>简而言之，anchorPoint是一个点相对于layer本身的bounds而言的单元坐标，它可以改变；而position是layer相对superLayer坐标空间的位置。</p>
-<p>以桌子与白纸为例，如果固定图钉在桌上的位置，也就是positon不变，这个时候图钉处在白纸的不同地方就是不同的anchorPoint，相应地也就是不同的frame。<br>另一方面，如果固定图钉在白纸上的位置（没订在桌子上），不管怎么平移白纸，anchorPoint肯定是不变的，但frame肯定是随之变化的</p>
-<ul>
-<li><code>useEvenOddFillRule</code></li>
-</ul>
-<p>在看<a href="https://github.com/kishikawakatsumi/UCZProgressView" target="_blank" rel="external">UCZProgressView</a>的代码时发现了这么一个<code>UIBezierPath</code>的属性，而看起来<code>CAShapeLayer</code>也有类似的属性，叫<code>fillRule</code>，可以设置为<code>kCAFillRuleEvenOdd</code>或<code>kCAFillRuleNonZero</code>。那这个属性到底是做什么的呢？<br>解释比较清楚的是一篇关于SVG规范的文章，好在最基本的理论都是相通的。</p>
-<blockquote>
-<p> ‘fill-rule’ 属性用于指定使用哪一种算法去判断画布上的某区域是否属于该图形“内部” （内部区域将被填充）。对一个简单的无交叉的路径，哪块区域是“内部” 是很直观清除的。但是，对一个复杂的路径，比如自相交或者一个子路径包围另一个子路径，“内部”的理解就不那么明确了。<br><strong>nonzero</strong><br>字面意思是“非零”。按该规则，要判断一个点是否在图形内，从该点作任意方向的一条射线，然后检测射线与图形路径的交点情况。从0开始计数，路径从左向右穿过射线则计数加1，从右向左穿过射线则计数减1。得出计数结果后，如果结果是0，则认为点在图形外部，否则认为在内部。下图演示了nonzero规则:<br><img src="https://www.w3.org/TR/SVG/images/painting/fillrule-nonzero.png" alt=""><br><strong>evenodd</strong><br>字面意思是“奇偶”。按该规则，要判断一个点是否在图形内，从该点作任意方向的一条射线，然后检测射线与图形路径的交点的数量。如果结果是奇数则认为点在内部，是偶数则认为点在外部。下图演示了evenodd 规则:<br><img src="http://www.w3.org/TR/SVG/images/painting/fillrule-evenodd.png" alt=""></p>
-</blockquote>
-<p>又想到了之前在一个项目中实现的中间有洞的矩形view，翻来瞅一眼。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CAShapeLayer</span> *maskWithHole = [<span class="built_in">CAShapeLayer</span> layer];</div><div class="line"></div><div class="line"><span class="comment">// Both frames are defined in the same coordinate system</span></div><div class="line"><span class="built_in">CGRect</span> biggerRect = <span class="built_in">CGRectMake</span>(<span class="number">30</span>, <span class="number">50</span>, <span class="number">120</span>, <span class="number">200</span>);</div><div class="line"><span class="built_in">CGRect</span> smallerRect = <span class="built_in">CGRectMake</span>(<span class="number">80</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">80</span>);</div><div class="line"></div><div class="line"><span class="built_in">UIBezierPath</span> *maskPath = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMaxY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(biggerRect), <span class="built_in">CGRectGetMinY</span>(biggerRect))];</div><div class="line"></div><div class="line">[maskPath moveToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMaxY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line">[maskPath addLineToPoint:<span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMinX</span>(smallerRect), <span class="built_in">CGRectGetMinY</span>(smallerRect))];</div><div class="line"></div><div class="line">[maskWithHole setPath:[maskPath <span class="built_in">CGPath</span>]];</div><div class="line">**[maskWithHole setFillRule:kCAFillRuleEvenOdd];**</div><div class="line">[maskWithHole setFillColor:[[<span class="built_in">UIColor</span> orangeColor] <span class="built_in">CGColor</span>]];</div></pre></td></tr></table></figure></p>
-<p>所以，为了“有洞”，最重要的是这一行<code>[maskWithHole setFillRule:kCAFillRuleEvenOdd];</code>。如果设置成<code>kCAFillRuleNonZero</code>（好吧，这个值是默认值），就会得到一个货真价实的实心矩形。当时没有意识到这句话的作用，现在终于明了了。</p>
-<hr>
-<p><strong>Ref:</strong></p>
-<ul>
-<li>Core Animation Programming Guide:<br><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW15</a></li>
-<li><a href="http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path" target="_blank" rel="external">http://stackoverflow.com/questions/10856353/crop-a-cashapelayer-retrieving-the-external-path</a></li>
-<li><a href="http://blog.csdn.net/cuixiping/article/details/7848369" target="_blank" rel="external">http://blog.csdn.net/cuixiping/article/details/7848369</a></li>
-<li><a href="http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work" target="_blank" rel="external">http://stackoverflow.com/questions/14840563/how-does-usesevenoddfillrule-work</a></li>
 </ul>
 
         </div></article>
